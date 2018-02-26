@@ -1,0 +1,118 @@
+<!doctype html>
+<head>
+ <meta charset='UTF-8'>
+ <meta name="keywords" content=''>
+ <meta name="Docription" content=''>
+ <title>打气球</title>
+   <style type="text/css">
+     body,div{
+	     margin:0;
+		 padding:0;
+	 }
+	 body{
+	     background:#ccc;
+	 }
+	 div{
+	     position:absolute;
+	     width:180px;
+		 height:180px;
+		 background:#faf9f9;
+		 border-radius:163px 180px 60px 180px;
+		 box-shadow:-8px -8px 80px -8px #873940 inset;
+		 transform:rotate(45deg);
+	 }
+	 div::before{
+	     content:'';
+		 position:absolute;
+         bottom:0;
+		 right:0;
+		 border:8px solid transparent;
+		 border-right:8px solid #873940;
+		 border-radius:50%;
+		 transform:rotate(45deg);
+	 }
+   </style>
+</head>
+<body>
+    <script type="text/javascript">
+	 var num=10;//初始产生气球的个数
+	 var ODiv=document.getElementsByTagName('div');
+	 var wH=window.innerHeight;  //获取窗口文档显示区的高度
+         var wW=window.innerWidth;  //获取窗口文档显示区的宽度
+	     var dH=180;    //元素自身的高度
+	 //创建气球
+	 function init(num){//接受创建气球的个数
+	     var fragment=document.createDocumentFragment();//创建文档碎片
+		 for(var i=0;i<num;i++){
+			 var random=Math.random()*wW-(dH*Math.sqrt(2));  //随机数,右边界处理,此处不懂先了解样式中气球是如何制作的
+			     random=Math.max(random,0)   //左边界处理,
+			 var oDiv=document.createElement('div');
+			 oDiv.style.top=(wH)+'px';  //初始化位置
+			 oDiv.style.left=random+'px';
+			 oDiv.speed=Math.max(Math.random()*8,1);//自定义属性,使每个气球移动距离不同
+			 fragment.appendChild(oDiv); //添加到文档片段
+		 }
+		     document.body.appendChild(fragment);  //把文档碎片添加到body中去
+	 }
+     //气球移动函数
+	 function move(){
+		 //console.log(ODiv)
+		 for(var i=0,ODiv_length=ODiv.length;i<ODiv_length;i++){
+		     ODiv[i].style.top=(ODiv[i].offsetTop-ODiv[i].speed)+'px';//每次移动的距离
+		 }
+	 }
+	 //气球消失动画,
+	 var a=0;
+	 function boom(){
+		 //console.log(this.timer)
+		 var that=this;
+	     this.timer=setInterval(function(){
+		     //console.log(a)
+			 a++;   //a自增,用来做清除定时器的判断条件
+			 this.speed++;//上升速度变快
+			 this.style.width=this.offsetWidth-10+'px';//宽度变小
+			 this.style.height=this.offsetHeight-10+'px';//高度变小
+			 //console.log(this.offsetWidth,a)
+			 if(this.offsetWidth===10){  //如果小到一定程度后就删除节点
+			     this.parentNode.removeChild(this);//通过父节点删除子节点
+				// balloons.splice(balloons.lastIndexOf(this),1);//同时在数组中删除元素
+				 // if(ODiv.length===15){  //如果气球数量到达15个,点击一次新增加一个气球
+				 //     init(1);
+				 // }else{
+					//  init(2);
+					//  }//否则新增加2个气球
+					init(1);
+				 //console.log(ODiv.length)
+				 //console.log(balloons)
+			 }
+			 if(a>17){ //17次后已经看不到气球
+			     clearInterval(this.timer);//清除爆炸定时器
+				 a=0;  //初始化a,
+			 }
+			 //console.log(this.offsetTop)
+		 }.bind(that),30)
+	 }
+	 //判断用户点击的元素是不是气球
+	 function hit(e){
+		 var e=e||event;//兼容写法
+		 if(e.target.tagName.toLowerCase()==='div'){  //判断判断用户点击的元素是不是气球
+			 boom.call(e.target); //点击气球则执行气球爆炸函数;让boom函数中的this指向点击的气球
+		 }
+	 }
+	 function inspect(){//检测气球是否已经上升到看不见了
+          //console.log(ODiv.length)
+	     for(var k=0,ODiv_length=ODiv.length;k<ODiv_length;k++){
+		     //console.log(ODiv[k].offsetTop)
+			 if(ODiv[k].offsetTop<-300){//如果气球到达上方看不见后自动删除节点
+			     ODiv[k].parentNode.removeChild(ODiv[k]);
+				 init(1);
+			 }
+		 }
+	 };
+	 init(10);
+	 
+	 var timer1=setInterval(move,1000/30);  //定时器,让气球向上运动起来
+	 var timer2=setInterval(inspect,1000);
+	 document.body.addEventListener("click",hit,false); //事件监听,事件委托
+     </script>
+</body>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meat charset="UTF-8"/>
+<meat name="Keywords" contert=""/>
+<meat name="Description" contert=""/>
+   <title>手机音乐播放器</title>
+<style>
+    *{
+    margin:0;
+    padding:0;
+
+    }
+    body{
+    background:black;
+    }
+    #phone{
+    width:322px;
+    height:640px; 
+    margin:0 auto;
+    }
+    .top{
+    width:322px;
+    height:42px;
+    background:url("images/phone_top.png");
+    }
+    .info{
+    width:322px;
+    height:20px;
+    background:url("images/top.jpg");
+    }
+
+    h2.songName{
+    whide:320px;
+    height:40px;
+    color:#fff;
+    text-align:center;/*文本左右对齐方式：居中*/
+    line-height:40px;
+    border:1px solid #fff;
+    border-top:0;
+    border-bottom:0;
+    }
+    .lrc{
+    width:320px;
+    height:490px;
+    background:url("images/0.jpg") no-repeat;
+    background-size:cover;
+    border-left:1px solid #fff;
+    border-right:1px solid #fff;
+    overflow:hidden;    /*超出隐藏*/
+    }
+    .lrc p{
+    height:20px;
+    line-height:20px;
+    color:#625959;
+    text-align:center;
+    font-size:14px;
+    font-weight:bold;      /*文本加粗*/
+    }
+    #content{
+    position:relative;
+    top:0px;
+    }
+    .footer{
+    position: relative;
+    width:322px;
+    height:47px;
+    background:url("images/phone_bottom.png");
+    }
+    #btn{
+    position:relative;
+    left:0;
+    bottom:97px;
+    width:50px;
+    height:50px;
+    background:url("images/normalmusic.svg");
+    background-size:100% 100%;
+         
+    }
+    .rotate{
+    animation-name:rot;   /*css3自定义动画：名称  时间  匀速运动  无限重复 */
+    animation-duration:5s;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    }
+    /*规定动画怎么执行*/
+    @keyframes rot{
+                from{transform:rotate(0deg);}
+                to{transform:rotate(360deg);}
+    }
+    textarea{
+        display: none;
+    }
+    .footer>div{
+        border-top: 1px solid transparent;
+    }
+    #aggregate{
+        position: relative;
+        width: 200px;
+        margin: 18px auto;
+        height: 6px;
+        background-color: #625959;
+        cursor: pointer;
+    }
+    #currentTime{
+        position: absolute;
+        left: 18px;
+        top: 10px;
+    }
+    #duration{
+        position: absolute;
+        right: 16px;
+        top: 10px;
+    }
+    #currentAgg{
+        position: absolute;
+        top: -2px;
+        width: 6px;
+        height: 10px;
+        background-color: #e93636;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div id="phone">
+    <div class="top"></div>
+    <div class="info"></div>
+    <h2 class="songName">刚好遇见你</h2>
+    <div class="lrc">
+         <div id="content"></div>
+    </div>
+    <div class="footer">
+        <div>
+            <span id='currentTime'>00:00</span>
+            <div id='aggregate'>
+                <div id='currentAgg'></div>
+            </div>
+            <span id='duration'></span>
+        </div>
+    </div>
+    <div id="btn" class=""></div>
+</div>
+<audio src="music/杨培安-我相信.mp3" id="myMusic" loop="loop"></audio>         <!--HTML5音频标签-->
+<textarea id="text" style="opacity:0">
+    [ver:v1.0]
+    [nickname:提拉米子]
+    [qqnumber:1954642975]
+    [ti:] [00:01.28]我相信 - 杨培安
+    [00:18.28]想飞上天
+    [00:20.02]和太阳肩并肩
+    [00:22.35]世界等着我去改变
+    [00:26.72]想做的梦
+    [00:28.47]从不怕别人看见
+    [00:30.87]在这里我都能实现
+    [00:35.34]大声欢笑让你我肩并肩
+    [00:39.82]何处不能欢乐无限
+    [00:43.86]抛开烦恼
+    [00:45.72]勇敢的大步向前
+    [00:47.90]我就站在舞台中间
+    [00:52.49]我相信我就是我
+    [00:54.67]我相信明天
+    [00:56.86]我相信青春没有地平线
+    [01:00.90]在日落的海边
+    [01:02.86]在热闹的大街
+    [01:04.94]都是我心中最美的乐园
+    [01:09.95]我相信自由自在
+    [01:11.81]我相信希望
+    [01:13.99]我相信伸手就能碰到天
+    [01:17.81]有你在我身边
+    [01:20.11]让生活更新鲜
+    [01:22.09]每一刻都精采万分
+    [01:25.43]I do believe
+    [01:52.61]想飞上天
+    [01:54.14]和太阳肩并肩
+    [01:56.75]世界等着我去改变
+    [02:01.23]抛开烦恼
+    [02:02.76]勇敢的大步向前
+    [02:05.06]我就站在舞台中间
+    [02:09.64]我相信我就是我
+    [02:11.83]我相信明天
+    [02:14.01]我相信青春没有地平线
+    [02:17.95]在日落的海边
+    [02:20.01]在热闹的大街
+    [02:22.00]都是我心中最美的乐园
+    [02:26.58]我相信自由自在
+    [02:28.87]我相信希望
+    [02:31.06]我相信伸手就能碰到天
+    [02:35.10]有你在我身边
+    [02:37.17]让生活更新鲜
+    [02:39.36]每一刻都精采万分
+    [02:42.96]I do believe
+    [02:48.20]我相信(我就是我)
+    [02:52.24]我相信(自由自在)
+    [02:56.50]我相信(我相信我相信)
+    [03:00.65]I BELIVE
+    [03:05.24]我相信我就是我
+    [03:07.54]我相信明天
+    [03:09.72]我相信青春没有地平线
+    [03:13.65]在日落的海边
+    [03:15.72]在热闹的大街
+    [03:17.80]都是我心中最美的乐园
+    [03:22.60]我相信自由自在
+    [03:24.68]我相信希望
+    [03:26.75]我相信伸手就能碰到天
+    [03:30.68]有你在我身边
+    [03:32.86]让生活更新鲜
+    [03:35.05]每一刻都精采万分
+    [03:38.65]I do believe
+    [03:44.44]woo... ah ...
+</textarea>
+<script type="text/javascript">
+document.body.onload=function(){
+    var myMusic=document.getElementById("myMusic");
+    var btn=document.getElementById("btn");
+    var txt=document.getElementById("text");
+    var con=document.getElementById("content");
+    var currentTime=document.getElementById("currentTime");//获取显示当前时间标签
+    var duration=document.getElementById("duration");//获取显示总时间标签
+    var aggregate=document.getElementById("aggregate");//获取总进度条
+    var currentAgg=document.getElementById("currentAgg");//获取滑动进度条
+    //点击按钮实现什么功能
+    var onOff=true;    //做一个开关来记录播放的状态
+    btn.onclick=function(){
+        if(onOff){
+            myMusic.play();     //播放音乐
+            this.className="rotate";
+            onOff=false;
+        }else{
+            myMusic.pause();     //暂停音乐
+            this.className="";
+            onOff=true;
+        }
+    }
+
+    var html='';     //定义一个空变量来存储歌词
+                    //获取歌词
+    var lrc=txt.value.split("[");        //获取歌词并从[切割开
+                          
+    for(var i=0;i<lrc.length;i++){   //将歌词筛选出来
+        var arr=lrc[i].split("]");            //获取歌词并从]切割开
+        var times=arr[0].split(".");
+        var time=times[0].split(":");
+        var ct=time[0]*60+time[1]*1;
+        if(arr[1]){
+            html+="<p id="+ct+" num="+i+">"+arr[1]+"</p>"
+        }
+    }
+
+    con.innerHTML=html;   //把歌词内容添加到歌词盒子中
+    var aP=document.getElementsByTagName("p");
+        //歌词同步
+        //监听歌曲播放的进度
+        
+    myMusic.addEventListener("timeupdate",function(){
+        //当前时间改变
+        currentTime.innerHTML=changeTime(myMusic.currentTime);
+        //进度条实现
+        currentAgg.style.left=myMusic.currentTime/myMusic.duration*194+'px';
+        //歌词滚动
+        var cur=document.getElementById(parseInt(this.currentTime));//获取时间对于的歌词
+        if(cur){
+            var n=cur.getAttribute('num')-1<9?0:cur.getAttribute('num')-1-9;
+               //先把所有的p颜色改为原来的
+            for(var i=0;i<aP.length;i++){
+                aP[i].style.color="#625959";
+                aP[i].style.fontSize="14px";
+            }
+            //把当前对应上的p改为红色
+            cur.style.color="red";
+            cur.style.fontSize="18px";
+            //歌词再滚动一次
+            con.style.top=-20*n+"px";
+        }
+    });
+    //将时间格式化
+    function changeTime(time){
+        time=parseInt(time);
+        // console.log(time)
+        minute=Math.floor(time/60)<10?'0'+Math.floor(time/60):Math.floor(time/60);
+        second=time%60<10?'0'+time%60:time%60;
+        return minute+':'+second;
+    }
+
+    // //监听歌曲是否播放完成
+    // myMusic.addEventListener("ended",function(){
+    // btn.className="";            //按钮停止动画
+    // onOff=true;                  //把开关更改为初始状态
+    // con.style.top=0;             //把歌词改回初始状态
+    // n=0;                         //把歌词同步需要的n变量也改回初始状态
+    // this.currentTime=0;          //把当前歌曲的进度改回初始状态
+    // });
+    
+    //总时间改变
+    duration.innerHTML=changeTime(myMusic.duration);
+    //改变播放进度条及时间
+    function change(e){
+        if(e.target.id==='aggregate'){
+            currentAgg.style.left=e.offsetX-3+'px';
+            myMusic.currentTime=e.offsetX/194*myMusic.duration;
+        }else if(e.target.id==='currentAgg'){
+            currentAgg.style.left=e.offsetX+e.target.offsetLeft-3+'px';
+            myMusic.currentTime=(e.offsetX+e.target.offsetLeft)/194*myMusic.duration;
+        }
+        
+        var p=document.getElementsByTagName('p');
+        
+        for(var i=0;i<p.length;i++){
+            p[i].style.color='#625959';
+            p[i].style.fontSize='14px';
+        }
+
+        for(var i=p.length-1;i>=0;i--){
+            if(p[i].id<parseInt(myMusic.currentTime)){
+                var n=p[i].getAttribute('num')<9?0:p[i].getAttribute('num')-1-9;
+                con.style.top=-n*20+'px';
+                p[i].style.color='red';
+                p[i].style.fontSize='18px';
+                return;
+            }
+        }
+    }
+    //点击进度条改变时间
+    aggregate.onclick=change;
+    //滑动改变时间
+    currentAgg.onmousedown=function(){
+        //暂停播放
+        myMusic.pause();
+        //滑动切换
+        aggregate.onmousemove=change;
+    }
+    currentAgg.onmouseup=function(){
+        //开始播放
+        myMusic.play();
+        //滑动切换
+        aggregate.onmousemove=''; 
+    }
+}
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>日历生成</title>
+  <style type="text/css">
+	body,div{
+		margin:0;
+		padding:0;
+	}
+	div{
+		position:absolute;
+		left:0;
+		top:0;
+		width:50px;
+		height:50px;
+		background:#66cccc;
+		border-radius: 50%;
+	}
+  </style>
+ </head>
+ <body>
+	<div></div>
+	<script type="text/javascript">
+		var oDiv=document.getElementsByTagName('div')[0];//获取div
+		var wW=window.innerWidth; //获取文档宽度
+		var wH=window.innerHeight;//获取文档高度
+		var oW=oDiv.offsetWidth;//获取div自身宽度
+		var oH=oDiv.offsetHeight;//获取div自身高度
+		var X=10;//初始化水平位移
+		var Y=10;//初始化垂直位移
+		var onOff1='on';//水平开关
+		var onOff2='on';//垂直开关
+		function left(){
+			var left=oDiv.offsetLeft;//获取div距离左边的距离
+			if(left<='0'||onOff1=='on'){//如果div处于最左边了,开关记录向右运动
+				X+=8;//每次运动位移
+				oDiv.style.left=X+'px';//改变left值
+				if(left>wW-oW){//如果div处于最右边了,则改变开关,使之向左运动
+					onOff1='off';
+				}
+			}
+			if(left>wW-oW||onOff1=='off'){
+				X-=8;
+				oDiv.style.left=X+'px';
+				if(left<='0'){
+					onOff1='on';
+				}
+			}
+		};
+		setInterval(left,30);
+		function top1(){
+			var top=oDiv.offsetTop;
+			if(top<='0'||onOff2=='on'){
+				Y+=6;
+				oDiv.style.top=Y+'px';
+				if(top>wH-oH){
+					onOff2='off';
+				}
+			}
+			if(top>wH-oH||onOff2=='off'){
+				Y-=6;
+				oDiv.style.top=Y+'px';
+				if(top<='0'){
+					onOff2='on';
+				}
+			}
+		};
+		setInterval(top1,30);
+		/*
+			1.做出运动的物体
+			2.运动分水平和垂直两方向
+				1.水平方向来回运动
+					1.当处于最左端时要向右端运动
+						1.获取浏览器宽度和元素距离浏览器左边的距离
+							浏览器宽度-元素距离浏览器左边的距离<0则物体处于最右端
+							元素距离浏览器左边的距离<0则物体处于最左端
+					2.当处于最右端时要向最左端运动
+				2.垂直方向来回运动
+			3.定时器,使之不停地运动
+		
+		*/
+	</script>
+ </body>
+</html>

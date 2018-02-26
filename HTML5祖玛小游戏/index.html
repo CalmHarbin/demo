@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>祖玛小游戏</title>
+	<style>
+	body{
+		background-color: black;
+	}
+	#canvas{
+		background-color: white;
+		margin: 20px auto;
+		display: block;
+	}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' width='500' height='500'></canvas>
+</body>
+<script>
+	var canvas=document.getElementById('canvas');
+	var cxt=canvas.getContext('2d');
+	var rotate=0;//青蛙旋转弧度
+	var timer1=null;
+	var timer2=null;
+	var timer3=null;
+	//新建图片对象
+	var img=new Image();
+	img.src="1.png";
+
+
+	var currentScore=0;//当前得分
+	var maxScore=0;//历史最高分
+	//存贮颜色
+	var colors=['yellow','red','green','cyan','purple'];
+	//存贮小球
+	var ball=[{
+		x:250,//当前x坐标
+		y:0,//当前y坐标
+		color:randomColor(),//小球颜色
+		pathway:1//当前所在轨道
+	}];
+	//攻击小球
+	var attack=[{
+		x:250,//当前x坐标
+		y:200,//当前y坐标
+		color:randomColor(),//小球颜色
+		state:0,//攻击状态,默认未攻击
+		sX:null,//水平运动距离
+		sY:null//垂直运动距离
+	}];
+
+	//随机返回颜色函数
+	function randomColor(){
+		var random=Math.floor(Math.random()*colors.length);
+		return colors[random];
+	}
+	
+	//根据轨道计算小球位置
+	function offset(Cx,Cy,radius,currentX,currentY){//轨道圆心x,y,半径,小球当前的x,y
+		//求原始角度,利用余弦定理,cosA=(b^2+c^2-a^2)/(2bc),A=arccos[(b^2+c^2-a^2)/(2bc)]
+		
+		//求位置
+		if(Cx<=currentX&&Cy>currentY){//第一象限
+			//求当前位置的弧度
+			var angle=Math.acos(((Cy-currentY)*(Cy-currentY)+radius*radius-(currentX-Cx)*(currentX-Cx))/(2*(Cy-currentY)*radius));
+			//求下一个位置弧度
+			angle=angle+Math.PI/180;
+			//求新的位置
+			var newX=Cx+radius*Math.sin(angle);
+			var newY=Cy-radius*Math.cos(angle);
+		}else if(Cx<=currentX&&Cy<currentY){//第二象限
+			//求当前位置的弧度
+			var angle=Math.acos(((currentX-Cx)*(currentX-Cx)+radius*radius-(Cy-currentY)*(Cy-currentY))/(2*(currentX-Cx)*radius));
+			//求下一个位置弧度
+			angle=angle+Math.PI/180;
+			//求新的位置
+			var newX=Cx+radius*Math.cos(angle);
+			var newY=Cy+radius*Math.sin(angle);
+		}else if(Cx>=currentX&&Cy<currentY){//第三象限
+			//求当前位置的弧度
+			var angle=Math.acos(((Cy-currentY)*(Cy-currentY)+radius*radius-(currentX-Cx)*(currentX-Cx))/(2*(currentY-Cy)*radius));
+			//求下一个位置弧度
+			angle=angle+Math.PI/180;
+			//求新的位置
+			var newX=Cx-radius*Math.sin(angle);
+			var newY=Cy+radius*Math.cos(angle);
+		}else if(Cx>=currentX&&Cy>currentY){//第四象限
+			//求当前位置的弧度
+			var angle=Math.acos(((Cx-currentX)*(Cx-currentX)+radius*radius-(Cy-currentY)*(Cy-currentY))/(2*(Cx-currentX)*radius));
+			//求下一个位置弧度
+			angle=angle+Math.PI/180;
+			//求新的位置
+			var newX=Cx-radius*Math.cos(angle);
+			var newY=Cy-radius*Math.sin(angle);
+		}
+		return {
+			x:newX,
+			y:newY
+		}
+	}
+
+	//绘制小球运动
+	timer1=setInterval(timer1fun,1000/40);
+	function timer1fun(){
+		//清除上一次的绘图
+		cxt.clearRect(0,0,500,500);
+		//绘制轨道
+		cxt.beginPath();
+		cxt.arc(250,200,200,-90*Math.PI/180,180*Math.PI/180,false);
+		cxt.moveTo(50,200);
+		cxt.arc(200,200,150,-180*Math.PI/180,0*Math.PI/180,false);
+		cxt.moveTo(350,200);
+		cxt.arc(230,200,120,0*Math.PI/180,180*Math.PI/180,false);
+		cxt.stroke();
+
+		//绘制小球
+		for(var i=0;i<ball.length;i++){
+			cxt.beginPath();
+			cxt.fillStyle=ball[i].color
+			cxt.arc(ball[i].x,ball[i].y,20,0,2*Math.PI,false);
+			cxt.fill();
+		}
+
+		//绘制攻击小球
+		for(var i=0;i<attack.length;i++){
+			if(attack[i].state===1){
+				cxt.beginPath();
+				cxt.fillStyle=attack[i].color
+				cxt.arc(attack[i].x,attack[i].y,20,0,2*Math.PI,false);
+				cxt.fill();
+			}else{//绘制提示下一个攻击小球颜色
+				cxt.beginPath();
+				cxt.fillStyle=attack[i].color
+				cxt.arc(50,50,20,0,2*Math.PI,false);
+				cxt.fill();
+			}
+		}
+
+		//绘制青蛙
+		cxt.save();//独立空间
+		cxt.translate(250,200);//将左上角移到中间
+		cxt.rotate(rotate-120*Math.PI/180);//旋转,-120*Math.PI/180是为了修正照片本身不是朝正上方问题
+		cxt.translate(-40,-40);//使中心旋转
+		cxt.drawImage(img,0,0,80,80);
+		cxt.restore();//独立空间结束
+
+		//绘制分数
+		cxt.font="20px Arial";
+		var content1='当前得分:'+currentScore;
+		var content2='历史最高得分:'+localStorage.getItem('maxScore');
+		
+		cxt.strokeText(content1,200,450);
+		cxt.strokeText(content2,200,480);
+
+		//改变小球位置,使之运动起来
+		for(var i=0;i<ball.length;i++){
+			//判断小球当前所在的轨道
+			if(ball[i].x===50&&ball[i].y===200.00000000000426){
+				ball[i].pathway=2
+			}else if(ball[i].x===350&&ball[i].y===200.0000000000024){
+				ball[i].pathway=3
+			}
+
+			//获取每个小球的新位
+			if(ball[i].pathway==1){
+				newPlace=offset(250,200,200,ball[i].x,ball[i].y);
+			}else if(ball[i].pathway==2){
+				newPlace=offset(200,200,150,ball[i].x,ball[i].y);
+			}else if(ball[i].pathway==3){
+				newPlace=offset(230,200,120,ball[i].x,ball[i].y);
+			}
+			
+			//判断是否到达终点
+			if(ball[i].x==110){
+				alert('游戏结束');
+				//存贮当前最高得分
+				if(localStorage.getItem('maxScore')==null){
+					localStorage.setItem('maxScore',0);
+				}
+				maxScore=localStorage.getItem('maxScore')<currentScore ? currentScore :localStorage.getItem('maxScore');
+				localStorage.maxScore=maxScore;
+				//刷新页面
+				location.reload();
+			}
+			//将每个小球的新位置改变
+			ball[i].x=newPlace.x;
+			ball[i].y=newPlace.y;
+		}
+
+		//碰撞检测
+		for(var i=0;i<attack.length;i++){
+			for(var j=0;j<ball.length;j++){
+				if(detection(attack[i].x,attack[i].y,ball[j].x,ball[j].y)){//如果发生了碰撞
+					if(ball[j].color===attack[i].color){
+						//如果颜色相同,则删除该小球
+						ball.splice(j,1);
+						//得分增加
+						currentScore+=1;
+					}else{
+						//如果颜色不同,改变小球的颜色
+						ball[j].color=attack[i].color;
+					}
+					//删除攻击小球
+					attack.splice(i,1);
+				}
+			}
+		}
+
+	}
+
+
+	//碰撞检测
+	function detection(x1,y1,x2,y2){//球一的坐标,球二的坐标
+		//两球之间的距离
+		var distance=Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+		if(distance<=40){//此时发生了碰撞
+			return true;
+		}
+		return false;
+	}
+
+	//新增小球
+	timer2=setInterval(timer2fun,1000/2)
+	function timer2fun(){
+		var date={
+			x:250,
+			y:0,
+			color:randomColor(),
+			pathway:1
+		};
+		ball.push(date);
+	}
+	//青蛙方向
+	canvas.onmousemove=function(e){
+		e=e||event;
+		var c=Math.sqrt((e.offsetX-250)*(e.offsetX-250)+(e.offsetY-200)*(e.offsetY-200));
+		if(e.offsetX>=250&&e.offsetY<200){//第一象限
+			rotate=Math.asin((e.offsetX-250)/c);
+		}else if(e.offsetX>=250&&e.offsetY>=200){//第二象限
+			rotate=Math.acos((e.offsetX-250)/c)+90*Math.PI/180;
+		}else if(e.offsetX<250&&e.offsetY>=200){//第三象限
+			rotate=Math.asin((250-e.offsetX)/c)+180*Math.PI/180;
+		}else if(e.offsetX<250&&e.offsetY<200){//第四象限
+			rotate=Math.acos((250-e.offsetX)/c)+270*Math.PI/180;
+		}
+	}
+
+	//点击攻击
+	canvas.onclick=function(e){
+		e=e||event;
+		//找出未攻击的小球
+		for(var i=0;i<attack.length;i++){
+
+			if(attack[i].state===0){
+				//确定攻击方向
+				//斜边
+				var c=Math.sqrt((e.offsetX-250)*(e.offsetX-250)+(e.offsetY-200)*(e.offsetY-200));
+				// console.log(e.offsetX,e.offsetY);
+
+				if(e.offsetX>=250&&e.offsetY<200){//第一象限
+					attack[i].sX=10*((e.offsetX-250)/c);
+					attack[i].sY=10*((e.offsetY-200)/c);
+				}else if(e.offsetX>=250&&e.offsetY>=200){//第二象限
+					attack[i].sX=10*((e.offsetX-250)/c);
+					attack[i].sY=10*((e.offsetY-200)/c);
+				}else if(e.offsetX<250&&e.offsetY>=200){//第三象限
+					attack[i].sX=10*((e.offsetX-250)/c);
+					attack[i].sY=10*((e.offsetY-200)/c);
+				}else if(e.offsetX<250&&e.offsetY<200){//第四象限
+					attack[i].sX=10*((e.offsetX-250)/c);
+					attack[i].sY=10*((e.offsetY-200)/c);
+				}
+
+				//状态改为攻击
+				attack[i].state=1;
+				attack.push({
+						x:250,//当前x坐标
+						y:200,//当前y坐标
+						color:ball[Math.floor(Math.random()*ball.length)].color,//小球颜色,从轨道中小球颜色随机取
+						state:0,//攻击状态,默认未攻击
+						sX:null,//水平运动距离
+						sY:null//垂直运动距离
+					});
+				return;
+			}
+		}
+
+	}
+
+	//攻击小球运动
+	timer3=setInterval(timer3fun,1000/60);
+	function timer3fun(){
+			for(var i=0;i<attack.length;i++){
+				if(attack[i].state===1){
+					attack[i].x=attack[i].x+attack[i].sX;
+					attack[i].y=attack[i].y+attack[i].sY;
+				}
+			}
+		}
+
+	//防止定时器紊乱
+	var hiddenProperty = 'hidden' in document ? 'hidden' :    
+	    'webkitHidden' in document ? 'webkitHidden' :    
+	    'mozHidden' in document ? 'mozHidden' :    
+	    null;
+	var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+	var onVisibilityChange = function(){
+	    if (!document[hiddenProperty]) {    
+	        clearInterval(timer1);
+	        clearInterval(timer2);
+	        clearInterval(timer3);
+	    }else{
+	        timer1=setInterval(timer1fun,1000/40);
+	        timer2=setInterval(timer2fun,1000/2);
+	        timer3=setInterval(timer3fun,1000/60);
+	    }
+	}
+	document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+</script>
+</html>
+<!-- 
+不同颜色的球
+数组ball存放数据[{
+	color:颜色
+	x:
+	y:
+}]
+颜色colors数组['yellow','red','green','blue','orange','cyan','purple']
+当前得分score
+历史最高分maxScore
+路径
+
+
+ -->

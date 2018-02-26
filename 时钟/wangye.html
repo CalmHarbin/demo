@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-Hans-CN">
+     <head>
+     <meta charset="UTF-8">
+     <meta name="Generator" content="EditPlus®">
+     <meta name="Author" content="">
+     <meta name="Keywords" content=""> <!--关键词-->
+     <meta name="Description" content=""><!--网页描述-->
+      <title>时钟</title>
+      <style>
+	     html,body,div{
+		      margin:0;
+			  padding:0;
+		 }
+		     html{
+			     height:100%;
+			 }
+		 body{
+		     background-color:#ffccff;
+		     height:100%;
+		     display:flex;
+			 justify-content:center;
+			 align-items:center;
+		 }
+	     #clock{
+		       position:relative;
+		       width:500px;
+			   height:500px;
+			   background:url("images/bg-clock.png");
+			   background-size:100% 100%;
+		 }
+		 #clock div{
+		     position:absolute;
+		 }
+		 #clock .hour{
+		       top:125px;
+			   left:246px;
+		       width:10px;
+			   height:170px;
+               background:url("images/hour.png");
+			   background-size:100% 100%;
+			   transform-origin:50% 75%;
+			   
+		 }
+         #clock .minute{
+		       top:96px;
+			   left:247px;
+		       width:7px;
+			   height:200px;
+               background:url("images/minute.png");
+			   background-size:100% 100%;
+               transform-origin:50% 78%;
+			   
+		 }
+		 #clock .second{
+		       top:79px;
+			   left:247px;
+		       width:7px;
+			   height:230px;
+               background:url("images/second.png");
+			   background-size:100% 100%;
+			   transform-origin:50% 75%;
+		 }
+		 #clock .origin{
+		       top:236px;
+			   left:236px;
+		       width:30px;
+			   height:30px;
+               background:url("images/origin.png");
+			   background-size:100% 100%;
+		 }
+	  </style>
+   
+     </head>
+     <body>
+	     <div id='clock'>
+		     <div class='hour'></div>
+			 <div class='minute'></div>
+			 <div class='second'></div>
+			 <div class='origin'></div>
+		 </div>
+     </body>
+     <script>
+     window.onload=function(){
+		getTime();
+		//获取时间
+	     function getTime(){
+		     var date=new Date();
+		     var hours=date.getHours()>12?date.getHours()-12:date.getHours();
+		     var minutes=date.getMinutes();
+		     var seconds=date.getSeconds();
+		     //更新时间
+		     time(hours,minutes,seconds);
+	     }
+	      //更新时间
+	     function time(hours,minutes,seconds){
+	     	var Hdiv=document.getElementsByClassName('hour')[0];//获取时
+	     	var Mdiv=document.getElementsByClassName('minute')[0];//获取分
+	     	var Sdiv=document.getElementsByClassName('second')[0];//获取秒
+	     	Hdiv.style.transform="rotate("+360/12*hours+"deg)";//时旋转
+	     	Mdiv.style.transform="rotate("+360/60*minutes+"deg)";//分旋转
+	     	Sdiv.style.transform="rotate("+360/60*seconds+"deg)";//秒旋转
+	     }
+	     setInterval(getTime,1000);
+     }
+     </script>
+</html>

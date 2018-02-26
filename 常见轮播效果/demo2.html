@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	ul{
+		list-style: none;
+		width: 830px;
+		height: 440px;
+		position: relative;
+		margin: 50px auto;
+		overflow: hidden;
+	}
+	li{
+		position: absolute;
+	}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><a href="javascript:"><img src="images/1.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/2.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/3.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/4.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/5.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/6.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/7.jpg" alt=""></a></li>
+	</ul>
+</body>
+<script>
+	window.onload=function(){
+		var aLi=document.getElementsByTagName('li');
+		var oneWidth=aLi[0].offsetWidth;//一个图片的宽度
+		var len=aLi.length;//总个数
+		var idx=0;//当前的索引
+		//初始化
+		aLi[0].style.left='0px';
+		for (var i = 1; i < len; i++) {
+			aLi[i].style.left=oneWidth-(len-i)*30+'px';
+		};
+		//给每一个绑定事件
+		for(var i = 0; i < len; i++){
+			(function(i){//自执行,把i传进去
+				aLi[i].onmouseover=function(){
+					if(idx<i){//当前的小于目标元素
+						for(var j=0;j<=i;j++){//将小于目标元素的全部移动的左边
+							move(aLi[j],{left:j*30+'px'})
+						}
+					}else if(idx>i){//当前的大于目标元素
+						for(var j=len-1;j>i;j--){//将大于目标元素的全部移动的右边
+							move(aLi[j],{left:oneWidth-(len-j)*30+'px'})
+						}
+					}
+					//更改当前索引
+					idx=i;
+				}
+			}(i))
+		}
+
+		function move(ele,style){
+			//处理传来的json为字符串
+			style=JSON.stringify(style).slice(1,JSON.stringify(style).length-1).replace(/"/g,"");
+			// 获取目标的位置
+			var next=parseInt(style.slice(5))//目标位置
+			//移动目标元素
+			if(ele.offsetLeft<next){//当前位置小于目标位置,则向右运动
+				var timer=setInterval(function(){
+					if(ele.offsetLeft>=next){//如果到达目标位置,则停止移动
+						clearInterval(timer);
+						return;
+					}
+
+					setTimeout(function(){//鼠标快速滑动导致定时器冲突的解决办法
+						clearInterval(timer);
+					},800);
+
+					ele.style.left=ele.offsetLeft+10+'px';//移动目标元素
+				},10);
+			}else if(ele.offsetLeft>next){//当前位置大于目标位置,则向左运动
+				var timer=setInterval(function(){
+					if(ele.offsetLeft<=next){//如果到达目标位置,则停止移动
+						clearInterval(timer);
+						return;
+					}
+					
+					setTimeout(function(){//鼠标快速滑动导致定时器冲突的解决办法
+						clearInterval(timer);
+					},800);
+
+					ele.style.left=ele.offsetLeft-10+'px';//移动目标元素
+				},10);
+			}
+		}
+	}
+</script>
+</html>

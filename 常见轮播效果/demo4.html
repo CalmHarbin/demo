@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	ul{
+		list-style: none;
+		height: 440px;
+		position: absolute;
+	}
+	li{
+		position: absolute;
+	}
+	#box div{
+		position: absolute;
+		width: 204px;
+		left: 50%;
+		bottom: 30px;
+		margin-left: -102px;
+	}
+	span{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		margin-right: 5px;
+		border-radius: 50%;
+		background-color: red;
+		cursor: pointer;
+	}
+	span.active{
+		background-color: yellow;
+	}
+	#box{
+		position: relative;
+		width: 830px;
+		height: 440px;
+		margin: 50px auto;
+		overflow: hidden;
+	}
+	</style>
+</head>
+<body>
+	<div id='box'>
+		<ul>
+			<li><a href="javascript:"><img src="images/1.jpg" alt=""></a></li>
+			<li><a href="javascript:"><img src="images/2.jpg" alt=""></a></li>
+			<li><a href="javascript:"><img src="images/3.jpg" alt=""></a></li>
+			<li><a href="javascript:"><img src="images/4.jpg" alt=""></a></li>
+			<li><a href="javascript:"><img src="images/5.jpg" alt=""></a></li>
+			<li><a href="javascript:"><img src="images/6.jpg" alt=""></a></li>
+			<li><a href="javascript:"><img src="images/7.jpg" alt=""></a></li>
+		</ul>
+		<div>
+			<span class="active"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+</body>
+<script>
+	window.onload=function(){
+		var aLi=document.getElementsByTagName('li');
+		var oUl=document.getElementsByTagName('ul')[0];
+		var len=aLi.length;//总个数
+		var timer=null;//定时器
+
+		//动态添加一个元素到最后一个
+		var li=document.createElement('li');
+		var a=document.createElement('a');
+		var img=document.createElement('img');
+		img.src='images/1.jpg';
+		a.appendChild(img);
+		li.appendChild(a);
+		oUl.appendChild(li);
+		var aSpan=document.getElementsByTagName('span');
+		var oneWidth=aLi[0].offsetWidth;//一个图片的宽度
+		var idx=0;//当前的索引
+
+		//初始化
+		oUl.style.width=(len+1)*oneWidth+'px';
+		for (var i = 0; i < len+1; i++) {
+			aLi[i].style.left=i*oneWidth+'px';
+		};
+
+		for(var i=0;i<len;i++){//给每一个元素绑定事件
+			(function(i){//自执行,把i传进去
+				aSpan[i].onmouseover=function(){
+					//初始化按钮
+					for(var j=0;j<len;j++){
+						aSpan[j].setAttribute('class','');
+					}
+					this.setAttribute('class','active');
+					//移动
+					move(-oneWidth*i);
+					//更改当前索引
+					idx=i;
+				}
+			}(i));
+		}
+
+		//定时运动
+		function timeMove(){
+			//改变当前的索引
+			if(idx>len-1){
+				idx=0;
+			}else{
+				idx++;
+			}
+			move(-oneWidth*idx);//运动
+			//索引等于个数时说明此时显示的是最后一张图(即复制的第一张)
+			if(idx==len){//把索引改为0
+				idx=0;
+			}
+			//初始化按钮
+			for(var j=0;j<len;j++){
+				aSpan[j].setAttribute('class','');
+			}
+			aSpan[idx].setAttribute('class','active');
+		}
+
+		timer=setInterval(timeMove,3000);
+
+		//移入关闭定时器
+		oUl.onmouseover=function(){
+			clearInterval(timer);
+		}
+		//移出开启定时器
+		oUl.onmouseout=function(){
+			timer=setInterval(timeMove,3000);
+		}
+		//按钮移入清除定时器
+		for(var i=0;i<len;i++){
+			aSpan[i].onmouseover=function(){
+				clearInterval(timer);
+			}
+		}
+
+		//运动
+		function move(x){
+			//n用来记录移动的个数,与速度相关
+			var n=Math.abs((x-oUl.offsetLeft)/oneWidth);
+
+			if(oUl.offsetLeft>x){//向左运动
+				var timer=setInterval(function(){
+					if(oUl.offsetLeft<=x){
+						if(oUl.offsetLeft==-oneWidth*len){//当前位置为显示最后一张时切换到第一张
+							oUl.style.left=0;
+						}
+						clearInterval(timer);
+						return;
+					}
+					oUl.style.left=oUl.offsetLeft-10*n+'px';
+				},10);
+			}else if(oUl.offsetLeft<x){//向右运动
+				var timer=setInterval(function(){
+					if(oUl.offsetLeft>=x){
+						clearInterval(timer);
+						return;
+					}
+					console.log(oUl.offsetLeft)
+					oUl.style.left=oUl.offsetLeft+10*n+'px';
+				},10);
+			}
+			
+		}
+	}
+	
+</script>
+</html>

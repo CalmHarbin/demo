@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	ul{
+		list-style: none;
+		width: 830px;
+		height: 440px;
+		position: relative;
+		margin: 50px auto;
+		overflow: hidden;
+	}
+	li{
+		position: absolute;
+	}
+	div{
+		position: absolute;
+		width: 204px;
+		left: 50%;
+		top: 450px;
+		margin-left: -102px;
+	}
+	span{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		margin-right: 5px;
+		border-radius: 50%;
+		background-color: red;
+		cursor: pointer;
+	}
+	span.active{
+		background-color: yellow;
+	}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><a href="javascript:"><img src="images/1.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/2.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/3.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/4.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/5.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/6.jpg" alt=""></a></li>
+		<li><a href="javascript:"><img src="images/7.jpg" alt=""></a></li>
+	</ul>
+	<div>
+		<span class="active"></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+</body>
+<script>
+	window.onload=function(){
+		var aLi=document.getElementsByTagName('li');
+		var aSpan=document.getElementsByTagName('span');
+		var oneWidth=aLi[0].offsetWidth;//一个图片的宽度
+		var len=aLi.length;//总个数
+		var idx=0;//当前的索引
+		var onoff=true;//开关,
+		//初始化
+		for (var i = 1; i < len; i++) {
+			aLi[i].style.left=oneWidth+'px';
+		};
+
+		for(var i=0;i<len;i++){//给每一个元素绑定事件
+			(function(i){//自执行,把i传进去
+				aSpan[i].onmouseover=function(){
+					if(onoff==true){//当开关为true时才能移动元素
+						onoff=false;//将开关改为false
+
+						setTimeout(function(){//1s后开关改为true,此时动画已完成
+							onoff=true;
+						},1000);
+
+						for(var j=0;j<len;j++){//将所有按钮的颜色都还原
+							aSpan[j].setAttribute('class','');
+							aLi[j].style.transition='';//将所有的过渡效果都清除
+						}
+
+						if(idx>i){
+							//把即将显示的提前移动到左边
+							aLi[i].style.left=-oneWidth+'px';
+							//把当前的向右运动
+							move(aLi[idx],{left:oneWidth+'px'});
+							//把即将显示的运动到显示位置
+							move(aLi[i],{left:0});
+						}else if(idx<i){
+							//把即将显示的提前移动到右边
+							aLi[i].style.left=oneWidth+'px';
+							//把当前的向左运动
+							move(aLi[idx],{left:-oneWidth+'px'});
+							//把即将显示的运动到显示位置
+							move(aLi[i],{left:0});
+						}
+						this.setAttribute('class','active');
+						
+						//更改当前显示的索引
+						idx=i;
+					}	
+				}
+			}(i));
+		}
+
+		function move(ele,style){
+			//处理传来的json为字符串
+			style=JSON.stringify(style).slice(1,JSON.stringify(style).length-1).replace(/"/g,"");
+			
+			if(ele.offsetLeft===0){//当前元素
+				if(parseInt(style.slice(5))===oneWidth){//当前显示元素向右运动
+					var timer1=setInterval(function(){
+						ele.style.left=ele.offsetLeft+10+'px';
+						if(ele.offsetLeft===oneWidth){
+							clearInterval(timer1);
+						}
+					},1000/100);
+				}else{//当前显示元素向左运动
+					var timer2=setInterval(function(){
+						ele.style.left=ele.offsetLeft-10+'px';
+						if(ele.offsetLeft===-oneWidth){
+							clearInterval(timer2);
+						}
+					},1000/100);
+				}
+			}else{//目标元素
+				if(ele.offsetLeft===oneWidth){//目标元素在右边
+					var timer3=setInterval(function(){
+						ele.style.left=ele.offsetLeft-10+'px';
+						if(ele.offsetLeft===0){
+							clearInterval(timer3);
+						}
+					},1000/100);
+				}else{//目标元素在左边
+					var timer4=setInterval(function(){
+						ele.style.left=ele.offsetLeft+10+'px';
+						if(ele.offsetLeft===0){
+							clearInterval(timer4);
+						}
+					},1000/100);
+				}
+			}
+		}
+	}
+	
+</script>
+</html>
