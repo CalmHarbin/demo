@@ -1,0 +1,58 @@
+1.安装sublime
+直接运行安装包,点击下一步安装
+将破解包复制粘贴到安装目录下,覆盖原文件即可.
+
+2.右键快捷键的添加
+window+R,输入regedit回车,打开注册表
+点编辑,查找,输入shell,找到shell文件夹
+在shell文件夹中右键新建一个项,名字为sublime(随意),
+在sublime中在右键新建一个项,名字为command
+双击点击右侧的ab
+在数值数据粘贴
+"C:\Program Files\Sublime Text\SublimeText.exe" -p --remote-tab-silent "%1"
+找到自己sublime的运行文件位置,右键->属性->复制目标
+删除-p前面的路径,粘贴自己的路径保存即可
+
+3.vim编辑器的使用
+点击首选项->设置-默认
+滑到最后一行,删除方括号中的单词,即为    "ignored_packages": []
+即可使用vim快捷键
+
+更改默认命令模式
+点击首选项->浏览程序包
+找到vintage文件夹,双击打开
+找到Preferences.sublime-settings文件并修改
+"vintage_start_in_command_mode": true
+
+补全功能
+"auto_complete": true,   //提示
+"auto_match_enabled": true,   //符号补全
+
+
+php中设置pre代码段
+点击tools->新代码段
+将以下内容粘贴进去
+<snippet>
+	<content><![CDATA[
+echo "<pre>";
+print_r(${1:\$arr});
+echo "</pre>";
+]]></content>
+	<tabTrigger>pre</tabTrigger>
+    <scope>source.php</scope>
+    <description>pre …</description>
+</snippet>
+保存文件,名为 php.sublime-snippet   (必须以sublime-snippet为后缀)
+
+
+常用插件
+js,jquery,node提示插件
+https://github.com/hugohu/AndyJS2Plus
+
+Emmet插件
+https://github.com/sergeche/emmet-sublime
+
+angular插件
+https://github.com/angular-ui/AngularJS-sublime-package
+
+

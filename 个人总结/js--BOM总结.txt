@@ -1,0 +1,50 @@
+window对象
+innerWidth 				文档宽度
+innerHeight 			文档高度
+outerWidth				返回窗口的外部宽度
+outerHeight 			返回窗口的外部高度
+
+alert()					警告框
+confirm()				提示框
+prompt()				输入框
+
+setTimeout()			单次定时器
+setInterval()			循环定时器
+clearTimeout()			清除定时器
+clearInterval()			清除定时器
+
+open(窗口url,窗口名字,窗口参数)					打开新窗口
+close()					关闭浏览器窗口
+
+scrollBy(number,number) 	滚动条滚动指定的距离
+scrollTo()					滚动条滚动到指定的位置
+
+history对象
+length 					返回浏览器历史列表中的url数量
+back()					加载上一个url
+forward()				加载下一个url
+go()					加载某一个url
+
+location对象
+http://www.yijiawang.com:80/mySite/home/index.php?id=1&&page=2#next
+href					完整的url  		http://www.yijiawang.com:80/mySite/home/index.php?id=1&&page=2#next
+protocol 				协议			http:
+host 					域名加端口		www.yijiawang.com:80
+hostname 				域名 			www.yijiawang.com
+port 					端口			80
+pathname 				路由			/mySite/home/index.php
+hash 					锚				#next
+search 					参数 			?id=1&&page=2
+
+assign(url)				加载新的页面
+reload()				刷新
+replace(url)			替换当前的url
+
+Navigator对象
+
+screen对象
+availWidth				屏幕的宽度,除去windows任务栏
+availHeight 			屏幕的高度,除去Windows任务栏
+
+width 					屏幕的宽度
+height 					屏幕的高度

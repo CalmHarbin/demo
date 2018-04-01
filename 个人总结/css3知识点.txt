@@ -1,0 +1,329 @@
+选择器
+通配符选择器	*
+id选择器		#id名
+类选择器		.类名
+标签选择器		标签名
+相邻选择器		+
+子代选择器		>
+后代选择器		父 子
+属性选择器		[属性=属性值]
+并列选择器		,
+伪类选择器		:link	普通样式
+				:hover	鼠标移入时
+				:visited	点击时
+				:active	被点击过的
+伪元素选择器	:first-letter	文字的首字母或第一个汉字
+				:first-line		文本的首行
+				:before			在元素之前添加内容
+				:after			在元素之后添加内容
+not选择器		:not(选择器)	除了这个
+后兄弟选择器	~
+
+---------------------------------------------------------------------------------------------
+文字与字体相关
+color:red					文字颜色
+white-space:nowrap			文本不会换行
+text-overflow:ellipsis				文字溢出时显示省略号
+word-wrap:normal					只允许在断点处换行
+word-break:break-all				允许在单词内部换行
+text-shadow:水平(5px) 垂直(5px) 模糊的距离(10px) 颜色(red)			文字阴影 
+box-shadow:水平(5px) 垂直(5px) 模糊的距离(10px) 阴影的尺寸(3px) 颜色(red) inset(内阴影)			盒子阴影
+letter-spacing:5px			字间距
+word-spacing:5px			词间距
+text-outline:				轮廓
+text-align:center			水平对齐方式
+vertical-align:middle		垂直对齐方式
+
+font-size:15px				字体大小
+font-family:				字体
+font-style:italic			斜体
+font-weight:500				字体粗细
+text-decoration:underline	字体下划线
+---------------------------------------------------------------------------------------------
+背景与边框
+background-color:red			背景颜色
+background-image:url()			背景图片
+background-repeat:no-repeat		如何重复背景图片
+background-position:10px 10px	背景图片的位置
+background-size:cover|contain	背景图片大小
+
+background: linear-gradient([位置||角度,]颜色 大小,颜色 大小, ...);				线性渐变
+background:radial-gradient(位置,形状[,大小的值,大小],颜色 大小, ...,颜色 大小);	径向渐变
+
+border-style:solid				边框样式
+border-width:2px				边框宽度
+border-color:red				边框颜色
+border-radius:50%				边框圆角
+box-sizing:border-box			固定盒子大小
+---------------------------------------------------------------------------------------------
+布局定位
+dispaly:block|inline-block|inline|none	元素类型
+list-style:none							列表样式
+position:absolute|relative|fixed|flex	定位
+float:left|right						浮动
+clear:both 								清除浮动
+visibility:hidden						元素的可见性
+
+---------------------------------------------------------------------------------------------
+变形与过渡
+2d
+transform:translate(50px水平,100px垂直)			平移
+transform:rotate(30deg)							旋转
+transform:scale(2水平,3垂直)					缩放
+transform:skew(30deg水平,20deg垂直)				翻转
+transform-origin:20%x轴 40%y轴					改变原点位置
+
+3d
+transform-style:preserve-3d;					子元素3d显示
+perspective:1000								视距
+transform-origin:20%x轴 40%y轴 60%z轴			改变原点位置
+transform:translate3d(x,y,z)					平移
+transform:rotate3d(x,y,z,30deg)					旋转
+transform:scale3d(x,y,z)						缩放
+
+过渡,一般配合伪类:hover使用
+transition-property:all				用于过渡的css属性名称
+transition-duration:5s				过渡的时间
+transition-timing-function:linear	时间曲线,匀速
+transition-delay:2s					过渡效果延迟多久开始
+
+---------------------------------------------------------------------------------------------
+动画
+定义一个动画
+@keyframes 动画名字{
+	0%{
+
+	}
+	100%{
+
+	}
+}
+执行一个动画
+animation-name:						动画的名字
+animation-duration:5s				动画的时长
+animation-timing-function:linear 	速度,匀速
+animation-delay:2s					动画延时多久后执行
+animation-iteration-count:infinity	动画无限次播放
+animation-direction:alternate		动画会反向播放
+animation-fill-mode:forwards		播放完动画之后保持最后的状态
+
+//是一个change动画2s后匀速播放,用时5s,播放完后保持最后的状态
+animation:change 5s linear 2s forwards;
+---------------------------------------------------------------------------------------------
+弹性盒模型
+display:flex;
+容器的属性
+
+定义主轴的位置:从左到右,从右到左,从上到下,从下到上
+flex-direction:row|row-reverse|column|column-reverse
+
+规定当主轴方向放不下时是否换行:不换行,换行,换行并且反转行
+flex-wrap:no-wrap|wrap|wrap-reverse
+
+定义了主轴方向的对齐方式:开始方向对齐,结尾方向对齐,中间对齐,两端对齐,两端对齐(两端留有空间)
+justify-content:flex-start|flex-end|center|space-between|space-around
+
+定义了交叉轴的对齐方式:未设置高度的元素占满容器高度,开始方向对齐,结束方向对齐,居中,以第一行文字的基线对齐
+align-items:stretch|flex-start|flex-end|center|baseline
+
+定义了多条主轴的对齐方式,即每一行元素的对齐方式
+align-content:stretch|flex-start|flex-end|center|space-between|space-around
+
+项目的属性
+
+值越小越靠前
+order:0|num
+
+元素的放大比例:0不放大
+flex-grow:0|num
+
+元素的缩小比列;1缩小
+flex-shrink:1|num
+
+元素的宽度
+flex-basis:100px
+
+复合属性
+flex:0 1 auto;
+
+规定项目交叉轴的对齐方式
+align-self:stretch|flex-start|flex-end|center|baseline
+---------------------------------------------------------------------------------------------
+http://www.css88.com/archives/8510#prop-grid-area
+
+grid布局(网格布局)
+display:grid
+容器
+定义了有多少列:一个值代表一列的宽度
+grid-template-rows:100px 200px 300px;
+
+定义了有多少行,一个值代表一行的高度
+grid-template-columns:100px 200px;
+
+定义了每一列之间的间距
+grid-column-gap: 10px;
+
+定义了每一行之间的间距
+grid-row-gap: 15px;
+
+grid-gap: 10px 15px;//缩写语法
+
+定义了每一个元素在网格内的水平对齐方式
+justify-items:	start 	左对齐
+				end 	右对齐
+				center 	居中
+				stretch 填满网格(默认值)
+
+定义了每一个元素在网格内的垂直对齐方式
+align-items: 	start 	顶部对齐
+				end 	底部对齐
+				center 	中间对齐
+				stretch 填满网格(默认值)
+
+定义了整个网格在容器中的水平对齐方式
+justify-content:start 	左对齐
+				end 	右对齐
+				center 	居中对齐
+				stretch 填满容器
+				space-around两端对齐,留有空间(间距的一半)
+				space-between两端对齐
+				space-evenly 两队对齐,留和间距一样大的空间
+
+定义了整个网格在容器中的垂直对齐方式
+align-content:start|end|center|space-around|space-between|space-evenly
+
+定义了每一个网格代表什么区域;
+grid-template-areas:
+        "h h h"
+        "m m c";
+
+项目
+定义了元素的宽度
+grid-column:开始的线/结束的线;
+例如:grid-column:1/4;//表示元素从第一条竖线到第4条竖线
+
+定义了元素的高度
+grid-column:开始的线/结束的线;
+例如:grid-row:1/4;//表示元素从第一条竖线到第4条竖线
+
+设置元素的水平对齐方式
+justify-self:start|end|center|stretch
+
+设置了元素的垂直对齐方式
+align-self:start|end|center|stretch
+
+为单个网格起一个名字,以便于grid-template-areas向对应
+grid-area:'名字'
+
+
+例子
+<div class="container">
+  <div class="header">HEADER</div>
+  <div class="menu">MENU</div>
+  <div class="content">CONTENT</div>
+  <div class="footer">FOOTER</div>
+</div>
+
+.container {//创建了一个12列,3行的网格
+    display: grid;    
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 50px 350px 50px;
+    grid-gap: 5px;
+    grid-template-areas://.表示空网格
+        "h h h h h h h h h h h h"
+        "m m c c c c c c c c c c"
+        "f f f f f f f f f f f f";
+}
+.header {
+    grid-area: h;
+}
+.menu {
+    grid-area: m;
+}
+.content {
+    grid-area: c;
+}
+.footer {
+   grid-area: f;
+}
+
+---------------------------------------------------------------------------------------------
+媒体查询
+@media screen and (max-width: 699px) and (min-width: 520px) {
+    样式
+}
+
+---------------------------------------------------------------------------------------------
+其他常用
+cursor:pointer			光标类型
+overflow:hidden			层溢出
+
+
+--------------------------------------------------------------------------------------------------
+自适应布局
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+  }
+  ul,li{
+    list-style:none;
+  }
+	.items{
+      width: 100%;
+      display: flex;
+      flex-wrap:wrap;
+    }
+    .item{
+      /*flex:1 1 auto;*/
+      height: 150px;
+      line-height: 150px;
+      text-align: center;
+      font-size: 50px;
+      border: 1px solid #ddd;
+      margin-right: 3%;
+    }
+    @media (min-width: 400px){
+      .item{
+        /*flex: 1 1 100%;*/
+        width: 97%;
+      }
+    }
+     @media (min-width: 800px){
+      .item{
+         /*flex: 1 1 50%;*/
+          width: 47%;
+      }
+    }
+    @media (min-width: 1200px){
+      .item{
+         /*flex: 1 1 25%;*/
+          width: 22%;
+      }
+    }
+   
+    
+	</style>
+</head>
+
+<body>
+  <ul class="items">
+    <li class="item">1</li>
+    <li class="item">2</li>
+    <li class="item">3</li>
+    <li class="item">4</li>
+    <li class="item">5</li>
+    <li class="item">6</li>
+    <li class="item">7</li>
+    <li class="item">8</li>
+    <li class="item">9</li>
+    <li class="item">10</li>
+  </ul>
+</body>
+</html>

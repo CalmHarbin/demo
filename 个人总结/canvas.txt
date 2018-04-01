@@ -1,0 +1,76 @@
+ele.getContext('2d') 			//返回一个用于在画布上绘图的环境。
+
+beginPath()						新建一条路径
+
+线条
+moveTo(x,y)						将笔触移动到指定的坐标,相当于按下笔准备画
+lineTo(x,y)						绘制一条从当前位置到指定位置的线段
+closePath()						画一条从当前位置到起点位置的线段
+
+圆弧
+弧度=角度*π/180
+arc(圆心x,圆心y,半径,开始弧度,结束弧度,绘制方向)	画一段圆弧路径
+方向true为逆时针,false为顺时针
+
+二次贝塞尔曲线
+quadraticCurveTo(控制点x,控制点y,结束点x,结束点y)
+三次贝塞尔曲线
+bezierCurveTo(控制点1x,控制点1y,控制点2x,控制点2y,结束点x,结束点y)
+
+矩形
+rect(左上角x,左上角y,宽度,高度)						画一条矩形路径
+fillRect(左上角x左边,左上角y坐标,宽度,高度)			绘制一个填充的矩形
+strokeRect(x,y,width,height)						绘制一个矩形边框
+clearRect(x,y,width,height)							清除指定区域矩形
+
+样式
+fillStyle						设置或返回填充颜色
+strikeStyle						设置或返回笔触的颜色
+lineWidth						设置或返回线条的宽度
+lineCap=butt|round|square		设置或返回线条的结束端点样式
+lineJoin=miter|round|bevel		设置或返回两条线相交时，所创建的拐角类型
+miterLimit=number				设置或返回最大斜接长度
+
+渐变
+createLinearGradient(起点x,起点y,终点x,终点y)		线性渐变,返回一个渐变对象
+createRadialGradient(起点x,起点y,起点半径,终点x,终点y,终点半径)		径向渐变,返回一个渐变对象
+addColorStop(0~1,color)			规定渐变对象中某位置是什么颜色
+例如
+var c=document.getElementById("myCanvas");//获取画布
+var ctx=c.getContext("2d");//创建环境
+var grd=ctx.createLinearGradient(0,0,170,0);//线性渐变
+grd.addColorStop(0,"black");//填充颜色
+grd.addColorStop(1,"white");
+ctx.fillStyle=grd;
+ctx.fillRect(20,20,150,100);			
+
+图片样式
+createPatterns(图片,repeat|repeat-x|repeat-y|no-repeat)	在指定的方向内重复图片
+
+阴影
+shadowOffsetX=number			设置或返回阴影距形状的水平距离
+shadowOffsetY=number			设置或返回阴影距形状的垂直距离
+shadowBlur=number				设置或返回用于阴影的模糊级别
+shadowColor=color 				设置或返回用于阴影的颜色
+
+文本
+fillText(内容,位置x,位置y)		绘制填充的文本
+strokeText(内容,位置x,位置y)	绘制无填充的文本
+font							字体大小
+textAlign=left|center|right						设置或返回文本内容的当前水平对齐方式。
+textBaseline=top|middle|bottom					设置或返回文本内容的当前垂直对齐方式。
+measureText(内容).width 						返回内容的宽度
+		
+绘制图片
+drawImage(图片,位置x,位置y)				绘制图像、画布或视频
+drawImage(图片,位置x,位置y,宽度,高度)		绘制指定宽高的图像、画布或视频
+drawImage(图片,剪切的x,剪切的y,剪切的宽度,剪切的高度,位置x,位置y,宽度,高度)			绘制一个被剪切的图像、画布或视频
+
+变形
+translate(新起点x,新起点y)			将起点位置更改
+rotate(角度)						将画布旋转指定角度
+scale(宽度倍数,高度倍数)			将画布缩放
+transfrom(水平方向的缩放,水平方向的旋转,垂直方向的缩放,垂直方向的旋转,水平方向的移动,垂直方向的移动)
+
+stroke()						填充路径
+fill()							全部填充

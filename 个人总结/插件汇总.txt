@@ -1,0 +1,5 @@
+1.可视化的音乐
+https://wavesurfer-js.org/docs/methods.html
+
+2.地图插件
+http://api.map.baidu.com/lbsapi/creatmap/?qq-pf-to=pcqq.group

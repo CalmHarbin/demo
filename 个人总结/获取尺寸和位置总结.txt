@@ -1,0 +1,42 @@
+JavaScript中
+offset系列
+ele.offsetWidth					元素自身的宽度,含边框,含padding
+ele.offsetHeight				元素自身的高度,含边框,含padding
+ele.offsetTop 					元素距离有定位属性的父元素的上边距离
+ele.offsetLeft					元素距离有定位属性的父元素的左边距离
+ele.offsetParent				返回最近具有定位属性的父元素
+
+client系列
+ele.clientWidth					元素自身的宽度,不含边框,含padding
+ele.clientHeight 				元素自身的高度,不含边框,含padding
+
+屏幕相关
+screen.availWidth 				除去windows任务栏的宽度
+screen.availHeight 				除去windows任务栏的宽度
+screen.width 					屏幕的宽度
+screen.height 					屏幕的宽度
+窗口相关
+window.innerWidth 				文档的宽度
+window.innerHeight				文档的高度
+window.outerWidth				窗口的宽度
+window.outerHeight 				窗口的高度
+
+jQuery中
+尺寸
+ele.width()						元素的宽度,不含padding
+ele.height()					元素的高度,不含padding
+ele.innerWidth()				元素的宽度,不含边框,含padding,相当于js中的clientWidth
+ele.innerHeight()				元素的高度,不含边框,含padding
+outerWidth()					元素的宽度,含边框,含padding,相当于js中的offsetWidth
+outerHeigth()					元素的高度,含边框,含padding
+outerWidth(true)				元素的宽度,含边框,含padding,含margin
+outerHeigth(true)				元素的高度,含边框,含padding,含margin
+
+位置
+ele.offset().top 				元素相对于文档的top值
+ele.offset().left 				元素相对于文档的left值
+ele.position().top				元素相对于父元素边框的top
+ele.position().left				元素相对于父元素边框的left
+ele.offsetParent()				返回最近具有定位属性的父元素,相当于js中的offsetParent
+ele.scrollLeft()				元素的水平滚动条的left
+ele.scrollTop()					元素的垂直滚动条的top

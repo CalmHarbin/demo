@@ -1,0 +1,87 @@
+表格属性与样式
+属性
+	rowspan="num"  //跨行
+	colspan="num"  //跨列
+	border=1       //1px的边框
+样式
+	border-collapse:"collapse"   //合并单元格
+	border-spacing:5px;          //相邻单元格之间的距离
+	empty-cells:show|hide        //是否显示空单元格边框
+	tabel-layout:fixed           //当内容过长时,不拉伸单元格
+	text-align:                  //水平对齐方式
+	vertical-align               //垂直对齐方式
+
+
+arguments对象
+伪数组,用来储存实参
+arguments.length表示实参的个数
+arguments.callee.length表示形参的个数
+arguments.callee  表示当前的函数
+
+IIFE,立即执行函数
+(function($) { 
+ //代码
+ } )(jQuery);
+
+ 逻辑与返回第一个是 false 的操作数 或者 最后一个是 true的操作数
+console.log(1 && 2 && 0); //0
+console.log(1 && 0 && 1); //0
+console.log(1 && 2 && 3); //3
+如果某个操作数为 false，则该操作数之后的操作数都不会被计算
+
+逻辑或返回第一个是 true 的操作数 或者 最后一个是 false的操作数
+console.log(1 || 2 || 0); //1
+console.log(0 || 2 || 1); //2
+console.log(0 || 0 || false); //false
+如果某个操作数为 true，则该操作数之后的操作数都不会被计算
+逻辑运算符优先级比较
+!>&&>||
+
+Object.create() 方法会使用指定的原型对象及其属性去创建一个新的对象
+例如
+var obj1={a:1,b:2}
+var obj2=Object.create(obj1);
+console.log(obj2.__proto__===obj1);//true
+//自己创建一个create函数,
+		function create(obj){
+			function Fn(){};//构造一个函数
+			Fn.prototype=obj;//让这个构造函数的原型对象改变为obj;
+			return new Fn();//返回Fn的一个实例,该实例的__proto__就是obj;
+		}
+
+内置构造函数
+Number()
+String()
+Boolean()
+Array()
+Object()
+Function()
+Date()
+RegExp()
+使用new运算符,返回的是一个对象
+var a=new Number(3);
+console.log(a);//3
+console.log(typeof a);//object
+
+<select></select>
+ele.selectedIndex 属性可设置或返回下拉列表中被选选项的索引号
+
+
+HTTP请求状态码
+200:服务器已成功的处理了请求,并提供了请求的网页
+204:服务器已成功的处理了请求,但没有返回任何内容
+
+301:请求的网页已永久的移动到了新位置
+302:请求的网页临时移动到了新位置
+304:网页字上次请求后没有更新
+
+400:服务器不理解请求的语法
+403:服务器拒绝了请求
+404:服务器找不到请求的网页
+410:请求的资源被永久的删除了
+
+500:服务器遇到了错误,无法完成请求
+503:服务器目前无法使用
+
+
+

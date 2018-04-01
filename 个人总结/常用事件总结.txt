@@ -1,0 +1,144 @@
+js事件
+a.窗口事件,只在body和frameset元素中才有效
+onload      页面或图片加载完成时
+onunload     用户离开页面时
+
+b.表单元素事件,在表单元素中才有效
+onchange     框内容改变时
+onsubmit     点击提交按钮时
+onreset     重新点击鼠标按键时
+onselect     文本被选择时
+onblur      元素失去焦点时
+onfocus     当元素获取焦点时
+
+c.键盘事件,在base,bdo,br,frame,frameset,head,html,iframe,meta,param,script,style,title元素里都无效
+onkeydown    按下键盘按键时
+onkeypress    按下或按住键盘按键时
+onkeyup     放开键盘按键时
+
+d.在base,bdo,br,frame,frameset,head,html,iframe,meta,param,script,style,title元素里都无效
+onclick     鼠标点击一个对象时
+ondblclick    鼠标双击一个对象时
+onmousedown 鼠标被按下时
+onmousemove 鼠标被移动时
+onmouseout    鼠标离开元素时
+onmouseover 鼠标经过元素时
+onmouseup    释放鼠标按键时
+
+e.其他
+onresize     当窗口或框架被重新定义尺寸时
+onabort     图片下载被打断时
+onerror     当加载文档或图片时发生错误时
+
+f.移动端事件
+onTouchstart   		手指按下事件
+onTouchend			手指抬起事件
+onTouchmove			手指移动事件
+onTouchenter		手指移入事件
+onTouchleave		手指移出事件
+onTouchcancel		触摸被取消触发
+onOrientationchange 旋转手机触发事件(window对象使用)
+
+---------------------------------------------------------------------
+js内置event对象
+属性
+type						事件的类型
+srcElement 					事件源,就是发生事件的元素,IE支持
+target						事件源,就是发生事件的元素,非IE支持
+button 						表示被按下的鼠标键	各浏览器不同
+
+clientX 					鼠标在页面的X坐标,即眼睛看到的距离
+clientY						鼠标在页面的Y坐标,
+pageX 						鼠标在页面的X坐标,有滚动条时看不到的距离也算
+pageY 						鼠标在页面的Y坐标
+screenX 					鼠标距离屏幕左上角的X坐标,即眼睛看到的距离
+screenY 					鼠标距离屏幕左上角的Y坐标
+offsetX 					鼠标相对于元素的左边距离
+offsetY 					鼠标相对于元素的上边距离
+
+cancelBubble 				设置值为true,阻止冒泡stopPropagation()
+returnValue 				设置值为false,阻止默认行为preventDefault()
+keyCode 					键值
+
+获得event对象兼容性写法 
+var event=e||event;
+获得target兼容型写法 
+event.target||event.srcElement
+阻止浏览器默认行为兼容性写法 
+event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+阻止冒泡写法 
+event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+----------------------------------------------------------------------
+
+
+angular事件
+ng-click ( 适用标签 ：所有，触发事件：单击)；
+ng-dblclick（ 适用标签 ：所有，触发事件：双击）；
+ng-blur（适用标签 : a,input,select,textarea，触发事件：失去焦点）；
+ng-focus（适用标签 : a,input,select,textarea，触发事件：获取焦点）；
+ng-change（适用标签 : a,input,select,textarea，触发事件：model更新）；
+ng-keydown（适用标签 : 所有，触发事件：键盘按键按下，要把$event传过去）；
+ng-keyup（适用标签 :大部分用在input、textarea， 但适用所有标签，触发事件：键盘按键按下并松开，但要把$event 传过去）；
+ng-keypress（同上）；
+ng-mousedown（适用标签 : 所有，触发事件：鼠标按下，左右中间都会触发）；
+ng-mouseup（适用标签 : a,input,select,textarea，触发事件：鼠标按下弹起，左右中间都会触发）；
+ng-mouseenter（适用标签 :所有，触发事件：鼠标进入）；
+ng-mouseleave（适用标签 :所有，触发事件：鼠标离开）；
+ng-mousemove（适用标签 :所有，触发事件：鼠标移动）；
+ng-mouseover（适用标签 :所有，触发事件：鼠标进入）；
+
+
+
+jquery事件
+事件绑定:
+$(元素).on("事件","指定的元素(可选)",处理函数);
+
+.click()				鼠标单击触发事件，参数可选（data，function）
+.dblclick()				双击触发，同上
+.mousedown()			鼠标按下触发事件
+.mouseup()				鼠标弹起事件
+.mousemove()			鼠标移动事件
+.mouseover()			鼠标移入触发事件
+.mouseout()				鼠标移出事件
+.mouseenter()			鼠标进入触发事件
+.mouseleave()			鼠标移出事件
+.hover(func1,func2)		鼠标移入调用func1函数，移出调用func2函数
+.focus()				鼠标聚焦触发事件（不支持冒泡）
+.blur()					失焦事件
+.change()				表单元素发生改变时触发事件
+.select()				文本元素被选中时触发事件
+.submit()				表单提交动作触发*
+.keydown()/up()			键盘按键按下触发
+.keyup()				键盘弹起事件
+.on()					多事件的绑定
+.off()					移除事件的绑定
+
+
+jquery modile事件
+使用jquery中on方法绑定事件
+$("button").on("touchcancel",function(){
+		alert(11);
+	});
+
+tap点击事件
+taphold按住一秒触发
+
+swipe水平滑动超过30px触发
+swipeleft 左滑30px
+swiperight 右滑30px
+
+scrollstart 页面滚动事件
+scrollstop  页面滚动停止事件
+
+orientationchange 旋转手机事件  Window对象
+  
+window.orientation=0   垂直
+window.orientation=90|-90  水平
+		
+touchstart 手指按下事件
+touchmove  手指移动事件
+touchend   手指弹起事件
+touchenter 手指移入事件
+touchleave 手指移出事件
+touchcancel 触摸被取消事件
+	*/	

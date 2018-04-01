@@ -1,0 +1,52 @@
+jacaScript中的ajax
+
+var xhr=new XMLHttpRequest();//获取xhr对象
+
+xhr.open('get',"delete.php?id="+id+"",true);//请求  true表示异步请求
+xhr.send();//发送请求
+xhr.onreadystatechange=function(){//监听请求状态
+	if(xhr.readyState==4){ //4表示请求已完成
+
+		data=xhr.responseText;//获取字符串形式的响应数据
+
+	}
+}
+
+
+jquery中的ajax
+
+$.get('delete.php',{id:id},function(res){
+		if(res){
+			that.parent().parent().hide();
+		}
+ 	});
+
+
+angular中的ajax
+
+$http({
+	 url:url,           //请求的url路径  
+     method:method,    //GET/DELETE/HEAD/JSONP/POST/PUT  
+     params:params ,   //转为  ?param1=xx1¶m2=xx2的形式  
+     data: data        //包含了将被当做消息体发送给服务器的数据，通常在POST请求时使用  
+     cache:true        //将数据缓存起来,再次请求相同数据可以不用请求
+	}).then(function success(res){//请求成功回调函数
+		alert('成功')
+		console.log(res);
+	},function error(res){//请求失败回调函数
+		alert("失败")
+		console.log(res);
+	});
+
+简单方法
+$http.get("1.php").then(function success(res){
+			alert('成功')
+		 	console.log(res);
+		}, function error(res){
+			alert("失败")
+		 	console.log(res);
+		})
+
+php中接受angular  post方法传来的数据
+$str=file_get_contents("php://input");
+$post=json_decode($str,true);

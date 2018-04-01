@@ -92,12 +92,15 @@
 		};
 
 		for(var i=0;i<len;i++){//给每一个元素绑定事件
+			
 			(function(i){//自执行,把i传进去
-				aSpan[i].onmouseover=function(){
+
+				aSpan[i].onclick=function(){
 					//初始化按钮
 					for(var j=0;j<len;j++){
 						aSpan[j].setAttribute('class','');
 					}
+
 					this.setAttribute('class','active');
 					//移动
 					move(-oneWidth*i);

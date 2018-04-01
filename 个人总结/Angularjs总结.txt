@@ -1,0 +1,331 @@
+ng-app 		定义了一个应用程序
+ng-app="myApp"
+
+ng-init 		定义一个初始值
+ng-init="text='hello world'"
+
+ng-cloak 		防止页面闪烁
+
+ng-bind 		绑点一个值
+ng-bind="name"
+
+ng-bind-html 	绑点一段html,需要引入ngSanitize模块
+ng-bind-html="<h1>你好</h1>"
+
+ng-value 		规定input的值
+<input type="text" ng-value="2">
+
+ng-true-value 	选中时的值
+ng-false-value 	未选中时的值
+
+ng-options='显示for值in数组';
+ng-options='提交as显示for值in数组';		数组里面有对象:
+ng-options='提交as显示for值in对象';		纯对象
+
+ng-repeat="item in array"					遍历无重复值的数组
+ng-repeat="item in array track by $index"	遍历有重复值的数组
+ng-repeat="(key,value) in obj"				遍历对象
+
+ng-trim="true" 		删除用户输入的空格
+
+ng-if="条件"   		如果条件为false,则删除该节点
+
+ng-show="条件"		如果条件为true,则显示
+
+ng-hide="条件" 		如果条件为true,则隐藏
+
+ng-disabled="条件"	如果条件为真,则禁用
+
+ng-readonly="true"	只读
+
+ng-checked="true"	该项被选中,单复选框
+
+ng-selected="true"	该项被选中,下拉列表
+
+ng-class 				添加类
+ng-class="active"		添加active类,字符串
+ng-class="{active:true,disabled:false}"		json格式,当值为true时把键添加为类
+
+ng-class-odd 			为奇数行添加类
+ng-class-even 			为偶数行添加类
+
+ng-style="json" 			添加样式
+ng-style="{'width':'12px','height':'50px'}"
+
+ng-model 			双向数据绑定
+ng-controller 		定义一个控制器
+
+ng-model-options="json"			定义了什么时候把表单的值同步到控制器中,
+{updateOn:'事件'}		指定事件发生后绑定数据
+{debounce:时间(毫秒)}	延迟指定时间后绑定数据
+
+失去焦点立即更新或者不失去焦点时1秒后更新
+{updateOn:'default blur',debounce:{default:1000,blur:0}}
+
+<input type="text" ng-model="a" ng-trim="true" ng-model-options="{debounce:1000}">
+--------------------------------------------------------------------------------------------
+自定义指令
+定义一个自定义指令,名字使用驼峰式写法,调用加-
+,比如名字为 zhMyapp  调用<zh-myapp></zh-myapp>
+var myapp=angular.module('myApp',[]);
+myapp.directive('指令名',function(){
+	return {//返回一个对象
+		restrice:AECM,			//指令类型  A 属性 E元素 C类 M注释
+		template:'<h1>hello world!</h1>',
+		templateUrl:url,
+		replace:true,//用模板替换当前元素
+		transclude:true,//保留元素原有内容,在ng-transclude中保留
+		scope:{},
+		controller:['$scope',function($scope){//控制器
+
+					}],
+		link:function(scope,ele,attr){//用来操作dom,
+						//scope相当于$scope,elem表示元素,attr表示元素的属性
+					}
+	};
+});
+
+scope  
+	false 默认值,控制器和自定义指令公共一个数据,相当于没有局部变量 ,继承不隔离
+	true  一旦更改局部自动创建一个局部变量,控制器数据不会被更改    ,继承但隔离
+	{}    拥有自己的局部变量,                                       完全隔离
+	{data1:"@"}   单项数据绑定,控制器中的数据能影响自定义指令,    把值传过来    				zh-myapp="{{data}}" 
+	{data1:"="}   双向数据绑定,控制器数据与自定义数据相互影响     把变量传过来   类型true     	zh-myapp="data"
+	{data1:"&"}   将控住器中的函数传过来,控制器类可以直接使用函数,data1()调用函数.  传函数		zh-myapp="data()"
+
+--------------------------------------------------------------------------------------------
+常用内置服务
+$window
+相当于window对象
+
+$document
+
+$location服务
+$location.absUrl()			返回完整的url
+$location.url()				设置或返回锚,#后面的部分
+$location.protocol()		返回协议部分
+$location.host()			返回主机名
+$location.port()			返回端口号
+$location.path()			设置或返回子路径,#后面的内容,不包括参数
+$location.search()			返回参数部分序列化后的对象
+$location.hash()			锚
+$location.replace()			替换
+$location.state()			返回url历史状态对象
+
+
+$http服务
+get请求
+$http.get("1.php",config).then(function success(res){
+			alert('成功')
+		 	console.log(res);
+		}, function error(res){
+			alert("失败")
+		 	console.log(res);
+		})
+
+post请求
+$http.post("1.php",data,config).then(function success(res){
+			alert('成功')
+		 	console.log(res);
+		}, function error(res){
+			alert("失败")
+		 	console.log(res);
+		})
+
+$timeout单次定时器
+$scope.timer=$timeout(function(){
+			
+		},time);
+清除
+$timerout.cancel($scope.timer);
+
+$interval循环定时器
+$scope.timer=$interval(function(){
+			
+		},time);
+清除
+$interval.cancel($scope.timer);
+
+$sce服务
+$sce.trustAsHtml(val)			将一段HTML视为安全
+$sce.trustAsUrl(val)			将url视为安全
+$sce.trustAsResourceUrl(val)
+$sce.truttAsJs(val)				将js视为安全
+
+$cacheFactory缓存服务,刷新页面数据就会丢失
+var obj=$cacheFactory("名字");		创建一张表,返回一个缓存对象
+obj.put(key,val)				在对象中插入一组键值对
+obj.get(key)					获得指定key对应的val
+obj.remove(key)					删除指定的一组键值对
+obj.removeAll()					删除所有的键值对
+obj.info()						返回这个对象的信息
+obj.destroy()					销毁这个对象
+
+//在另一个控制器中
+var obj2=$catchFactory.get('上一个缓存对象的名字');//获取这个缓存对象,可实现不同控制器的数据共享
+--------------------------------------------------------------------------------------------
+自定义服务
+factory服务:返回一个有属性和方法对象
+var myapp=angular.module('myApp',[]);
+myapp.factory('服务名字',[function(){//可以注入其他服务
+	var obj={};//先创建一个对象
+	obj.attr=val;//给对象添加属性
+	obj.way=function(){};//给对象添加方法
+	return obj;//返回这个对象
+}]);
+
+service服务,相当与一个实例化的对象,即new 服务名字;
+var myapp=angular.module('myApp',[]);
+myapp.service('服务名字',[function(){//可以注入其他服务
+	//属性
+	this.attr=val;
+	//方法
+	this.way=function(){};
+}])
+--------------------------------------------------------------------------------------------
+过滤器
+|uppercase 		转大写
+|lowercase 		转小写
+|date:"yyyy-mm-dd HH:mm:ss" 	时间格式化
+|number:2 		保留2为小数
+|currency 		货币格式化
+|limitTo:6/-4 	从前面截取6为,从后面截取4位
+
+自定义过滤器,将首字母大写
+var myapp=angular.module('myApp',[]);
+myapp.filter('one',function(){
+	return function(data){
+		var arr=data.split('');
+		arr[0]=arr[0].toUpperCase();
+		var str=arr.join('');
+		return str;
+	};
+});
+--------------------------------------------------------------------------------------------
+路由ui-router
+<script src="angular-ui-router.js"></script>
+var myapp=angular.module('myapp',['ui.router']);//引入ui-route模块
+//注入依赖
+myapp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+
+//默认路由
+$urlRouterProvider.otherwise('/index');
+
+普通路由
+//定义路由规则
+$stateProvider
+	.state("one",{
+		url:"/1/{name}",  //   {name}用来接收参数 名字与参数名字相同
+		template:"<p>{{name}}</p>",
+		controller:"myctrlone"
+	})
+	.state("two",{
+		url:"/2",
+		templateUrl:"2.html",
+		controller:'myctrltwo'     //控制器的名称,
+	})
+	.state("three",{
+		url:"/3",
+		template:"<p>我是页面三</p>"
+	});
+}]);
+
+
+多视图路由,
+<div ui-view="top"></div>
+<div ui-view="left"></div>
+<div ui-view="right"></div>
+//默认路由
+$urlRouterProvider.otherwise('/index');
+//定义路由规则
+$stateProvide
+.state("index",{
+	url:"/index",
+	views:{
+		top:{//top为显示的位置
+			templateUrl:"top.html"
+		},
+		left:{
+			templateUrl:"left.html"
+		},
+		right:{
+			templateUrl:"index1.html"
+		}
+	}
+})
+.state("logon",{
+	url:"/logon",
+	views:{
+		top:{
+			templateUrl:"top.html"
+		},
+		left:{
+			templateUrl:"left.html"
+		},
+		right:{
+			templateUrl:"logon1.html"
+		}
+	}
+})
+
+触发路由跳转 ui-sref='路由'
+<a href="#" ui-sref="/index">主页</a>
+--------------------------------------------------------------------------------------------
+表单验证
+表单名.输入框名.
+$dirty 			修改的表单
+$pristine		未修改的表单
+$valid			通过验证的表单
+$invalid 		未通过验证的表单
+$error	 		错误
+required 		验证表单是否为空
+ng-minlength 	最小长度
+ng-maxlength 	最大长度
+ng-pattern 		使用正则匹配
+例如
+ <div class="form-group">
+    <label for="phone">手机号</label>
+    <input type="text" name="phone" id="phone" ng-model="data.phone" required placeholder="请输入手机号" class="form-control" ng-pattern="/^1[34578]\d{9}$/">
+    <span class="warning" ng-show="myform.phone.$error.pattern">手机号码格式不正确</span>
+    <span class="warning" ng-show="myform.phone.$error.required">号码不能为空</span>
+</div>
+--------------------------------------------------------------------------------------------
+事件
+ng-click			单击事件
+ng-dblclick			双击事件
+ng-mousedown		鼠标按下事件
+ng-mouseup 			鼠标弹起事件
+ng-mouseover		移入事件
+ng-mouseout			移出事件
+ng-mouseenter 		移入事件
+ng-mouseleave		移出事件
+ng-mousemove 		鼠标移动事件
+ng-keydown			键盘按下事件
+ng-keyup 			键盘弹起事件
+ng-change			输入框内容改变事件
+ng-resize 			窗口大小变化事件
+ng-reset 			重置事件
+ng-submit			提交事件
+ng-focus			聚焦事件
+ng-blur 			失焦事件
+ng-checked			元素被选中事件,
+ng-copy 			复制事件
+ng-cut 				剪切事件
+--------------------------------------------------------------------------------------------
+全局API
+angular.lowercase(str)				将字符串转化为小写
+angular.uppercase(str)				将字符串转化为大写
+angular.copy(obj1,obj2)				把obj1复制给obj2,对象的深复制
+angular.forEach(data,function(val,key){})	遍历数组或者对象
+
+angular.toJson(obj)				将json对象转为json字符串
+angular.fromJson(str)			将json字符串转为json对象
+----------------------------------------------------------------------------------------
+监听数据变化
+$scope.$watch("被监听的数据",function(新值,旧值){
+	
+})
+手动执行数据的脏检查
+$scope.$apply(function(){
+	
+})

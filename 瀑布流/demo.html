@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瀑布流</title>
+	<script src='js/jquery.min.js'></script>
+	<style>
+		body,div,img{
+			margin:0;
+			padding: 0;
+		}
+		.container{
+			position: relative;
+			margin: 50px auto 0;
+		}
+		img{
+			position: absolute;
+			width: 220px;
+		}
+		.gif{
+			position: fixed;
+			bottom: 15px;
+			left: 50%;
+			margin-left: -25px;
+			width: 50px;
+			height: 50px;
+			background: url('img/timg.gif');
+			background-size: cover;
+		}
+	</style>
+</head>
+<body>
+	<div class="container"></div>
+	<div class="gif"></div>
+</body>
+<script>
+	$(document).ready(function(){
+		//获取父容器
+		var container=$(".container");
+
+		var page=0;//当前的数据
+		var space=10;//间距
+
+		var cols=Math.floor($(window).innerWidth()/235);//当前的列数
+
+		var isGet=true;//是否获取数据的开关
+
+		//初始化每一列的数据
+		var arrL=[];//每一列的left值
+		var arrT=[];//,每一列的top值
+
+		//初始化
+		function init(){
+			//控制列数
+			if(cols>6){
+				cols=6
+			}else if(cols<3){
+				cols=3;
+			}
+			//父容器的宽度
+			container.css({'width':235*cols-15+'px'});
+			//数据
+			for(var i=0;i<cols;i++){
+				arrL.push(i*235);
+				arrT.push(0);
+			}
+		}
+
+		init();
+		
+		function getData(){
+			if(isGet===true){//判断开关是否开着
+				isGet=false;//关闭开关
+				//获取数据
+				$.getJSON('http://www.wookmark.com/api/json/popular?callback=?', {page: page}, function(json) {
+					//图片创建
+					var imglen=$('img').length;
+					for (var i = 0,len=json.length; i < len; i++) {
+						//创建img标签
+						var img=document.createElement('img');
+						//添加路径
+						img.src=json[i].preview;
+						//添加到容器中
+						container.append(img);
+						//获取当前的元素
+						var currentImg=document.getElementsByTagName('img')[i+imglen];
+						//获取此时最短一列的索引
+						var idx=minTop();//最小值的索引
+						
+						//定位
+						currentImg.style.left=arrL[idx]+'px';
+						currentImg.style.top=arrT[idx]+'px';
+						//定高
+						var height=200*(parseInt(json[i].height)/parseInt(json[i].width))?200*(parseInt(json[i].height)/parseInt(json[i].width)):0;
+
+						img.style.height=height+'px';
+						//改变数组中当前列的数据
+						arrT[idx]=arrT[idx]+height+15;//当前的top值+自身的高度+间距10
+						// console.log(arrT[0])
+						$('.gif').hide();
+						isGet=true;//当数据都加载完成以后打开开关
+					};
+					page++;
+					
+				});
+			}
+		}
+		getData();
+
+		//添加滚动事件,滚动到在下方时加载数据
+		$(window).on('scroll',function(){
+			if($(window).innerHeight()+$(window).scrollTop()>arrT[minTop()]+container.offset().top){
+				$('.gif').show();
+				getData();
+			}
+		});
+
+		//添加窗口缩放事件
+		$(window).on('resize',function(){
+			//获取新的列数
+			var newcols=Math.floor($(window).innerWidth()/235);
+			//判断当前列数
+			if(cols==newcols){
+				return;
+			}else{
+				cols=newcols;
+			}
+
+			//数据初始化
+			arrL=[];
+			arrT=[];
+			//初始化
+			init();
+			//获取到所有的图片
+			var img=container.find('img')
+			//遍历
+			img.each(function(index, el) {
+				var idx=minTop();//最小值的索引
+				//以动画的形式改变位置
+				$(this).animate({
+					left:arrL[idx]+'px',
+					top:arrT[idx]+'px'
+				});
+				//更新数据
+				arrT[idx]=arrT[idx]+$(this).outerHeight(true)+15;
+			});
+		})
+
+		//求top最小值的列
+		function minTop(){
+			var min=arrT[0];//最小值
+			var idx=0;//最小值的索引
+			for(var i=0;i<cols;i++){
+				if(arrT[i]<min){
+					min=arrT[i];
+					idx=i;
+				}
+			}
+			return idx;
+		}
+
+	});
+</script>
+</html>

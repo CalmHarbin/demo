@@ -1,0 +1,62 @@
+文档
+http://www.swiper.com.cn/api/pagination/362.html
+
+1.引入文件
+<link rel="stylesheet" href="swiper-4.1.6.min.css">
+<script src="swiper-4.1.6.min.js"></script>
+
+2.添加html标签
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+    
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+
+3.样式自己修改
+
+4.js控制
+<script>        
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'horizontal'|'vertical',//控制滑动方向,水平,垂直
+    loop: true,//循环滚动
+    initialSlide :0,//默认命中的项,从0开始
+    speed:300,//速度
+
+    //切换效果
+    effect:'fade'|'cube'|'coverflow'|'flip',//切换效果,淡入淡出,像一个立方体盒子,有立体感,翻转
+
+    //自动切换
+	autoplay:{
+    	delay:1000,//每隔多久切换一次
+    	disableOnInteraction: false,//用户触摸之后自动切换不会停止
+    	waitForTransition: false,//在过渡动画结束后自动切换才开始计时
+    },
+
+    // 如果需要分页器
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    
+    // 如果需要滚动条
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  })        
+  </script>

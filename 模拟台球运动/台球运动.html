@@ -38,39 +38,39 @@
 		function left(){
 			var left=oDiv.offsetLeft;//获取div距离左边的距离
 			if(left<='0'||onOff1=='on'){//如果div处于最左边了,开关记录向右运动
-				X+=8;//每次运动位移
+				X+=4;//每次运动位移
 				oDiv.style.left=X+'px';//改变left值
 				if(left>wW-oW){//如果div处于最右边了,则改变开关,使之向左运动
 					onOff1='off';
 				}
 			}
 			if(left>wW-oW||onOff1=='off'){
-				X-=8;
+				X-=4;
 				oDiv.style.left=X+'px';
 				if(left<='0'){
 					onOff1='on';
 				}
 			}
 		};
-		setInterval(left,30);
+		setInterval(left,1000/60);
 		function top1(){
 			var top=oDiv.offsetTop;
 			if(top<='0'||onOff2=='on'){
-				Y+=6;
+				Y+=3;
 				oDiv.style.top=Y+'px';
 				if(top>wH-oH){
 					onOff2='off';
 				}
 			}
 			if(top>wH-oH||onOff2=='off'){
-				Y-=6;
+				Y-=3;
 				oDiv.style.top=Y+'px';
 				if(top<='0'){
 					onOff2='on';
 				}
 			}
 		};
-		setInterval(top1,30);
+		setInterval(top1,1000/60);
 		/*
 			1.做出运动的物体
 			2.运动分水平和垂直两方向

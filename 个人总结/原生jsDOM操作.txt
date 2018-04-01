@@ -1,0 +1,120 @@
+一、DOM创建
+1.创建元素
+document.createElement();
+创建li标签
+document.createElement("li");
+
+2、创建文本(纯文本,无标签)
+document.createTextNode();
+创建一段文本
+document.createTextNode("hello world!");
+
+二、DOM查询
+1、通过id获取元素
+document.getElementById();
+
+2、通过类名获取元素
+document.getElementsByClassName();
+
+3、通过标签名获取元素
+document.getElementsByTagName();
+
+4、获取匹配的第一个元素
+document.querySelector();
+
+5、获取匹配的所有元素
+document.querySelectorAll();
+
+6、获取父元素
+var parent=ele.parentElement;   //返回直接父元素
+var parent=ele.parentNode;      //返回直接父元素
+var offsetParent=ele.offsetParent;  //找到具有定位属性的父节点
+
+7、获取子节点
+var child=ele.children;   //直接子节点
+var child=ele.firstElementChild;  //第一个孩子,没有换行符
+var child=ele.lastElementChild;  //最后一个孩子,没有换行符
+
+var child=ele.childNodes; //直接子节点,换行符也算一个子节点
+var child=ele.firstChild;  //第一个孩子,会有换行符
+var child=ele.lastChild;  //最后一个孩子,会有换行符
+
+8、获取同胞元素
+var ele=ele.nextElementSibling    //下一个元素,没有换行符
+var ele=ele.previousElementSibling;    //上一个元素,没有换行符
+
+var ele=ele.nextSibling;    //下一个元素,有换行符
+var ele=ele.previousSibling;    //上一个元素,有换行符
+
+三、DOM更改
+1、添加
+parent.appendChild(添加的元素);//在最后位置添加
+parent.insertBefore(添加的元素,指定的元素);  //在指定位置之前添加
+
+2、删除
+ele.removeChild(被删除的元素)  //通过父元素删除指定的子元素
+ele.remove(index);  //删除自己,从下拉列表中删除选项
+
+3、修改
+ele.innerHTML;    //修改内部
+ele.outerHTML;    //连自身一起修改
+
+parent.replaceChild(替换的元素,被替换的元素);
+4、克隆元素
+ele.cloneNode(true);   //复制元素
+
+四、属性操作
+1、增加
+ele.id="col";   //直接打点增加
+
+2、删除
+ele.removeAttribute("属性名");//删除指定属性
+
+3、修改
+ele.setAttribute("属性名","属性值"); //修改指定属性的值
+
+4、查看
+ele.getAttribute("属性名");  //获得指定属性的值
+ele.attributes;    //返回所有属性(json)
+
+5、判断
+ele.hasAttribute("属性名");   //判断是否拥有指定属性,true|false
+
+五、类名
+1、增加
+ele.setAttribute("class","类名");
+
+2、删除
+ele.removeAttribute("class");    //删除类
+
+3、修改
+ele.setAttribute("class","新类名");//修改类
+
+4、查看
+ele.getAttribute("class");  //查看类
+
+5、判断
+ele.hasAttribute("class");   //判断是否拥有类,true|false
+
+六,offset系列
+offsetWidth					元素自身的宽度,含边框
+offsetHeight				元素自身的高度,含边框
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

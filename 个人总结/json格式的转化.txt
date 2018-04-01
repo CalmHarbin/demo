@@ -1,0 +1,21 @@
+angular中
+1.angular.toJson();  //将json对象转为json字符串
+2.angular.fromJson();  //将json字符串转为json对象
+
+
+php中
+1.json_encode(数据,JSON_UNESCAPED_UNICODE)   //将数组或对象转为json字符串
+2.json_decode();   //将json字符串转为json对象
+
+js中
+1.---obj.toJSONString()    //将json对象转为json字符串
+  ---JSON.stringify(obj)   //将json对象转为json字符串
+
+2.---JSON.parse();       //将json字符串转为json对象
+  ---eval('('+str+')');  //将json字符串转为json对象
+  ---str.parseJSON();    //将json字符串转为json对象
+
+
+jquery中
+1.JSON.stringify(obj);         //将json对象转为json字符串
+2.jQuery.parseJSON(jsonStr);   //将json字符串转为json对象

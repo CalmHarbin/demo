@@ -1,0 +1,320 @@
+数据类型
+字符串,数字,布尔值,数组,对象,null,undefined,
+
+判断数据类型
+1.typeof()       //返回数据类型
+2. obj instanceof object  //判断obj是不是Object的实例
+3.obj.constructor			返回创建变量的引用,例如Array,String
+4.Object.prototype.toString.call(obj)		s返回一个JSON字符串——"[object 数据类型]"。例如[object Array]
+
+----------------------------------------------------------------------------
+原型及原型链
+每一个函数都有自己的prototype(原型),每一个对象都有自己的__proto__(原型链);
+内置对象的原型链
+1.所有的内置函数都是由Function()实例化的,包括它自己,即Function=new Function();
+console.log(String.__proto__===Function.prototype);//true
+console.log(Number.__proto__===Function.prototype);//true
+console.log(Array.__proto__===Function.prototype);//true
+console.log(Object.__proto__===Function.prototype);//true
+console.log(Function.__proto__===Function.prototype);//true
+
+2.万物皆对象,所有的内置函数都是对象,所有的对象的原型链终点都是Object.prototype
+console.log(String.__proto__.__proto__===Object.prototype);//true
+console.log(Number.__proto__.__proto__===Object.prototype);//true
+console.log(Array.__proto__.__proto__===Object.prototype);//true
+console.log(Object.__proto__.__proto__===Object.prototype);//true
+console.log(Function.__proto__.__proto__===Object.prototype);//true
+console.log(Object.prototype.__proto__===Object.prototype)//false
+console.log(Object.prototype.__proto__)//null
+
+----------------------------------------------------------------------------
+类和构造函数
+
+当实例调用一个自己身上没有的属性或者方法时,就会去它的原型链上逐级向上查找,直到Object.prototype上也没有,则报错
+//定义一个构造函数
+function Fn(){
+	this.name='user1';//在实例身上添加属性
+	this.say=function(){//在实例身上添加方法
+		console.log(this.name);
+	}
+}
+//在Fn的原型上添加一个方法
+Fn.prototype.eat=function(){
+	console.log('我是原型对象上的方法')
+}
+var fn1=new Fn();//实例化一个对象
+console.log(fn1)
+console.log(fn1.__proto__===Fn.prototype);//true
+fn1.say();//user1,					调用构造函数身上的方法,
+fn1.eat();//我是原型对象上的方法,	调用原型对象身上的方法
+----------------------------------------------------------------------------
+闭包
+闭包就是能够读取其他函数内部变量的函数.
+是函数外部和内部的桥梁
+
+形式一
+function fn1(){
+	var a=1;//定义一个局部变量a
+	var addA=function(){
+		a++;
+		console.log(a);
+	}
+	return addA;
+}
+
+var getA=fn1();
+getA();//2,外面可以访问到局部变量a
+getA();//3
+getA();//4
+
+形式二
+function Fn(){
+	var name='user1';
+
+	this.getName=function(){
+		return name;
+	}
+	this.setName=function(newName){
+		name=newName;
+	}
+}
+var fn1=new Fn();
+console.log(fn1.getName());//user1
+fn1.setName('user2');
+console.log(fn1.getName());//user2
+
+----------------------------------------------------------------------------
+对象的浅复制与深复制
+浅复制,对象和数组传递的是地址,会影响原数据
+第一种
+var obj1={
+	name:'user1',
+	say:[0,1,2,3],
+	data:{
+		age:20,
+		sex:['man','woman']
+	}
+};
+var obj2=obj1;
+console.log(obj1.data.sex[0]);//man
+console.log(obj2.data.sex[0]);//man
+obj2.data.sex[0]='neutral';
+console.log(obj1.data.sex[0]);//neutral
+console.log(obj2.data.sex[0]);//neutral
+
+第二种
+var obj1={
+	name:'user1',
+	say:[0,1,2,3],
+	data:{
+		age:20,
+		sex:['man','woman']
+	}
+};
+var obj2={};
+for(var i in obj1){
+	obj2[i]=obj1[i];
+}
+console.log(obj1.data.sex[0]);//man
+console.log(obj2.data.sex[0]);//man
+obj2.data.sex[0]='neutral';
+console.log(obj1.data.sex[0]);//neutral
+console.log(obj2.data.sex[0]);//neutral
+
+对象的深复制,递归复制
+var obj1={
+	name:'user1',
+	say:[0,1,2,3],
+	data:{
+		age:20,
+		sex:['man','woman']
+	}
+};
+//写一个递归函数,递归复制
+function copy(obj1){//复制obj1
+	if(typeof obj1==='object'){//先判断传来的是不是数组或者对象
+		var obj2=obj1 instanceof Array?[]:{};//判断是数组还是对象
+		for(var i in obj1){
+			if(typeof obj1[i]==='object'){//如果值是对象或者数组
+				obj2[i]=copy(obj1[i]);//递归调用
+			}else{
+				obj2[i]=obj1[i];//直接赋值
+			}
+		}
+		return obj2;
+	}else{
+		return obj1;
+	}
+}
+var obj2=copy(obj1);
+console.log(obj1.data.sex[0]);//man
+console.log(obj2.data.sex[0]);//man
+obj2.data.sex[0]='neutral';
+console.log(obj1.data.sex[0]);//man
+console.log(obj2.data.sex[0]);//neutral
+
+----------------------------------------------------------------------------
+自执行函数
+//推荐使用,代码具有整体性
+(function(){
+	alert('我是自执行函数')
+}());
+
+(function(){
+	alert('我是自执行函数')
+})();
+
+在函数见面加运算符即可
+! function(){
+	alert('我是自执行函数')
+}();
+
+void function(){
+	alert('我是自执行函数')
+}();
+
+题目
+function createArray(){
+	var arr=new Array();
+	for(var i=0;i<5;i++){
+		arr[i]=function(){
+			console.log(i);
+		}
+	}
+	return arr;
+}
+
+var arr=createArray();
+for(var i=0,len=arr.length;i<len;i++){
+	arr[i]();//输出5个5
+}
+使用自执行函数
+function createArray(){
+	var arr=new Array();
+	for(var i=0;i<5;i++){
+		(function(j){//自执行函数,接受一个参数i
+			arr[j]=function(){
+				console.log(j);
+			}
+		}(i))
+	}
+	return arr;
+}
+
+var arr=createArray();
+for(var i=0,len=arr.length;i<len;i++){
+	arr[i]();//0,1,2,3,4
+}
+
+----------------------------------------------------------------------------
+函数的上下文,即this指向
+1.函数用圆括号调用,函数的上下文是window对象
+var name='user2';
+function Fn(){
+	var name='user1';
+	console.log(this.name);
+}
+Fn();//user2
+
+2.函数作为一个对象的方法.对象打点调用改方法,函数的上下文就是这个对象
+var name='user2';
+var user1={
+	name:'user1',
+	getName:function(){
+		console.log(this.name);
+	}
+}
+user1.getName();//user1
+
+3.函数是事件处理函数,函数的上下文就是这个触发这个事件的对象
+var btn=getElementById('btn');//假设获取一个按钮
+btn.onclick=function(){//给这个按钮帮点一个点击事件
+	//此时this就表示btn对象
+}
+
+4.定时器调用函数,函数的上下文就是window对象
+var name='user2';
+var timer=setTimeout(function(){
+	var name='user1';
+	//此时this指window对象
+	console.log(this.name);//user2	
+},1000);
+
+5.数组中存放的函数,被数组索引调用,函数的上下文就是这个数组
+var arr=[1,2,3,4,function(){
+	return this;
+},6,6,7];
+
+console.log(arr[4]()===arr);//true
+----------------------------------------------------------------------------
+改变this执行
+call(this执向这个对象,参数1,参数2);
+var user1={
+	name:'user1',
+	getName:function(){
+		console.log(this.name)
+	}
+}
+var user2={
+	name:'user2'
+}
+user1.getName();//user1
+//把user1中的this指向user2
+user1.getName.call(user2);//user2
+
+call与apply唯一不同点在于apply参数是以数组形式传入
+
+apply(this指向这个对象,[参数1,参数2]);
+var user1={
+	name:'user1',
+	getName:function(){
+		console.log(this.name)
+	}
+}
+var user2={
+	name:'user2'
+}
+user1.getName();//user1
+//把user1中的this指向user2
+user1.getName.apply(user2);//user2
+
+bind为函数绑定this值,然后返回一个新的函数
+bind(this指向这个对象)
+var user1={
+	name:'user1',
+	getName:function(){
+		console.log(this.name)
+	}
+}
+var name='user3';//全局name属性
+
+user1.getName();//user1,此时this指向user1
+var get1=user1.getName;
+var get2=user1.getName.bind({name:'user2'});
+
+get1();//user3,此时this指向window
+get2();//user2,此时this指向bind绑定的对象
+
+----------------------------------------------------------------------------
+模块化
+var module=(function(形参){
+	//申明一些内部变量和方法
+	
+
+	return {//返回一个对象,暴露一个属性和方法
+
+	}
+})(实参);
+
+var module=(function(){
+	var name='默认张三';
+	var getName=function(newname){
+		name=newname||name;
+		console.log('我的名字是'+name)
+	}
+	return {
+		name:getName
+	}
+})();
+module.name();//我的名字是默认张三
+module.name('李四');//我的名字是李四
