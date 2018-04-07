@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>调色板</title>
+	<script src="angular.min.js"></script>
+	<style>
+		div.box{
+			width: 300px;
+			height: 300px;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body ng-controller="MainCtrl as mainCtrl">
+	<div class="box" ng-style="mainCtrl.getColor()"></div>
+	<div>
+		<input type="range" max="255" ng-model="mainCtrl.r">
+		<input type="number" max="255" ng-model="mainCtrl.r">
+	</div>
+	<div>
+		<input type="range" max="255" ng-model="mainCtrl.g">
+		<input type="number" max="255" ng-model="mainCtrl.g">
+	</div>
+	<div>
+		<input type="range" max="255" ng-model="mainCtrl.b">
+		<input type="number" max="255" ng-model="mainCtrl.b">
+	</div>
+	
+</body>
+<script>
+	var myapp=angular.module("myapp",[]);
+	myapp.controller("MainCtrl",[function(){
+		this.r=100;
+		this.g=100;
+		this.b=100;
+		var that=this;
+		this.getColor=function(){
+			return {"background-color":"rgb("+that.r+","+that.g+","+that.b+")"}
+		}
+	}]);
+</script>
+</html>

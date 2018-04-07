@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>正则表达式</title>
+ </head>
+ <body>
+	<script type="text/javascript">
+	/*
+	 修饰符
+		i忽略大小写
+		g全局匹配
+		m多行匹配
+		U贪婪模式,最小化匹配
+	 括号
+		[abc]查找一个a或者b或者c
+		[^abc]查找一个非a或者b或者c
+		[0-9]查找一个0-9的数字
+		[a-z]查找一个a-z;
+		[A-Z]查找一个A-Z;
+		[A-z]查找一个A-z;
+		(ab)|(cd)查找ab或者cd;
+	 元字符
+		.查找一个任意字符,除了换行符\n;
+		\w查找任意一个字母或者数字或者下划线;
+		\W
+		\d查找任意一数字
+		\D
+		\s查找一个空白字符,空格;
+		\S
+		\b匹配单词边界
+		\B
+		\n查找换行符
+		\f查找换页符
+		\r查找回车符
+		\t查找制表符
+		\v查找垂直制表符
+	 量词
+		n+查找一个或者多个n;
+		n?查找0个或者一个n;
+		n*查找0个或者一个或者多个n;模糊查找,最大化查找;
+		n*?查找0个或者一个或者多个n;准确查找,最小化查找;
+		n{3}查找3个n;
+		n{3,10}查找3个至10个n;
+		n{3,}查找3个及以上的n;
+		n$查找以n结尾的;
+		n^查找以n开头的;
+		n?= n查找其后紧跟着n的;
+		n?! n查找其后没有紧跟着n的;
+	*/
+	
+	//检查手机号是否正确
+	var str="13923456789";
+	var a=str.match(/^139\d{8}$/g);//查找以139开头,指定11位数的数字,以数字结尾;
+	//console.log(a)
+	if(a){
+		alert("手机号码格式正确");
+	}else{
+		alert("手机号码格式有误!!!");
+		}
+		
+	var str3="999999ss999";
+	var reg=/(?=\D+\d+)/; //不能全是数字,但至少有一个数字
+	var reg=/(?=[^a-zA-Z]+[a-zA-Z]+).{8,}/;  //不能全是字母,但至少有一个字母
+
+
+	//检查邮箱是否正确
+	var str2="363639121@qq.com";
+	if(str2.match(/^\w+@\w+\.\w+$/g)){//\w+任意位数的字符,\.转义字符.
+		alert("邮箱格式正确");
+	}else{
+		alert("邮箱格式有误!!!");
+		}
+	//替换
+	var time1="2017-11-28";
+	var time2=time1.replace(/\W/g,":");
+	alert(time2);
+	//$向后引用
+	var time3="2017-11-28";
+	var time4=time3.replace(/(\w+)-(\w+)-(\w+)/g,"$1:$2:$3");//$1代表第一个括号里面的 
+	alert(time4);
+	</script>
+ </body>
+</html>

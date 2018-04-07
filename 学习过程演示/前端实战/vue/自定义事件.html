@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+	<div id="myapp">
+		<p>我是实例中的num,我的值为{{num}},触发add()能增加我的值</p>
+		<!-- 组件 自定义事件one,执行add()函数-->
+		<zh v-on:one='add()'></zh>
+	</div>
+</body>
+<script>
+	//必须在vue实例化对象之前
+	Vue.component("zh",{
+		template:"<h1 @click='addCom()'>我是组件,我也有个num,我的值是{{num}},触发addCOM函数才能增加我的值,点我有惊喜</h1>",
+		data:function(){
+			return {
+				num:10
+			}
+		},
+		methods:{
+			addCom:function(){
+				this.num++;
+				this.$emit("one");   //触发一个one的自定义事件
+			}
+		}
+	});
+
+	var myapp=new Vue({
+		el:"#myapp",  //绑定的元素 
+		data:{    //属性
+			num:0
+		},
+		methods:{   //方法
+			add:function(){
+				this.num++;
+			}
+		}
+	})
+</script>
+</html>

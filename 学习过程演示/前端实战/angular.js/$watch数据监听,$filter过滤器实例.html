@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+<script src="../jquery-3.2.1.js"></script>
+<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-controller="myctrl" ng-cloak>
+	显示含有数值的<input type="text" ng-model="text">
+	<p ng-repeat="item in data2 track by $index" ng-bind="item"></p>
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	myapp.controller("myctrl",['$scope',"$filter",function($scope,$filter){//filter过滤器
+		$scope.data=[1,2312,312,4,21,323,4,1,23,1234,23,3242,231,4,23];
+		$scope.data2=$scope.data
+		//监听数据变化
+		$scope.$watch("text",function(n,o){//新数据,旧数据
+			$scope.data2=$filter("filter")($scope.data,n);
+		});
+	}]);
+</script>
+</html>

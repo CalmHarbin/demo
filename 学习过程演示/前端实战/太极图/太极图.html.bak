@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>太极图</title>
+     <style>
+	     *{
+		     margin:0;
+			 padding:0;
+		 }
+		 body{
+		     background:green;
+		 }
+	     .taichi{
+		     display:flex;/*弹性盒模型*/
+			 align-items:center;/*垂直居中*/
+		     width:400px;
+			 height:400px;
+			 margin:100px auto;
+			 border-radius:50%;/*将矩形变成圆形*/
+             background:linear-gradient(black 50%,white 50%);/*渐变色*/
+		 }
+		 .left{
+		     width:50px;
+			 height:50px;
+             border-radius:50%;
+			 background:#fff;
+			 border:75px #000 solid;
+			 animation:change 1s infinite alternate ease-in-out;/*动画：动画名称 播放时间  播放次数  动画回放*/
+			 transform-origin:0% 50%;/*变化中心点*/
+		 }
+		 .right{
+		     width:50px;
+			 height:50px;
+             border-radius:50%;
+			 background:#000;
+			 border:75px #fff solid;
+			 animation:change 1s infinite alternate ease-in-out;
+			 animation-delay:-1s;/*动画提前播放*/
+			 transform-origin:100% 50%;
+		}
+		 @keyframes change{/*定义动画  动画名字*/
+		     from{
+			      transform:scale(0.5);/*变化：大小（倍数）*/
+			 }
+			 to{
+			      transform:scale(1.5);
+			 }
+		 }
+	 </style>
+ </head>
+ <body>
+     <div class="taichi">
+	     <div class="left"></div>
+		 <div class="right"></div>
+	 </div>
+ </body>
+</html>

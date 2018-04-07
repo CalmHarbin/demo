@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>苏宁易购首页轮播特效</title>
+ <style>
+ *{
+   margin:0;
+   padding:0;
+ }
+ .wrap{
+       width:100%;
+	   height:440px;
+	   margin-top:50px;
+	   position:relative;  /*参考物*/
+}
+.wrap ul{
+         list-style-type:none;
+}
+.wrap ul li{
+             width:100%;
+			 height:440px;
+			 position:absolute;/*运动的元素，相对于参考物运动*/
+			 opacity:0;
+			 
+}
+.wrap ul li a{
+			   display:block;
+			   margin:0 auto;
+			   width:830px;
+}
+.wrap .tab{
+            text-align:center;
+			position:absolute;
+			width:100%;
+			bottom:15px;
+}
+.wrap .tab span{
+                width:17px;
+				height:17px;
+				background:rgba(105,105,105,0.5);
+				display:inline-block;
+				border-radius:50%;
+				cursor:pointer;
+}
+.wrap .tab span.on{
+                    background:white;
+}
+ </style>
+ </head>
+ <body>
+ <div class="wrap">
+       <ul>
+            <li>
+			     <a href="#">
+				      <img src="images/1.jpg" alt="苏宁易购" width="830px" height="440px">
+				 </a>
+			</li>
+            <li> 
+			      <a href="#">
+				      <img src="images/2.jpg" alt="苏宁易购" width="830px" height="440px">
+				  </a>
+			</li>
+            <li>
+			      <a href="#">
+				      <img src="images/3.jpg" alt="苏宁易购" width="830px" height="440px">
+				  </a>
+			</li>
+            <li>
+			      <a href="#">
+				      <img src="images/4.jpg" alt="苏宁易购" width="830px" height="440px">
+				  </a>
+			</li>
+            <li>
+			      <a href="#">
+				      <img src="images/5.jpg" alt="苏宁易购" width="830px" height="440px">
+				  </a>
+			</li>
+            <li>
+			      <a href="#">
+				      <img src="images/6.jpg" alt="苏宁易购" width="830px" height="440px">
+				  </a>
+			</li>
+            <li>
+			      <a href="#">
+				      <img src="images/7.jpg" alt="苏宁易购" width="830px" height="440px">
+				  </a>
+			</li>
+            <li>
+			      <a href="#">
+				      <img src="images/8.jpg" alt="苏宁易购" width="830px" height="440px">
+				  </a>
+			</li>
+       </ul>
+	   <div class="tab">
+	        <span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+	   </div>
+ </div>
+ <script>
+     //获取标签
+     var oWrap=document.getElementsByClassName("wrap")[0];
+	 var aLi=oWrap.getElementsByTagName("li");
+     var oTab=document.getElementsByClassName("tab")[0];
+	 var aSpan=oTab.getElementsByTagName("span");
+	 var num=0;
+	 //初始化
+	 aLi[0].style.opacity="1";
+	 aSpan[0].className="on";
+	 /*
+	     什么元素用什么事件实现什么功能
+		 按钮点击事件实现图片以及按钮的改变
+		 按钮关联图片：
+		     让点击按钮的序列号对应到相对应的图片的序列号
+	 */
+	 //淡入淡出
+     for(var i=0;i<aSpan.length;i++){//循环遍历每一个按钮
+	      aSpan[i].index=i;
+		  aSpan[i].onclick=function(){
+		      num=this.index;
+			  for(var j=0;j<aSpan.length;j++){
+			          aSpan[j].className="";//先让所有的按钮的类名先清除
+					  aLi[j].style.opacity="0";
+			  }
+			  this.className="on";//再让当前点击按钮颜色发生改变
+			  aLi[num].style.opacity="1";
+		  }
+	 }
+ </script>
+ </body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-Hans-CN">
+     <head>
+     <meta charset="UTF-8">
+     <meta name="Generator" content="EditPlus®">
+     <meta name="Author" content="">
+     <meta name="Keywords" content=""> <!--关键词-->
+     <meta name="Description" content=""><!--网页描述-->
+      <title>3D旋转木马</title>
+      <style>
+	     *{
+		     margin:0;
+			 padding:0;
+		 }
+	     #stage{
+		     width:80%;
+			 height:300px;
+			 margin:50px auto;
+			 background:#ccffff;
+			 border-top:1px solid #ffcc00;
+			 perspective:800px;
+		 }
+		 #stage #wrap{
+		     position:relative;
+		     width: 128px;
+             height: 100px;
+			 margin:85px auto;
+			 transform-style:preserve-3d;
+			 animation:change 8s infinite linear;
+		 }
+		 #stage:hover #wrap{
+		     animation:change 8s infinite linear alternate -8s;
+		 }
+		 #wrap div{
+		     position:absolute;
+			 width:128px;
+			 height:100px;
+			 font-size:50px;
+			 text-align:center;
+			 padding-top:21px;
+		 }
+         #wrap .box1{
+		     background:aqua;
+		     transform:rotatey(40deg)  translate3d(0,0,200px);
+		 }
+		 #wrap .box2{
+		     background:white;
+		     transform:rotatey(80deg) translate3d(0,0,200px);
+	    }
+		 #wrap .box3{
+		     background:fuchsia;
+		     transform:rotatey(120deg) translate3d(0,0,200px);
+	    }
+		 #wrap .box4{
+		     background:silver;
+		     transform:rotatey(160deg) translate3d(0,0,200px);
+	    }
+		 #wrap .box5{
+		     background:lime;
+		     transform:rotatey(200deg) translate3d(0,0,200px);
+	    } 
+		#wrap .box6{
+		     background:maroon;
+		     transform:rotatey(240deg) translate3d(0,0,200px);
+	    }
+		 #wrap .box7{
+		     background:navy;
+		     transform:rotatey(280deg) translate3d(0,0,200px);
+	    }
+		 #wrap .box8{
+		     background:purple;
+		     transform:rotatey(320deg) translate3d(0,0,200px);
+	    }
+		 #wrap .box9{
+		     background:teal;
+		     transform:rotatey(0deg) translate3d(0,0,200px);
+			
+	    }
+         @keyframes change{
+		     0%{
+			     transform:rotatey(0deg);
+			 }
+			 100%{
+			     transform:rotatey(360deg);
+			 }
+		 }
+	  </style>
+     </head>
+     <body>
+         <div id='stage'>
+             <div id='wrap'>
+	             <div class='box1'>图</div>
+	             <div class='box2'>播</div>
+	             <div class='box3'>轮</div>
+	             <div class='box4'>转</div>
+	             <div class='box5'>旋</div>
+	             <div class='box6'>马</div>
+	             <div class='box7'>木</div>
+	             <div class='box8'>D</div>
+	             <div class='box9'>3</div>
+			 </div>
+         </div>
+     </body>
+</html>

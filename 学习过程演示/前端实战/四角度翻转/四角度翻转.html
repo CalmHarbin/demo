@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name='Keywords' content=''>
+  <meta name='Description' content=''>
+  <title>四角度翻转</title>
+  <style>
+     body,div,ul,li,a,img{
+	     margin:0;
+		 padding:0;
+	 }
+     div{
+	     width:907px;
+		 height:549px;
+		 margin:50px auto;
+	 }
+	 ul{
+	     width:100%;
+		 height:100%;
+		 list-style:none;
+	 }
+	 li{
+	     position:relative;
+	     float:left;
+	     width:216.75px;
+		 height:169.67px;
+		 margin:0 10px 10px 0;
+		 overflow:hidden;
+	 }
+	 a{
+	     display:block;
+         width:216.75px;
+		 height:169.67px;
+	 }
+	 span{
+	     position:absolute;
+		 top:0;
+	     display:block;
+		 width:216.75px;
+		 height:169.67px;
+	 }
+	 .on{
+		 background:url(images/majors.png) 0px 0px;
+		 z-index:1;
+	 }
+	 .off{
+	     background:url(images/majors_back.jpg) 0px 0px;
+	 }
+     #from-top{
+	     transform-origin:216.75px 0;
+	     animation:fromtop .3s forwards;
+	 }
+	 @keyframes fromtop{
+	     0%{
+		     transform:rotate(90deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+	 }
+	 #to-top{
+	     transform-origin:216.75px 0;
+	     animation:totop .3s;
+	 }
+	 @keyframes totop{
+	     0%{ 
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(90deg);
+		 }
+	 }
+	 #from-buttom{
+	     transform-origin:0px 169.67px;
+	     animation:fromtop .3s forwards;
+	 }
+	 @keyframes frombuttom{
+	     0%{
+		     transform:rotate(-90deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+	 }
+	 #to-buttom{
+	     transform-origin:0px 169.67px;
+	     animation:tobuttom .3s forwards;
+	 }
+	 @keyframes tobuttom{
+	     0%{ 
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(-90deg);
+		 }
+	 }
+	 #from-left{
+	     transform-origin:0px 169.67px;
+	     animation:fromleft .3s forwards;
+	 }
+	 @keyframes fromleft{
+	     0%{
+		     transform:rotate(-90deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+	 }
+	 #to-left{
+	     transform-origin:0px 169.67px;
+	     animation:toleft .3s forwards;
+	 }
+	 @keyframes toleft{
+	     0%{ 
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(-90deg);
+		 }
+	 }
+	 #from-right{
+	     transform-origin:216.75px 169.67px;
+	     animation:fromright .3s forwards;
+	 }
+	 @keyframes fromright{
+	     0%{
+		     transform:rotate(-90deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+	 }
+	 #to-right{
+	     transform-origin:216.75px 169.67px;
+	     animation:toright .3s forwards;
+	 }
+	 @keyframes toright{
+	     0%{ 
+		     z-index:2;
+		     transform:rotate(0deg);
+		 }
+		 100%{
+		     z-index:2;
+		     transform:rotate(-90deg);
+		 }
+	 }
+
+	 
+  </style>
+</head>
+<body>
+	 <script>
+	     window.onload=function(){
+			 var div=document.createElement('div');//创建一个div标签
+			 var ul=document.createElement('ul');  //创建一个ul标
+			 ul.id='wrap';   //给ul一个id名
+			 document.body.appendChild(div);//把div添加到body中去
+             document.body.appendChild(div).appendChild(ul);//把ul添加到div中
+		     var x=4,y=3;
+			 var oUl=document.getElementById('wrap')  //通过id过去ul标签
+			 var aLi=oUl.getElementsByTagName('li');
+             var span1=document.getElementsByClassName('on');
+			 var span2=document.getElementsByClassName('off');
+             for(var i=0;i<x*y;i++){
+			 oUl.innerHTML+="<li>"+
+			                     "<a href='#'>"+
+				                     "<span class='on'></span>"+
+									 "<span class='off'></span>"+
+				                 "</a>"+
+			               "</li>"
+		     }
+			 var span1_length=span1.length
+			 //console.log(aLi_length)
+             for(var j=0;j<span1_length;j++){
+				 var jx=j%x,jy=Math.floor(j/x);//(jx,jy)是每一张图片的坐标
+				 span1[j].style.backgroundPosition=(-216.75*jx)+'px '+(-169.67*jy)+'px';
+				 span2[j].style.backgroundPosition=(-216.75*jx)+'px '+(-169.67*jy)+'px';
+			 }
+			 for(var k=0;k<x*y;k++){
+			         span1[k].onmouseover=function(e){
+				     e=e||event;
+					 var Sx=e.pageX;
+				     var Sy=e.pageY;
+				     var top=this.offsetTop+this.parentNode.parentNode.offsetTop;
+				     var buttom=top+this.clientHeight;
+				     var left=this.offsetLeft+this.parentNode.parentNode.offsetLeft;
+				     var right=left+this.clientWidth;
+                     var T=Math.abs(Sy-top);
+                     var B=Math.abs(Sy-buttom);
+				     var L=Math.abs(Sx-left);
+				     var R=Math.abs(Sx-right);
+				     var direction=Math.min(T,B,L,R);
+				     switch(direction){
+				     case T:this.parentNode.lastChild.id='from-top';
+					     break;
+					 case B:this.parentNode.lastChild.id='from-buttom';
+					     break;
+					 case L:this.parentNode.lastChild.id='from-left';
+					     break;
+					 case R:this.parentNode.lastChild.id='from-right';
+					     break;
+					}
+				 }
+				 span2[k].onmouseout=function(e){
+				     e=e||event;
+					 var Sx=e.pageX;
+				     var Sy=e.pageY;
+                     var top=this.offsetTop+this.parentNode.parentNode.offsetTop;
+				     var buttom=top+this.clientHeight;
+				     var left=this.offsetLeft+this.parentNode.parentNode.offsetLeft;
+				     var right=left+this.clientWidth;
+                     var T=Math.abs(Sy-top);
+                     var B=Math.abs(Sy-buttom);
+				     var L=Math.abs(Sx-left);
+				     var R=Math.abs(Sx-right);
+				     var direction=Math.min(T,B,L,R);
+				     switch(direction){
+				     case T:this.id='to-top';
+					     break;
+					 case B:this.id='to-buttom';
+					     break;
+					 case L:this.id='to-left'
+					     break;
+					 case R:this.id='to-right'
+					     break;
+					}
+				 }
+			 }
+		 }
+			 /*
+			 oUl.addEventListener("mouseover",overturn,false);
+			 oUl.addEventListener("mouseout",overturn,false);
+			 function overturn(e){
+				 var target=e.target
+				 console.log(target.parentNode)
+				 console.log(target.parentNode.lastChild)
+				 if(target.tagName.toLocaleLowerCase()==='span'){
+				     var Sx=e.pageX;
+				     var Sy=e.pageY;
+				     var top=target.offsetTop;
+				     var buttom=top+target.clientHeight;
+				     var left=target.offsetLeft;
+				     var right=left+target.clientWidth;
+                     var T=Math.abs(Sy-top);
+                     var B=Math.abs(Sy-buttom);
+				     var L=Math.abs(Sx-left);
+				     var R=Math.abs(Sx-right);
+				     var direction=Math.min(T,B,L,R);
+					 console.log(e.type)
+				     switch(direction){
+				     case T:if(e.type.toLocaleLowerCase()==='mouseover'){
+					      target.parentNode.lastChild.id='from-top';
+					 }else{
+					     target.parentNode.lastChild.id='to-top'
+					 };
+					     break;
+					 case B:console.log('下');
+					     break;
+					 case L:console.log('左');
+					     break;
+					 case R:console.log('右');
+					     break;
+				 }
+                 }
+			};*/
+	 </script>
+</body>

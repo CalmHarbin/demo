@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bs/bootstrap.min.css">
+<script src="../bs/jquery-3.2.1.js"></script>
+<script src="../bs/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-cloak>
+	<div ng-controller="myctrl1">
+		<table border=1 >
+			<tr>
+				<th>id</th>
+				<th>username</th>
+				<th>password</th>
+			</tr>
+			<tr ng-repeat="item in data.arr">
+				<th>{{item.id}}</th>
+				<th>{{item.username}}</th>
+				<th>{{item.password}}</th>
+			</tr>
+		</table>
+		<span>查找指定id的名字</span>
+		<input type="text" ng-model="id">
+		<br>
+		<p ng-bind="idname"></p>
+		<button ng-click="delete()">删除所有数据</button>
+	</div>
+
+	<hr>
+	<div ng-controller="myctrl2">
+		<table border=1 >
+			<tr>
+				<th>id</th>
+				<th>username</th>
+				<th>password</th>
+			</tr>
+			<tr ng-repeat="item in data.arr">
+				<th>{{item.id}}</th>
+				<th>{{item.username}}</th>
+				<th>{{item.password}}</th>
+			</tr>
+		</table>
+	</div>
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	//控制器一
+	myapp.controller("myctrl1",['$scope',"myserver",function($scope,myserver){//注入自定义服务myserver
+		myserver.get().then(function(res){
+			$scope.data=res;
+		});
+		$scope.id=2;
+		$scope.$watch("id",function(n,o){//数据监测
+			myserver.search(n).then(function(res){
+				$scope.idname=res;
+			});
+		})
+		$scope.delete=function(){
+			myserver.remove();
+		}
+	}]);
+
+	//控制器二
+	myapp.controller("myctrl2",['$scope',"myserver",function($scope,myserver){//注入自定义服务myserver
+		myserver.get().then(function(res){
+			$scope.data=res;
+		});
+	}]);
+
+	//自定义服务
+	myapp.factory('myserver', ['$http', function($http){
+		var obj={
+			data:{arr:[]},
+			//第一种方法,使用回调函数
+			get:function(){//回调函数,接受一个函数
+				return $http.get("1.php",{cache:true}).then(function(res){
+					obj.data.arr=res.data;
+					return obj.data;  //返回这个回调函数
+				});
+			},
+			//查找指定id的数据
+			search:function(id){
+				return obj.get().then(function(res){
+					var length=res.arr.length;
+					for(var i=0;i<length;i++){  //遍历所有数据
+						if(res.arr[i].id==id){
+							return res.arr[i].username;
+						}
+						if(i==length-1){
+							return "不存在该用户";
+						}
+					}
+				});
+			},
+			remove:function(){
+				obj.data.arr=[];
+			}
+		};
+		return obj;
+	}]);
+</script>
+</html>

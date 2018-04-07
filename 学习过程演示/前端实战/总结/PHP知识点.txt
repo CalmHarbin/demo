@@ -1,0 +1,486 @@
+<?php
+变量输出
+echo $i			输出变量
+print($i)		输出变量
+var_dump($i)	输出变量的类型,长度,值
+
+echo "<pre>";
+print_r($arr);	打印数组
+echo "</pre>";
+----------------------------------------------------------------------------------
+变量类型及检查变量类型
+整型(10),浮点型(10.1),字符串("hello"),布尔型(true),数组([1,2,3]),对象({name:'张三'}),资源,Null
+
+isset():                 	变量是否已经声明
+empty():                 	变量是否为空
+defined():　　　　　　　 	常量是否已经定义
+is_numeric():  				检测变量是 否为数字或数字字符串
+is_bool():                 	检测变量是否是布尔型
+is_float():                	检测变量是否是浮点型 和is_double，is_real()
+is_int():                  	检测变量是否是整数is_integer() 一样的 用法
+is_string():            	检测变量是否是字符串
+is_object():            	检测变量是否是一个对象
+is_array():            		检测变量是否是数组
+is_null():            		检测变量是否为 NULL 值是否是NULL大小写敏感
+is_callable()				是不是函数
+
+静态变量
+static 变量;
+static $i=0;
+----------------------------------------------------------------------------------
+常量的定义和预定义常量
+define('常量名(大写)','值')		常量的定义
+defined(str)					判断一个常量是否存在
+
+define('NAME','zhangsan');
+echo NAME;//zhangsan
+var_dump(defined('NAME'));//true
+预定义常量
+__FILE__		文件的绝对路径
+__LINE__ 		当前所在的行数
+M_PI 			圆周率
+__FUNCTION__	返回所在的函数名
+----------------------------------------------------------------------------------
+类常量
+定义类常量
+const HOST="hello";
+----------------------------------------------------------------------------------
+超全局数组
+$_GET		用来接收地址栏中的参数,get请求
+$_POST		用来接收post请求的数据
+$_FILES		用来结束文件上传的数据
+$_COOKIE	含有cookie数据
+$_REQUEST	同时可以接收get请求和post请求的数据
+$_SERVER	是一个包含了诸如头信息(header)、路径(path)、以及脚本位置(script locations)等等信息的数组
+$GLOBALS	包含其他所有超全局数据的所有数据	
+
+----------------------------------------------------------------------------------
+创建图片
+1.创建画布资源
+$img=imagecreatetruecolor(宽度200, 高度300)
+2.准备颜色
+$black=imagecolorallocate(画布资源$img, R 0, G 0, B 0)  rgb
+$white=imagecolorallocate($img, 255, 255, 255)
+3.填充画布颜色
+imagefill(画布资源$img, x, y, color)	在(x,y)处用color填充颜色
+imagefill($img,0,0,$white);//将画布填充为白色
+4.绘制图像
+5.输出或者保存
+header("content-type:image/jpeg");//头信息
+输出 imagejpeg(资源$img)
+	 imagepng(资源$img)
+	 imagegif(资源$img)
+保存imagejpeg(资源$img,保存的路径)
+6.释放画布资源
+imagedestroy(资源$img)
+
+绘制图像
+画一个椭圆并填充
+imagefilledellipse(资源$img, 圆心x, 圆心y, 宽度, 高度, 颜色)
+
+画一个椭圆
+imageellipse(资源,圆心x,圆心y,宽度,高度,颜色)
+
+画一个椭圆弧并填充
+imagefilledarc(资源,圆心x,圆心y,宽度, 高度,起点角度,终点角度,颜色,样式)
+样式值  IMG_ARC_CHORD	用直线连接了起点和终点
+		IMG_ARC_PIE 	产生圆心边界,饼状
+		IMG_ARC_NOFILL	指明弧或弦只有轮廓,不填充
+		IMG_ARC_EDGED	指明用直线将起点和终点与中心点连接
+
+画一个椭圆弧
+imagearc(资源,圆心x,圆心y,宽度, 高度,起点角度,终点角度,颜色)
+
+画一个单一像素
+imagesetpixel(资源,位置x,位置y,颜色)
+
+画一条线段
+imageline(资源,起点x,起点y,终点x,终点y,颜色)
+
+画一个矩形并填充
+imagefilledrectangle(资源,左上角x,左上角y,右下角x,右下角y,颜色)
+
+画一个矩形
+imagerectangle(资源,左上角x,左上角y,右下角x,右下角y,颜色)
+
+画一个多边形并填充
+imagefilledpolygon(资源, points, 顶点个数, 颜色)
+points 参数是一个按顺序包含有多边形各顶点的 x 和 y 坐标的数组[x1,y1,x2,y2,x3,y3]
+
+画一个多边形
+imagepolygon(资源, points, 顶点个数, 颜色)
+
+水平的画一个字符
+imagechar(资源,字体(1|2|3|4|5), 左上角x,左上角y,字符str, 颜色color)
+
+垂直的画一个字符
+imagecharup(资源,字体,左上角x,左上角y,字符str, 颜色color)
+
+水平的画一行字符
+imagestring(资源,字体,左上角x,左上角y,字符str, 颜色color)
+
+垂直的画一行字符
+imagestringup(资源,字体, 左上角x, 左上角y, 字符str, 颜色color)
+
+画指定字体和大小的字符串
+imagettftext(资源,字体大小20,旋转角度30, 左上角x, 左上角y, 颜色color,字体路径(绝对路径),字符str)
+
+
+图片的获取
+imagecreatefromjpeg(文件路径)	从指定文件路径处获取图片,返回资源
+imagecreatefrompng(文件路径)	从指定文件路径处获取图片,返回资源
+imagecreatefromgif(文件路径)	从指定文件路径处获取图片,返回资源
+
+重采样拷贝部分图像并调整大小,融合
+imagecopyresampled(目标资源, 源资源, 目标x, 目标y, 源x, 源y, 目标宽度, 目标高度, 源宽度, 源高度)
+
+拷贝图像的一部分到另一幅图上,水印
+imagecopy(目标资源, 源资源, 目标x, 目标y, 源x, 源y, 目标宽度, 目标高度, 源宽度, 源高度)	把源资源的图片复制到目标资源上
+
+获取图片的宽高
+imagesx(资源)		获取图片的宽度
+imagesy(资源)		获取图片的高度
+
+获取图片的信息
+getimagesize(文件路径)	返回一个包含图片信息的数组,[宽度,高度,类型(1GIF,2JPG,3PNG),文本字符串("height='yyy'width='xxx'")]
+
+----------------------------------------------------------------------------------
+文件
+文件类型
+filetype(文件的路径filename)	返回file表示文件,dir表示目录
+is_dir(文件路径)			是不是目录
+is_file(文件路径)			是不是文件
+
+file_exists(文件路径)		检查文件或目录是否存在
+filesize(文件路径)			返回文件的大小,单位字节
+
+文件操作
+unlink(文件路径)				删除文件
+copy(原文件路径, 新文件路径)	复制文件
+fopen(文件路径, 打开方式"r")		打开一个文件,返回一个文件资源
+打开方式
+	r 		只读,文件指针指向文件开头
+	r+		读写,文件指针指向文件开头
+	w 		写,会清除文件内容,文件不存在则创建
+	w+ 		读写,会清除文件内容,文件不存在则创建
+	a 		写,将文件指针指向文件末尾。如果文件不存在则尝试创建之。
+	a+		读写,将文件指针指向文件末尾。如果文件不存在则尝试创建之。
+rewind(文件资源)				将文件指针的位置倒回文件的开头
+rename(原文件路径, 新文件路径)	重命名文件或者目录
+fread(文件资源, 长度(字节))		读取打开的文件并返回字符串
+fwrite(文件资源, 内容str)		将内容写入一个打开的文件中
+fclose(文件资源)				关闭打开的文件
+
+readfile(文件路径)					读取一个文件,并输出
+file_get_contents(文件路径)			读取文件,并返回一个含有文件内容的字符串
+file_put_contents(文件路径,数据data)	将数据写入到文件中
+file_put_contents(文件路径, 数据data,FILE_APPEND)	追加式写入
+
+目录操作
+mkdir(目录路径)			创建目录
+rmdir(目录路径)			删除空目录
+opendir(目录路径)		打开目录,返回一个目录资源
+readdir(目录资源)		返回目录中的一个文件或目录,按顺序依次返回
+scandir(目录资源)		返回一个数组,数组中包含目录中的所有文件
+closedir(目录资源)		关闭目录资源
+----------------------------------------------------------------------------------
+文件的上传
+在页面中表单上传文件,上传的文件会临时储存在一个位置,$_FILES中有,
+将文件又临时位置移动到指定的位置
+move_uploaded_file(临时位置, 保存的位置)
+$_FILES中错误码error
+0	正确
+1 	上传的大小超过了input[type=file]的文件上传的最大大小
+4 	没有上传文件
+
+文件的下载
+常见的数据格式
+图片 	image/gif  	image/jpeg 		image/png
+纯文件	text/plain
+html 	text/html
+二进制文件	applocation/octet-stream
+音频	audio/mpeg
+视频	video/avi 	video/x-ms-wmv
+
+header("content-type:application/octet-stream");//二进制文件
+header("content-disposition:attachment;filename='保存文件名'");//下载,保存时的文件名
+header("content-length:文件大小");//文件大小
+readfile("文件路径");//读取二进制文件,即可下载
+----------------------------------------------------------------------------------
+类
+定义
+class Person{
+	public $name='user';属性
+	public function say(){方法
+		echo $this->name;//类中的$this表示这个类本身,可以用$this来调用属性和方法
+	}
+}
+实例化
+$user1=new Person();
+
+类名直接调用方法
+Person::say();
+----------------------------------------------------------------------------------
+//含有抽象方法的类叫抽象类;
+//不含有方法体的方法叫抽象方法;
+抽象类
+abstract class Person{
+	public $name="user";
+	public abstract function say();//抽象方法
+	public abstract function eat();//抽象方法
+}
+//子类,必须完成父类的抽象方法
+class Son extends Person{
+	function say(){
+		echo "我必须完成这个say方法";
+	}
+	function eat(){
+		echo "我必须完成这个eat方法";
+	}
+}
+//$user=new Person();//报错,抽象类无法实例化
+$user=new Son();
+$user->say();
+$user->eat();
+----------------------------------------------------------------------------------
+封装
+class Person{
+	//属性
+	public $name="user";//公开的,外面和子类都可以访问
+	protected $age="20";//被保护的,外面不能访问,子类可以访问
+	private $sex="man";//私有的,外面和子类都不能访问
+}
+----------------------------------------------------------------------------------
+继承 extends
+//父类
+class Person{
+	//属性
+	public $name;
+	public $age;
+	public $sex;
+	//构造方法
+	public function __construct($n,$a,$s){
+		$this->name=$n;
+		$this->age=$a;
+		$this->sex=$s;
+	}
+	//方法
+	public function say(){
+		echo "my name is {$this->name}<br>";
+	}
+}
+//子类,继承父类
+class It extends Person{
+	//新增属性
+	public $language;
+	//构造方法
+	public function __construct($n,$a,$s,$l){
+		Parent::__construct($n,$a,$s);//将父类的构造方法内容拿过来
+		$this->language=$l;
+	}
+	//新增方法
+	public function study(){
+		echo "我正在学习{$this->language}";
+	}
+}
+//创建子对象
+$user=new It("user","20","man","php");
+$user->say();//调用父类中的方法
+$user->study();//调用子类中的方法
+----------------------------------------------------------------------------------
+构造方法
+function __construct(参数){
+
+}
+析构方法:在类被清除时触发
+function __destruct(){
+
+}
+
+//定义一个类
+class Person{
+	public $name;
+	public $age;
+	public $sex;
+	//构造方法
+	function __construct($name,$age,$sex){//此处用来接收实例化时传来的参数
+		$this->name=$name;//$this表示这个类
+		$this->age=$age;
+		$this->sex=$sex;
+	}
+	//构造函数第二种方法,名字和类相同
+	// function Person($name,$age,$sex){
+	// 	$this->name=$name;
+	// 	$this->age=$age;
+	// 	$this->sex=$sex;
+	// }
+	function say(){
+		echo "my name is {$this->name},my age is {$this->age},my sex is {$this->sex}<br>";
+	}
+	//析构方法,当类被清除时触发
+	function __destruct(){
+		echo "我是{$this->name}<br>";
+	}
+}
+$user1=new Person("user1","20","man");
+$user2=new Person("user2","40","woman");
+$user3=new Person("user3","60","man");
+$user1->say();
+$user2->say();
+$user3->say();
+//回收是倒着的,栈的先进后出原理
+----------------------------------------------------------------------------------
+接口
+只含有抽象方法的类叫接口
+定义一个借口
+interface Person{
+	function say();
+	function eat();
+}
+//子类
+class Son implements Person{
+	function say(){
+		echo "我必须完成这个say方法<br>";
+	}
+	function eat(){
+		echo "我必须完成这个eat方法<br>";
+	}
+}
+$user=new Son();
+$user->say();
+$user->eat();
+----------------------------------------------------------------------------------
+多态
+执行方法的函数,多态
+//接口
+interface Person{
+	function say();
+	function eat();
+}
+//子类
+class Son implements Person{
+	function say(){
+		echo "我必须完成这个say方法<br>";
+	}
+	function eat(){
+		echo "我必须完成这个eat方法<br>";
+	}
+}
+//盗版的
+class Son2{
+	function say(){
+		echo "我必须完成这个say方法<br>";
+	}
+	function eat(){
+		echo "我必须完成这个eat方法<br>";
+	}
+}
+//多态
+function execute(Person $obj){//加父类的名字
+	$obj->say();
+	$obj->eat();
+}
+$son=new Son();//正版的对象
+$son2=new Son2();//盗版的对象
+execute($son);//可执行
+execute($son2);//报错
+----------------------------------------------------------------------------------
+魔术方法
+PHP中把以两个下划线__开头的方法称为魔术方法(Magic methods);
+__construct()，类的构造函数
+__destruct()，类的析构函数
+__call()，在对象中调用一个不可访问方法时调用
+__callStatic()，用静态方式中调用一个不可访问方法时调用
+__get()，获得一个类的成员变量时调用
+__set()，设置一个类的成员变量时调用
+__isset()，当对不可访问属性调用isset()或empty()时调用
+__unset()，当对不可访问属性调用unset()时被调用。
+__sleep()，执行serialize()时，先会调用这个函数
+__wakeup()，执行unserialize()时，先会调用这个函数
+__toString()，类被当成字符串时的回应方法
+__invoke()，调用函数的方式调用一个对象时的回应方法
+__set_state()，调用var_export()导出类时，此静态方法会被调用。
+__clone()，当对象复制完成时调用
+__autoload()，尝试加载未定义的类
+__debugInfo()，打印所需调试信息
+----------------------------------------------------------------------------------
+PDO数据库操作
+PDO连接mysql数据库
+$pdo=new PDO("mysql:host=主机地址;dbname=数据库名","mysql账号","mysql密码");
+$pdo=new PDO("mysql:host=localhost;dbname=test","root","123");
+
+设置客户端字符集
+$pdo->exec('set names utf8');
+
+设置默认查询,默认异常抛出
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);
+$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+SQL语句
+$sql="select * from user";
+
+预处理
+$smt=$pdo->prepare($sql);
+
+执行预处理语句
+$smt->execute();
+
+获取查询数据
+$rows=$smt->fetchAll();
+
+$pdo->exec()			执行一条SQL语句,并返回受影响的行数
+$pdo->query()			执行SQL语句
+$pdo->prepare()			预处理SQL语句
+$pdo->lastInsetId()		返回最后插入行的id
+
+$smt->fetch()			从结果集中获取一行
+$smt->fetchAll()		返回一个保护结果集中所有行的数组
+$smt->fetchColumn()		返回结果集中第一行的单独一列
+$smt->execute()			执行一条预处理语句
+$smt->rowCount()		返回受上条SQL语句影响的行数
+$smt->bindValue()		把一个值绑定到一个参数
+$smt->columnCount()		返回结果集中的列数
+$smt->closeCursor()		关闭游标,使下条SQL语句能够执行
+
+----------------------------------------------------------------------------------
+事务机制
+1.设置异常抛出
+$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+2.开启任务
+$pdo->beginTransaction();
+
+3.异常检测和异常处理
+try{
+	被检测的语句;
+
+	$pdo->commit();//在最后一行,没有异常则提交任务
+}catch(PDOException $err){
+	echo $err->getMessage();//获取异常信息
+	echo $err->getFile();	//获取异常文件名
+	echo $err->getLine();	//获取异常的行数
+
+	//回滚,撤销本次任务
+	$pdo->rollBack();
+}
+----------------------------------------------------------------------------------
+cookie和session
+1.设置cookie
+setcookie("key","值",time()+3600,"/");
+2.删除coolie
+setcooKie("key","值",time()-1,"/");
+3.会话后过期
+setcookie("key","值",0,"/");
+4.读取cookie
+$_COOKIE['key']
+
+1.开启session
+session_start();
+2.设置session
+$_SESSION['key']=value;
+3.删除session
+$_SESSION=array();//清空session数组
+setcookie("PHPSESSID","",time()-1,"/");//删除客户端cookie文件
+session_destroy();//删除服务器上PHPSESSID所对应的session文件
+4.读取session
+$_SESSION['key']

@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="keywords" content="">
+  <meta name="Description" content="">
+  <title>鄂州职业大学</title>
+  <style>
+     body,div,ul,li,a,span,input,img,h2,h3,h4,p,small{
+	     margin:0;
+		 padding:0;
+	 }
+	 body{
+	     font-family:微软雅黑;
+		 font-size:14px;
+	 }
+     a{
+	     display:block;
+		 text-decoration:none;
+		 color:black;
+	 }
+	       /*头部*/
+
+
+
+	 .header{
+	     width:100%;
+	     height:170px;
+	 }
+     .header .header-t{
+	     width:100%;
+	     height:30px;
+		 background:#0b4a7d;
+	 }
+	 .header .header-t .header-t1{
+	     margin:0 auto;
+	     max-width:1200px;
+		 height:100%;
+	 }
+	 .header .header-t .header-t-box{
+	     height:100%;
+		 width:50%;
+		 float:right;
+         font-size: 14px;
+	 }
+     .header .header-t ul{
+	     width:90%;
+	     height:100%;
+	     list-style:none;
+		 color:white;
+	 }
+	 .header .header-t ul span{
+	     position:relative;
+	     display:inline-block;
+		 width:144px;
+	     height:100%;
+	 }
+     .header .header-t ul span input{
+	     display:block;
+		 float:left;
+	     width:120px;
+		 margin-top:7px;
+		 padding-left:20px;
+	 }
+	 .header .header-t ul span a{
+	     position:absolute;
+		 top:7px;
+	 }
+	 .header .header-t .header-t-box ul li{
+	     float:left;
+		 margin:7px 4px;
+	 }
+	 .header .header-t .header-t-box ul li a{
+	     color:white;
+	 }
+	 .header-t-box ul li a:hover{
+	     text-decoration:underline;
+	 }
+	 .header .header-b{
+	     height:140px;
+		 background:#0e6bb1;
+	 }
+	 .header .header-b .header-b-box{
+	     width:1200px;
+		 height:100%;
+		 margin:0 auto;
+	 }
+     .header .header-b .header-b-box div{
+	     float:left;
+	 }
+	 .header .header-b .header-b-box .header-b-box-left{
+	     width:25%;
+		 height:100px;
+		 margin:20px 0 20px 86px;
+	 }
+	 .header .header-b .header-b-box .header-b-box-left a{
+		 width:100%;
+		 height:100%;
+	 }
+	 .header .header-b .header-b-box .header-b-box-middle{
+	     width:446px;
+		 height:50px;
+		 margin-top:50px;
+		 margin-left:75px;
+	 }
+	 .header .header-b .header-b-box .header-b-box-middle img{
+		 width:90%;
+		 height:90%;
+	 }
+	 .header .header-b .header-b-box .header-b-box-right{
+	     width:293px;
+		 height:100%;
+	 }
+     .header-b-box-right img{
+	     width:75%;
+		 height:35%;
+		 margin:77px 0 0 50px;
+	 }
+	     /*头部end*/
+
+
+
+	     /*导航栏*/
+	 .nav{
+	     display:flex;
+		 justify-content:center;
+	     height:50px;
+		 background:#0a5f9f;
+	 }
+	 ul{
+	     list-style:none;
+	 }
+	 .nav>ul>li{
+	     position:relative;
+	     float:left;
+	     height:100%;
+	 }
+     .nav>ul>li>a{
+	     float:left;
+	     color:white;
+		 margin:16px 25px;
+	 }
+	 .ddb{
+	     display:none;
+	     opacity:0;
+         position:absolute;
+		 top:50px;
+		 max-width:100px;
+	 }
+	 .ddb li a{
+	     width:140px;
+		 height:38px;
+		 line-height:38px;
+		 color:black;
+		 background:white;
+		 border-bottom:1px solid #eee;
+		 padding-left: 18px;
+		 letter-spacing: 2px;
+	 }
+	  .nav>ul>li:hover{
+	     background-color:#0b4a7d;
+	 }
+	 .nav>ul>li:hover .ddb{
+	     display:block;
+	     opacity:1;
+		 z-index:10;
+	 }
+	     /*头部end*/
+
+
+
+
+		 /*主体内容*/
+     .content{
+		 height:1629px;
+		 background:url('images/bg.png');
+	 }
+	     /*右侧侧边栏*/
+	 .sidebar{
+	     position:fixed;
+		 top:8%;
+		 right:1px;
+	     width:85px;
+		 height:585px;
+		 z-index:100;
+	 }
+	 .sidebar ul{
+		 width:100%;
+		 height:100%;
+	 }
+	 .sidebar ul li{
+	     position:relative;
+	 }
+     .sidebar ul a{
+	     width:85px;
+		 height:85px;
+		 background:#0668ac;
+		 margin-bottom:15px;
+	 }
+	 .sidebar ul a img{
+	     display:block;
+	     margin:0 auto;
+		 padding:10px 0;
+	 }
+	 #bgtb{
+	     padding:4px 0;
+	 }
+	 .sidebar h2{
+	     font-size:1.1em;
+		 color:white;
+		 text-align:center;
+		 font-weight:500;
+	 }
+	 .sidebar .two-dimension-code{
+	     display:none;
+	     position:absolute;
+		 left:-100px;
+		 top:-7px;
+	 }
+	 #two-dimension-code{
+	     position:absolute;
+		 left:-188px;
+		 top:-7px;
+	 }
+     .sidebar ul li:hover .two-dimension-code{
+	     display:block;
+	 }
+	      /*右侧侧边栏end*/
+
+
+
+
+         /*轮播图*/
+     .main{
+         width:1200px;
+		 margin:0 auto;
+		 background:#f7f7f7;
+	 } 
+	 .slide{
+	     position:relative;
+	     width:100%;
+		 height:360px;
+	 }
+	 .slide ul{
+	     position:relative;
+	     height:100%;
+		 font-size:0;
+	 }
+     .slide li{
+         position:absolute;
+         height:100%;
+		 opacity:0;
+		 transition:1s;
+	 }
+	 .btn{
+	     position:absolute;
+		 bottom:15px;
+		 left:555px;
+	     width:125px;
+		 height:20px;
+	 }
+	 .btn span{
+	     display:inline-block;
+	     width:18px;
+		 height:18px;
+		 border-radius:50%;
+		 background:white;
+		 margin:1px 10px;
+		 cursor:pointer;
+	 }
+	 #cut_left{
+	     position:absolute;
+		 top:149.5px;
+		 left:0;
+		 width:38px;
+		 height:61px;
+		 overflow:hidden;
+		 opacity:.3;
+		 cursor:pointer;
+	 }
+	 #cut_right{
+	     position:absolute;
+		 top:149.5px;
+		 right:0;
+		 width:38px;
+		 height:61px;
+		 overflow:hidden;
+		 opacity:.3;
+		 cursor:pointer;
+	 }
+	 #cut_right img{
+	     position:absolute;
+		 left:-38px;
+	 }
+	     /*轮播图end*/
+
+
+
+	     /*主体内容end*/
+	     /*展示区*/
+     .show{
+	     margin-top:37px;
+	     width:100%;
+	 }
+	 .show>ul{
+	     display:flex;
+		 justify-content:space-around;
+         align-items:center;
+		 flex-wrap:wrap;
+		 height:700px;
+	 }
+	 .show>ul>li{
+	     width:390px;
+		 height:330px;
+		 background:#fff;
+	 }
+	 .show-top{
+	     position:relative;
+	     width:100%;
+		 height:42px;
+		 border-bottom:2px solid #dedede;
+	 }
+	 .show h2{
+	     width:117px;
+		 height:42px;
+		 line-height:42px;
+		 text-align:center;
+		 margin-left:17px;
+		 background:#0054a3;
+		 color:white;
+		 font-weight:600;
+		 font-size:17px;
+	 }
+     .show-top>a{
+	     position:absolute;
+		 right: 13px;
+         top: 12px;
+		 color:#919191;
+	 }
+	 .show-top>a:hover{
+	     text-decoration:underline;
+	 }
+	 .show-top h2{
+	     cursor:pointer;
+	 }
+
+
+
+	     /*列表区1*/
+	 .show1 ul{
+	     position:relative;
+	     width:290px;
+		 height:180px;
+	     font-size:0;
+	 }
+	 .show1 ul li{
+	     position:absolute;
+		 width:390px;
+		 height:287px;
+		 opacity:0;	
+	 }
+     .show1 ul:hover li>a{
+	     animation:change .5s linear alternate forwards;	 
+	 }
+	 .show1 ul:hover h3,.show1 ul:hover h4{
+	     text-decoration: underline;
+		 color:#345c7e;
+	 }
+	 .show1 ul li>a{
+	     position:absolute;
+	     left:32.5px;
+		 top:12px;
+	     width:320px;
+		 height:185px;
+	 }
+     .show1 a img{
+	     width:100%;
+		 height:100%;
+	 }
+	 .btn2{
+	     position:absolute;
+		 bottom:-17px;
+		 left:120px;
+	     width:138px;
+		 height:20px;
+		 z-index:20;
+	 }
+	 .btn2 span{
+	     display:inline-block;
+	     width:10px;
+		 height:10px;
+         border-radius:50%;
+		 background:white;
+		 margin: 3px 8px;
+		 cursor:pointer;
+	 }
+	 @keyframes change{
+	     0%{
+		     transform:scale(1);
+		 }
+		 100%{
+		     transform:scale(1.1);
+		 }
+	 }
+	 .show1{
+	     width:100%;
+		 text-align:center;
+	 }
+     .show1 h3{
+	     font-size:15px;
+		 font-weight:bold;
+		 margin-top:207px;
+		 cursor:pointer;
+	 }
+     .show1 h4{
+	     line-height:18px;
+	     font-size:14px;
+		 font-weight:500;
+		 text-align:left;
+		 text-indent: 2em;
+		 cursor:pointer;
+	 }
+	     /*列表区1end*/
+
+
+
+	     /*列表区2*/
+     .show2 ul li{
+	     position:relative;
+		 line-height: 28px;
+	 }
+	 .show2 ul img{
+	     margin:2px 3px 2px 11px;
+	 }
+		
+	 .show2 ul a{
+	     display:inline-block;
+	 }
+     .show2 ul small{
+	     position:absolute;
+		 right:5px;
+	     font-size:10px;
+	 }
+	 .show2 ul li a:hover{
+	     text-decoration:underline;
+		 color:#345c7e;
+	 }
+	     /*列表区2end*/
+
+
+
+	     /*列表区3*/
+     .show3 h2>a{
+	     color:black;
+	 }
+     .show3 h2{
+	     float:left;
+		 background:white;
+	 }
+	 .show3>ul>li{
+	     width:330px;
+		 height:286px;
+	 }
+	 .show3-a li{
+	     position:relative;
+	     width:314px;
+		 height:48px;
+		 padding:11px 0;
+		 border-bottom:1px solid #dddddd;
+		 margin-left: 27px;
+	 }
+	 .date{
+	     width:48px;
+		 height:48px;
+	 }
+     .date-t{
+	     background:#0e6ab5;
+		 color:white;
+		 line-height:24px;
+		 text-align:center;
+         width:48px;
+		 height:24px;
+		 border-radius:5px 5px 0 0;
+	 }
+	 .date-b{
+	     background:#e7e5d9;
+		 line-height:24px;
+		 text-align:center;
+         width:48px;
+		 height:24px;
+		 border-radius:0 0 5px 5px;
+	 }
+     .show3-a a{
+	     position:absolute;
+		 top:16px;
+		 left:73px;
+	     width:266px;
+		 height:48px;
+		 line-height:19px;
+	 }
+	 .show3-a a:hover{
+	     text-decoration:underline;
+		 color:#345c7e;
+	 }
+	 .off{
+	     display:none;
+	 }
+	     /*列表区3end*/
+
+
+
+         /*列表区5*/
+     .show5-top{
+	     position:relative;
+	     width:360px;
+		 height:120px;
+		 margin:10px 15px 10px 15px;
+	 }
+	 .show5-top-1{
+	     width:160px;
+		 height:120px;
+		 overflow:hidden;
+		 cursor: pointer;
+	 }
+	 .show5-top-1 img{
+	     width:100%;
+		 height:100%;
+	 }
+	 .show5-top-2{
+	     position:absolute;
+		 right:10px;
+		 top:10px;
+		 width:170px;
+		 line-height:23px;
+		 cursor: pointer;
+	 }
+	 .show5-top small{
+	     position:absolute;
+		 right:77px;
+		 top:56px;
+	 }
+	 .show5-ul li{
+	     position:relative;
+		 line-height: 28px;
+		 width:390px;
+		 height:28px;
+		 padding:0;
+		 border:none;
+		 margin:0;
+	 }
+	 .show5-ul img{
+	     margin:2px 3px 2px 11px;
+	 }
+		
+	 .show5-ul a{
+	     display:inline-block;
+	 }
+     .show5-ul small{
+	     position:absolute;
+		 right:5px;
+	     font-size:10px;
+	 }
+	 .show5-ul li a:hover{
+	     text-decoration:underline;
+		 color:#345c7e;
+	 }
+	 .hid{
+	     width:160px;
+		 height:120px;
+		 overflow:hidden;
+	 }
+	 @keyframes change2{
+		 100%{
+		      transform:scale(1.1);
+		 }
+	 }
+	 .show5-top-1:hover{
+	     animation:change2 .5s linear alternate forwards;
+	     
+	 }
+	 .show5-top-2:hover{
+	     text-decoration:underline;
+		 color:#345c7e;
+	 }
+	     /*列表区5end*/
+
+
+
+		 /*列表区6*/
+     .show6 h3{
+	     position:relative;
+	     margin:5px 5px 18px 5px;
+		 line-height:28px;
+		 font-size: 14px;
+		 color:#1e7ec5;
+	 }
+	 .show6 h3 img{
+	     margin:2px;
+	 }
+
+	 .show6 span{
+	     position:absolute;
+		 top: -1px;
+         left: 34px
+	     display:inline-block;
+	 }
+	 .show6>img{
+	     margin-bottom:20px;
+		 margin-left:15px;
+		 width:360px;
+		 cursor:pointer;
+	 }
+	 .show6 ul{
+	     width:334px;
+		 margin:-12px auto;
+	     overflow:hidden;
+	 }
+	 .show6 ul li{
+	     width:73px;
+		 height:65px;
+	     float:left;
+		 border:1px solid #0d6bb3;
+		 margin-left: 8px;
+         margin-bottom: 8px;
+		 border-radius:5px;
+		 text-align:center;
+		 font-size:13px;
+		 cursor:pointer;
+	 }
+     .show6 ul li a{
+	     color:#0d6bb3;
+	 }
+	 .show6 ul li img{
+	     margin-top:8px;
+	 }
+	     /*列表区6end*/
+
+
+
+		 /*校园专题*/
+	 .subject{
+	     position:relative;
+		 margin-top:15px;
+	 }
+	 .subject>img{
+	     margin-left:5px;
+	 }
+	 .subject ul{
+	     position:absolute;
+		 top:0px;
+		 left:80px;
+	 }
+     .subject ul li{
+	     float:left;
+	     width:205px;
+		 height:128px;
+		 margin-right:17px;
+		 overflow:hidden;
+	 }
+     .subject ul li a,.subject ul li a img{
+	     width:100%;
+		 height:100%;
+	 }
+	 .subject ul li:hover img{
+	     animation:change2 .5s linear alternate forwards;
+	 }
+	     /*校园专题end*/
+
+
+
+		 /*底部资料*/
+	 .message{
+	     margin-top:40px;
+	 }
+	 .message ul{
+	     padding-left:12px;
+		 overflow:hidden;
+	 }
+	 .message ul li{
+	     position:relative;
+		 float:left;
+	     width:240px;
+		 height:165px;
+		 background:white;
+		 margin-right:57px;
+		 overflow:hidden;
+	 }
+	 .message ul li img{
+	     margin:15px;
+	     width:210px;
+		 height:135px;
+		 vertical-align: bottom;
+		 transition:.5s;
+	 }
+	 .message ul li p{
+	     position:absolute;
+		 bottom:0;
+	     background:#95bcd8;
+		 height:30px;
+		 width:100%;
+		 line-height:30px;
+		 font-size:13px;
+		 text-align:center;
+		 opacity:.75;
+	 }
+	 .message ul li:hover img{
+	     transform:scale(1.143,1.222);
+	 }
+         /*底部资料end*/
+		 /*主体内容end*/
+
+
+	     
+		 /*页脚*/
+	 .footer{
+	     background:#0860a0;
+		 height:196px;
+	 }
+	 .footer-left{
+         float:left;
+	     width:330px
+	 }
+	 .footer-left img{
+	     margin-top:27px;
+		 margin-left:132px;
+	 }
+	 .footer-middle{
+	     float:left;
+		 width:660px;
+		 padding: 52px 0px
+	 }
+	 .footer-middle p{
+	     color:white;
+		 line-height:30px;
+		 height:30px;
+		 text-align:center;
+		 word-spacing:5px;
+		 font-size:12px;
+	 }
+	 .footer-right{
+	     float:left;
+		 width:359px;
+	 }
+	 .footer-right ul{
+	     width:175px;
+		 height:135px;
+		 padding-top: 36px;
+         margin-left: 48px;
+	 }
+	 .footer-right ul li{
+	     position:relative;
+	     float:left;
+	     width:80px;
+		 height:80px;
+	 }
+	 .hidd{
+	     position:absolute;
+		 top:-50px;
+		 display:none;
+	 }
+	 .footer-right ul li p{
+	     color:white;
+		 font-size:13px;
+	 }
+	 .footer-right ul li:hover .hidd{
+	     display:block;
+	 }
+	     /*页脚end*/
+  </style>
+  </head>
+  <body>
+      <!--头部-->
+     <div class='header'>
+	     <div class='header-t'>
+		     <div class='header-t1'>
+		       <div class='header-t-box'>
+		         <ul>
+				     <li>
+					     <a href='#' target='_blank'>数字图书馆</a>
+					 </li>
+					 <li>
+					     |
+					 </li>
+					 <li>
+					     <a href='#' target='_blank'>学工在线</a>
+					 </li>
+					 <li>
+					     |
+					 </li>
+					 <li>
+					     <a href='#' target='_blank'>教务在线</a>
+					 </li>
+					 <li>
+					     |
+					 </li>
+					 <li>
+					     <a href='#' target='_blank'>教学资源库</a>
+					 </li>
+					 <li>
+					     |
+					 </li>
+					 <li>
+					     <a href='#' target='_blank'>私有云盘</a>
+					 </li>
+					 <span>
+					     <input type='word' name=''>
+                         <a href='#' target='_blank'>
+						     <img src='http://www.ezu.net.cn/img/ss.png' width='20px' height='20px' alt='搜索' title='搜索'>
+						 </a>
+					 </span>
+				 </ul>
+			   </div>
+			 </div>
+		 </div>
+		 <div class='header-b'>
+             <div class='header-b-box'>
+			     <div class='header-b-box-left'>
+				     <a href='#' target='_blank'>
+					     <img src='http://www.ezu.net.cn/img/logo.png' width='293px' height='100px' alt='鄂州职业大学logo'  title='鄂州职业大学logo'>
+					 </a>
+				 </div>
+				 <div class='header-b-box-middle'>
+				     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/gjggz.png' width='446px' height='50px' alt='职'  title='鄂州职业大学'>
+				 </div>
+				 <div class='header-b-box-right'>
+				     <img src='http://www.ezu.net.cn/img/xioax.png' width='293px' height='100px' alt=''  title='鄂州职业大学'>
+				 </div>
+			 </div>
+		 </div>
+	 </div>
+	 <!--头部end-->
+	 <!--导航栏-->
+	 <div class='nav'>
+	     <ul>
+		     <li>
+			     <a href='#' target='_blank'>首页</a>
+			 </li>
+			 <li>
+			     <a href='#' target='_blank'>学校概况 </a>
+				     <ul class=ddb>
+					     <li>
+						     <a href='#'>学校简介</a>
+						 </li>
+						 <li>
+						     <a href='#'>现任领导</a>
+						 </li>
+						 <li>
+						     <a href='#'>校徽、校训</a>
+						 </li>
+						 <li>
+						     <a href='#'>鄂大掠影</a>
+						 </li>
+						 <li>
+						     <a href='#'>鄂大视频</a>
+						 </li>
+					 </ul>
+			 </li>
+			  <li>
+			     <a href='#' target='_blank'>组织机构</a>
+				     <ul class=ddb>
+					     <li>
+						     <a href='#'>职能部门</a>
+						 </li>
+						 <li>
+						     <a href='#'>院系设置</a>
+						 </li>
+					 </ul>
+			 </li>
+			  <li>
+			     <a href='#' target='_blank'>师资队伍</a>
+				     <ul class=ddb>
+					     <li>
+						     <a href='#'>师资概况</a>
+						 </li>
+						 <li>
+						     <a href='#'>专业带头人</a>
+						 </li>
+						 <li>
+						     <a href='#'>鄂大名师</a>
+						 </li>
+						 <li>
+						     <a href='#'>楚天技能名师</a>
+						 </li>
+					 </ul>
+			 </li>
+			  <li>
+			     <a href='#' target='_blank'>招生就业</a>
+				 <ul class=ddb>
+					     <li>
+						     <a href='#'>招生信息网</a>
+						 </li>
+						 <li>
+						     <a href='#'>就业信息网</a>
+						 </li>
+					 </ul>
+			 </li>
+			  <li>
+			     <a href='#' target='_blank'>数字校园</a>
+			 </li>
+			  <li>
+			     <a href='#' target='_blank'>新闻中心</a>
+			 </li>
+			  <li>
+			     <a href='#' target='_blank'>魅力校园</a>
+			 <li>
+			     <a href='#' target='_blank'>教学资源</a>
+                     <ul class=ddb>
+					     <li>
+						     <a href='#'>精品资源共享课</a>
+						 </li>
+						 <li>
+						     <a href='#'>专业教学资源库</a>
+						 </li>
+						 <li>
+						     <a href='#'>私有云盘</a>
+						 </li>
+					 </ul>
+			 </li>
+			  <li>
+			         <a href='#' target='_blank'>文明创建</a>
+			 </li>
+		 </ul>
+	 </div>
+	 <!--导航栏end-->
+	 <!--主体-->
+	 <div class='content'>
+	      <!--右侧侧边栏-->
+	     <div class='sidebar'>
+	         <ul>
+		         <li>
+			         <a href='#'>
+				         <img src='http://www.ezu.net.cn/img/bgoatb.png' width='39px' height='36px' alt=''>
+					     <h2>办公OA</h2>
+				     </a>
+			     </li>
+			     <li>
+			         <a href='#'>
+				     <img src='http://www.ezu.net.cn/img/bgtb.png' width='30px' height='38px' alt='' id='bgtb'>
+					 <h2>年度质量报告</h2>
+				     </a>
+			     </li>
+			     <li>
+			         <a href='#'>
+				         <img src='http://www.ezu.net.cn/img/qqtb.png' width='37px' height='41px' alt=''>
+					     <h2>官方QQ</h2>
+				     </a>
+				     <img src='http://www.ezu.net.cn/images/qqrwm.jpg' width='100px' height='100px' alt='' class='two-dimension-code'>
+			     </li>
+			     <li>
+			         <a href='#'>
+				         <img src='http://www.ezu.net.cn/img/gfwxtb.png' width='51px' height='41px' alt=''>
+					     <h2>官方微信</h2>
+				     </a>
+				     <img src='http://www.ezu.net.cn/images/wxrwm.jpg' width='100px' height='100px' alt='' class='two-dimension-code'>
+                 </li>
+			     <li>
+			         <a href='#'>
+				         <img src='http://www.ezu.net.cn/images/ysez.png' width='62px' height='40px' alt=''>
+					     <h2>云上鄂州</h2>
+				     </a>
+				     <img src='http://www.ezu.net.cn/images/ysez.jpg' width='188px' height='114px' alt='' class='two-dimension-code' id='two-dimension-code'>
+			     </li>
+			     <li>
+			         <a href='#'>
+				         <img src='http://www.ezu.net.cn/img/de_new.png' width='48px' height='48px' alt=''>
+				    	 <h2>师德师风</h2>
+				     </a>
+			     </li>
+		     </ul>
+	     </div>
+		 <!--右侧侧边栏end-->
+		 <!--主体内容栏-->
+		 <div class='main'>
+		     <!--轮播图-->
+		     <div class='slide'>
+			     <ul>
+				     <li>
+					     <img src='http://www.ezu.net.cn/images/17/05/04/1sryitjkio/1.jpg' alt='鄂州大学景色' width='1200px' height='360px'>
+					 </li>
+					 <li>
+					     <img src='http://www.ezu.net.cn/images/17/05/04/1sryitjkio/2.jpg' alt='鄂州大学景色' width='1200px' height='360px'>
+					 </li>
+					 <li>
+					     <img src='http://www.ezu.net.cn/images/17/05/04/1sryitjkio/3.jpg' alt='鄂州大学景色' width='1200px' height='360px'>
+					 </li>
+				 </ul>
+				 <div class='btn'>
+				     <span></span>
+					 <span></span>
+					 <span></span>
+				 </div>
+				 <div id='cut_left'><img src='http://www.ezu.net.cn/img/themes.gif' alt='点击滚动' width='76px' height='61px'></div>
+				 <div id='cut_right'><img src='http://www.ezu.net.cn/img/themes.gif' alt='点击滚动' width='76px' height='61px'></div>
+			 </div>
+			 <!--轮播图end-->
+			 <!--展示区-->
+             <div class='show'>
+			     <!--列表区-->
+			     <ul>
+				     <li class='show1'>
+					     <div class='show-top'>
+						     <h2>焦点新闻</h2>
+							 <a href='#' style='color:#ae0000'>更多</a>
+						 </div>
+						 <ul>
+						     <li>
+							     <a href='#'>
+							         <img src='http://www.ezu.net.cn/__local/9/61/20/F62B6ACB0C7E01828C868A0283A_3D76F6A4_C6FCC.png' alt='新闻' width='554px' height='367px'>
+								 </a>
+								 <h3>我校2017年职业教育活动周启幕...</h3>
+						         <h4>本网讯（记者 双全）5月7日，我校2017年“职业教育活动周”启动，校党委副书记周岫、副校长杨…</h4>
+							 </li>
+							 <li>
+							     <a href='#'>
+							         <img src='http://www.ezu.net.cn/__local/C/69/CB/FF95509810C4306AEDDB445FA6E_2D2DC8F4_1A7DE.jpg' alt='新闻' width='554px' height='367px'>
+							     </a>
+								 <h3>我校举办2017年秋季开学典礼暨颁奖…</h3>
+						         <h4>本网讯（学生记者 张丹 袁旭/文 胡涵智/摄）昨日，2017年秋季开学典礼暨颁奖晚会在大学生活动…</h4>
+							 </li>
+							 <li>
+							     <a href='#'>
+							         <img src='http://www.ezu.net.cn/__local/A/DB/DD/A95C6F76D0F9BF7667ECDC48A87_15F81E0B_153B4.jpg' alt='新闻' width='554px' height='367px'>
+								 </a>
+								 <h3>我校师生高度关注党的十九大开幕会…</h3>
+						         <h4>本网讯（记者 刘彦）10月18日上午，中国共产党第十九次全国代表大会在北京人民大会堂隆重开幕…</h4>
+							 </li>
+							 <li>
+							     <a href='#'>
+							         <img src='http://www.ezu.net.cn/__local/B/41/D9/C13C30F533AD0B296159505C399_C147A821_C89D3.png' 
+									 alt='新闻' width='554px' height='367px'>
+								 </a>
+								 <h3>2017级新生军训完美收官</h3>
+						         <h4>本网讯（学生记者夏一林 严程/文 牟连华 蔡函丹 李飘云 胡涵智/摄）9月23日上午，在迷蒙的秋雨…</h4>
+							 </li>
+							 <li>
+							     <a href='#'>
+							         <img src='http://www.ezu.net.cn/__local/6/E9/B7/6AA3AE677DAA04492FB4EF919A6_695CAA3F_C7B5A.png' alt='新闻' width='554px' height='367px'>
+							     </a>
+								 <h3>我校2017级新生军训正式开营</h3>
+						         <h4>本报讯（记者刘彦/文 学生记者 牟连华 李飘云/摄）9月7日上午，我校2017级新生军训开营典礼在…</h4>
+							 </li>
+							 <div class='btn2'>
+						         <span></span>
+							     <span></span>
+							     <span></span>
+							     <span></span>
+							     <span></span>
+						     </div>
+						 </ul>
+					 </li>
+					 <li class='show2'>
+					     <div class='show-top'>
+						     <h2>校园动态</h2>
+							 <a href='#'>更多...</a>
+						 </div>
+						 <ul>
+						     <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>我校举办2017年秋季开学典礼暨颁奖晚会</a>
+								 <small>2017-10-19</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>我校师生高度关注党的十九大开幕会盛况</a>
+								 <small>2017-10-18</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>全省职业院校信息化教学大赛我校教师获…</a>
+								 <small>2017-10-16</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>我校教师参加“精品在线开放课程及信息…</a>
+								 <small>2017-10-16</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>我校4700余新生乐游图书馆</a>
+								 <small>2017-10-16</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>校党委副书记周岫参加思政课部概论教研…</a>
+								 <small>2017-10-14</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>情系护理教育 谱写爱的乐章——记我校…</a>
+								 <small>2017-10-10</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州市2017年高校毕业生就业服务月专场…</a>
+								 <small>2017-10-10</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>我校教师汪艳霞获评湖北省“师德先进个…</a>
+								 <small>2017-09-28</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>2017级新生军训完美收官</a>
+								 <small>2017-09-25</small>
+							 </li>
+						 </ul>
+					 </li>
+					 <li class='show3'>
+					     <div class='show-top'>
+						     <h2><a>学校公告</a></h2>
+							 <a href='#'>更多...</a>
+							 <h2 style="margin:0"><a>部门公告</a></h2>
+						 </div>
+						 <ul>
+						     <li class='on'>
+							     <ul class='show3-a'>
+								     <li>
+									     <div class='date'>
+										     <div class='date-t'>10月</div>
+											 <div class='date-b'>20日</div>
+										 </div>
+										 <a href='#'>鄂州职业大学2017年校内公开招聘劳务派遣制专职辅导员拟录用...</a>
+									 </li>
+									 <li>
+									     <div class='date'>
+										     <div class='date-t'>10月</div>
+											 <div class='date-b'>10日</div>
+										 </div>
+										 <a href='#'>鄂州职业大学2016-2017学年国家奖学金提名人选公示</a>
+									 </li>
+									 <li>
+									     <div class='date'>
+										     <div class='date-t'>09月</div>
+											 <div class='date-b'>20日</div>
+										 </div>
+										 <a href='#'>鄂州职业大学2017年校内公开招聘</a>
+									 </li>
+									 <li>
+									     <div class='date'>
+										     <div class='date-t'>09月</div>
+											 <div class='date-b'>13日</div>
+										 </div>
+										 <a href='#'>经济责任审计公告</a>
+									 </li>
+								 </ul>
+							 </li>
+							 <li class='off'>   
+								 <ul class='show3-a'>
+								     <li>
+									     <div class='date'>
+										     <div class='date-t'>10月</div>
+											 <div class='date-b'>16日</div>
+										 </div>
+										 <a href='#'>关于举办鄂州职业大学科普活动系列讲座的通知</a>
+									 </li>
+									 <li>
+									     <div class='date'>
+										     <div class='date-t'>09月</div>
+											 <div class='date-b'>27日</div>
+										 </div>
+										 <a href='#'>鄂州职业大学网站群系统谈判邀请函</a>
+									 </li>
+									 <li>
+									     <div class='date'>
+										     <div class='date-t'>09月</div>
+											 <div class='date-b'>25日</div>
+										 </div>
+										 <a href='#'>关于东十三栋安装变压器的公告</a>
+									 </li>
+									 <li>
+									     <div class='date'>
+										     <div class='date-t'>06月</div>
+											 <div class='date-b'>23日</div>
+										 </div>
+										 <a href='#'>鄂州职业大学图书馆墙面刮塑竞争性谈判邀请函</a>
+									 </li>
+								 </ul>
+							 </li>
+						 </ul>
+					 </li>
+				     <li class='show2'>
+					     <div class='show-top'>
+						     <h2>招标公告</h2>
+							 <a href='#'>更多...</a>
+						 </div>
+						 <ul>
+						     <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学排污沟及化粪池清理项目竞…</a>
+								 <small>2017-07-14</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学后勤服务集团2017年暑期维…</a>
+								 <small>2017-07-14</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学电子商务运营技能竞赛平台…</a>
+								 <small>2017-07-10</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学排污沟及化粪池清理项目竞…</a>
+								 <small>2017-07-05</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学后勤服务集团2017年暑期维…</a>
+								 <small>2017-07-05</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学工程招标代理机构二轮遴选…</a>
+								 <small>2017-06-09</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学政府采购代理机构遴选项目…</a>
+								 <small>2017-06-06</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学工程招标代理机构遴选项目…</a>
+								 <small>2017-06-06</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学遴选招标代理机构评标结果…</a>
+								 <small>2017-06-01</small>
+							 </li>
+							 <li>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								 <a href='#'>鄂州职业大学工程招标代理机构遴选公告</a>
+								 <small>2017-05-27</small>
+							 </li>
+						 </ul>
+					 </li>
+					  <li class='show3'>
+					     <div class='show-top'>
+						     <h2><a>媒体关注</a></h2>
+							 <a href='#'>更多...</a>
+							 <h2 style="margin:0"><a>视频新闻</a></h2>
+						 </div>
+						 <ul>
+						     <li class='on'>
+							     <div class='show5-top'>
+								           <div class='hid'><a class='show5-top-1'><img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/450AA6F5AC850A1135F08119D86_30402221_33E5B.jpg' alt='鄂州大学新闻' width='600px' height='392px'></a></div>
+									 <a class='show5-top-2'>[鄂州日报] 好男儿，精忠报国去当兵</a>
+									 <small>时间：2015-06-12</small>
+								 </div>
+								 <ul class='show5-ul'>
+								     <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>鄂州职业大学排污沟及化粪池清理项目竞…</a>
+								         <small>2017-07-14</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>鄂州职业大学后勤服务集团2017年暑期维…</a>
+								         <small>2017-07-14</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>鄂州职业大学电子商务运营技能竞赛平台…</a>
+								         <small>2017-07-10</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>鄂州职业大学排污沟及化粪池清理项目竞…</a>
+								         <small>2017-07-05</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>鄂州职业大学后勤服务集团2017年暑期维…</a>
+								         <small>2017-07-05</small>
+							         </li>
+								 </ul>
+							 </li>
+							 <li class='off'>
+							     <div class='show5-top'>
+								     <div class='hid'><a class='show5-top-1'><img src='http://www.ezu.net.cn/__local/0/A4/FA/FECDBDC571517EF85003200F43F_AA844F0A_186C5.jpg' alt='鄂州大学新闻' width='600px' height='392px'></a></div>
+									 <a class='show5-top-2'>魅力学府 因你而耀 2017迎新...</a>
+									 <small>时间：2017-09-19</small>
+								 </div>
+								 <ul class='show5-ul'>
+								     <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>创建全国文明城市，共建鄂州... </a>
+								         <small>2017-06-04</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>2017年湖北省模具职教集团专... </a>
+								         <small>2017-05-20</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>2016迎新宣传 </a>
+								         <small>2017-05-20</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>2016年招生宣传片 </a>
+								         <small>2017-05-20</small>
+							         </li>
+							         <li>
+							             <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ld.png' alt='列表圆点' width='5px' height='5px'>
+								         <a href='#'>中国军网发布2017年征兵宣传... </a>
+								         <small>2017-05-18</small>
+							         </li>
+								 </ul>
+							 </li>
+						 </ul>
+					 </li>
+					 <li class='show6'>
+					     <h3>
+						     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/szxytb.png' alt='图标' width='23px' height='24px'>
+							 <span>数字校园</span>
+						 </h3>
+						 <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/szxybj.png' alt='图标' width='340px' height='50px'>
+						 <h3>
+						     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ggfwtb.png' alt='图标' width='22px' height='23px'>
+							 <span>信息门户</span>
+						 </h3>
+                         <ul>
+						     <li>
+							     <a href='#'>
+							         <img src='http://www.ezu.net.cn/img/zxbltb.png' alt='图标' width='25px' height='25px'>
+								     <p>在线办理</p>
+								 </a>
+							 </li>
+							 <li>
+							     <a href='#'>
+								     <img src='http://www.ezu.net.cn/img/wnfwtb.png' alt='图标' width='25px' height='25px'>
+								     <p>为您服务</p>
+								 </a>
+							 </li>
+							 <li>
+							     <a href='#'>
+								     <img src='http://www.ezu.net.cn/img/sycxtb.png' alt='图标' width='25px' height='25px'>
+								     <p>实用查询</p>
+								 </a>
+							 </li>
+							 <li>
+                                 <a href='#'>
+							         <img src='http://www.ezu.net.cn/img/zsjytb.png' alt='图标' width='25px' height='25px'>
+								     <p>招生就业</p>
+								 </a>
+							 </li>
+							 <li>
+							     <a href='#'>
+								     <img src='http://www.ezu.net.cn/img/xyhtb.png' alt='图标' width='25px' height='25px'>
+								     <p>校友会</p>
+                                 </a>
+							 </li>
+							 <li>
+							     <a href='#'>
+								     <img src='http://www.ezu.net.cn/img/sztsgtb.png' alt='图标' width='25px' height='25px'>
+								     <p>数字图书馆</p>
+								 <a href='#'>
+							 </li>
+							 <li>
+							     <a href='#'>
+								     <img src='http://www.ezu.net.cn/img/jwgltb.png' alt='图标' width='25px' height='25px'>
+								     <p>教务管理</p>
+								 </a>
+							 </li>
+							 <li>
+							     <a href='#'>
+								     <img src='http://www.ezu.net.cn/img/xggltb.png' alt='图标' width='25px' height='25px'>
+								     <p>学工管理</p>
+								 </a>
+							 </li>
+						 </ul>
+					 </li>
+				 </ul>
+				 <!--列表区end-->
+				 <!--校园专题-->
+				 <div class='subject'>
+				     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/xyzty.png' alt='校园专题' width='58px' height='128px'>
+					 <ul>
+					     <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/4ACD7C7D23799BEBBA4FB1809E7_0ABD9EA6_175F9.jpg' alt='校园专题' width='283px' height='263px'>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/05A358118D430A67F09D2119AF2_D61EDDD4_14BF9.jpg' alt='校园专题' width='1000px' height='546px'>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/C4F26191EE3A066CE30B6C94127_81C1CA1F_403C.jpg' alt='校园专题' width='500px' height='290px'>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/D477807C8FD19787A07BF8D3480_34EA6B27_57AA.jpg' alt='校园专题' width='549px' height='280px'>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/9DC4E227115857377D6CE8DDB4C_457238C0_412A.png' alt='校园专题' width='463px' height='301px'>
+							 </a>
+						 </li>
+					 </ul>
+				 </div>
+				 <!--校园专题end-->
+				 <!--底部资料-->
+				 <div class='message'>
+				     <ul>
+					     <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/xxgkt.png' alt='信息公开' width='220px' height='140px'>
+								 <p>信息公开</p>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/ldxxtu.png' alt='领导信箱' width='220px' height='140px'>
+								 <p>领导信箱</p>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/xydttu.png' alt='校园地图' width='220px' height='140px'>
+								 <p>校园地图</p>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/sszstu.png' alt='师生之声' width='220px' height='140px'>
+								 <p>师生之声</p>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/jxzytu.png' alt='教学资源' width='220px' height='140px'>
+								 <p>教学资源</p>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/rskytu.png' alt='人事科研' width='220px' height='140px'>
+								 <p>人事科研</p>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/xgxztu.png' alt='相关下载' width='220px' height='140px'>
+								 <p>相关下载</p>
+							 </a>
+						 </li>
+						 <li>
+						     <a href='#'>
+							     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/xgljtu.png' alt='相关链接' width='220px' height='140px'>
+								 <p>相关链接</p>
+							 </a>
+						 </li>
+					 </ul>
+				 </div>
+				 <!--底部资料end-->
+			 </div>
+			 <!--展示区end-->
+		 </div>
+		 <!--主体内容栏end--> 
+	 </div>
+	 <!--主体end-->
+	 <!--页脚-->
+	 <div class='footer'>
+	     <div class='footer-left'>
+		     <img src='file:///C:/Users/lenovo/Desktop/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/images/dlogo.png'alt='logo' width='104px' height='96px'>
+		 </div>
+		 <div class='footer-middle'>
+		     <p>版权所有：鄂州职业大学　 地址：湖北省鄂州市凤凰路78号 邮编：436000 鄂ICP备06007472号</p>
+			 <p>电话：0711-3862548　传真：0711-3855288　招生：0711-3858935、0711-3893706、0711-3876578</p>
+		 </div>
+		 <div class='footer-right'>
+		     <div>
+			     <ul>
+			         <li>
+				         <img src='http://www.ezu.net.cn/images/wxrwm.jpg' alt='微信' width='48px' height='48px' class='hidd'>
+			             <img src='http://www.ezu.net.cn/img/wx.png' alt='微信' width='48px' height='48px'>
+					     <p>官方微信</p>
+				     </li>
+				     <li>
+				         <img src='http://www.ezu.net.cn/images/qqrwm.jpg' alt='微信' width='48px' height='48px' class='hidd'>
+			             <img src='http://www.ezu.net.cn/img/qq.png' alt='微信' width='48px' height='48px'>
+					     <p>官方QQ</p>
+				     </li>
+				     <li>
+			             <img src='http://www.ezu.net.cn/img/bs.png' alt='微信' width='48px' height='48px'>
+				     </li>
+				 </ul>
+			 </div>
+		 </div>
+	 </div>
+	 <!--页脚end-->
+     <script>
+	     window.onload=lunbo('show1','li','btn2','span','cut_left','cut_right');
+		 window.onload=lunbo('slide','li','btn','span','cut_left','cut_right');
+		 window.onload=exhibition();
+		 window.onload=exhibition2();
+          //轮播图脚本  图片容器calss 图片li 按钮容器class  按钮标签  左切换id  右切换id
+         function lunbo(a,b,c,d,e,f){
+	     var aSlide=document.getElementsByClassName(a)[0];      //获取slide
+	     var aBtn=document.getElementsByClassName(c)[0];     //获取按钮
+	     var aLi=aSlide.getElementsByTagName(b);       //获取li标签
+	     var aSpan=aBtn.getElementsByTagName(d);  //获取span
+	     aLi[0].style.opacity=1;          //初始化,让第一个li显示
+         aSpan[0].style.background='#17210d';       //初始化,让第一个按钮span变色
+	     var aSlength=aSpan.length;              //获取按钮个数
+	     for(var i=0;i<aSlength;i++){         //遍历按钮
+		  aSpan[i].I=i;                    //把i存贮到自定义属性I中
+	      aSpan[i].onclick=function(){        //给按钮绑定点击事件
+			  for(var j=0;j<aSlength;j++){       //遍历,初始化
+				aLi[j].style.opacity=0;       //初始化li
+		        aSpan[j].style.background='white';     //初始化按钮颜色
+			  }
+			 i=this.I;              //this指向aSpan[i],将它的自定义I属性的值  赋给i,即此时i等于上面的i
+			 aLi[i].style.opacity=1;      //显示当前点击的li
+		     aSpan[i].style.background='#17210d';    //改变当前点击的按钮颜色
+		     }
+		 }
+	     var cut_right=document.getElementById(f);
+	     var cut_left=document.getElementById(e);
+         //console.log(cut_right);
+	     //console.log(cut_left);
+         cut_left.onclick=function(){
+	         for(var k=0;k<aSlength;k++){
+			 if(aLi[k].style.opacity=='1'){ 
+			         for(var j=0;j<aSlength;j++){       //遍历,初始化
+				         aLi[j].style.opacity=0;       //初始化li
+		                 aSpan[j].style.background='white'; //初始化按钮颜色
+			             }
+					 if(k==0){
+					     aLi[aSlength-1].style.opacity='1';
+                         aSpan[aSlength-1].style.background='#17210d';break;
+					 }
+					 if(k!=0){
+                             aLi[k-1].style.opacity='1';
+                             aSpan[k-1].style.background='#17210d';break;
+						}
+			 }
+			 } 
+	     }
+	     cut_right.onclick=function(){
+	         for(var k=0;k<aSlength;k++){
+			 if(aLi[k].style.opacity=='1'){ 
+			         for(var j=0;j<aSlength;j++){       //遍历,初始化
+				         aLi[j].style.opacity=0;            //初始化li
+		                 aSpan[j].style.background='white'; //初始化按钮颜色
+			             }
+					 if(k==aSlength-1){
+					     aLi[0].style.opacity='1';
+                         aSpan[0].style.background='#17210d';break;
+					 }
+					 if(k!=aSlength-1){
+                             aLi[k+1].style.opacity='1';
+                             aSpan[k+1].style.background='#17210d';break;
+						}
+			 }
+			 } 
+	     }
+         }
+         function exhibition(){
+         var aA=document.querySelectorAll('a');
+	     var one=document.getElementsByClassName('on')[0];
+	     var tow=document.getElementsByClassName('off')[0];
+	     var btn_l=aA[56];
+	     var btn_r=aA[58];
+	     aA[56].style.background='#0054a3';
+	     aA[56].style.color='white';
+         btn_l.onclick=function(){
+	     this.style.background='#0054a3';
+	     this.style.color='white';
+         btn_r.style.background='white';
+		 btn_r.style.color='black';
+         one.className='on';
+         tow.className='off';
+	     }
+    	 btn_r.onclick=function(){
+	     this.style.background='#0054a3';
+	     this.style.color='white';
+		 btn_l.style.background='white';
+		 btn_l.style.color='black';
+         one.className='off';
+         tow.className='on';
+	     }
+         }
+	     function exhibition2(){
+         var aA=document.querySelectorAll('a');
+	     var one=document.getElementsByClassName('on')[1];
+	     var tow=document.getElementsByClassName('off')[1];
+	     //console.log(aA)
+	     var btn_l=aA[78];
+    	 var btn_r=aA[80];
+	     aA[78].style.background='#0054a3';
+	     aA[78].style.color='white';
+         btn_l.onclick=function(){
+	     this.style.background='#0054a3';
+	     this.style.color='white';
+         btn_r.style.background='white';
+		 btn_r.style.color='black';
+         one.className='on';
+         tow.className='off';
+		 console.log(btn_r);
+    	 }
+	     btn_r.onclick=function(){
+	     this.style.background='#0054a3';
+	     this.style.color='white';
+		 btn_l.style.background='white';
+		 btn_l.style.color='black';
+         one.className='off';
+         tow.className='on';
+		 console.log(btn_r);
+	     }
+         }
+	 </script>
+  </body>
+</html>

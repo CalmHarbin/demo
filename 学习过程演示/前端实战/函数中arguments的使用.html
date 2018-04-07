@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>arguments</title>
+ </head>
+ <body>
+	<script type="text/javascript">
+		/*function fn(a,b,c){
+			console.log(arguments);
+			console.log(arguments.length);//传来参数个数
+			console.log(arguments[0],arguments[1],arguments[2]);//以数组形式访问参数
+			console.log(arguments.callee);//arguments.callee就是fn本身;
+			console.log(arguments.callee.length);//函数的长度,就是形参列表的长度,即fn(a,b,c)中()内的个数
+			console.log(arguments.callee===fn);
+		}
+		fn(1,2);
+		fn(1,2,3,4,5);*/
+
+
+
+		function fun1(a,b,c,d){
+			console.log(this);//此时this指的是调用fun2的实参
+			console.log(this.length);//6
+			console.log(this.callee.length);//2,是fun2的形参个数
+		}
+		function fun2(e,f){
+			arguments[0](7,8,9,10,11);//传来参数的第一个,相当于伪数组调用函数fun1,this指向这个伪数组
+		}
+		fun2(fun1,2,3,4,5,6);//调用fun函数,并传6个参数
+	</script>
+ </body>
+</html>

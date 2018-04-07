@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>构造函数</title>
+ </head>
+ <body>
+  <script type="text/javascript">
+	//构造函数Fn;首字母一定要大写;
+	function Fn(name,age){
+		this.name=name;
+		this.age=age;
+	}
+	Fn.prototype.sayHi=function(){//原型添加方法sayHi,只能被实例调用
+		alert("你好!");
+	}
+	var fn1=new Fn("张三","20");
+	var fn2=new Fn("李四","40");
+	//__proto__就是原型链
+	fn1.sayHi();//实例可以通过原型链调用方法
+	fn2.sayHi();
+	//Fn.sayHi();//构造函数并不能调用方法
+	console.log(Fn.prototype);
+	console.log(Fn.prototype===fn1.__proto__);//true
+	console.log(Fn.prototype===fn2.__proto__);
+	console.log(fn1.__proto__===fn1.__proto__);
+	console.log(fn1 instanceof Fn);//instanceof判断fn1是不是Fn的实例;
+
+	function Fun1(){};
+	Fun1.prototype=Math;//Fun1的原型指向Math函数
+	var fn3=new Fun1();//创建fn3对象;
+	console.log(fn3.random());//fn3对象可以直接使用Math函数的方法;
+  </script>
+ </body>
+</html>

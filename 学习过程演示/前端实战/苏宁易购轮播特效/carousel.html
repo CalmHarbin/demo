@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.box{
+		position:absolute;
+		top:50%;
+		left:50%;
+		margin-top:-220px;
+		margin-left: -415px;
+		width:830px;
+		height:440px;
+		overflow: hidden;
+	}
+	.box ul{
+		list-style: none;
+		position:absolute;
+		left:0;
+		width:500%;
+		height:100%;
+	}
+	.box ul li{
+		float:left;
+	}
+	.box ol{
+		position:absolute;
+		right:30px;
+		bottom:15px;
+		list-style: none;
+	}
+	.box ol li{
+		float:left;
+		width:20px;
+		height:20px;
+		border-radius:50%;
+		background-color: #ccc;
+		margin-left:15px;
+		cursor: pointer;
+		text-align: center;
+		line-height: 20px;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li><a href=""><img src="images/1.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/2.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/3.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/4.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/5.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/6.jpg" alt=""></a></li>
+		</ul>
+	</div>
+</body>
+<script src="js/carousel.js"></script>
+<script>
+	
+	//盒子,事件,按钮颜色,是否要左右按钮;
+	carousel("box",3000,"rgb(0,255,255)",true);
+</script>
+</html>

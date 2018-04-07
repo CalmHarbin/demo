@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script src="../jquery-3.2.1.js"></script>
+<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="angular1.4.6.js"></script>
+<script src="angular-route.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="list-group">
+			<div class="list-group-item"><a href="#/">主页</a></div>
+			<div class="list-group-item"><a href="#/html">html</a></div>
+			<div class="list-group-item"><a href="#/java">java</a></div>
+			<div class="list-group-item"><a href="#/jquery">jquery</a></div>
+		</div>
+		<div ng-view></div>
+	</div>
+<script>
+	angular.module("myapp",["ngRoute"])
+	.config(["$routeProvider",function($routeProvider){
+		$routeProvider
+		.when("/",{template:"这是首页"})
+		.when("/html",{template:"html"})
+		.when("/java",{template:"java"})
+		.when("/jquery",{template:"jquery"})
+		.otherwise({redirectTo:'/'});
+	}]);
+</script>
+
+</body>
+</html>
+
+
+<!-- 
+$routeProvider.when(url,{
+    template:string, //在ng-view中插入简单的html内容
+    templateUrl:string, //在ng-view中插入html模版文件
+    controller:string,function / array, //在当前模版上执行的controller函数
+    controllerAs:string, //为controller指定别名
+    redirectTo:string,function, //重定向的地址
+    resolve:object<key,function> //指定当前controller所依赖的其他模块
+});
+
+
+ -->

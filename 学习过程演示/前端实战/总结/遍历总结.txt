@@ -1,0 +1,87 @@
+
+return 		函数执行被终止
+break 		循环被终止
+continue 	循环被跳过
+
+JavaScript中的遍历方法
+数组
+var arr=[1,2,3,4,5,6];
+var len=arr.length;
+for(var i=0;i<len;i++){
+	console.log(arr[i]);
+}
+
+arr.forEach(function(item,idx,arr){//每一项,索引,数组本身
+	console.log(item);
+});
+
+var i=0;
+while(i<len){
+	console.log(arr[i]);
+	i++;
+}
+
+var i=0;
+do{
+	console.log(arr[i]);
+	i++
+}while(i<len);
+
+对象
+var obj={
+	name:'username',
+	password:123
+}
+for(var i in obj){
+	console.log(obj[i]);
+}
+----------------------------------------------------------
+jquery中
+var arr=[1,2,3,4,5,6];
+$.each(arr,function(idx){
+	console.log(arr[i]);
+})
+
+遍历节点
+$(selector).each(function(idx){
+	idx是索引
+})
+---------------------------------------------------------------
+angular.js中
+适用于下拉菜单的遍历
+ng-options='显示for值in数组';
+ng-options='提交as显示for值in数组';		数组里面有对象:
+ng-options='提交as显示for值in对象';		纯对象
+
+遍历
+ng-repeat="item in array"					遍历无重复值的数组
+ng-repeat="item in array track by $index"	遍历有重复值的数组
+ng-repeat="(key,value) in obj"				遍历对象
+
+----------------------------------------------------------------
+php中
+1.for语句
+$arr = array(1,2,2); 
+$num = count($arr); 
+for($i=0;$i<$num;$i++){ 
+	echo $arr[$i].'<br />'; 
+} 
+
+2.foreach
+数组
+$arr = array(
+	"name"=>"username",
+	"password="=>123
+); 
+foreach($arr as $key=>$val){ 
+	//$key表示键,$val表示值WW
+}
+
+list($a,$b)=array(100,200)	依次从数组中取值,$a=100,$b=200
+
+each(array(100,200))			依次取出一个键值对 0=>100
+
+
+
+
+

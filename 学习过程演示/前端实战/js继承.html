@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<script type="text/javascript">
+		//构造被继承的函数,超类型(父类,基类)
+		function Father(){
+			this.name="张三";
+			this.age="45岁";
+			this.money="一个亿"
+		}
+		//构造继承的函数,子类型(子类,派生类)
+		function Son(){
+			this.name="小张三";
+			this.age="20岁";
+		}
+		
+		//构造函数,孙子类
+		function Grandchildren(){
+			this.name="孙子";
+			this.live="play"
+		}
+		Son.prototype=new Father();//继承父类属性及方法
+		Grandchildren.prototype=new Son();
+		var a=new Son();
+		var b=new Grandchildren();
+		console.log(a.name,a.age,a.money);
+		console.log(b.name,b.live,b.age,b.money);
+		
+		/*function Father(){
+			this.name="张三";
+			this.age="45岁";
+			this.money="一个亿"
+		}
+		Father.prototype.live="play";
+		var a=new Father();
+		console.log(a.live)*/
+	</script>
+</body>
+</html>

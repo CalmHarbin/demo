@@ -1,0 +1,103 @@
+.shopnav{
+		height:182px;
+		margin: 15px 0;
+		line-height: 38px;
+		text-align: center;
+	}
+	.shopnav .nav1{
+		border-top:1px dashed #ccc;
+	}
+	.shopnav .nav1,.shopnav .nav2,.shopnav .nav3{
+		height:37px;
+		border-bottom:1px solid #ccc;
+		line-height: 38px;
+		border-left:1px dashed #ccc;
+		border-right:1px dashed #ccc;
+	}
+	.shopnav .nav4{
+		height:44px;
+		margin-top:20px;
+		line-height: 42px;
+    	background: #F5F5F5;
+    	border: 1px solid #ddd;
+	}
+	.shopnav span{
+		display: block;
+		float: left;
+		width: 100px;
+		height: 38px;
+		font-size: 13px;
+	}
+	.shopnav a{
+		float: left;
+		height: 38px;
+		color:#333;
+		margin-right: 15px;
+		font-size: 12px;
+	}
+	.shopnav a.active{
+		color:#f60;
+	}
+	.shopnav a:hover{
+		color:#C9062C;
+		text-decoration: underline;
+	}
+	.shopnav a.active:hover{
+		color:#f60;
+	}
+	.shopnav .nav4 a{
+		height:44px;
+		line-height: 44px;
+		padding:0 22px;
+		margin: 0;
+		font-size: 13px;
+	}
+	.shopnav .nav4 a.active{
+		background-color: #fff;
+		color:#f60;
+	}
+	.classShop{
+		overflow: hidden;
+	}
+	.classShop li{
+		float: left;
+		width:238px;
+		height:293px;
+		border:1px solid #ddd;
+		background-color: #fff;
+		text-align: center;
+		padding-top:20px;
+		overflow: hidden;
+	}
+	.classShop li:hover{
+		box-shadow: .5px 0 4px rgba(0,0,0,.2);
+	}
+	.classShop li img{
+		position:relative;
+		display: block;
+		width:169px;
+		height: 169px;
+		margin: 0 auto;
+	}
+	.classShop li p{
+		width:169px;
+		height:40px;
+		overflow: hidden;
+		margin: 0 auto;
+		color:#000;
+	}
+	.classShop li h3{
+		color:#ff4a00;
+		font-size: 17px;
+		margin-top: 6px;
+		height:30px;
+		line-height: 30px;
+	}
+	.classShop li a.buy{
+		display: none;
+		width:100%;
+		height:48px;
+		background-color: rgb(128, 131, 158);
+		line-height: 48px;
+		margin-top: 48px;
+	}

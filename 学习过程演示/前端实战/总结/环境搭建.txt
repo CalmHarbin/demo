@@ -1,0 +1,346 @@
+linux环境搭建
+1.工具准备
+VMware,centOS镜像文件,putty,WINscp
+
+关闭防火墙
+iptables -L 查看防火墙
+iptables -F 清空防火墙
+service iptables save 保存
+
+SELinux防火墙关闭
+vi /etc/selinux/config
+SELINUX=disabled
+:x保存并退出
+
+与主机通讯
+网卡模式要一致
+	网络适配器:仅主机模式
+ip要在一个段
+	linux配置ip为192.168.147.0
+	主机VMnet1 ip为192.168.147.1
+
+
+
+wamp环境搭建
+1.wamp安装包
+2.安装运行,
+Apache修改端口号
+	打开httpd.conf,将其中的所有80修改为别的端口
+若Apache无法启动,在dos窗口找到httpd.exe并运行,查看报错信息
+例  cd C:\wamp64\bin\apache\apache2.4.18\bin
+	httpd.exe
+错误信息如下
+[Thu Feb 01 14:22:23.314224 2018] [core:crit] [pid 2056:tid 424] (OS 10106)无法加载或初始化请求的服务提供程序。  : AH00078: alloc_listener: failed to get a socket for ::0
+AH00526: Syntax error on line 63 of C:/wamp64/bin/apache/apache2.4.18/conf/httpd.conf:
+Listen setup failed
+将httpd.conf文件中的  Listen [::0]:80 注释掉即可
+Apache默认打开的文件
+httpd.conf中
+<IfModule dir_module>
+    DirectoryIndex index.php index.html
+</IfModule>
+
+php升级
+将php文件夹放在wamp/bin/php下
+方法一:然后将原php版本中的  phpForApache.ini  wampserver.conf  两个文件复制粘贴到新版php文件中,将phpForApache.ini中所有的原版本号都改为新版本号.extension_dir ="c:/wamp64/bin/php/php5.6.19/ext/"
+
+方法二:然后将原php版本中的  wampserver.conf  文件复制粘贴到新版php文件中,并将新版的php.ini-development复制一份改名为phpForApache.ini,并在 ; extension_dir = "ext" 下添加一行extension_dir ="c:/wamp64/bin/php/php5.6.19/ext/",扩展文件路径.
+
+修改mysql数据库密码
+在wamp图标出鼠标左键点击,打开mysql控制台,初始无密码,回车即可
+设置密码  set password=password('密码');回车即可
+
+不弹出mysql登录框的解决办法
+进入 C:\wamp64\apps\phpmyadmin4.5.5.1目录,找到config.inc.php文件
+把里面的 $cfg['Servers'][$i]['auth_type'] = 给注释掉即可.
+
+设置apache可以局域网访问的解决办法
+方法一:打开apache配置文件httpd.conf，将Require local改为Require all granted即可
+方法二:打开C:\wamp64\bin\apache\apache2.4.18\conf\extra,找到httpd-vhosts.conf,将Require local改为Require all granted即可
+
+设置数据库字符集问题
+打开 C:\wamp64\bin\mysql\mysql5.7.11 ,找到my.ini
+	在[client]下添加   default-character-set=utf8 
+    在[mysqld]下添加  character_set_server=utf8
+    在[mysql]下添加    default-character-set=utf8
+保存退出重启
+
+修改php的报错等级
+找到 C:\wamp64\bin\php\php5.6.19,打开php.ini文件
+搜索 error_reporting,
+将error_reporting = E_ALL改为error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED
+保存退出重启
+
+修改php字符集
+php.ini配置文件中
+default_charset = "utf-8"
+
+
+
+lamp环境搭建
+1.安装gcc编译器
+yum -y install gcc*
+2.卸载apache,php,mysql的rpm安装包
+yum -y remove httpd*,php*,mysql*
+
+准备源码包,将源码包保存到mnt目录下
+3.编译安装源代码包
+tar xzf apr-1.5.2.tar.gz    			解压
+./configure --prefix=/usr/local/apr 	找到configure文件并运行 /usr/local/apr为安装位置
+make 									开始编译
+make install 							开始安装
+ 安装libxml2
+ 	tar xzf libxml2-2.6.30.tar.gz
+ 	cd libxml2-2.6.30
+ 		报错Python.h No such file or directory
+ 		解决 yum install python-devel*
+ 	./configure --prefix=/usr/local/libxml2 && make && make install
+ 	rm -rf libxml2-2.6.30* 		删除安装包
+ 安装libmcrypt
+ 	tar xzf libmcrypt-2.5.8.tar.gz
+ 	cd libmcrypt-2.5.8
+ 	./configure --prefix=/usr/local/libmcrypt && make && make install
+ 安装libltdl
+ 	cd libltdl/
+ 	./configure --enable-ltdl-install && make && make install
+ 	rm -rf libmcrypt-2.5.8*
+ 安装zlib
+ 	tar xzf zlib-1.2.3.tar.gz
+ 	cd zlib-1.2.3
+ 	./configure && make && make install
+ 	rm -rf zlib-1.2.3*
+ 安装libpng
+ 	tar xzf libpng-1.2.31.tar.gz
+ 	cd libpng-1.2.31
+ 	./configure --prefix=/usr/local/libpng && make && make install
+ 	rm -rf libpng-1.2.31*
+ 安装jpeg6
+ 	mkdir /usr/local/jpeg6
+ 	mkdir /usr/local/jpeg6/bin
+ 	mkdir /usr/local/jpeg6/lib
+ 	mkdir /usr/local/jpeg6/include
+ 	mkdir -p /usr/local/jpeg6/man/man1
+ 	tar xzf jpegsrc.v6b.tar.gz
+ 	cd jpeg-6b
+ 		若出现  make: ./libtool：命令未找到则执行以下方法
+	 	cd jpeg-6b
+	 	rm -rf config.sub
+	 	rm -rf config.guess
+	 	cp /usr/share/libtool/config/config.sub .
+	 	cp /usr/share/libtool/config/config.guess .
+ 	./configure --prefix=/usr/local/jpeg6 --enable-shared --enable-static && make && make install
+ 	 rm -rf jpeg*
+ 安装freetype
+ 	tar xzf freetype-2.3.5.tar.gz
+ 	cd freetype-2.3.5
+ 	./configure --prefix=/usr/local/freetype && make && make install
+ 	rm -rf freetype-2.3.5*
+ 安装autoconf
+ 	tar xzf autoconf-2.61.tar.gz
+ 	cd autoconf-2.61
+ 	./configure && make && make install
+ 	rm -rf autoconf-2.61*
+ 安装gd库(64位系统有问题)
+ 	tar xzf gd-2.0.35.tar.gz
+ 	cd gd-2.0.35
+ 	mkdir /usr/local/gd2
+ 	vi gd_png.c
+ 	把#include "png.h"换成#include "/usr/local/libpng/include/png.h"
+ 	./configure --prefix=/usr/local/gd2 --with-jpeg=/usr/local/jpeg6 --with-freetype=/usr/local/freetype --with-png=/usr/local/libpng && make && make install
+ 	rm -rf gd-2.0.35*
+ 安装Apache
+ 	tar xzf httpd-2.2.9.tar.gz
+ 	cd httpd-2.2.9
+ 		报错
+ 		configure: error: Bundled APR requested but not found at ./srclib/. Download and unpack the corresponding apr and
+		apr-util packages to ./srclib/.
+		解决办法
+		将apr-1.6.3.tar.gz和apr-util-1.6.1.tar.gz放在srclib目录中并解压,去掉后缀,即可再次编译
+		报错
+		configure: error: pcre-config for libpcre not found. PCRE is required and available from http://pcre.org/
+		解决办法
+		yum -y install pcre-devel
+ 	./configure --prefix=/usr/local/apache2/ --sysconfdir=/usr/local/apache2/etc/ --with-included-apr --enable-dav --enable-so --enable-deflate=shared --enable-expires=shared --enable-rewrite=shared && make && make install
+ 	rm -rf httpd-2.2.9*
+  		启动Apache /usr/local/apache2/bin/apachectl start
+  		设置开机自启 vi /etc/rc.d/rc.local
+  					添加 /usr/local/apache2/bin/apachectl start
+  		网站根目录 /usr/local/apache2/htdocs
+  		配置文件  /usr/local/apache2/etc/httpd.conf
+	设置权限
+		setfacl -m u:daemon:rwx -R /usr/local/apache2/htdocs
+		setfacl -m d:u:daemon:rwx -R /usr/local/apache2/htdocs
+ 安装ncurses
+ 	cd /media/Packages
+ 	查看所有ncurses包 ls |grep ncurses
+ 	查看已安装的ncurses包  rpm -qa |grep ncurse
+ 	安装没有安装的rpm包 rpm -ivh ncurses-devel-5.7-4.20090207.el6.i686.rpm
+ 安装mysql
+ 	tar -xzf mysql-5.0.41.tar.gz
+ 	cd mysql-5.0.41
+ 	./configure --prefix=/usr/local/mysql --without-debug --enable-thread-safe-client --with-pthread --enable-assembler --enable-profiling --with-mysqld-ldflags=-all-static --with-client-ldflag=-all-static --with-extra-charsets=all --with-plugins=all --with-mysqld-user=mysql --without-embedded-server --with-server-suffix=-community --with-unix-socket-path=/tmp/mysql.sock && make && make install
+ 	rm -rf mysql-5.0.41*
+ 	第二种安装方法
+ 		yum -y install cmake bison git ncurses-devel gcc gcc-c++
+ 		mkdir /usr/local/mysql
+ 		mkdir /usr/local/mysql/data
+ 		创建一个文件夹 mkdir -p /usr/local/boost
+ 		将boost压缩包放入改文件夹中,并解压,再删除压缩包
+ 		回到mysql解压目录中
+ 		cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DMYSQL_DATADIR=/usr/local/mysql/data -DMYSQL_TCP_PORT=3306 -DMYSQL_USER=mysql -DENABLE_DOWNLOADS=1 && make && make install
+ 		chown -R mysql:mysql /usr/local/mysql/data/
+ 		chown -R mysql:mysql /usr/local/mysql/
+ 		cd /usr/local/mysql/
+ 		scripts/mysql_install_db --user=mysql --datadir=/usr/local/mysql/data
+ 		chown -R mysql:mysql /usr/local/mysql
+ 	设置mysql权限
+ 		创建mysql用户  useradd mysql
+ 		设置mysql用户对mysql目录的权限
+ 			setfacl -m u:mysql:rwx -R /usr/local/mysql
+ 			setfacl -m d:u:mysql:rwx -R /usr/local/mysql
+ 		配置mysql文件 cp /usr/local/mysql/share/mysql/my-medium.cnf /etc/my.cnf
+ 		修改字符集
+ 			vi /etc/my.cnf
+ 			在[client]中添加 default-character-set=utf8
+ 			在[mysqld]中添加 character-set-server=utf8
+ 							 collation-server=utf8_general_ci
+ 		安装mysql和test数据库
+ 			/usr/local/mysql/bin/mysql_install_db --user=mysql
+ 		启动mysql服务 	/usr/local/mysql/bin/mysqld_safe --user=mysql&
+ 						第二种方法 /usr/local/mysql/support-files/mysql.server start
+ 		修改mysql的登录密码  /usr/local/mysql/bin/mysqladmin -uroot password 密码
+ 		登录mysql数据库   	/usr/local/mysql/bin/mysql -u root -p密码 
+ 	设置开机启动  	vi /etc/rc.d/rc.local
+ 					添加 /usr/local/mysql/bin/mysql_safe --user=mysql&
+ 安装libtool-ltdl
+ 	查询是否安装了 rpm -qa |grep libtool
+ 	安装 	yum -y install libtool*
+ 	源代码安装./configure && make && make install
+ 安装php
+ 	tar xzf php-5.2.6.tar.gz
+ 	cd php-5.2.6
+ 	./configure --prefix=/usr/local/php/ --with-config-file-path=/usr/local/php/etc/ --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql=/usr/local/mysql/ --with-libxml-dir=/usr/local/libxml2/ --with-jpeg-dir=/usr/local/jpeg6/ --with-png-dir=/usr/local/libpng/ --with-freetype-dir=/usr/local/freetype/ --with-gd=/usr/local/gd2/ --with-mcrypt=/usr/local/libmcrypt/ --with-mysqli=/usr/local/mysql/bin/mysql_config --enable-soap --enable-mbstring=all --enable-sockets && make && make install
+ 		报错 :ft2build.h: No such file or directory
+ 		解决办法: yum install fontconfig-devel
+ 		报错 :Unable to find libgd.(a|so) >= 2.1.0 anywhere under /usr/local/gd2/
+ 		解决办法 --with-gd=/usr/local/gd2/改为--with-gd
+ 	生成配置文件 cp php.ini-dist /usr/local/php/etc/php.ini
+ 	rm -rf php-5.2.6*
+ 安装phpmyadmin
+ 	移动到Apache根目录mv phpMyAdmin-3.0.0-rc1-all-languages.tar.gz /usr/local/apache2/htdocs/
+ 	cd /usr/local/apache2/htdocs/
+ 	解压tar xzf phpMyAdmin-3.0.0-rc1-all-languages.tar.gz
+ 	删除压缩包rm -rf phpMyAdmin-3.0.0-rc1-all-languages.tar.gz
+ 	重命名mv phpMyAdmin-3.0.0-rc1-all-languages phpmyadmin
+ 	设置Apache解析php文件
+ 		vi /usr/local/apache2/etc/httpd.conf
+ 		在文件最后加上 AddType application/x-httpd-php .php .phps
+ 安装PDO mysql扩展模块
+ 	tar xzf PDO_MYSQL-1.0.2.tgz
+ 	cd PDO_MYSQL-1.0.2
+ 	/usr/local/php/bin/phpize
+ 	./configure --with-php-config=/usr/local/php/bin/php-config --with-pdo-mysql=/usr/local/mysql && make && make install
+ 	vi /usr/local/php/etc/php.ini
+ 	扩展文件路径改为 extension_dir = "/usr/local/php//lib/php/extensions/no-debug-non-zts-20060613/"
+ 	并在扩展文件中添加 extension=pdo_mysql.so
+
+lamp环境常用文件
+php
+	配置文件  /usr/local/php/etc/php.ini
+Apache
+	配置文件  /usr/local/apache2/etc/httpd.conf
+	网站根目录 /usr/local/apache2/htdocs
+	启动Apache /usr/local/apache2/bin/apachectl start
+mysql
+	配置文件  /etc/my.cnf
+	启动mysql服务 	/usr/local/mysql/bin/mysqld_safe --user=mysql&
+Apache配置文件详情
+	ServerRoot "c:/wamp64/bin/apache/apache2.4.18" 		Apache的安装目录
+	Listen 0.0.0.0:80 									Apache的监听端口
+	LoadModule php5_module "c:/wamp64/bin/php/php5.6.19/php5apache2_4.dll"	包含php解析器的动态模板
+	DocumentRoot "c:/wamp64/www" 						网站根目录
+	网站根目录的服务权限
+		<Directory "c:/wamp64/www/">
+			Options +Indexes +FollowSymLinks
+			AllowOverride all
+			Require local
+		</Directory>
+	Apache默认打开的文件
+		<IfModule dir_module>
+		    DirectoryIndex index.php index.html
+		</IfModule>
+	ErrorLog "c:/wamp64/logs/apache_error.log" 		错误日志
+	CustomLog "c:/wamp64/logs/access.log" common 	所有访问日志
+	AddType application/x-httpd-php .php 			识别php文件
+	Include conf/extra/httpd-vhosts.conf 			配置虚拟主机
+	虚拟目录
+		  虚拟  实际
+	Alias /DVD "/media/Packages"
+	<Directory "/media/Packages">
+	    Options +Indexes +FollowSymLinks
+	    AllowOverride all
+	    Order allow,deny
+	    Allow from all
+	</Directory>
+虚拟主机
+编辑httpd-vhosts.conf
+方法一:基于域名
+	NameVirtualHost 192.168.147.2:80
+	<VirtualHost 192.168.147.2:80>
+	    DocumentRoot "/usr/local/apache2/htdocs/mySite"
+	    ServerName www.yijiawang.com
+	</VirtualHost>
+	<VirtualHost 192.168.147.2:80>
+	    DocumentRoot "/usr/local/apache2/htdocs/phpmyadmin"
+	    ServerName www.phpmyadmin.com
+	</VirtualHost>
+	C:\WINDOWS\System32\drivers\etc\hosts添加
+	192.168.147.2	www.yijiawang.com
+	192.168.147.2 	www.phpmyadmin.com
+打开本地C:\WINDOWS\System32\drivers\etc\hosts
+在里面添加域名 例如 192.168.147.2	www.yijiawang.com
+
+
+
+
+lamp环境搭建
+yum -y install httpd* mysql* php*
+修改Apache端口号
+	vi /etc/httpd/conf/httpd.conf
+	搜索80,将80改为你想要的端口号
+Apache默认访问页面为/var/www/html/
+ 
+
+
+http://bbs.qcloud.com/thread-8480-1-1.html
+yum -y install wget screen
+tar xzf oneinstack-full.tar.gz 
+cd 
+ screen -S oneinstack
+ ./install.sh
+Do you want to enable iptables? [y/n]:是否开启防火墙
+
+
+
+
+Node.js环境搭建
+1.下载node安装包
+https://nodejs.org/zh-cn/
+
+2.双击运行安装的,自定义安装位置,一路next;
+
+3.配置环境变量
+点击我的电脑,属性,高级系统设置,环境变量,系统变量中找到path,新增一个node的安装路径
+
+
+
+
+
+
+
+
+
+
+
+
+

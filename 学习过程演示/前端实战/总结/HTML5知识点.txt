@@ -1,0 +1,193 @@
+HTML5新增标签
+<header></header>头部
+<nav></nav>导航栏
+<section></section>定义网页中的区域部分,通常由内容及其标题组成
+<footer></footer>脚部
+<article></article>代表文档、页面或应用程序中独立的、完整的、可以独自被外部引用的内容
+<aside></aside>侧边栏
+<audio></audio>播放音频文件
+<video></video>播放视屏文件
+<source></source>标签允许您规定两个视频/音频文件共浏览器根据它对媒体类型或者编解码器的支持进行选择。
+<canvas></canvas>画图
+<address></address>表示联系信息
+<mark></mark>高亮显示
+<time></time>时间
+
+HTML5废除的标签
+<font></font>
+<big></big>
+<center></center>
+<frameset></frameset>
+<frame></frame>
+<noframes></noframes>
+---------------------------------------------------------------------------------------------
+HTML5表单
+type类型
+input 		文本输入框
+password 	密码输入框
+radio		单选框
+checkbox	复选框
+submit		提交
+reset		重置
+button 		按钮
+hidden		不可见
+media		邮箱
+url 		链接
+number		数字
+range		滑条
+color		颜色
+date		日历
+time 		时间
+search		搜索
+
+属性
+autofocus				自动获得焦点
+placeholder='内容'		提示
+required				自动检测是否为空
+multiple				允许一次上传多个文件
+pattern='正则'					正则匹配验证
+min						最小值
+max						最大值
+step					数值每次改变的幅度
+maxlength				最大长度
+---------------------------------------------------------------------------------------------
+HTML5获取地理位置
+单次定位请求
+navigator.geolocation.getCurrentPosition(成功回调,失败回调,数据收集方式)
+navigator.geolocation.getCurrentPosition(function(position){//接受一个返回的位置对象
+	position.coords.longitude 	经度
+	position.coords.latitude 	纬度
+	position.coords.accuracy 	位置准确度
+	position.coords.altitude 	海拔
+	position.coords.altitudeAccuracy 海拔准确度
+	position.coords.heading 	行进方向
+	position.coords.speed 		速度,单位m/s
+	new Date(position.timestamp)响应的时间戳
+},function(err){
+		err.code
+		0不包括其他编号中的错误
+		1用户拒绝了获取地理位置
+		2尝试获取用户信息,但失败了
+		3设置了timeout值,获取位置超时了
+},{
+	enableHighAcuracy:true//更精确的查找,默认false
+	timeout:3000//获取位置允许最长时间,单位毫秒,默认infinity
+	maximumAge:5000位置可以缓存的最大时间,单位毫秒,默认0
+})
+
+多次请求
+navigator.watchPosition(成功回调,失败回调,数据收集方式)
+
+关闭请求
+navigator.clearWatch()
+---------------------------------------------------------------------------------------------
+HTML5本地储存
+storage的特点
+1.储存量限制5M
+2.客户端完成,不会请求服务器处理
+3.sessionStorage数据不共享,localStorage数据共享
+
+localStorage		永久存储,手动删除
+存贮数据
+localStorage.setItem('key','value')
+localStorage.key='value'
+删除数据
+localStorage.removeItem('key')
+清空数据
+localStorage.clear()
+读取数据
+localStorage.getItem('key')
+localStorage
+检查是否存在
+localStorage.hasOwnProperty('key')
+查看存储的数据个数
+localStorage.length
+
+sessionStorage		临时存储,关闭窗口存储消失
+存贮数据
+sessionStorage.setItem('key','value')
+sessionStorage.key='value'
+删除数据
+sessionStorage.removeItem('key')
+清空数据
+sessionStorage.clear()
+读取数据
+sessionStorage.getItem('key')
+sessionStorage
+检查是否存在
+sessionStorage.hasOwnProperty('key')
+查看存储的数据个数
+sessionStorage.length
+
+storage事件:当存贮数据发生改变时触发,当前页面的事件不会触发
+window.addEventListener('storage',function(e){
+	e.key 			修改或删除的key
+	e.newValue		新设置的值
+	e.oldValue 		改变之前的值
+	e.storageArea 	当前的storage对象
+	e.url 			触发该脚本变化的url
+},false)
+---------------------------------------------------------------------------------------------
+HTML5拖拽
+设置元素可以拖放	在标签添加属性draggable="true"
+拖放事件
+dragstart			拖拽前触发
+drag 				拖拽中触发
+dragend				拖拽结束触发
+dragenter			进入目标元素触发
+dragleave			离开目标元素触发
+dragover			在目标元素中触发,需要组织默认事件window.event? window.event.returnValue = false : e.preventDefault();
+drop				在目标元素上释放鼠标触发
+---------------------------------------------------------------------------------------------
+HTML5音视频
+<audio>
+	<source src='horse.ogg' type="audio/ogg"></source>
+	<source src='horse.mp3' type="audio/mpeg"></source>
+</audio>
+<video>
+	<source src='movie.mp4' type="video/mp4"></source>
+	<source src='movie.ogg' type="video/ogg"></source>
+</video>
+标签属性
+controls="controls" 	显示控件
+autoplay="autoplay"  	自动播放
+loop="loop"				循环播放
+preload="preload"		预加载
+height					高
+width					宽
+src 					路径
+
+属性
+currentTime			当前播放时间,单位s
+duration			总时长,单位s
+paused				是否处于暂停状态,返回布尔值
+ended				是否结束
+autoPlay			是否自动播放
+loop				是否循环播放
+volume=0~1			设置或返回音频/视频的音量
+muted				设置或返回音频/视频是否静音
+currentSrc			返回当前音频/视频的 URL
+error				当发生错误的时候,返回错误代码
+
+poster				视频播放前的预览图片
+width				设置视频的宽度
+height				设置视频的高度
+videoWidth			返回视频的原始宽度
+videoHeight			返回视频的原始高度
+
+方法
+play() 			播放
+pause() 		暂停
+load() 			重新加载src指定的字眼
+
+事件
+timeupdate		当目前的播放位置已更改时触发。
+pause			当音频/视频已暂停时触发
+play			当音频/视频已开始或不再暂停时触发。
+volumechange	当音量已更改时触发。
+ended			播放已结束时触发.
+---------------------------------------------------------------------------------------------
+离线应用程序
+在html标签上添加 manifest="demo.appcache"
+---------------------------------------------------------------------------------------------
+通信

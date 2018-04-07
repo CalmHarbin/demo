@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>打字速度挑战</title>
+  <style type="text/css">
+	body,div,img,ul,li{
+		margin:0px;
+		padding:0px;
+	}
+	#bg{
+		position:relative;
+		height:537px;
+		background-image:url('images/u=1679383864,1035728805&fm=27&gp=0.jpg');
+		background-size:cover;
+		padding-top:50px;
+		overflow:hidden;
+	}
+	#bg img{
+		position:absolute;
+		top:0;
+	}
+	.over{
+		width:300px;
+		height:213px;
+		margin:0 auto;
+		color:white;
+		font-size: 70px;
+		text-align: center;
+		display:none;
+	}
+	.scoreboard{
+		position: absolute;
+		right: 2%;
+		bottom: 2%;
+		width: 130px;
+		height: 88px;
+		color: white;
+		font-size: 60px;
+		text-align: center;
+	}
+	#control{
+		height:50px;
+		background-color:#660066;
+	}
+	ul{
+		list-style:none;
+	}
+	li{
+		float:left;
+		margin-right:30px;
+		color:white;
+		width:135px;
+		height:50px;
+		line-height:50px;
+		font-size:30px;
+	}
+  </style>
+  <script type="text/javascript" src='jquery-3.2.1.js'></script>
+ </head>
+ <body>
+  <div id='bg'>
+	<div class='over'>游戏结束</div>
+	<div class='scoreboard'>0</div>
+  </div>
+  <div id='control'>
+	<ul>
+		<li>暂停/继续</li>
+		<li>开始游戏</li>
+		<li>游戏加速</li>
+	</ul>
+  </div>
+  <script type="text/javascript">
+	$(document).ready(function(){
+		var letter=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+		var onOff=true;//判断状态的开关
+		var onOff2=true;
+		var num=0;//计分初始化
+		var clear=3;
+		var X=2;
+		//console.log(letter[index]);
+		//开始游戏
+		$('li').eq(1).click(function(){
+			onOff=true;
+			//window.setInterval(game,800);//定时器
+			if(onOff2){
+				game(5);
+			}
+			var c=window.setInterval(move,1000/30);//定时器
+		});
+		//添加字母
+		function game(n){
+			if(onOff){//判断是不是游戏状态
+				for(var i=0;i<n;i++){
+				var index=Math.floor(Math.random()*26);//随机索引值
+				var left=Math.floor(Math.random()*1200);//随机水平位置
+				$('#bg').append("<img src='images/"+letter[index]+".png' alt='"+index+"' width='150px' height='130px' style='left:"+left+"px'/>");//添加图片
+				}
+			}
+		}
+		//下落
+		function move(){
+			if(onOff){//判断游戏状态
+				var imgs=$("#bg img");//获得所有img标签
+				imgs.each(function(i){//遍历img标签
+					if(imgs[i].offsetTop<537){
+						imgs[i].style.top=imgs[i].offsetTop+X+'px';
+					}else{
+						imgs[i].remove();//删除元素
+						num=0;
+						$('.scoreboard').html(num);
+						game(1);
+					}
+				});
+			}
+		}
+		//暂停游戏
+		$('li').eq(0).click(function(){
+			if(onOff){//开始状态切换为暂停状态
+				onOff=false;
+			}else{//暂停状态切换为开始状态
+				onOff=true;
+			}
+		})
+		//游戏加速
+		$('li').eq(2).click(function(){
+			X+=1;
+		})
+		//点击清除,并计分
+		window.onkeydown=function(e){
+			e=e||event;
+			var imgs=$('#bg img');//获得标签
+			imgs.each(function(i){
+				if(e.which-65==imgs[i].alt){//判断按键是否正确
+					imgs[i].remove();//删除元素
+					num++;//计分增加
+					$('.scoreboard').html(num);
+					game(1);//消除一个生成一个
+				}
+			})
+			if(e.which==32){//点击空格怎游戏加速
+					$('li').eq(2).click();
+				}
+		}
+
+
+	});
+  </script>
+ </body>
+</html>

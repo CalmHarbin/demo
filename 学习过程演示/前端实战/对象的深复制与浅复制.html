@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>浅复制与深复制</title>
+  <style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	
+  </style>
+ </head>
+ <body>
+	<script src='jquery-3.2.1.js'></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var game1={
+				a:[1,2,3],
+				b:{c:[4,5,6]}
+			}
+			var game2={
+				a:[1,2,3],
+				b:{c:[7,8,9]}
+			}
+			
+			game2=game1;//浅复制,会改变原有对象
+			//console.log(game1,game2)
+			
+			//game1.a[0]=2;
+			//console.log(game1,game2)
+			
+
+			//$.extend(false,game1,game2 );
+			//console.log(game1.a,game2.a)
+			//console.log(game1.a,typeof game1.a)
+			//console.log(game1.b,typeof game1.b)
+		
+		
+		
+		function deepCopy(p, c) {//把p复制给c,深复制
+　　　　	var obj = c || {};
+　　　　	for (var i in p) {
+　　　　　　if (typeof p[i] === 'object') {
+　　　　　　　　obj[i] = (p[i].constructor === Array) ? [] : {};
+　　　　　　　　deepCopy(p[i], c[i]);
+　　　　　　} else {
+　　　　　　　　　obj[i] = p[i];
+　　　　　　	}
+　　　		}
+　　　　	return obj;
+　　	}
+			console.log(game1,game2)
+			//deepCopy(game1,game2);//深复制不会改变原有对象
+			game2.b.c[0]=10;
+			console.log(game1,game2)
+
+		})
+
+		function clone(obj1){
+			if(typeof obj1==='object'){
+				var obj=obj1 instanceof Array?[]:{}
+				for(var attr in obj1){
+					if( typeof obj1[attr]==='object'){
+						obj[attr]=clone(obj1[attr]);
+					}else{
+						obj[attr]=obj1[attr];
+					}
+				}
+				return obj;
+			}else{
+				return obj1;
+			}
+		}
+		var obj={
+				'name':'张三',
+				'age':20,
+				'arr':{
+					'name':'张三',
+				'age':20,
+				}
+			}
+		var obj2=clone(obj);
+		var obj3=obj;
+		//obj2.arr=[1,2,3];
+		console.log(obj);
+		console.log(obj2);
+		console.log(obj3);
+	</script>
+ </body>
+</html>

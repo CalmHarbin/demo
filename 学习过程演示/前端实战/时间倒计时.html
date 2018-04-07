@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>时间倒计时</title>
+ </head>
+ <body>
+ <p><p>
+  <script type="text/javascript">
+	var oP=document.getElementsByTagName('p')[0];
+	function date(){
+		var system=new Date();//系统当前时间
+		var year=system.getFullYear();
+		var month=system.getMonth()+1;
+		var date=system.getDate();
+		var hour=system.getHours();
+		var minute=system.getMinutes();
+		var second=system.getSeconds();
+		var day=system.getDay();
+		if(day==0){
+			day=7;
+		}
+		//指定时间
+		var system1=new Date("5 20,2020 5:20:0");
+		var year1=system1.getFullYear();
+		var month1=system1.getMonth()+1;
+		var date1=system1.getDate();
+		var hour1=system1.getHours();
+		var minute1=system1.getMinutes();
+		var second1=system1.getSeconds();
+		var day1=system.getDay();
+		//时间差值
+		var difference=system1.getTime()-system.getTime();
+		var year2=Math.floor(difference/1000/60/60/24/365);
+		var month2=Math.floor(difference/1000/60/60/24%365/30);
+		var date2=Math.floor(difference/1000/60/60/24%30);
+		var hour2=Math.floor(difference/1000/60/60%24);
+		var minute2=Math.floor(difference/1000/60%60);
+		var second2=Math.floor(difference/1000%60);
+		//显示时间
+		oP.innerHTML='今天是'+year+'年'+month+'月'+date+'日'+'星期'+day+'<br/>'+hour+':'+minute+':'+second+'<br/>'+'距离'+year1+'年'+month1+'月'+date1+'日'+'<br/>'+hour1+':'+minute1+':'+second1+'<br/>'+'还差'+year2+'年'+month2+'月'+date2+'天'+hour2+'小时'+minute2+'分钟'+second2+'秒'
+		
+	}
+	setInterval(date,1000);//时间更新
+
+  </script>
+ </body>
+</html>

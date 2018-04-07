@@ -1,0 +1,104 @@
+工作区->暂存区->本地仓库->远程仓库
+github的使用
+1.生成SSHkey(文件存在用户主目录下,.ssh文件),我的C:\Users\lenovo\.ssh\
+ssh-keygen.exe -t rsa
+
+id_rsa文件为本地私有秘钥
+id_rsa.pub文件为公开秘钥
+
+2.登录github,点击setting,再点击SSHandGPGKEYS,再点击new SSHkey
+
+3.将公开秘钥粘贴并保存
+
+4.将远程仓库克隆到本地
+git clone 远程仓库的地址(选用ssh地址)
+
+5.本地推到远程仓库,即把本地数据上传到远程
+git push
+
+6.将远程仓库拉到本机,即把远程数据下载到本地
+git pull
+
+
+1.配置名字和邮箱
+git config --global user.name "名字"
+git config --global user.email "邮箱"
+
+2.创建本地仓库(在需要的目录下)
+git init
+
+3.将文件添加到暂存区
+git add .
+
+4.将暂存区的文件提交到本地仓库
+git commit -m "本次提交的注释"
+
+5.将文件push到远程仓库
+git push
+
+查看配置信息
+git config --list
+
+查看当前的文件状态
+git status
+
+将文件删除
+git rm 文件名
+
+查看修改的文件内容
+git diff 文件名
+
+查看日志
+git log 	(详细信息,HEAD指向当前的版本)
+git log --pretty=oneline	(以一行显示)
+
+版本回退
+git reset --hard HEAD^				回退到上一个版本
+git reset --hard HEAD^^				回退到上两个版本
+git reset --hard HEAD~num			回退到上num个版本
+git reset --hard 版本号(前7为)		回退到指定的版本,版本号用git log查看
+
+查看操作记录
+git reflog
+
+设置别名
+git config --global alias.别名 原命令
+
+撤销工作区的修改,撤销到最后一次提交的版本
+git checkout 文件名	
+
+撤销暂存区的文件
+git reset HEAD 文件名			将文件拉回工作区
+git checkout 文件名				撤销
+
+恢复工作区中删除的文件
+git checkout -- 文件名
+
+创建分支与合并分支
+git checkout -b 分支名
+
+查看分支
+git branch
+
+切换分支
+git checkout 分支名
+
+合并分支
+git merge 分支名		把指定分支合并到当前所在分支
+例如:将dev分支合并到master主分支上
+1.git checkout master		切换到主分支
+2.git merge dev				合并
+
+删除分支
+git branch -d 分支名
+
+标签管理
+创建标签
+git tag v1.0				给当前版本添加版本号为v1.0
+git tag v0.9 版本号   		给指定的版本添加版本号为v0.9
+
+查看标签信息
+git show 标签名
+
+删除标签
+git tab -d 标签名

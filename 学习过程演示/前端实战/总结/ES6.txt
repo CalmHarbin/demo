@@ -1,0 +1,428 @@
+1.let和const和Create.freze();
+块级作用域
+let a=0;		定义一个变量a,
+	注意:	不可重复定义
+			在定义前不可使用.
+
+const a=0; 	定义一个常量a;(数组和对象这种引用类型值可以修改)
+	注意: 	值不可修改,
+			定义时必须赋值
+
+Object.freeze(json);冻结一个对象或者数组,不可修改其值;
+		注意:如果内部嵌套了对象或者数组,是可以修改的,参考对象的深复制.
+---------------------------------------------------------------------
+2.解构赋值
+结构必须一一对应
+
+//一一对应
+let [a,[b,c]]=[1,[2,3]];
+console.log(a,b,c);//a=1,b=2,c=3
+
+//没有值则是undefined
+let [a,b,c]=[1,[2,3]];
+console.log(a,b,c);//a=1,b=[2,3],c=undefined
+
+//给默认值
+let [a='默认值',b,c='我是默认值']=[1,[2,3]];
+console.log(a,b,c);//a=1,b=[2,3],c='我是默认值'
+
+//起别名(只有json才能起别名)
+let {name:n,age:a}={'name':'user1','age':18};
+console.log(n,a);//n='user1',a=18
+---------------------------------------------------------------------
+3.字符串模板
+``反单引号,内部访问变量用${变量名};
+
+let name='user1';
+let age=18;
+let a=`我的名字是${name},我今年${age}岁`;//我的名字是user1,我今年18岁
+console.log(a);
+
+新增方法 	includes(指定字符)//查找字符串中是否含有指定字符,找到返回true,类似indexOf();
+			startsWith(指定字符)//判断字符串是否以指定字符开头
+			endsWith(指定字符)//判断字符串是否以指定字符结尾
+			repeat(次数)//重复字符串多少次,返回重复后的字符串
+			padStart(填充后的字符串长度,填充的字符串)//向前填充字符串
+			padEnd(填充后的字符串长度,填充的字符串)//向后填充字符串
+---------------------------------------------------------------------
+4.函数
+给默认值  参数=默认值
+function show(a='默认a',b='默认b'){
+	//
+}
+
+funciton show({a='默认a',b='默认b'}={}){
+	//
+}
+
+参数以及默认定义了
+function show(a){
+	let a=1;//报错
+}
+show();
+
+扩展运算符 ...
+let arr=['user1','user2','user3'];
+console.log(arr);// ["user1", "user2", "user3"]
+console.log(...arr);//user1 user2 user3
+
+扩展
+function show(a,b,c){
+	console.log(a,b,c);//1,2,3
+}
+show(...[1,2,3]);
+剩于
+function show(a,...arr){
+	console.log(a);//1
+	console.log(arr);//[2, 3, 4, 5]
+}
+show(1,2,3,4,5);
+
+复制
+let arr=[1,2,3,4,5];
+let arr2=[...arr];
+let arr3=Array.from(arr);
+console.log(arr2);//[1,2,3,4,5];
+console.log(arr3);[1,2,3,4,5];
+
+箭头函数=>
+let 函数名=(参数)=>{
+					语句
+					return ;	
+					}
+自执行箭头函数
+((a=1,b=2)=>{
+  console.log(a,b);
+})()
+
+注意:	箭头函数其实没有this,内部的this其实就是其父级中的this.
+var name='user';
+var json={
+	name:'user1',
+	show:function(){
+		setTimeout(function(){
+			console.log(this.name);//user
+		},1000)
+	}
+}
+json.show();
+
+let name='user';
+let json={
+	name:'user1',
+	show:function(){
+		setTimeout(()=>{
+			console.log(this.name);//user1
+		},1000)
+	}
+}
+json.show();
+
+箭头函数内部没有arguments对象;
+funciton show(){
+	console.log(arguments);//[1,2,3]
+}
+show(1,2,3);
+
+let show=()=>{
+	console.log(arguments);//报错
+}
+show(1,2,3);
+解决办法
+let show=(...arguments)=>{
+	console.log(arguments);//[1,2,3];
+}
+show(1,2,3)
+
+箭头函数不能当构造函数
+function Fn(){
+	this.name='user1';
+}
+var user1=new Fn();
+console.log(user1.name);//user1;
+
+let Fn=()=>{
+	this.name='user1';
+}
+let user=new Fn();//报错 Fn is not a constructor
+---------------------------------------------------------------------
+5.数组
+for of循环
+			数组新增方法
+					arr.includes()//查找数组里是否含有指定的值
+					arr.keys() 	得到数组所有的键
+					arr.entries()得到数组的所有键值对
+					arr.of(val1,val2)把一组值转为数组
+					arr.find((val,idx,arr)=>{//查找数组中第一个符合条件的值,与filter不同
+						return ;
+					})
+					arr.findIndex((val,idx,arr)=>{//查找数组中第一个符合条件的位置
+						return ;
+					})
+					arr.fill('填充值',开始索引,结束索引)//向数组指定位置填充值,类似替换功能,包含开始位置不包含结束位置
+
+遍历字符串,得到每一个字符
+let str='hello';
+for(let s of str){
+	console.log(s);//h,e,l,l,o
+}
+
+遍历数组,得值
+let arr=['user1','user2','user3'];
+for(let val of arr){
+	console.log(val);//'user1','user2','user3'
+}
+得键
+let arr=['user1','user2','user3'];
+for(let key of arr.keys()){
+	console.log(key);//0,1,2
+}
+得键值对
+let arr=['user1','user2','user3'];
+for(let [key,val] of arr.entries()){
+	console.log(key,val);//0,user1,1,user2,2,user3
+}
+
+6.对象
+Object.assign(合并后的目标,被合并的元素1,);//合并对象,相同元素后面的覆盖前面的
+Object.keys(json);//获得对象的所有键
+Object.values(json);//获得对象的所有值
+Object.entries(json);//获得对象的所有键值对
+
+7.Promise
+let obj=new Promise(funciton(resolve,reject){//成功,失败
+	resolve('成功');
+	reject('失败');
+})
+obj.then(function(res){
+	//成功回调
+},function(err){
+	//失败回调
+});
+obj.catch(function(err){
+	//处理失败,相当于失败回调
+})
+
+Promise.resolve(data);//将现有的数据转成promise对象,并且是成功状态
+Promise.reject(data);//将现有的数据转成promise对象,并且是失败状态
+Promise.all([promise1,promise2,promise3]);将promise对象打包,放到一个数组里,返回一个promise对象,必须都是成功状态的
+Promise.race([promise1,promise2,promise3]);将promise对象打包,放到一个数组里,返回一个promise对象,只要有一个成功的就行
+
+实例
+let status=1;
+let userLogin=(resolve,reject)=>{
+	if(status===1){
+		resolve('用户登录成功');
+	}else{
+		reject('登录失败')
+	}
+}
+let getUserInfo=(resolve,reject)=>{
+	if(status===1){
+		resolve({username:'user1',age:20});
+	}else{
+		reject('获取失败')
+	}
+}
+new Promise(userLogin).then(res=>{
+	console.log('用户登录成功');
+	return new Promise(getUserInfo);
+}).then(res=>{
+	console.log('获取用户信息成功');
+	console.log(res);
+})
+
+8.模块化
+定义模块
+	输入模块
+	export 数据;
+	export 变量名 as 别名;
+	export default 数据;//引入模块时不需要用{}
+使用模块
+	引入模块
+	<script type="module">
+		import '文件路径';//直接引入文件,可以是相对路径,也可以是绝对路径
+		import {变量1,变量2} from '文件路径';
+		import {变量1 as 别名} from '文件路径';
+		import * as 别名 from '文件路径';
+	</script>
+	动态引入模块import()返回Promise对象
+	<script type="module">
+		import('文件地址').then(res=>{
+			//引入成功
+		})
+	</script>
+
+8.类
+class 类名{
+	//构造方法,new时自动执行,接受传来的实参
+	constructor(形参){
+		this.name='user1';//属性
+	}//不需要逗号
+
+	//没有function
+	say(){//方法
+		//
+	}
+
+	//静态方法,类名之间打点调用
+	static 方法名(){
+
+	}
+}
+继承
+class 子类 extends 父类{
+	constructor(形参){
+		super(父类接受的参数);//把父类的constructor搬过来
+		//添加自己的属性和方法
+	}
+	
+	和父类相同的方法
+	say(){
+		super.say();//先执行父类的方法,以免覆盖了
+		//自己新增的功能
+	}
+}
+
+9.symbol(新增数据类型)
+定义一个symbol
+let a=Symbol('aaa');
+
+10.generator函数
+定义
+function * show(){
+  yield '你好';
+  yield '早上好';
+  return '123';
+}
+使用
+let a=show();
+for(let val of a){
+	//for of变量
+	val就是yield的值
+}
+
+//value是yield的值,done表示是否执行完了这个函数
+console.log(a.next());//{value: "你好", done: false}
+console.log(a.next());//{value: "早上好", done: false}
+console.log(a.next());//{value: "123", done: true}
+console.log(a.next());//{value: undefined, done: true}
+
+let [a,b]=show();//解构
+
+console.log(...show());
+console.log(Array.form(show()));
+
+11.async(异步函数)
+async function 函数名(){
+	try{
+		await表示后面的结果需要等待
+	}catch(err){
+		//我出错了
+		console.log(err)
+	}
+	
+}
+特点:
+	1.await只能放到async函数中
+	2.相比generator语义化更强
+	3.await后面可以是promise对象,也可是是数字,字符串,布尔
+	4.async函数返回一个promise对象
+	5.只要await语句后面promise状态变成reject,那么整个async函数会中断执行.
+
+异步实现的三种方式
+const fs=require('fs');//引入fs模块
+//封装一个读取文件函数
+const readFile=function(fileName){
+	return new Promise((resolve,reject)=>{
+		fs.readFile(fileName,(err,data)=>{
+			if(err) reject(err);
+			resolve(data);
+		})
+	})
+}
+1.promise方法
+readFile('a.txt').then(res=>{
+	alert('a.txt读取成功');
+	console.log(res)
+	return readFile('b.txt');
+}).then(res=>{
+	alert('b.txt读取成功');
+	console.log(res);
+	return readFile('c.txt');
+}).then(res=>{
+	alert('c.txt读取成功');
+	console.log(res);
+})
+2.generator函数
+function * read(){
+	yield readFile('a.txt');
+	yield readFile('b.txt');
+	yield readFile('c.txt');
+}
+let g1=read();
+g1.next().value.then(res=>{
+	alert('a.txt读取成功');
+	console.log(res)
+	return g1.next().value;
+}).then(res=>{
+	alert('b.txt读取成功');
+	console.log(res)
+	return g1.next().value;
+})
+.then(res=>{
+	alert('c.txt读取成功');
+	console.log(res)
+});
+3.async方法
+async function read(){
+	let file1=await readFile('a.txt');
+	alert('a.txt读取成功')
+	console.log(file1.toString());
+	
+	let file2=await readFile('b.txt');
+	alert('b.txt读取成功')
+	console.log(file2.toString());
+	
+	let file3=await readFile('c.txt');
+	alert('c.txt读取成功')
+	console.log(file3.toString());
+}
+
+12.set数据结构(类似数组,不能有重复值 )
+定义
+let setArr=new Set(['a,'b','c']);//初始化只能是数组
+添加
+setArr.add('d');
+删除
+setArr.delete('a');
+清空
+setArr.clear();
+判断是否含有指定值
+setArr.has('b');//true
+查看个数
+setArr.size;
+
+13.map数据类型(类似json,但是json的key只能是字符串,map的可以是任意类型)
+定义
+let map=new Map();
+添加
+map.set(key,val);
+获取
+map.get(key);
+删除
+map.delete(key);
+清空
+map.clear();
+判断
+map.has(key);
+
+14Math新增
+Number.isNaN()//是不是NaN
+Number.isFinite();//是不是数字
+Number.isInteger();//是不是整数
+Number.isSafeInteger();//是不是安全整数,-2^53-1到2^53-1;
+
+Math.trunc();//去尾法,丢弃小数取整
+Math.sign();//判断一个数是正数,负数,还是0
+Math.cbrt();//立方根,开立方

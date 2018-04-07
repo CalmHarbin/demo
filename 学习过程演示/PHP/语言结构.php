@@ -1,0 +1,22 @@
+<?php 
+/*语言结构:语言结构不是函数
+if()
+for()
+while()
+switch()
+array()
+echo()
+print()
+list()
+isset()
+unset()
+foreach()
+exit()
+die()
+include()
+require()
+empty()
+*/
+
+var_dump(function_exists("if"));//function_exists判断是不是函数
+ ?>

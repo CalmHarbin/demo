@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bs/bootstrap.min.css">
+<script src="../bs/jquery-3.2.1.js"></script>
+<script src="../bs/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-controller="myctrl" ng-cloak>
+
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	myapp.controller("myctrl",['$scope',"myserver",function($scope,myserver){//注入自定义服务myserver
+		myserver.get(function(res){  //使用myserver服务中的get方法
+			$scope.data=res.data;  //保存返回数据
+		});
+		myserver.post().then(function(res){   //使用myserver服务中的post方法
+			$scope.data=res.data;  //保存返回数据
+		});
+	}]);
+	//自定义服务
+	myapp.factory('myserver', ['$http', function($http){
+		return {
+			//第一种方法,使用回调函数
+			get:function(callback){//回调函数,接受一个函数
+				$http.get("1.php").then(function(res){
+					return callback(res);  //返回这个回调函数
+				})
+			},
+			//第二种方法,返回这个对象,推荐使用
+			post:function(){
+				return $http.post("1.php",{id:1});
+			}
+		};
+	}])();
+</script>
+</html>

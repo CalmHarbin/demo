@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue</title>
+	<script src="vue.min.js"></script>
+	<style>
+	.box{
+		color:red;
+	}
+	</style>
+</head>
+<body>
+	<div id="myapp">
+		<input type="text" v-model="name" v-on:keydown.ctrl.shift="get()">
+		<p>{{name}}</p>
+		<p>{{name|uppercase}}  我用的自定义过滤器</p>
+		<p v-bind:class="{box:class1,'text-danger':true}">我绑定了一个类</p>
+		<a v-bind:href="attr" target="top">点我</a>
+		<div v-html="html"></div>
+
+		<p>我的年龄是{{age}}</p>
+		<button @click="add()">点我加一岁</button>
+		<button @click="minus()">点我减一岁</button>
+		<p>我的年龄加上12=  {{sum}}   我是计算属性,调用我不能加()</p>
+
+		<p v-if="num===0">我是v-if 值为0</p>
+		<p v-else-if="num===1">我是v--else-if 值为1</p>
+		<p v-else-if="num===2">我是v-else-if 值为2</p>
+		<p v-else>我是v-else 值不是012</p>
+		<p v-show="true">我是v-show</p>
+
+		<form action="">
+			<input type="checkbox" v-model="checked" value="one">one
+			<input type="checkbox" v-model="checked" value="two">two
+			<input type="checkbox" v-model="checked" value="three">three
+			<input type="checkbox" v-model="checked" value="four">four
+		</form>
+		<button v-on:click="all()">全选/取消全选</button>
+		<button v-on:click="against(checked)">反选</button>
+
+		<!-- v-for -->
+		<ul>
+			<li v-for="(value,index) in arr">我的索引是{{index}}---我的值是{{value}}</li>
+		</ul>
+
+		<!-- v-for不会重复template标签 -->
+		<template v-for="(value,key) in obj">
+			<label>{{key}}</label>	
+			<input type="text" v-bind:value="value">
+		</template>
+
+		<zh v-bind:message-ch="hello" v-on:gets='get()'></zh>
+	</div>
+</body>
+<script>
+	var onoff="on";
+	//必须在vue实例化对象之前
+	Vue.component("zh",{
+		props:['messageCh'],
+		template:"<h1 @click='get()'>{{messageCh}} 我是{{name}}</h1>",
+		data:function(){
+			return {
+				name:"张焕",
+			}
+		},
+		methods:{
+			get:function(){
+				console.log('我是get');
+				this.$emit('gets');
+			}
+		}
+	});
+
+	var myapp=new Vue({
+		el:"#myapp",  //绑定的元素 
+		data:{    //属性
+			name:"user",
+			attr:"www.baidu.com",
+			age:"20",
+			class1:true,
+			html:"<h1>我是html</h1>",
+			num:1,
+			checked:[],
+			arr:['user1','user2','user3'],
+			obj:{
+				'username':'user',
+				'password':'123',
+				'age':'20'
+			},
+			hello:"你好啊"
+		},
+		methods:{   //方法
+			get:function(){
+				console.log("my name is "+this.name+"!");
+				return ;
+			},
+			add:function(){
+				this.age++;
+			},
+			minus:function(){
+				this.age--;
+			},
+			all:function(){
+				if(onoff=="on"){
+					this.checked=['one','two','three','four']
+					onoff='off';
+				}else{
+					this.checked=[];
+					onoff='on';
+				}
+			},
+			against:function(old){
+				var news=['one','two','three','four']
+				for(var i=0;i<old.length;i++){
+					for(var j=0;j<news.length;j++){
+						if(news[j]==old[i]){
+							news.splice(j,1);
+						}
+					}
+				}
+				this.checked=news;
+			}
+		},
+		filters:{  //过滤器
+			uppercase:function(data){
+				return data.toUpperCase();
+			}
+		},
+		computed:{   //计算属性,调用时不能加()
+			sum:function(){
+				return this.age*1+12;
+			}
+		}
+	})
+</script>
+</html>

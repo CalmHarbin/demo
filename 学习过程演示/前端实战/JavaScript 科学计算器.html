@@ -1,0 +1,216 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta name='Keywords' content=''>
+		<meta name='Decrption' content=''>
+		<title>JS计算器</title>
+		<style type="text/css">
+		body,div,h1,input,table,tr,td,button{
+			margin:0;
+			padding:0;
+		}
+		div{
+			width:300px;
+			margin:30px auto;
+			font-size:14px;
+		}
+		input,#result{
+			width:30px;
+		}
+		#show1,#show2{width:230px;}
+		#eliminate{width:70px;}
+		td{
+			width:40px;
+		}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>JavaScript计算器</h1>
+			<input type="text" id='show1'/>
+			<input type="text" id='show2'/>
+			<table>
+				<tr>
+					<td><input type="button" value='sin'/></td>
+					<td><input type="button" value='cos'/></td>
+					<td><input type="button" value='7'/></td>
+					<td><input type="button" value='8'/></td>
+					<td><input type="button" value='9'/></td>
+					<td><input type="button" value='+'/></td>
+				</tr>
+				<tr>
+					<td><input type="button" value='asin'/></td>
+					<td><input type="button" value='acos'/></td>
+					<td><input type="button" value='4'/></td>
+					<td><input type="button" value='5'/></td>
+					<td><input type="button" value='6'/></td>
+					<td><input type="button" value='-'/></td>
+				</tr>
+				<tr>
+					<td><input type="button" value='tan'/></td>
+					<td><input type="button" value='atan'/></td>
+					<td><input type="button" value='1'/></td>
+					<td><input type="button" value='2'/></td>
+					<td><input type="button" value='3'/></td>
+					<td><input type="button" value='×'/></td>
+				</tr>
+				<tr>
+					<td><input type="button" value='log'/></td>
+					<td><input type="button" value='exp'/></td>
+					<td><input type="button" value='0'/></td>
+					<td><input type="button" value='.'/></td>
+					<td><button id='result'>=</button></td>
+					<td><input type="button" value='÷'/></td>
+				</tr>
+				<tr>
+					<td><input type="button" value='sqrt'/></td>
+					<td><input type="button" value='('/></td>
+					<td><input type="button" value=')'/></td>
+					<td><input type="button" value='Π'/></td>
+					<td colspan='2'><button id='eliminate'>清除</button></td>
+				</tr>
+			</table>
+		</div>
+		<script type="text/javascript">
+			var btn=document.getElementsByTagName('input');  //获取计算器按键
+			var tab=document.getElementsByTagName('table')[0];//获取按键的共同父元素
+			var eliminate=document.getElementById('eliminate');//获得清除按钮
+			var result=document.getElementById('result');  //获得计算按钮
+			var btnlen=btn.length;  //计算计算器按键个数
+			tab.addEventListener("click",inputWord);  //监听点击事件
+			function inputWord(e){//将内容放入显示区
+			    e=e||event;
+				if(e.target.nodeName.toLowerCase()==='input'){//判断点击的是不是运算式内容
+					btn[0].value+=e.target.value;  //将数字连接起来,并在显示器显示
+				}
+			}
+			eliminate.onclick=function(){//点击清除按钮清除显示器
+				btn[0].value=''; //清空显示器
+				btn[1].value='';  //清空结果显示
+			}
+			result.onclick=function(){//给=绑定点击事件,运算结果
+				var price=btn[0].value; //将显示器的运算式保存在price中
+				btn[1].value=brackeds(price); //计算运算式,并把结果在结果区显示
+			}
+			function brackeds(b){//检查是否存在括号
+				var str=b;  //将字符串储存在str
+				if(str.indexOf('(')!='-1'){  //如果运算式中含有括号
+					var left=str.lastIndexOf('(',str.indexOf(')'))+1;//从后向前搜索,从第一个反括号)处向前搜索,将索引值储存起来,+1不显示(;
+					var right=str.indexOf(')');//从前向后搜索反括号),将索引值储存起来
+					var str1=str.slice(left,right);  //提取括号内的计算式
+					var A=searching(str1);  //计算括号内的结果
+					var B=str.slice(0,left-1)+A+str.slice(right+1,str.length1);  //字符串拼接,(左边的式子+括号内的结果+)右边的式子;组成新的字符串
+					var C=brackeds(B);//检测新的字符串是否含有括号
+					return C;//返回结果
+				}else{//如果运算式不含有括号,则计算运算式的结果,并返回
+				 var A=searching(str);//计算运算式
+				 return A;  //返回结果
+				}
+			}
+			function searching(a){//检索运算式
+				var str=a;//将运算式转化为字符串
+				if(str.lastIndexOf('+')!='-1'){//检查运算式是否是加法
+					var one1=str.substring(0,str.lastIndexOf('+'))//将加号左边字符串保存起来
+					var one2=str.substring(str.lastIndexOf('+')+1,str.length)//将加号右边字符串保存起来
+					if(isNaN(one1)){ //判断one1是不是数字
+						one1=searching(one1); //不是数字再次调用函数
+					}
+					if(isNaN(one2)){//判断one2是不是数字
+						one2=searching(one2)//不是数字再次调用函数
+					}
+					if(isNaN(one2)&&isNaN(one2));//判断one1和one2是不是都是数字
+					else{ //都是数字则运算结果
+						B=one1*1+one2*1;  //运算加法结果
+						return B; //返回结果
+					}
+				}
+				if(str.lastIndexOf('-')!='-1'){
+					var one1=str.substring(0,str.lastIndexOf('-'))
+					var one2=str.substring(str.lastIndexOf('-')+1,str.length)
+					if(isNaN(one1)){
+						one1=searching(one1);
+					}
+					if(isNaN(one2)){
+						one2=searching(one2)
+					}
+					if(isNaN(one2)&&isNaN(one2));
+					else{
+						B=one1*1-one2*1;  //运算减法结果
+						return B;
+					}
+				}
+				if(str.lastIndexOf('×')!='-1'){
+					var one1=str.substring(0,str.lastIndexOf('×'))
+					var one2=str.substring(str.lastIndexOf('×')+1,str.length)
+					if(isNaN(one1)){
+						one1=searching(one1);
+					}
+					if(isNaN(one2)){
+						one2=searching(one2)
+					}
+					if(isNaN(one2)&&isNaN(one2));
+					else{
+						B=(one1*1)*(one2*1);  //运算乘法结果
+						return B;
+					}
+				}
+				if(str.lastIndexOf('÷')!='-1'){
+					var one1=str.substring(0,str.lastIndexOf('÷'))
+					var one2=str.substring(str.lastIndexOf('÷')+1,str.length)
+					if(isNaN(one1)){
+						one1=searching(one1);
+					}
+					if(isNaN(one2)){
+						one2=searching(one2)
+					}
+					if(isNaN(one2)&&isNaN(one2));
+					else{
+						B=(one1*1)/(one2*1);  //运算除法结果
+						return B;
+					}
+				}
+				if(str.lastIndexOf('sin')!='-1'){//计算sin
+					var one2=str.substring(str.lastIndexOf('sin')+3,str.length)//提取sin后的数字
+					return Math.sin(one2);//计算sin值并返回
+				}
+				if(str.lastIndexOf('cos')!='-1'){//计算cos
+					var one2=str.substring(str.lastIndexOf('cos')+3,str.length)
+					return Math.cos(one2);
+				}
+				if(str.lastIndexOf('tan')!='-1'){//计算tan
+					var one2=str.substring(str.lastIndexOf('tan')+3,str.length)
+					return Math.tan(one2);
+				}
+				if(str.lastIndexOf('asin')!='-1'){//计算asin
+					var one2=str.substring(str.lastIndexOf('asin')+4,str.length)
+					return Math.asin(one2);
+				}
+				if(str.lastIndexOf('acos')!='-1'){//计算acos
+					var one2=str.substring(str.lastIndexOf('acos')+4,str.length)
+					return Math.acos(one2);
+				}
+				if(str.lastIndexOf('atan')!='-1'){//计算atan
+					var one2=str.substring(str.lastIndexOf('atan')+4,str.length)
+					return Math.atan(one2);
+				}
+				if(str.lastIndexOf('log')!='-1'){//计算log
+					var one2=str.substring(str.lastIndexOf('log')+3,str.length)
+					return Math.log(one2);
+				}
+				if(str.lastIndexOf('Π')!='-1'){//返回派(π)
+					return Math.PI;
+				}
+				if(str.lastIndexOf('exp')!='-1'){//计算exp,以e为底的对数
+					var one2=str.substring(str.lastIndexOf('exp')+3,str.length)
+					return Math.exp(one2);
+				}
+				if(str.lastIndexOf('sqrt')!='-1'){//计算sqrt,根号
+					var one2=str.substring(str.lastIndexOf('sqrt')+4,str.length)
+					return Math.sqrt(one2);
+				}
+				return str*1;//将字符串转化为数字
+			}
+		</script>
+	</body>
+</html>

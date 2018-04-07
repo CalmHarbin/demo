@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<head>
+  <meta name='Keywords' content=''>
+  <meta name='Description' content=''>
+  <title>鼠标四方向移入移出</title>
+  <style>
+     html,body,div,ul,li,a,img{
+	     margin:0;
+		 padding:0;
+	 }
+     div{
+	     width:1150px;
+		 height:360px;
+		 margin:10px auto;
+	 }
+	 ul{
+	     list-style:none;
+		 width:100%;
+		 height:100%;
+	 }
+	 li{
+	     position:relative;
+	     float:left;
+	     width:230px;
+		 height:360px;
+		 overflow:hidden;
+	 }
+	 li a{
+	     position:absolute;
+		 top:0;
+	     width:230px;
+		 height:360px;
+		 visibility:hidden;
+	 }
+	 li img{
+	     vertical-align: middle;
+	 }
+	 /*上方移入动画*/
+	 .st{
+	     animation:changeT .2s linear forwards;
+	 }
+	 @keyframes changeT{
+	     0%{
+		     top:-360px;
+		 }
+		 100%{
+		     top:0px;
+	         visibility:visible;
+		 }
+	 }
+	 /*上方移出动画*/
+	 .sT{
+	     animation:changet .2s linear forwards;
+	 }
+	 @keyframes changet{
+		 100%{
+		     top:-360px;
+			 visibility:visible
+		 }
+	 }
+	 /*下方移出动画*/
+	  .sB{
+	     animation:changeb .2s linear forwards;
+	 }
+	 @keyframes changeb{
+		 100%{
+		     top:360px;
+			 visibility:visible
+		 }
+	 }
+	 /*下方移入动画*/
+	 .sb{
+	     animation:changeB .2s linear forwards;
+	 }
+	 @keyframes changeB{
+	     0%{
+		     top:360px;
+		 }
+		 100%{
+		     top:0px;
+	         visibility:visible;
+		 }
+	 }
+	 /*左方移入动画*/
+	 .sl{
+	     animation:changeL .2s linear forwards;
+	 }
+	 @keyframes changeL{
+	     0%{
+		     left:-230px;
+		 }
+		 100%{
+		     left:0px;
+	         visibility:visible;
+		 }
+	 }
+	 /*左方移出动画*/
+	 .sL{
+	     animation:changel .2s linear forwards;
+	 }
+	 @keyframes changel{
+		  0%{
+		     left:0;
+		 }
+		 100%{
+		     left:-230px;
+	         visibility:visible;
+		 }
+	 }
+	 /*右方移入动画*/
+	 .sr{
+	     animation:changeR .2s linear forwards;
+	 }
+	 @keyframes changeR{
+	     0%{
+		     left:230px;
+		 }
+		 100%{
+		     left:0px;
+	         visibility:visible;
+		 }
+	 }
+	 /*右方移出动画*/
+	 .sR{
+	     animation:changer .2s linear forwards;
+	 }
+	 @keyframes changer{
+		 0%{
+		     left:0;
+		 }
+		 100%{
+		     left:230px;
+	         visibility:visible;
+		 }
+	 }
+  </style>
+</head>
+<body>
+     <div>
+	     <ul>
+		     <li>
+			     <img src='img/1.jpg' alt='' width='230px' height='360px'>
+			     <a href='#'>
+				     <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/2.jpg' alt='' width='230px' height='360px'>
+			     <a href='#'>
+				     <img
+					 src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/3.jpg' alt='' width='230px' height='360px'>
+				 <a href='#'>
+				    <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/4.jpg' alt='' width='230px' height='360px'>
+				 <a href='#'>
+				     <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/5.jpg' alt='' width='230px' height='360px'>
+				 <a href='#'>
+				     <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/1.jpg' alt='' width='230px' height='360px'>
+			     <a href='#'>
+				     <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/2.jpg' alt='' width='230px' height='360px'>
+			     <a href='#'>
+				     <img
+					 src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/3.jpg' alt='' width='230px' height='360px'>
+				 <a href='#'>
+				    <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/4.jpg' alt='' width='230px' height='360px'>
+				 <a href='#'>
+				     <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+			 <li>
+			     <img src='img/5.jpg' alt='' width='230px' height='360px'>
+				 <a href='#'>
+				     <img src='https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg03.sogoucdn.com%2Fapp%2Fa%2F100520024%2F107ff0f533b302b6b8e21c32ab10dbb9&appid=122' alt='' width='230px' height='360px'>
+				 </a>
+			 </li>
+		 </ul>
+	 </div>
+     <script>
+	     window.onload=function(){
+		     var aLi=document.getElementsByTagName('li');
+			 var aLi_length=aLi.length; //获取li的个数
+             
+			// console.log(aLi_length)
+			 for(var i=0;i<aLi_length;i++){
+			     aLi[i].onmouseenter=function(e){//给每个li绑定鼠标移入事件
+				     var x=e.pageX;  //鼠标x坐标
+					 var y=e.pageY;   //鼠标y坐标
+					 var top=this.offsetTop;  //上边距离浏览器的距离
+					 var left=this.offsetLeft;  //左边距离浏览器的距离
+					 var bottom=top+this.clientHeight;  //下边距离浏览器的距离
+                     var right=left+this.clientWidth;  //右边距离浏览器的距离
+                     var T=Math.abs(y-top);    //鼠标距离li上边距离
+					 var B=Math.abs(y-bottom);   //鼠标距离li下边距离
+					 var L=Math.abs(x-left);    //鼠标距离li左边距离
+					 var R=Math.abs(x-right);   //鼠标距离li右边距离
+                     var direction=Math.min(T,B,L,R);  //鼠标距离li距离最小的边
+					 switch (direction){
+					     case T: this.children[1].className='st'; //鼠标从上方进入
+						     break;
+						 case B: this.children[1].className='sb';  //鼠标从下方进入
+						     break;
+						 case L: this.children[1].className='sl';   //鼠标从左方进入
+						     break;
+						 case R: this.children[1].className='sr';   //鼠标从右方进入
+						     break;
+					 }
+				 }
+			     aLi[i].onmouseleave=function(e){//给每个li绑定鼠标移出事件
+				     var x=e.pageX;  //鼠标x坐标
+					 var y=e.pageY;   //鼠标y坐标
+					 var top=this.offsetTop;  //上边距离浏览器的距离
+					 var left=this.offsetLeft;  //左边距离浏览器的距离
+					 var bottom=top+this.clientHeight;  //下边距离浏览器的距离
+                     var right=left+this.clientWidth;  //右边距离浏览器的距离
+                     var T=Math.abs(y-top);    //鼠标距离li上边距离
+					 var B=Math.abs(y-bottom);   //鼠标距离li下边距离
+					 var L=Math.abs(x-left);    //鼠标距离li左边距离
+					 var R=Math.abs(x-right);   //鼠标距离li右边距离
+                     var direction=Math.min(T,B,L,R);  //鼠标距离li距离最小的边
+					 switch (direction){
+					     case T: this.children[1].className='sT';  //鼠标从上方移出
+						     break;
+						 case B: this.children[1].className='sB';  //鼠标从下方移出
+						     break;
+						 case L: this.children[1].className='sL';  //鼠标从左方移出
+						     break;
+						 case R: this.children[1].className='sR';  //鼠标从右方移出
+						     break;
+					 }
+				 }
+             }  
+		 }
+	 </script>
+</body>

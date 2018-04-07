@@ -1,0 +1,550 @@
+布局容器
+.container 			固定宽度
+.container-fluid	100%宽度
+----------------------------------------------------------------------------------------
+栅格化
+.row			表示一行,12列
+.col-md-n		表示占n列
+
+列偏移	.col-md-offset-n 	偏移n列
+列浮动	.pull-right 	右浮动
+		.pull-left 		左浮动
+
+手机<768px 		平板>768px		pc桌面>992px		大桌面显示器>1200px
+.col-xs-n		.col-sm-n		.col-md-n			.col-log-n
+
+例如3列布局
+<div class="row">
+	<div class="col-md-4">我是第一列</div>
+	<div class="col-md-4">我是第二列</div>
+	<div class="col-md-4">我是第三列</div>
+</div>
+----------------------------------------------------------------------------------------
+排版
+标题	.page-header
+文本	.lead
+删除线	<del></del>
+下划线 	<u></u>
+小号字	.small
+文本对齐	.text-left 	左对齐
+			.text-center 居中
+			.text-right  右对齐
+缩略语	<abbr title="鼠标在缩略语上我能显示">缩略语</abbr>
+引用	<blockquote></blockquote>
+
+文字颜色
+.text-muted 	灰色
+.text-primary 	蓝色
+.text-success 	绿色
+.text-info 		青色
+.text-warning 	黄色
+.text-danger 	红色
+
+文字背景色
+.bg-primary 	蓝色
+.bg-success 	绿色
+.bg-ingo 		青色
+.bg-warning 	黄色
+.bg-danger 		红色
+----------------------------------------------------------------------------------------
+列表
+列表无样式		.list-unstyled  ul,ol
+内联列表		.list-inline 	ul,ol
+
+水平排列的无序列表	.dl-horizontal 		适用于dl
+----------------------------------------------------------------------------------------
+表格
+.table 					所有表格先加table类
+.table-bordered 		带边框的表格
+.table-striped 			有条纹状的表格
+.table-hover 			鼠标悬停的时候做出响应
+.table-condensed 		紧缩的表格,padding减半
+
+颜色
+.active
+.success
+.info
+.warning
+.danger
+----------------------------------------------------------------------------------------
+表单
+.form-control 		100%宽度的输入框,为input添加
+.form-group 		表单组 	给div加
+
+内联表单 	.form-inline 	为form加
+
+水平排列的表单	.form-horizontal 		.control-label
+联合栅格排列
+例如
+<form action="" class="form-horizontal">
+	<div class="form-group">
+		<label for="" class="col-sm-2 control-label">姓名</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control">
+		</div>
+	</div>
+</form>	
+
+单选框	.radio
+内联单选框 	.radio-inline
+复选框	.checkbox
+内联复选框 	.checkbox-inline
+例如
+<div class="radio">
+	<label for="">我是单选框
+		<input type="radio" >
+	</label>
+</div>
+<div class="checkbox">
+	<label for="">我是复选框
+		<input type="checkbox" >
+	</label>
+</div>
+<label for="" class="radio-inline">我是内联单选框
+	<input type="radio">
+</label>
+<label for="" class="checkbox-inline">我是内联复选框
+	<input type="checkbox">
+</label>
+
+禁用 	disabled="disabled"
+只读 	readonly="readonly"
+
+输入框颜色
+.has-success
+.has-warning
+.has-error
+
+为输入框添加图标
+.has-feedback
+.form-control-feedback
+例如
+<div class="hah-feedback form-group">
+	<label>姓名</label>
+	<input type="text" class="form-control">
+	<span class='glyphicon glyphicon-ok form-control-feelback'></span>
+</div>
+----------------------------------------------------------------------------------------
+输入框组
+.input-group 			输入框组
+.input-group-addon 		输入框两端添加样式
+.input-group-btn 		输入框两端添加按钮
+例如
+<div class="input-group">
+	<div class="input-group-addon">$</div>
+	<input type="text" class="form-control" />
+	<div class="input-group-addon">.00</div>
+</div>
+<div class="input-group">
+	<div class="input-group-btn">
+		<button class="btn btn-primary">这里</button>
+	</div>
+	<input type="text" class="form-control">
+</div>
+----------------------------------------------------------------------------------------
+按钮
+.btn 		先加btn
+
+颜色
+.btn-default 	灰色
+.btn-primary 	蓝色
+.btn-success 	绿色
+.btn-info 		青色
+.btn-warning 	黄色
+.btn-danger 	红色
+
+尺寸
+.btn-xs 		超小
+.btn-sm 		小
+.btn-lg 		大
+.btn-block 		宽度100%
+
+禁用 		.disabled
+----------------------------------------------------------------------------------------
+按钮组
+.btn-group 					水平排列的一组按钮
+.btn-group-vertical 		垂直排列的一组按钮
+例如
+<div class="btn-group">
+	<button class="btn btn-primary">按钮一</button>
+	<button class="btn btn-warning">按钮二</button>
+	<button class="btn btn-danger">按钮三</button>
+</div>
+
+尺寸
+.btn-group-xs 	超小
+.btn-group-sm 	小
+.btn-group-lg 	大
+
+.btn-group-justified 		两端对齐的一组按钮
+例如,button必须放在按钮组中
+<div class="btn-group btn-group-justified">
+	<div class="btn-group">
+	    <button class="btn btn-default">Left</button>
+	</div>
+	<div class="btn-group">
+	    <button class="btn btn-default">Middle</button>
+	</div>
+	<div class="btn-group">
+	    <button class="btn btn-default">Right</button>
+	</div>
+</div>
+----------------------------------------------------------------------------------------
+图片
+响应式图片 	.img-responsive
+
+图片形状
+圆角 	.img-rounded
+圆形 	.img-circle
+缩略图 	.img-thumbnail
+----------------------------------------------------------------------------------------
+辅助类
+关闭按钮样式(×) 	.close
+下拉样式(▼)			.caret
+居中 				.center-block
+显示 				.show
+隐藏 				.hide
+清除浮动 			.clearfix	
+----------------------------------------------------------------------------------------
+字体图标
+http://v3.bootcss.com/components/#glyphicons
+----------------------------------------------------------------------------------------
+下拉菜单
+.dropdown 				向下弹出
+.dropup 				向上弹出
+
+.dropdown-menu 			弹出列表
+
+.dropdown-menu-right 	列表右浮动
+
+.dropdown-header 		标题
+.divider 				分割线
+.disabled 				禁用
+例如
+<div class="dropdown">
+	<button class="btn btn-primary" data-toggle="dropdown">我是下拉菜单<span class="caret"></span></button>
+	<ul class="dropdown-menu">
+		<li class="dropdown-header">我是标题</li>
+		<li class="divider"></li>
+		<li><a href="">我可以使用</a></li>
+		<li class="divider"></li>
+		<li class="disabled"><a href="">我被禁用了</a></li>
+	</ul>
+</div>
+----------------------------------------------------------------------------------------
+标签页
+.nav 			必须先加nav
+
+.nav-tabs 		标签页
+.nav-pills 		胶囊式标签页
+
+.nav-stacked 	垂直的标签页
+.nav-justified 	两端对齐的标签页
+
+禁用 		.disabled
+激活 		.active
+例如
+<ul class="nav nav-tabs">
+	<li class="active"><a href="">一</a></li>
+	<li><a href="">二</a></li>
+	<li class="disabled"><a href="">三</a></li>
+	<li><a href="">四</a></li>
+	<li><a href="">五</a></li>
+</ul>
+----------------------------------------------------------------------------------------
+导航条,必须使用<nav></nav>
+.navbar 			导航条
+
+.navbar-default 	灰色的
+.navbar-inverse 	黑色的
+
+位置
+.navbar-fixed-top 		固定在顶部
+.navbar-fixed-bottom 	固定在底部
+.navbar-static-top 		静止在顶部,会随着页面向下滚动而消失
+
+品牌图标 	把logo放在img位置即可
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+	    <div class="navbar-header">
+		    <a class="navbar-brand" href="#">
+		        <img alt="Brand" src="...">
+		    </a>
+	    </div>
+	</div>
+</nav>
+ 
+
+表单 	.navbar-form
+<form action="" class="navbar-form"></form>
+
+按钮 	.navbar-btn
+<button class="btn btn-default navbar-btn">Sign in</button>
+
+文本 	.navbar-text
+<p class="navbar-text">Signed in as Mark Otto</p>
+
+链接 	.navbar-link
+<a href="#" class="navbar-link">Mark Otto</a>
+
+浮动
+.navbar-left 		左浮动
+.navbar-right 		右浮动
+
+例如
+<nav class="navbar navbar-default navbar-fixed-top"><!--default灰色颜色,navbar-fixed-top固定在顶部-->
+	<div class="container-fluid">
+		<div class="navdar-header">
+			<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynav">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="#" class="navbar-brand">音乐网</a>
+		</div>
+		<div class="collapse navbar-collapse" id="mynav">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="">经典</a></li>
+				<li><a href="">流行</a></li>
+				<li><a href="">古典</a></li>
+				<li><a href="">热歌</a></li>
+				<li><a href="">DJ</a></li>
+				<li class="dropdown">
+					<!--嵌套下拉菜单-->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">排行榜<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="">酷狗排行榜</a></li>
+						<li class="divider"></li>
+						<li><a href="">酷狗飙升榜</a></li>
+						<li class="divider"></li>
+						<li><a href="">酷狗热歌榜</a></li>
+					</ul>
+				</li>
+			</ul>
+			<!--导航栏直接放按钮-->
+			<button class="btn btn-warning navbar-btn">按钮</button>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="">右对齐</a></li>
+			</ul>
+			<!--导航栏放文本,非导航的链接-->
+			<p class="navbar-text">文本<a href="#" class="navbar-link">go</a></p>
+			<!--导航栏放表单-->
+			<form action="" class="navbar-form navbar-right">
+				<div class="form-group">
+					<input type="text" class="from-control"/>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</nav>
+----------------------------------------------------------------------------------------
+路径导航
+.breadcrumb
+.active 		激活
+例如
+<ul class="breadcrumb">
+	<li><a href="">华为</a></li>
+	<li><a href="">手机</a></li>
+	<li class="active">荣耀8</li>
+</ul>
+----------------------------------------------------------------------------------------
+分页
+.pagination
+<ul class="pagination">
+	<li  class="disabled"><a href="">&laquo;</a></li>
+	<li class="active"><a href="">1</a></li>
+	<li><a href="">2</a></li>
+	<li><a href="">3</a></li>
+	<li><a href="">4</a></li>
+	<li><a href="">5</a></li>
+	<li><a href="">&raquo;</a></li>
+</ul>
+
+上下页
+.pager
+<ul class="pager">
+	<li><a href="">上一页</a></li>
+	<li><a href="">下一页</a></li>
+</ul>
+
+分布两端上下页
+.previous 		左端
+.next 			右端
+<ul class="pager">
+	<li class="previous"><a href="">上一页</a></li>
+	<li class="next"><a href="">下一页</a></li>
+</ul>
+----------------------------------------------------------------------------------------
+媒体对象
+.media
+.media-left 	左边的
+.media-body 	内容
+.media-right 	右边的
+
+图片对齐方式,默认顶部
+.media-middle 	中间
+.media-bottom 	底部
+例如
+<div class="media">
+	<div class="media-left media-middle">
+		<img src="holder.js/64x64" alt="">
+	</div>
+	<div class="media-body">
+		<pre>
+			我
+			很
+			长
+		</pre>
+	</div>
+	<div class="media-right media-bottom">
+		<img src="holder.js/64x64" alt="">
+	</div>
+</div>
+----------------------------------------------------------------------------------------
+列表组
+.list-group
+.list-group-item
+禁用 	.disabled
+激活	.active 	蓝色的
+颜色
+.item-group-item-success 	绿色
+.item-group-item-info 		青色
+.item-group-item-warning 	黄色
+.item-group-item-danger 	红色
+例如
+<ul class="list-group">
+	<li class="list-group-item">1</li>
+	<li class="list-group-item">2</li>
+	<li class="list-group-item">3</li>
+	<li class="list-group-item">4</li>
+	<li class="list-group-item">5</li>
+</ul>
+----------------------------------------------------------------------------------------
+面板
+.panel 				面板
+.panel-heading 		头部
+.panel-title 		标题
+.panel-body 		体部
+.panel-footer 		脚部
+
+颜色
+.panel-default 	 	灰色
+.panel-primary 		蓝色
+.panel-success 		绿色
+.panel-info 		青色
+.panel-warning 		黄色
+.panel-danger 		红色
+例如
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<div class="panel-title">
+			<h3>我是头部</h3>
+		</div>
+	</div>
+	<div class="panel-body">我是体部</div>
+	<div class="panel-footer">我是脚部</div>
+</div>
+----------------------------------------------------------------------------------------
+模态框,点击按钮弹出模态框
+data-toggle="modal" 	使用模态框
+data-target="#myModal" 	弹框的id
+data-dismiss="modal" 	关闭模态框
+.fade 		淡入淡出
+尺寸 	.modal-sm 	小 
+ 		.modal-lg 	大
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">bs插件知识</button>
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal">&times;</button>
+				<h1 class="modal-title">bs插件很好用</h1>
+			</div>
+			<div class="modal-body">
+				<p class="lead">bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大bs功能很强大</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Close</button>
+				<button class="btn btn-primary">save</button>
+			</div>
+		</div>
+	</div>
+</div>
+----------------------------------------------------------------------------------------
+消息提示
+data-toggle="tooltip" 	点击切换提示
+data-placement="left" 	提示的位置
+title="content" 		提示的内容
+例如
+<div class="tooltip-demo">
+	<button class="btn btn-info btn-lg" data-toggle="tooltip" data-placement="left" title="我是提示左">工具提示</button>
+	<button class="btn btn-info btn-lg" data-toggle="tooltip" data-placement="top" title="我是提示上">工具提示</button>
+	<button class="btn btn-info btn-lg" data-toggle="tooltip" data-placement="bottom" title="我是提示下">工具提示</button>
+	<button class="btn btn-info btn-lg" data-toggle="tooltip" data-placement="right" title="我是提示右">工具提示</button>
+</div>
+----------------------------------------------------------------------------------------
+弹出框,点击别处可以消失,相当于提示框
+<div class="bs-example-padded-bottom">
+	<a href="#" class="btn btn-lg btn-danger bs-docs-popover" data-toggle="popover" data-trigger="focus" title="我是可消失的弹框" data-content="我是内容我是内容我是内容我是内容我是内容我是内容我是内容">可消失的弹框</a>
+	<a tabindex="0" class="btn btn-lg btn-danger bs-docs-popover" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">可消失的弹出框</a>
+</div>
+----------------------------------------------------------------------------------------
+警告框
+.alert 		必须加
+颜色
+.alert-success 		绿色
+.alert-info 		青色
+.alert-warning 		黄色
+.alert-danger 		红色
+链接 	.alert-link 		给<a href=""></a>
+data-dismiss="alert" 	可以关闭警告框
+例如
+<div class="alert alert-success">
+	<p>老虎危险!<span class="close" data-dismiss="alert">&times</span></p>
+</div>
+----------------------------------------------------------------------------------------
+进度条
+.progress
+.progress-bar
+颜色
+.progress-bar-success 		绿色
+.progress-bar-info 			蓝色
+.progress-bar-warning 		黄色
+.progress-bar-danger 		红色
+条纹效果 	.progress-bar-striped
+动画效果 	.active
+例如
+<div class="progress">
+	<div class="progress-bar progress-bar-info progress-bar-striped active" style="width:50%">50%</div>
+</div>
+----------------------------------------------------------------------------------------
+标签,其实就是拥有背景颜色
+.label 		必选加
+颜色
+.label-default 	 	灰色
+.label-primary 		蓝色
+.label-success 		绿色
+.label-info 		青色
+.label-warning 		黄色
+.label-danger 		红色
+---------------------------------------------------------------------------
+徽章,就是一般显示计数的,比如多少条未读消息
+.badge  		
+---------------------------------------------------------------------------
+巨幕 ,就是一个大的灰色背景
+.jumbotron
+---------------------------------------------------------------------------
+缩略图 	四周看起来有一点间距
+.thumbnail
+.caption
+例如
+<div class="thumbnail">
+	<img src="holder.js/80x80" alt="">
+	<div class="caption">
+		<h1>我是标题</h1>
+		<p>我是内容</p>
+	</div>
+</div>

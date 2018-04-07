@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>表格添加数据</title>
+	<script src="angular.min.js"></script>
+	<style>
+	table{
+		display: block;
+		margin: 0 auto;
+		border-spacing: 0;
+    	border-collapse: collapse;
+	}
+	tr{
+		display: block;
+		width:300px;
+	}
+	td,th{
+		width:1%;
+		border-bottom: 1px solid #333;
+		border-collapse: collapse;
+		line-height: 150%;
+		margin-left: 10px;
+		text-align: center;
+	}
+	tr:nth-child(2n){
+		background-color: #eee;
+	}
+	label{
+		display: block;
+	}
+	th{
+		cursor: pointer;
+	}
+	</style>
+</head>
+<body ng-controller="MainCtrl as mainCtrl">
+	<table width="300">
+		<tr>
+			<th ng-click="mainCtrl.sort('number')">学号<span ng-show="mainCtrl.subject=='number'">{{mainCtrl.select==1?"↓":"↑"}}</span></th>
+			<th>姓名</th>
+			<th ng-click="mainCtrl.sort('language')">语文<span ng-show="mainCtrl.subject=='language'">{{mainCtrl.select==1?"↓":"↑"}}</span></th>
+			<th ng-click="mainCtrl.sort('math')">数学<span ng-show="mainCtrl.subject=='math'">{{mainCtrl.select==1?"↓":"↑"}}</span></th>
+			<th ng-click="mainCtrl.sort('english')">英语<span ng-show="mainCtrl.subject=='english'">{{mainCtrl.select==1?"↓":"↑"}}</span></th>
+			<th>删除</th>
+		</tr>
+		<tr ng-repeat="item in mainCtrl.data">
+			<td>{{item.number}}</td>
+			<td>{{item.name}}</td>
+			<td>{{item.language}}</td>
+			<td>{{item.math}}</td>
+			<td>{{item.english}}</td>
+			<td><input type="button" value="删除" ng-click="mainCtrl.remove(item.number)"></td>
+		</tr>
+	</table>
+	<form action="" >
+		<label for="">学号<input type="text" ng-model="mainCtrl.json.number"></label>
+		<label for="">姓名<input type="text" ng-model="mainCtrl.json.name"></label>
+		<label for="">语文<input type="text" ng-model="mainCtrl.json.language"></label>
+		<label for="">数学<input type="text" ng-model="mainCtrl.json.math"></label>
+		<label for="">英语<input type="text" ng-model="mainCtrl.json.english"></label>
+		<input type="button" value="提交" ng-click="mainCtrl.add()">
+		<input type="reset">
+	</form>
+</body>
+<script>
+	var myapp=angular.module("myapp",[]);
+	myapp.controller("MainCtrl",function(){
+		this.data=[
+			{"number":1001,"name":"小红","language":90,"math":34,"english":88},
+			{"number":1002,"name":"小白","language":99,"math":55,"english":90},
+			{"number":1003,"name":"小青","language":55,"math":99,"english":90},
+			{"number":1004,"name":"小蓝","language":19,"math":66,"english":66}
+		];
+		this.json={};//储存数据
+		var that=this;
+		this.add=function(){
+			that.data.push(that.json);//在数组中插入数据
+			that.json={};//点击插入让数据为空
+		}
+		this.remove=function(number){
+			for (var i = that.data.length - 1; i >= 0; i--) {
+				if (number===that.data[i].number) {//如果学号相同
+					that.data.splice(i,1);//则删除该数据
+				};
+			};
+		}
+		this.subject="number";//以什么来排序
+		this.select=true;//true代表升序
+		this.sort=function(discipline){
+			if(that.subject!==discipline){//判断是不是点击了别的
+				that.subject=discipline;
+				that.select=true;
+				that.data.sort(function(a,b){//排序
+					if(a[that.subject]>b[that.subject]){
+						return -1;
+					}else{
+						return 1;
+					}
+					});
+			}else{
+				if(that.select){//判断此时是升序还是降序
+					that.select=false;
+					that.data.sort(function(a,b){
+					if(a[that.subject]>b[that.subject]){
+						return 1;
+					}else{
+						return -1;
+					}
+					});
+				}else{
+					that.select=true;
+					that.data.sort(function(a,b){
+					if(a[that.subject]>b[that.subject]){
+						return -1;
+					}else{
+						return 1;
+					}
+					});
+				}
+			}
+		}	
+	});
+</script>
+</html>

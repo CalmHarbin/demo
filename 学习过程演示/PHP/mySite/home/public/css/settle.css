@@ -1,0 +1,189 @@
+section .main{
+	border: 1px solid #ddd;
+	padding: 20px;
+	background-color: #fff;
+	width: 1160px;
+}
+.shoptop{
+	height: 50px;
+}
+.shoptop .left{
+	float: left;
+		background: url("/mySite/home/public/img/cart.gif") no-repeat 20px;
+	padding-left: 120px;
+	height: 45px;
+	line-height: 45px;
+	font-size: 26px;
+	color: #666;
+}
+.shoptop .right{
+	float: left;
+	width: 690px;
+	padding-left:70px;
+	text-align: center;
+}
+.shoptop .right div{
+	height: 30px;
+	line-height: 30px;
+}
+.shoptop .right .Rleft{
+	float:left;
+	width: 240px;
+	background-color: #7eb8df;
+	color: #fff;
+}
+.shoptop .right .Rmiddle{
+	float:left;
+	width: 210px;
+	background-color: #7eb8df;
+	color:#fff;
+}
+.shoptop .right .Rright{
+	float:left;
+	width: 240px;
+	background-color: #ececec;
+	color:#666;
+}
+.shoptop .right span{
+	display: block;
+	width: 20px;
+	height: 30px;
+}
+.shoptop .right span.one{
+	float: right;
+	background: url("/mySite/home/public/img/steptab.gif") no-repeat 100% -150px;
+}
+.shoptop .right span.two{
+	float: left;
+	background: url("/mySite/home/public/img/steptab.gif") no-repeat 0 -120px;
+}
+.shopbottom{
+	padding: 30px 20px 10px 20px;
+}
+.shopbottom table{
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 12px;
+}
+.shopbottom table th{
+	background-color: #f2f2f2;
+	border: 1px solid #ddd;
+	padding: 10px 4px;
+}
+.shopbottom table td{
+	border: 1px solid #ddd;
+	padding: 10px 4px;
+	color:#333;
+	width: 100px;
+}
+.shopbottom table td a{
+	color: rgb(0,0,238);
+}
+.shopbottom table td img{
+	width:48px;
+	height: 48px;
+}
+.shopbottom table td div{
+	position: relative;
+	width: 106px;
+	height: 36px;
+	margin: 0 auto;
+}
+.shopbottom table td button{
+	display: inline-block;
+	width: 32px;
+	height: 34px;
+	border: 1px solid #d9d9d9;
+	background-color: #f7f7f7;
+	outline: none;
+	cursor: pointer;
+}
+.shopbottom table td button.left{
+	float: left;
+}
+.shopbottom table td button.right{
+	float: right;
+}
+.shopbottom table td input{
+	position: absolute;
+	width: 42px;
+	left: 31px;
+	height: 32px;
+	outline: none;
+	border: 1px solid #d9d9d9;
+	text-align: center;
+}
+.shopbottom .bottom{
+	margin-top:10px;
+	height: 30px;
+	line-height: 30px;
+}
+.shopbottom .bottom a.left{
+	background: url("/mySite/home/public/img/shop_home.gif") no-repeat left;
+	padding-left: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	outline: none;
+	color: #333;
+}
+.shopbottom .bottom a.right{
+	float: right;
+	display: block;
+	background: url('/mySite/home/public/img/bnt_yellow.gif') no-repeat top;
+	width: 80px;
+	height: 30px;
+	margin-right: 10px;
+	text-align: center;
+	color: #fff;
+}
+.shopbottom .bottom>span{
+	float: right;
+	width: 151px;
+}
+.main>p{
+	padding-left: 20px;
+	margin-bottom: -21px;
+	margin-top: 20px;
+}
+.info p{
+	color: #000;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #ddd;
+	margin-top: 5px;
+}
+.info label{
+	display: block;
+	float: left;
+	width: 100px;
+	text-align: right;
+	height: 30px;
+	padding-top: 4px;
+}
+.info input[type="text"]{
+	height: 25px;
+	width: 500px;
+}
+.info div{
+	height: 30px;
+	margin-top: 15px;
+}
+.info .submit div{
+	width: 300px;
+	margin: 0 auto;
+}
+.info .submit a,.info .submit input{
+	display:block;
+	float: left;
+	margin-right: 15px;
+	width: 126px;
+	height: 30px;
+	background-color: red;
+	color: white;
+	line-height: 33px;
+	border: none;
+	text-align: center;
+	cursor: pointer;
+	font-size: 13px;
+}

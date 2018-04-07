@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bs/bootstrap.min.css">
+<script src="../bs/jquery-3.2.1.js"></script>
+<script src="../bs/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+<script src="angular-ui-router.js"></script>
+<style>
+
+</style>
+<title>表单验证</title>
+</head>
+<body ng-cloak ng-controller="myctrl">
+	<a href="#" ui-sref="one">一</a>
+	<a href="#" ui-sref="two">二</a>
+	<a href="#" ui-sref="three">三</a>
+	<button ng-click="go('one')">跳转的页面一</button>
+	<div ui-view></div>
+	
+</body>
+<script>
+	var myapp=angular.module('myapp',['ui.router']);//引入ui-route模块
+	
+	//路由器
+	myapp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+		//1.6路由解决办法
+		// $locationProvider.hashPrefix('');
+
+		//默认路由
+		$urlRouterProvider.otherwise('/2');
+		//定义路由规则
+		$stateProvider
+			.state("one",{
+				url:"/1/{name}",  //   {name}用来接收参数 名字与参数名字相同
+				template:"<p>{{name}}</p>",
+				controller:"myctrlone"
+			})
+			.state("two",{
+				url:"/2",
+				templateUrl:"2.html",
+				controller:'myctrltwo'     //控制器的名称,
+			})
+			.state("three",{
+				url:"/3",
+				template:"<p>我是页面三</p>"
+			});
+
+	}])
+
+
+	
+	myapp.controller("myctrl",['$scope','$state',function($scope,$state){//注入自定义服务myserver
+		$scope.data={
+			"username":"user",
+			"password":"zhanghuan",
+			"email":"3633639121@qq.com",
+			"phone":"15827814045",
+			"age":20
+		}
+		$scope.go=function(url){
+			$state.go(url);//路由跳转
+		}
+		
+	}]);
+	//控制器二
+	myapp.controller("myctrltwo",['$scope',function($scope){//注入自定义服务myserver
+		$scope.data="我是页面二";
+		$scope.username="user";
+		
+	}]);
+	//控制器一
+	myapp.controller("myctrlone",['$scope','$stateParams',function($scope,$stateParams){//注入自定义服务myserver
+		console.log($stateParams);
+		$scope.name=$stateParams.name;
+	}]);
+
+</script>
+</html>

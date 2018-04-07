@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<script type="text/javascript">
+		function Fun(){};//构造函数对象,构造函数,首字母大写
+		Fun.prototype.name="张三";//原型添加属性
+		Fun.prototype.age="18岁";//原型添加属性
+		Fun.prototype.sayHi=function(){//原型添加方法
+			alert("大家好,我是"+this.name+",我今年"+this.age+"了");
+		}
+		var a=new Fun();
+		var b=new Fun();
+		a.sayHi();
+		b.sayHi();
+		console.log(a.sayHi==b.sayHi)//true
+		alert(a.sayHi==b.sayHi)//判断是否是同一对象,true
+		
+		//和第一种相同的不同写法,字面量
+			function Fun(){};//创建函数对象
+			Fun.prototype={
+				name:"张三",
+				age:"18岁",
+				sayHi:function(){
+					alert("大家好,我是"+this.name+",我今年"+this.age+"了");
+				}
+			}
+			var a=new Fun();
+			var b=new Fun();
+			a.sayHi();
+			b.sayHi();
+			console.log(a instanceof Fun,b instanceof Fun)//true,true
+			alert(a.sayHi===a.sayHi)//判断是否是同一对象,false
+		
+		
+
+		//动态添加和原型添加
+		function Fun2(name,age){//创建函数对象
+			this.name=name;//动态添加属性
+			this.age=age;//动态添加属性
+		};
+		Fun2.prototype.sayHi=function(){//原添加型方法
+			alert("大家好,我是"+this.name+",我今年"+this.age+"了");
+		}
+		var A=new Fun2("张三","18岁");
+		var B=new Fun2("李四","20岁");
+		A.sayHi();
+		B.sayHi();
+		console.log(A.sayHi==B.sayHi)//true
+		alert(A.sayHi==B.sayHi)//判断是否是同一对象,true
+
+		//全部动态添加
+		function Fun3(name,age){
+			this.name=name;//动态添加属性
+			this.age=age;//动态添加属性
+			this.sayHi=function(){//动态添加方法
+				alert("大家好,我是"+this.name+",我今年"+this.age+"了");
+			}
+		}
+		var m=new Fun3("张三","18岁");
+		var n=new Fun3("李四","20岁");
+		m.sayHi();
+		n.sayHi();
+		console.log(m.sayHi==n.sayHi)//false
+		alert(m.sayHi==n.sayHi)//判断是否是同一对象,false
+	</script>
+</body>
+</html>

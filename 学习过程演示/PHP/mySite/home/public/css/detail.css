@@ -1,0 +1,370 @@
+.detailnav{
+	height: 30px;
+	margin: 15px 0;
+	line-height: 30px;
+}
+.detailnav a{
+	color:#000;
+}
+.detailnav a:hover{
+	color:#C9062C;
+	text-decoration: underline;
+}
+.brief{
+	height: 502px;
+	padding-top: 5px;
+}
+.briefLeft{
+	float:left;
+	width:420px;
+	height:100%;
+}
+.briefRight{
+	float: left;
+	width: 760px;
+	height: 100%;
+	padding-left: 20px;
+}
+.briefLeft .top{
+	width: 418px;
+	height:418px;
+	border: 1px solid #ddd;
+}
+.briefLeft .old{
+	width: 418px;
+	height: 418px;
+}
+.briefLeft .bottom{
+	position: relative;
+	height: 66px;
+	margin-top:15px;
+	overflow: hidden;
+}
+.briefLeft .bottom button{
+	height: 66px;
+	width:15px;
+	line-height: 66px;
+	text-align: center;
+	background-color: #EBEBEB;
+	border: 1px solid #CCC;
+	cursor: pointer
+}
+.briefLeft .bottom button.left{
+	position: absolute;
+	left: 0;
+	z-index: 20;
+}
+.briefLeft .bottom button.right{
+	position: absolute;
+	right: 0;
+	z-index: 20;
+}
+.briefLeft .bottom ul{
+	position: absolute;
+	height: 66px;
+	width:10000px;
+	margin-left: 15px;
+}
+.briefLeft .bottom ul li{
+	float: left;
+	height: 60px;
+	width: 60px;
+	margin-left: 10px;
+	padding: 2px;
+	border:1px solid #CCC;
+}
+.briefLeft .bottom ul li.active{
+	padding:1px;
+	border:2px solid #FF6600;
+}
+.briefLeft .bottom ul li img{
+	width:60px;
+	height: 60px;
+}
+.briefRight>h3{
+	font-size: 20px;
+	color: #414141;
+	padding: 2px 0 0 0;
+	line-height: 1.6em;
+	border-bottom: 1px dashed #d0d0d0;
+	font-weight: 500;
+	line-height: 38px;
+}
+.briefRight>p{
+	width: 540px;
+	padding-top: 8px;
+	font-size: 14px;
+	line-height: 25px;
+		color: #E53738;
+}
+.briefRight .price{
+	height:108px;
+	border-bottom: 1px dashed #ddd;
+	margin-top:15px;
+}
+.briefRight .price p{
+	height: 29px;
+	line-height: 29px;
+}
+.briefRight .price p span{
+	color: #FF4A00;
+	font-weight: bold;
+	font-size: 26px;
+}
+.briefRight .num{
+	position: relative;
+	height:36px;
+	padding-top: 20px;
+	line-height: 36px;
+	margin-bottom: 30px;
+}
+.briefRight .num div{
+	position: absolute;
+	left: 80px;
+	top: 19px;
+	width: 106px;
+	height: 36px;
+}
+.briefRight .num button{
+	display: inline-block;
+	width: 32px;
+		height: 34px;
+	border: 1px solid #d9d9d9;
+	background-color: #f7f7f7;
+}
+.briefRight .num button.left{
+	float: left;
+}
+.briefRight .num button.right{
+	float: right;
+}
+.briefRight .num input{
+	position: absolute;
+	width: 42px;
+	left: 31px;
+	height: 32px;
+	outline: none;
+	border: 1px solid #d9d9d9;
+	text-align: center;
+}
+.briefRight img{
+	margin-right: 15px;
+}
+button{
+	outline: none;
+	cursor: pointer;
+}
+.message{
+	margin-top: 15px;
+	overflow: hidden;
+}
+.message .left{
+	float: left;
+	width:1000px;
+}
+.message .right{
+	float: right;
+	width: 150px;
+	border: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+.message .right>img{
+	width: 150px;
+	height: 90px;
+	vertical-align: middle;
+}
+.message .right li{
+	width: 150px;
+	height: 225px;
+	border-top: 1px solid #ddd;
+	text-align: center;
+}
+.message .right li img{
+	width: 150px;
+	height: 150px;
+}
+.message .right li p{
+	height: 24px;
+	line-height: 24px;
+	color: #333;
+}
+.message .right li span{
+	margin-top: 5px;
+	color: #FF4A00;
+	font-size: 15px;
+}
+.message .right li p:hover{
+	text-decoration: underline;
+}
+.message .left>ul{
+	border-bottom:1px solid #fc8701;
+	height: 30px;
+}
+.message .left>ol{
+	margin-top: 15px;
+	overflow: hidden;
+	
+	border:1px solid #aaf;
+}
+.message .left>ol>li{
+	padding: 15px;
+	display: none;
+}
+.message .left>ol>li.one{
+	text-align: center;
+}
+.message .left>ol>li img{
+	vertical-align: middle;
+}
+.message .left>ul>li{
+	float: left;
+	height:28px;
+	padding: 0 27px;
+	border: 1px solid #d7d7d7;
+	text-align: center;
+	line-height: 28px;
+	background-color: #f3f3f3;
+	cursor: pointer;
+}
+.message .left>ul>li.active{
+	color:#fc8701;
+	background-color: #f8f8f8;
+	border:1px solid #fc8701;
+	padding-bottom:1px; 
+	border-bottom: 1px solid #f8f8f8;
+}
+.message .left .box{
+	display: none;
+	padding-bottom:30px;
+}
+.message .left ol .active{
+	display: block;
+}
+.message .left ol .top{
+	position: relative;
+	height: 100px;
+	border-bottom: 1px solid #d7d7d7;
+}
+.message .left ol .top span{
+	position: absolute;
+	display: block;
+	left: 50%;
+	top: 50%;
+	margin-top: -15px;
+	margin-left: -274px;
+	width: 64px;
+}
+.message .left ol .top div{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -15px;
+	margin-left: -200px;
+	width:400px;
+	height: 30px;
+	text-align: center;
+}
+.message .left ol .top div a{
+	background-color: #f88c19;
+	color: #fff;
+	border: 2px solid #f88916;
+	height: 22px;
+    line-height: 22px;
+    padding: 0 8px;
+    box-shadow: 1px 1px 0 0 #d4d4d4;
+   	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fb9b29), to(#f47602));
+   	background-image: -webkit-linear-gradient(#fb9b29, #f47602);
+   	background-image: -moz-linear-gradient(#fb9b29, #f47602);
+   	background-image: -o-linear-gradient(#fb9b29, #f47602);
+   	background-image: linear-gradient(#fb9b29, #f47602);
+}
+.message .left ol .two .bottom .header{
+	position: relative;
+	height: 26px;
+	padding-left: 20px;
+	margin-top: 10px;
+}
+.message .left ol .two .bottom .header i{
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: url("/mySite/home/public/img/page_edit.png");
+}
+.message .left ol .two .bottom .header span{
+	font-size: 13px;
+}
+.message .left ol .two .bottom .header span.num{
+	color:#ff3200;
+}
+.message .left ol .two .bottom ul li{
+	position: relative;
+	height: 93px;
+	margin: 5px 0;
+}
+.message .left ol .two .bottom ul li>img{
+	position: absolute;
+	left: 15px;
+	top:5px;
+	display: block;
+	width: 50px;
+	height: 50px;
+}
+.message .left ol .two .bottom ul li>i{
+	position: absolute;
+	left:71px;
+	top:16px;
+	width: 0;
+	height: 0;
+	border: 15px dashed transparent;
+	border-right-color: #fff;
+}
+.message .left ol .two .bottom ul li .box{
+	display: block;
+	margin-left: 100px;
+		background-color: #fff;
+	border: 1px solid #eee;
+	padding: 10px;
+}
+.message .left ol .two .bottom ul li .box p.one{
+	height: 24px;
+	font-size: 13px;
+}
+.message .left ol .two .bottom ul li .box p.one span{
+	float: right;
+	font-size: 12px;
+	color: #333;
+}
+.message .left ol .two .bottom ul li .box p.two{
+	border-bottom: 1px dotted #ccc;
+	border-top: 1px dotted #ccc;
+	padding: 8px;
+}
+.message .left ol .two .bottom .flooter{
+	height: 24px;
+	margin: 15px 0;
+	text-align: center;
+	line-height: 24px;
+}
+.message .left ol .two .bottom .flooter>a{
+	display: inline-block;
+	width: 54px;
+	height: 24px;
+	background-color:#666; 
+}
+.message .left ol .two .bottom .flooter div{
+	float: right;
+	height: 24px;
+	width:200px;
+}
+.message .left ol .two .bottom .flooter div input{
+	width: 30px;
+	text-align: center;
+	outline: none;
+	margin: 0 5px;
+}
+.message .left ol .two .bottom .flooter div a{
+	color: #fc8701;
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>改变this指向</title>
+ </head>
+ <body>
+	<script type="text/javascript">
+		function fun(a,b,c){
+			console.log(a+b+c);
+			console.log(this.name);
+		}
+		var obj={
+			name:"小明",
+			age:22
+		}
+		//让obj区执行fun函数
+		//fun.call(obj,1,2,3);
+		fun.apply(obj,[1,2,3]);//apply传参数要以数组形式传递
+		//利用apply()求数组的最大值
+		var max=Math.max.apply(window,[0,2,4,6,8]);
+		console.log(max);
+		//bind()改变this指向
+		 function boom(){
+			 var that=this;
+		     this.timer=setInterval(function(){
+		     	//此时this原本指向window,现在被改为指向that
+			 }.bind(that),30)
+		 }
+	</script>
+ </body>
+</html>

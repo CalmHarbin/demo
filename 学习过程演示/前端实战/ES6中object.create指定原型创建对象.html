@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<script type="text/javascript">
+		var obj={a:1,b:2}
+		var obj2=Object.create(obj);
+		console.log(obj2);
+		console.log(obj2.__proto__===obj);//true
+		console.log(obj.__proto__===Object.prototype);//true
+		console.log(obj2.__proto__.__proto__===Object.prototype);//true
+		console.log(obj2.a);//1  能使用obj1的属性
+
+		//ie不支持这个函数
+		//自己创建一个create函数,
+		function create(obj){
+			function Fn(){};//构造一个函数
+			Fn.prototype=obj;//让这个构造函数的原型对象改变为obj;
+			return new Fn();//返回Fn的一个实例,该实例的__proto__就是obj;
+		}
+	</script>
+ </body>
+</html>

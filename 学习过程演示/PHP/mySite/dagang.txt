@@ -1,0 +1,314 @@
+一:项目分析
+1、能力：可以做
+2、时间：（2018-1-1~2018-1-22）
+
+二：前台界面和功能
+1、首页
+		1.搜索
+			|-关键字表	(keywords)
+				|-id	(id)
+				|-关键字   (keyword)
+				|-被搜索次数(frequency)
+		2.轮播图
+			|-轮播图广告表   (carousel)
+				|-id   (id)
+				|-图片   (img)
+				|-商品id    (shop_id)
+		3.广告展示
+			|-广告表    (advertising)
+				|-id    (id)
+				|图片    (img)
+				|-广告位置    (place)
+				|-url    (url)
+		4.商品展示
+			|-商品表    (shop)
+				|-id    (id)
+				|-名称    (name)
+				|-简介    (intro)
+				|-图片    (img)
+				|-现价    (currentPrice)
+				|-原价    (originalPrice)
+				|-销量    (salesVolume)
+				|-库存    (repertory)
+				|-上下架   (goodsShelf)
+				|-包邮     (mail)
+				|-商品自身积分   (integral)
+				|-购买商品用户获得积分    (award)
+				|-商品地址   (address)
+				|-关键字id   (keywords_id)
+				|-小分类id   (LClassify_id)
+				|-评论id     (evaluate_id)
+				|-价格区间表id    (priceSection_id)
+		5.导航栏
+			|-导航栏内容表    (nav)
+				|-id    (id)
+				|-内容    (content)
+				|-大分类id   (BClassify_id)
+	2、商品分类页面
+		1.分类展示
+			|-大分类表   (BClassify)
+				|-id    (id)
+				|-类型   (name)
+			|-小分类表   (LClassify)
+				|-id    (id)
+				|-类型   (name)
+				|-大分类id   (BClassify_id)
+		2.价格展示
+			|-价格区间表  (priceSection)
+				|-id    (id)
+				|-价格区间   (section)
+		3.商品展示
+	3、商品详情页面
+		1.商品详情展示	
+		2.商品评价
+			|-评价表   (evaluate)
+				|-id   (id)
+				|-评论内容    (content)
+				|-评论时间    (time)
+				|-评论等级    (grade)
+				|-用户id     (user_id)
+				|-商品id     (shop_id)
+	4、购物车页面
+		1.购物车展示
+			|-购物车表    (shopping)
+				|-id   (id)
+				|-商品id    (shop_id)
+				|-用户id    (user_id)
+	5、注册页面
+		1.注册功能
+			|-用户表    (user)
+				|-id    (id)
+				|-用户名   (username)
+				|-密码    (password)
+				|-是不是管理员  (isadmin)
+	6、登录页面
+		1.登录功能
+	7、个人中心页面
+		1.我的订单
+			|-订单表    (indent)
+				|-id    (id)
+				|-订单号    (orderNumber)
+				|-订单状态id   (states_id)
+				|-收获地址id    (address_id)
+				|-用户id    (user_id)
+				|-商品id    (shop_id)
+				|-买家留言id    (message_id)
+			|-订单状态表    (states)
+				|-id    (id)
+				|-订单状态   (state)
+		2.已买到的宝贝
+		3.我的收藏
+			|-收藏表    (collect)
+				|-id   (id)
+				|-收藏时间    (time)
+				|-商品id    (shop_id)	
+				|-用户id    (user_id)
+		4.我的积分
+		5.评论管理
+		6.我的收获地址
+			收获地址表   (address)
+				|-id    (id)
+				|-收件人    (name)
+				|-收件人电话    (phone)
+				|-收件人地址    (address)
+				|-用户id     (user_id)
+		7.基本资料
+			|-信息表    (datum)
+				|-id    (id)
+				|-头像    (img)
+				|-性别    (sex)
+				|-积分    (award)
+				|-联系方式   (phone)
+				|-qq    (QQ)
+				|-生日    (birthday)
+				|-所在地区    (address)
+				|-用户id    (user_id)
+		8.退出登录
+8、积分商城页面
+		|-积分商品表    (awardShop)
+			|-id    (id)
+			|-名称    (name)
+			|-简介    (intro)
+			|-图片    (img)
+			|-所需积分    (price)
+			|-销量    (salesVolume)
+			|-库存    (repertory)
+			|-上下架    (goodsShelf)
+			|-包邮    (mail)
+			|-购买商品用户获得积分   (award)
+			|-商品地址   (address)
+			|-评论id   (evaluate_id)
+9、结算页面
+		买家留言表    (message)
+			|-id    (id)
+			|-留言内容   (content)
+			|-用户id    (user_id)
+			|-商品id    (shop_id)
+三、后台界面和功能
+涉及到修改用户的信息一律不能管理
+1、首页
+2、登录
+3、会员管理
+4、轮播图管理
+5、关键字管理
+6、广告管理
+7、商品管理
+8、导航栏管理
+9、大分类管理
+10、小分类管理
+11、价格区间管理
+12、订单管理
+13、积分商品管理
+
+四、SQL语句准备
+--创建数据库
+create database mySite;
+--切换数据库
+use mySite;
+--用户表
+create table user(
+	id int unsigned not null auto_increment primary key comment "id",
+	username varchar(30) not null comment "用户名",
+	password char(32) not null comment "密码"
+);
+--关键字表
+create table keywords(
+	id int unsigned not null auto_increment primary key comment "id",
+	keyword varchar(100) not null comment "关键字",
+	frequency int unsigned not null comment "被搜索次数"
+);
+--轮播图表
+create table carousel(
+	id int unsigned not null auto_increment primary key comment "id",
+	img varchar(100) not null comment "轮播图图片",
+	shop_id int unsigned not null comment "商品id"
+);
+--广告表
+create table advertising(
+	id int unsigned not null auto_increment primary key comment "id",
+	img varchar(100) not null comment "广告图片",
+	place tinyint unsigned not null comment "广告位置"
+);
+--商品展示表
+create table shop(
+	id int unsigned not null auto_increment primary key comment "id",
+	name varchar(50) not null comment "商品名称",
+	intro varchar(100) not null comment "商品简介",
+	img varchar(100) not null comment "商品图片",
+	currentPrice float unsigned not null comment "现价",
+	originalPrice float unsigned not null comment "原价",
+	salesVolume int unsigned not null default "1" comment "销量",
+	repertory int unsigned not null comment "库存",
+	goodsShelf tinyint unsigned not null comment "上下架",
+	mail tinyint unsigned not null comment "包邮",
+	integral int unsigned not null comment "商品积分",
+	award int unsigned not null comment "奖励积分",
+	address varchar(50) not null comment "商品地址",
+	keywords_id int unsigned not null comment "关键字id",
+	LClassify_id int unsigned not null comment "小分类id",
+	evaluate_id int unsigned not null comment "评论id",
+	priceSection_id int unsigned not null comment "价格区间表id"
+);
+--导航栏内容表
+create table nav(
+	id int unsigned not null auto_increment primary key comment "id",
+	content varchar(100) not null comment "内容",
+	BClassify_id int unsigned not null comment "大分类id"
+);
+--大分类表
+create table BClassify(
+	id int unsigned not null auto_increment primary key comment "id",
+	name varchar(30) not null comment "内容"
+);
+--小分类表
+create table LClassify(
+	id int unsigned not null auto_increment primary key comment "id",
+	name varchar(30) not null comment "内容",
+	BClassify_id int unsigned not null comment "大分类id"
+);
+--价格区间表
+create table priceSection(
+	id int unsigned not null auto_increment primary key comment "id",
+	section varchar(30) not null comment "价格区间"
+);
+--评论表
+create table evaluate(
+	id int unsigned not null auto_increment primary key comment "id",
+	content varchar(300) not null comment "评价内容",
+	time varchar(50) not null comment "评价时间",
+	grade tinyint unsigned not null comment "等级",
+	user_id int unsigned not null comment "用户",
+	shop_id int unsigned not null comment "评价的商品"
+);
+--购物车表
+create table shopping(
+	id int unsigned not null auto_increment primary key comment "id",
+	user_id int unsigned not null comment "用户",
+	shop_id int unsigned not null comment "商品"
+);
+--订单表
+create table indent(
+	id int unsigned not null auto_increment primary key comment "id",
+	orderNumber int unsigned not null comment "订单号",
+	states_id int unsigned not null comment "订单状态",
+	address_id int unsigned not null comment "收获地址",
+	user_id int unsigned not null comment "用户",
+	shop_id int unsigned not null comment "商品",
+	message_id int unsigned not null comment "买家留言"
+);
+--订单状态表
+create table states(
+	id int unsigned not null auto_increment primary key comment "id",
+	state varchar(30) not null comment "订单状态"
+);
+--收藏表
+create table collect(
+	id int unsigned not null auto_increment primary key comment "id",
+	time varchar(30) not null comment "收藏时间",
+	user_id int unsigned not null comment "用户",
+	shop_id int unsigned not null comment "商品"
+);
+--收获地址表
+create table address(
+	id int unsigned not null auto_increment primary key comment "id",
+	name varchar(30) not null comment "收件人",
+	phone int unsigned not null comment "联系电话",
+	address varchar(50) not null comment "收货地址",
+	user_id int unsigned not null comment "用户"
+);
+--基本资料表
+create table datum(
+	id int unsigned not null auto_increment primary key comment "id",
+	img varchar(100) not null comment "头像",
+	sex tinyint unsigned not null comment "性别",
+	award int unsigned not null comment "积分",
+	phone int unsigned not null comment "联系电话",
+	QQ int unsigned not null comment "QQ",
+	birthday char(10) not null comment "生日",
+	address varchar(50) not null comment "所在地区",
+	user_id int unsigned not null comment "用户"
+);
+--积分商品表
+create table awardShop(
+	id int unsigned not null auto_increment primary key comment "id",
+	name varchar(50) not null comment "商品名称",
+	intro varchar(100) not null comment "商品简介",
+	img varchar(100) not null comment "商品图片",
+	price int unsigned not null comment "所需积分",
+	salesVolume int unsigned not null default "1" comment "销量",
+	repertory int unsigned not null comment "库存",
+	goodsShelf tinyint unsigned not null comment "上下架",
+	mail tinyint unsigned not null comment "包邮",
+	award int unsigned not null comment "奖励积分",
+	address varchar(50) not null comment "商品地址",
+	evaluate_id int unsigned not null comment "评论id",
+);
+--买家留言表
+create table message(
+	id int unsigned not null auto_increment primary key comment "id",
+	content varchar(100) not null comment "留言内容",
+	user_id int unsigned not null comment "用户",
+	shop_id int unsigned not null comment "购买的商品"
+);
+五、目录准备
+六、开发

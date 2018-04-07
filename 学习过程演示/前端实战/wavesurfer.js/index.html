@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>可视化的音乐</title>
+	<script src="wavesurfer.min.js"></script>
+</head> 
+<body>
+	<div id="waveform"></div>
+	<button id="play">开始</button>
+	<button id="pause">暂停</button>
+</body>
+<script>
+	// var waveform1=new WaveSurfer();
+	console.log(top)
+	alert(1)
+	var wavesurfer = WaveSurfer.create({
+	  container: '#waveform',//容器
+	  waveColor: 'red',//未播放的波形颜色
+	  progressColor: 'yellow',//已播放波形颜色
+	  // splitChannels: true,
+	  // scrollParent: false,//使波形能够向左边滚动
+	  height: 50,//波形的高度
+	  // audioRate:1,//播放音乐的速度,默认1,值越大速度越快
+	  // barHeight:1,//波形的高度,默认1,值越大越高
+	  // barWidth:1//每一条波形的宽度,没有默认值
+	  // cursorColor:'#00ff00',
+	  // hideScrollbar:true,//隐藏水平滚动条
+	  // autoCenter:true,//如果存在水平滚动条,将围绕进度对中波形
+	});
+	//当音频准备好之后
+	wavesurfer.on('ready',function(){
+		var play=document.querySelector('#play');
+		var pause=document.querySelector('#pause');
+		play.onclick=function(){
+			wavesurfer.play();
+		}
+		pause.onclick=function(){
+			wavesurfer.pause();
+		}
+	})
+
+	//getCurrentTime()//返回当前播放的时间,单位s
+	//isPlaying()//判断是否正在播放
+	//play()//开始播放
+	//pause()//停止播放
+	//音频路径
+	wavesurfer.load('11.mp3');
+</script>
+</html>
+
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="wavesurfer.min.js"></script>
+	<style>
+		#waveform2{
+			width: 100px;
+		}
+		#box{
+			display: flex;
+			justify-content:space-between;
+			flex-wrap:wrap;
+		}
+		#box>div{
+			width: 21%;
+		}
+	</style>
+</head>
+<body>
+	<div id="box".</div>
+	<script>
+		//创建容器
+		var box=document.querySelector('#box');
+			for(var i=0;i<10;i++){
+				var div=document.createElement('div');
+				var button1=document.createElement('button');
+				var button2=document.createElement('button');
+				div.id='waveform'+i;
+				button1.id='waveform'+i+'-play';
+				button1.innerHTML='开始';
+				button2.id='waveform'+i+'-pause';
+				button2.innerHTML="暂停";
+				div.appendChild(button1)
+				div.appendChild(button2);
+				box.appendChild(div);
+			}
+		//储存控制器
+		var arr=[];
+		for(var i=0;i<10;i++){
+			var wavesurfer=WaveSurfer.create({
+				  container: '#waveform'+i,//容器
+				  waveColor: 'red',//未播放的波形颜色
+				  cursorColor:'#000000',//中间进度分割线的颜色
+				  progressColor: 'yellow',//已播放波形颜色
+				  height: 100,//波形的高度
+				  hideScrollbar:true,//隐藏水平滚动条
+				});
+			wavesurfer.load('1.mp3');
+			arr.push(wavesurfer);
+		}
+
+		for(var i=0,len=arr.length;i<len;i++){
+			(function(i){
+				arr[i].on('ready',function(){
+					var play=document.querySelector('#waveform'+i+'-play');
+					var pause=document.querySelector('#waveform'+i+'-pause');
+					play.onclick=function(){
+						stop();
+						arr[i].play();
+					}
+					pause.onclick=function(){
+						arr[i].pause();
+					}
+				})
+			})(i);
+		}
+		//用于关闭所有的播放器
+		function stop(){
+			for(var i=0,len=arr.length;i<len;i++){
+				arr[i].pause();
+			}
+		}
+	</script>
+</body>
+</html>
+
+<!-- https://wavesurfer-js.org/docs/methods.html -->

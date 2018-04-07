@@ -1,0 +1,249 @@
+javaScript中的常用内置对象
+string对象
+属性
+.length						返回字符串的长度
+方法
+charAt()					返回在指定位置的字符
+indexOf()					从前向后检索字符串,返回第一个匹配的位置,匹配不到返回-1
+lastIndexOf()				从后向前检索字符串,返回第一个匹配的位置,匹配不到返回-1
+
+match()						找到一个或多个正则匹配的值;返回值
+replace(正则,替换字符串)	用指定的字符串替换所匹配的内容,返回替换后的新字符串
+search()					返回正则所匹配到的内容的个数
+split()						把字符串分割成数组,支持正则,并返回数组
+
+slice(开始索引,结束索引)	提取字符串片段,包含起始位置,不含结束位置
+substr(开始索引,个数)		从指定索引处提取指定个数的字符串
+toLowerCase()				把字符串全部转化为小写并返回
+toUpperCase()				把字符串全部转化为大写并返回
+--------------------------------------------------------------------------
+Array对象
+属性
+.length						返回数组的长度
+方法
+arr.concat(arr1,arr2,arr3...)			连接多个数组,返回连接后的数组
+join()						把数组转化为字符串,通过指定的字符连接,返回字符串
+shift()						删除并返回数组的第一个元素,改变原数组
+pop()						删除并返回数组的最后一个元素,改变原数组
+unshift()					向数组的前面添加一个元素,并返回新的长度,改变原数组
+push()						向数组的末尾添加一个元素,并返回新的长度,改变原数组
+reverse()					反转数组,改变原数组
+slice(开始索引,结束索引)	提取数组片段,包含起始位置,不含结束位置
+splice(开始索引,删除个数,添加元素)					删除元素,并添加新的元素,改变原数组
+		删除功能splice(开始索引,个数)
+		插入功能splice(插入位置,0,插入内容)
+		替换功能splice(删除索引,1,替换内容)
+排序,此时为升序,改变1与-1即为降序
+sort(function(a,b){
+		if(a>b){
+			return 1
+		}else{
+			return -1;
+		}
+	});
+ES5新增,第二个参数,使回调函数中的this指向第二个参数
+indexOf(查找的元素,指定查找的起始位置(可选))				从前向后查找指定元素首次出现的位置,并返回
+lastIndexOf(查找的元素,指定查找的起始位置(可选))			从后向前查找指定元素首次出现的位置,并返回
+forEach(function(每一项,索引,数组本身){})					遍历数组,
+映射,返回由函数返回值组成的数组
+map(function(每一项){
+	return ;
+})
+过滤,返回满足条件的项组成的新数组
+filter(function(每一项,索引){
+	return 条件;
+})
+判断数组中每一项是否都满足条件,若全都满足则返回true
+every(function(每一项){
+	return 条件;
+})
+判断数组中是否有满足条件的项,如有则返回true
+some(function(每一项){
+	return 条件;
+})
+迭代,从前向后迭代,返回最后一次迭代的返回值
+reduce(function(上一次的返回值,每一项,索引,数组本身){
+	return 返回值;//作为下次迭代的第一个参数
+})
+迭代,从后向前迭代,返回最后一次迭代的返回值
+reduceRight(function(上一次的返回值,每一项,索引,数组本身){
+	return 返回值;//作为下次迭代的第一个参数
+})
+--------------------------------------------------------------------------
+Math对象  realestate,test,newsr,deal
+使用方法Math打点调用
+属性
+E 							返回算数常量e
+LN2							返回2的自然对数
+LN10 						返回10的自然对数
+LOG2E						返回以2为底e的对数
+LOG10E 						返回以10为底e的对数
+PI							返回圆周率π
+SQRT2 						返回根号2
+方法
+abs()						返回绝对值
+round()						返回四舍五入后的值
+sin()						返回正弦值,接受一个弧度值
+cos()						返回余弦值
+tan()						返回正切值
+asin()						返回反正弦值,返回一个弧度值
+acos()						返回反余弦值
+atan()						返回反正切值
+exp()						返回e的指数
+log()						返回e对对数
+pow(x,y)					返回x的y次幂
+ceil()						向上取整
+floor()						向下取整
+min(val1,val2...)			返回最小值
+max(val1,val2...)			返回最大值
+random()					返回0~1的随机数,不包含1
+sqrt()						返回数的平方根
+--------------------------------------------------------------------------
+Date对象
+Date接受参数形式
+1、new Date("month dd,yyyy hh:mm:ss"); 
+2、new Date("month dd,yyyy"); 
+3、new Date(yyyy,mth,dd,hh,mm,ss); 注意：这种方式下，必须传递整型；
+4、new Date(yyyy,mth,dd); 
+5、new Date(ms);
+var date=new Date();
+Date()						返回此时的时间和日期
+getFullYear()				返回年
+getMonth()					返回月0~11
+getDate()					返回日1~31
+getHours()					返回时0~23
+getMinutes()				返回分0~59
+getSeconds()				返回秒0~59
+getDay()					返回周0~6
+
+getTime()						返回时间戳
+Date.parse(日期字符串)			返回1970年1月1日午夜到指定日期的毫秒数
+参数形式 月/日/年 时:分:秒
+
+setFullYear()				设置年
+setMonth()					设置月0~11
+setDate()					设置日1~31
+setHours()					设置时0~23
+setMinutes()				设置分0~59
+setSeconds()				设置秒0~59
+setDay()					设置周0~6
+--------------------------------------------------------------------------
+php中
+--------------------------------------------------------------------------
+string函数
+ltrim()						移出左侧的空格,并返回新的字符串
+rtrim()						移出右侧的空格,并返回新的字符串
+trim()						移出两边的空格,并返回新的字符串
+
+str_repeat(str,次数)		重复字符串指定次数,并返回新的字符串
+strtolower()				把字符串转小写,并返回新的字符串
+strtoupper()				把字符串转大写,并返回新的字符串
+ucfirst()					首字符大写,,并返回新的字符串
+ucwords()					每个单词的首字母大写,并返回新的字符串
+
+strrev()					反转字符串,并返回新的字符串
+strlen()					返回字符串的长度
+number_format() 			数字格式化
+str_split($str,num)			将字符串没num位分割成数组并返回
+md5()						加密
+str_shuffle()				打乱字符串,并返回新的字符串
+substr($str,开始索引,个数)	从指定索引处提取指定个数的字符串
+mb_substr($str,开始索引,个数)	字符串解析,可截取中文
+strpos($str,字符串)			查找字符串首次出现的位置并返回
+strrpos($str,字符串)		查找字符串最后一次出现的位置并返回
+str_replace('a','A',$str)	把字符串中的a替换成A,并返回新的字符串,不支持正则
+
+nl2br()						把\n替换成<br>,主要在视图中可以换行
+strip_tags()				去除HTML标签
+htmlspecialchars()			将字符串中的特殊符号转为实体
+addslashes()				将字符串中的单双引号转义,即前面加
+htmlspecialchars_decode()	将字符串中的实体转为特殊符号
+stripslashes()				将被转义的单双引号转为单双引号
+--------------------------------------------------------------------------
+Array函数
+count()						返回数组中元素的个数
+reset()						返回数组的第一个元素
+end()						返回数组的最后一个元素
+current()					返回数组内部指针所指向的元素
+next()						将内部指针指向数组内部的下一个元素,并输出
+prev()						将内部指针指向数组内部的上一个元素,并输出
+
+array_splice(arr,开始索引,个数,添加元素)		删除元素,并添加新的元素,改变原数组,用法同js中的array对象的splice方法
+array_slice(arr,开始索引,个数)					提取数组中指定的元素
+array_combine(arr1,arr2)						返回新数组,以arr1的值为键,以arr2的值为值
+array_merge(arr1,arr2)							返回连接arr1和arr2以后的数组,重复的键会被覆盖
+implode(arr,str)								将数组转为字符串,并以指定字符来连接
+join(arr,字符)									同上
+explode(字符,str)								将字符串转为数组,并以指定字符来分割
+
+array_shift()						删除并返回数组的第一个元素,改变原数组
+array_pop()							删除并返回数组的最后一个元素,改变原数组
+array_unshift()						向数组前面添加一个元素,改变原数组
+array_push()						向数组末尾添加一个元素,改变原数组
+
+array_rand()						从数组中随机取出一个键
+shuffle()							把原数组打乱,返回true
+array_sum()							返回数组中所有元素之和
+array_product()						返回数组中所有元素之积
+range(最小值,最大值)				返回指定范围内的数组
+unset()								删除指定元素
+
+in_array(值,arr)			判断值是不是在数组中
+array_key_exists(键,arr)	判断键是不是在数组中
+array_flip(arr)				将数组的键值对调,并返回对调后的数组
+array_reverse(arr)			反转数组,返回反转后的数组
+array_values(arr)			返回数组中的值
+array_keys(arr)				返回数组中的键
+array_count_values(arr)		统计数组每个值出现的次数,值作为key,次数作为值	
+array_unique(arr)			返回删除原数组中重复的值后组成的新数组
+array_filter(arr)			返回所有值为真的值组成的数组	
+array_filter(arr,function($val){ 		返回满足条件的值
+	return 条件;
+})
+array_map(function($val){	返回由函数返回的值组成的数组
+	return ;
+},$arr)
+
+sort()						升序,按值排序,不保留key
+rsort()						降序,按值排序,不保留key
+asort()						升序,按值排序,保留key
+arsort()					降序,按值排序,保留key
+ksort()						升序,按键排序,保留key
+krsort()					降序,按键排序,保留key
+natsort()					按自然数升序排序,保留key
+natcasesort()				按自然数忽略大小写排序,保留key
+array_multisort(arr2,arr1)	按照arr2对arr1升序排序
+array_multisort(arr2,SORT_DESC,arr1)	按照arr2对arr1降序排序
+--------------------------------------------------------------------------
+Math函数
+ceil()						向上取整
+floor()						向下取整
+round()						返回四舍五入后的值
+min()						返回最小值,可传一个数组
+max()						返回最大值
+mt_rand(最小值,最大值)		返回最小值和最大值之间的一个随机整数
+--------------------------------------------------------------------------
+Date函数
+time()						返回时间戳,秒数
+date("Y-m-d H:i:s",时间戳) 	返回格式化的日期字符串
+strtotime("2018-2-11 23:15:29")			将日期字符串转为时间戳,秒数
+Y:四位数的年份
+m:月份  01-12月
+d:日  01-30天
+H:时 	24时
+i:分 	0~59分
+s:秒 	0~59秒
+w:周 	0~6
+t:当月天数
+--------------------------------------------------------------------------
+路径处理
+basename()				截取路径中的文件名部分
+dirname()				截取路径中的的目录部分
+pathinfo()				路径解析,返回一个数组
+
+parse_url()				网址解析,返回一个数组
+parse_str(str,$arr)		str表示网址的参数部分,解析到数组中
+
+
+
+

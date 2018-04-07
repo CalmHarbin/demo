@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script src="../jquery-3.2.1.js"></script>
+<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="angular.js"></script>
+<style>
+	.box{
+		background-color: yellow;
+		padding: 0 0 0 20px;
+	}
+	.page-header{
+		border: none;
+		margin-top: 20px;
+	}
+	h3{
+		margin-top: 20px;
+		padding-top: 20px;
+	}
+	textarea{
+		resize: none;
+	}
+</style>
+</head>
+<body>
+	<div class="container" ng-controller="MainCtrl">
+		<div class="box">
+			<h3 class="page-header">我的笔记</h3>
+			<textarea name="text" id="" cols="70" rows="10" ng-model="text"></textarea>
+			<br>
+			<button class="btn btn-lg" ng-click="save()">保存</button>
+			<button class="btn btn-lg" ng-click="clear()">清除</button>
+			<p class="lead">剩余字数:<span ng-style="warning">{{residue()}}</span></p>
+		</div>
+	</div>
+</body>
+<script>
+	var myapp=angular.module("myapp",[]);
+	myapp.controller("MainCtrl",function($scope){
+		$scope.max=100;
+		$scope.text="";
+		$scope.residue=function(){
+			if($scope.text.length>100){
+				$scope.warning={"color":"red"};
+			}else{
+				$scope.warning={"color":"black"};
+			}
+			return $scope.max-$scope.text.length
+		}
+		$scope.save=function(){
+			alert("保存成功!");
+		}
+		$scope.clear=function(){
+			$scope.text="";
+		}
+	});
+</script>
+</html>

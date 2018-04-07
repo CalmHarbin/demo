@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hans-CN">
+     <head>
+     <meta charset="UTF-8">
+     <meta name="Generator" content="EditPlus®">
+     <meta name="Author" content="">
+     <meta name="Keywords" content=""> <!--关键词-->
+     <meta name="Description" content=""><!--网页描述-->
+      <title>我的第一个网页</title>
+      <style>
+	     html,body,div{
+		     margin:0;
+			 padding:0;
+		 }
+		 html,body{
+		     height:100%;
+	    }
+		body{
+		     display:flex;
+			 justify-content:center;
+			 align-items:center;
+			 background:#ff9933;
+			 
+		}
+	     #taichi{
+		     display:flex;
+			 align-items:center;
+
+		     width:400px;
+			 height:400px;
+			 border-radius:50%;
+			 background:linear-gradient(black 50%,white 50%);
+		 }
+		 #taichi div{
+		     width:50px;
+			 height:50px;
+			 border-radius:50%;
+             
+		 }
+         #taichi .left{
+		     background:white;
+			 border:75px solid black;
+			 transform-origin:0% 50%;
+			 animation:change 1s linear alternate infinite;
+		 }
+		 #taichi .right{
+		     background:black;
+			 border:75px solid white;
+			 transform-origin:100% 50%;
+			 animation:change 1s linear -1s alternate infinite;
+		 }
+		 @keyframes change{
+		     from{transform:scale(0.5);}
+			 to{transform:scale(1.5);}
+		 }
+	  </style>
+     </head>
+     <body>
+	     <div id='taichi'>
+         <div class='left'></div>
+		 <div class='right'></div>
+	     </div>
+     </body>
+</html>

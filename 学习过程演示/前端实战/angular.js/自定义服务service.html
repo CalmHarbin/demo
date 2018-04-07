@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bs/bootstrap.min.css">
+<script src="../bs/jquery-3.2.1.js"></script>
+<script src="../bs/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-cloak>
+	<div ng-controller="myctrl">
+		<table border=1 >
+			<tr>
+				<th>id</th>
+				<th>username</th>
+				<th>password</th>
+			</tr>
+			<tr ng-repeat="item in data">
+				<th>{{item.id}}</th>
+				<th>{{item.username}}</th>
+				<th>{{item.password}}</th>
+			</tr>
+		</table>
+	</div>
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	//控制器一
+	myapp.controller("myctrl",['$scope',"myserver",function($scope,myserver){//注入自定义服务myserver
+		myserver.get().then(function(res){
+			$scope.data=res.data;
+		});
+		
+	}]);
+
+	//自定义服务
+	myapp.service("myserver",["$http",function($http){//service服务创建了一个构造函数;
+		this.get=function(){
+			return $http.get("1.php").then(function(res){
+				return res;
+			});
+		}
+	}])	
+
+</script>
+</html>

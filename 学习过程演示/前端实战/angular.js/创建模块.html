@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>第一个angular程序</title>
+	<script src="angular.min.js"></script>
+</head>
+<body>
+	<div ng-controller="MainCtrl as mainCtrl1"><!--MainCtrl类创建了一个实例mainCtrl-->
+		<p>{{mainCtrl1.a}}</p><!--实例可以打点调用类身上的属性-->
+		<p>{{mainCtrl1.a}}</p>
+		<p>{{mainCtrl1.a}}</p>
+		<button ng-click="mainCtrl1.add()">按我增加</button><!--数据同时改变,但不会影响其他控制器-->
+	</div>
+	<div ng-controller="MainCtrl as mainCtrl2"><!--MainCtrl类创建了一个实例mainCtrl-->
+		<p>{{mainCtrl2.a}}</p><!--实例可以打点调用类身上的属性-->
+		<p>{{mainCtrl2.a}}</p>
+		<p>{{mainCtrl2.a}}</p>
+		<button ng-click="mainCtrl2.add()">按我增加</button><!--数据同时改变-->
+	</div>
+	<script>
+		var myapp=angular.module("myapp",[]);//创建一个angular模块
+		//创建控制器,给控制器起个名字MainCtrl,这里创建的是一个控制器类;而不是实例
+		myapp.controller("MainCtrl",[function(){
+			this.a=100;//给实例身上绑定一个a属性;
+			var that=this;
+			this.add=function (){
+				that.a++;
+			}
+		}]);
+	</script>
+</body>
+</html>

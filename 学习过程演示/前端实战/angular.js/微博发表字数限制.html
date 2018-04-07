@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>微博发表字数限制</title>
+	<script src="angular.min.js"></script>
+	<style>
+		textarea{
+			display: block;
+		}
+	</style>
+</head>
+<body ng-controller="MainCtrl as mainCtrl">
+	<textarea name="" id="" cols="30" rows="10" ng-model="mainCtrl.txt"></textarea>
+	<span ng-style="mainCtrl.getColor()">{{mainCtrl.txt.length}}/140字</span>
+	<input type="button" value="提交" ng-disabled="mainCtrl.txt.length>140">
+	<input type="button" value="清空" ng-click="mainCtrl.empty()" ng-disabled="mainCtrl.txt.length==0">
+</body>
+<script>
+	var myapp=angular.module("myapp",[]);
+	myapp.controller("MainCtrl",[function(){
+		this.txt="";
+		var that=this;
+		this.getColor=function(){
+			return that.txt.length>140?{"color":"red"}:{"color":"#666"};
+		}
+		this.empty=function(){
+			return that.txt="";
+		}
+	}]);
+</script>
+</html>

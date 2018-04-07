@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bs/bootstrap.min.css">
+<script src="../bs/jquery-3.2.1.js"></script>
+<script src="../bs/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-controller="myctrl" ng-cloak>
+	{{data()}}
+	<zh-hello zh-color="data()"></zh-hello>
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	myapp.controller("myctrl",['$scope',function($scope){//filter过滤器
+		$scope.data=function(){
+			return "red";
+		};
+	}]);
+	myapp.directive("zhHello",[function(){
+		return {
+			restrict:"AEC", //指令类型  A 属性 E元素 C类 M注释
+			template:"<h1 style='color:{{data1()}}'>我是自定义指令</h1>{{data1()}}",
+			//replace:true,
+			//transclude:true   //保留原有内容
+			scope:{data1:'&zhColor'},
+			controller:['$scope',function($scope){
+				$scope.data2=1;
+			}],
+			link:function(scope,elem,attr){
+				//scope相当于$scope,elem表示元素,attr表示元素的属性
+				console.log(scope.data1());
+			}
+		};
+	}])
+</script>
+</html>
+
+<!--
+restrict  指令类型  A 属性 E元素 C类 M注释
+
+template  内容 
+templateUrl  从指定地址获取内容,与template只能使用其一
+
+replace   是否用模板替换当前元素 true替换  ,false不替换,默认false    文本节点无法替换元素节点
+
+transclude:true  将标签内原来的内容放在有ng-transclude指令的标签内部
+			<h1>hello world<span ng-transclude></span></h1>
+
+scope  
+	false 默认值,控制器和自定义指令公共一个数据,相当于没有局部变量 ,继承不隔离
+	true  一旦更改局部自动创建一个局部变量,控制器数据不会被更改    ,继承但隔离
+	{}    拥有自己的局部变量,                                       完全隔离
+	{data1:"@"}   单项数据绑定,控制器中的数据能影响自定义指令,    把值传过来       				zh-color="{{data}}" 
+	{data1:"="}   双向数据绑定,控制器数据与自定义数据相互影响     把变量传过来   类型true     	zh-color="data"
+	{data1:"&"}   将控住器中的函数传过来,控制器类可以直接使用函数,data1()调用函数.  传函数		zh-color="data()"
+
+controller  自定义指令内部的控制器,
+		使用方法  controller:['$scope',function($scope){
+						$scope.data2=1;
+					}]
+
+link      常用来操作dom
+       使用方法  link:function(scope,elem,attr){
+					//scope相当于$scope,elem表示元素,attr表示元素的属性
+				}
+
+-->

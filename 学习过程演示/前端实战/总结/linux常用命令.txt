@@ -1,0 +1,364 @@
+关闭防火墙
+iptables -L 查看防火墙
+iptables -F 清空防火墙
+service iptables save 保存
+
+SELinux防火墙关闭
+sestatus 查看防火墙
+vi /etc/selinux/config
+SELINUX=disabled
+:x保存并退出
+
+与主机通讯
+网卡模式要一致
+	网络适配器:仅主机模式
+ip要在一个段
+	linux配置ip为192.168.147.0
+	主机VMnet1 ip为192.168.147.1
+
+centOS7 rc.loacl不生效的解决办法
+chmod +x /etc/rc.d/rc.local回车即可
+
+执行脚本
+./脚本
+
+1.基础命令
+ls				查看当前目录
+ls | wc -l 		查看文件的个数
+cd 目录			进入目录
+cd -			切换最近使用的两个目录
+pwd				查看当前路径
+ctrl+c 			强制中断
+clear			清空当前屏幕 ctrl+L
+init 0			关机
+init 6			重启
+which 命令 		查找命令所在的位置
+
+2.目录结构
+mnt 			测试目录
+root			root用户的家目录
+home			普通用户的家目录
+tem				临时目录
+var				存放日志的目录
+boot			系统启动文件
+etc				系统默认放配置的地方
+bin				只有root才能执行的程序mv
+sbin			所有用户都可以执行的程序
+usr				用户自己的软件
+dev				存放硬件设备的地方
+media			挂载光盘使用的地方
+
+挂载光盘
+mount /dev/cdrom /media
+
+3.文件管理
+touch 文件名			创建文件
+touch 文件名(1..num)	批量创建文件  (num是创建的个数)
+rm -rf 文件名			删除文件
+rm -rf 文件名(1..num)	批量删除文件
+mv 原文件名 新文件名	重命名或移动文件
+cp	原文件名 新文件名	复制文件
+vim 文件 				编辑文件
+cat 文件 				查看文件
+cat 文件 | head -n      查看文件前n行
+cat 文件 | tail -n      查看文件后n行
+find 路径 -name 文件名  从指定路径查找文件
+先输入updatedb后回车,再输入locate 文件名 	查找文件
+yum install mlocate
+cat 文件 | grep -i 内容 	忽略大小写的从文件中查找内容
+
+4.目录操作
+mkdir 目录名1 目录名2  	创建目录
+rm -rf 目录名1 目录名2	删除目录
+mv 原目录 新目录		移动或重命名目录
+ls						查看目录
+mkdir -p 树形目录		递归创建目录
+tree 目录 				递归查看目录
+
+5.用户管理
+useradd 用户名 			添加用户
+passwd 密码  			设置密码
+userdel -r 同户名		删除用户
+id 用户名				查看用户
+
+6.别名管理
+alias 别名='原命令'   	添加别名
+unalias 别名 			删除别名
+alias					查看所有别名
+
+7.压缩包管理
+zip压缩包
+zip -r 压缩包名.zip 被压缩文件名 	制作压缩包
+unzip 压缩包名.zip					解压
+unzip -l 压缩包名.zip				查看压缩包内容
+gz压缩包
+tar czf 压缩包名.tar.gz 被压缩文件名	制作压缩包
+tar xzf 压缩包名.tar.gz 				解压
+tar tf 压缩包名.tar.gz 					查看压缩包内容
+
+8.网络配置
+ifconfig 				查看ip
+ifconfig eth0 192.168.20.1 	临时设置ip
+永久设置ip
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.20.1
+NETMASK=255.255.255.0		
+
+9.shell技巧
+	1.tab补全功能  	命令+tab
+	2.history		查看历史命令
+	3.!num 			调用命令历史中第num条命令
+	4.!字符串		调用历史中最后一条以改字符串开头的命令 		!t 最后一条以t开头的命令
+	5.| 			管道
+
+10.获取帮助
+命令 --help
+main 命令
+
+11.linux启动流程
+  1.grub启动引导界面
+  2.找到linux内核
+  3.启动init程序
+  4.执行/etc/rc.d/rc.sysinit脚本
+  5.执行/etc/rc.d/rc脚本并进入3级别
+  6.启动以S开头的文件
+  7.启动/etc/rc.d/rc.local
+  8.进入登录界面
+如何设置一个程序开机启动?
+	vi /etc/rc.d/rc.local
+	添加程序的执行命令保存并退出
+linux系统级别
+0	关机
+1 	单用户模式
+2 	
+3 	进入3级别,字符系统
+4 	
+5 	进入5级别,图形系统
+6 	重启
+进入单用户模式,破解密码
+
+centOS 7 以前版本
+在选择内核界面按两下a键进入编辑模式
+在末尾添加一个1(与前面空格隔开),回车
+
+centOS 7 中
+在选择内核是按下e键开始编辑,
+在倒数第二行末尾加上init=/bin/sh
+同时删除rhgb和quite,
+按ctrl+x进入系统
+然后以rw方式挂载 mount -o remount,rw /
+passwd 重置密码
+最后执行 touch /.autorelavel
+初始化和重启系统	exec /sbin/init
+
+12.yum安装软件
+yum仓库设置
+进入cd /etc/yum.repos.d
+删除rm -rf CentOS-Base.repo
+修改vi CentOS-Media.repo
+baseurl=file:///media
+gpgcheck=0
+enabled=1
+保存并推出x
+
+yum安装rpm包
+	yum -y install 软件名
+yum卸载rpm包
+	yum -y remove 软件名
+查看rpm包
+	yum list | grep 软件名
+
+13.权限管理
+chmod权限
+ll 			查看权限
+r 读(4)   w 写(2)    x 执行(1)
+目录的rwx代表
+r 	查看目录里面的文件
+w 	在目录里面创建或删除文件
+x 	切换进入目录
+文件的rwx代表
+r 	查看文件内容
+w 	修改文件内容
+x 	执行文件(这个文件一般是程序或脚本)
+用户分类:
+所有者 user  u
+所属组 group g
+其他用户 other o
+所有用户 all a
+设置权限
+chmod 用户分类+或-权限 文件或目录
+例如 1.让其他用户对mnt目录具有rwx权限
+chmod o+r,o+w,o+x mnt
+   	2.让所有用户对mnt目录具有x权限
+chmod a+x mnt
+
+acl权限
+u:用户
+g:组
+设置acl权限
+setfacl -m 用户分类:具体用户:权限 文件或目录
+查看acl权限
+getfacl 文件或目录/
+	3.让user1对mnt目录具有rwx权限,user2对mnt目录具有rw权限,user3对mnt具有rx权限,user4对mnt目录具有r权限
+setfacl -m u:user1:rwx mnt
+setfacl -m u:user2:rw mnt
+setfacl -m u:user3:rx mnt
+setfacl -m u:user4:r mnt
+	4.删除user1对mnt目录的acl权限
+setfacl -x u:user1 mnt
+	5.删除mnt目录的所有acl权限
+setfacl -b mnt/
+
+sudo权限(针对命令)
+which 命令 		查找命令所在的位置
+设置
+%用户名 localhost=命令所在位置
+例如  让user1能够增加和删除用户 
+%user1 localhost=/usr/sbin/useradd,/usr/sbin/userdel
+使用
+sudo 命令路径
+例如  user1创建一个user2
+sudo /usr/sbin/useradd user2
+
+
+14.服务进程
+yum install psmisc
+
+rpm包的运行,重启,结束
+service 软件 start 启动
+service 软件 restart 重新启动
+service 软件 stop 停止服务
+例 启动apache 	
+service httpd start
+
+查看进程  pstree
+查看指定软进程 pstree | grep 软件
+关闭进程  pkill 软件
+查看端口  netstat -tunpl
+查看指定软件端口 netstat -tunpl | grep 软件
+
+top 	实时观察进程,内存,CPU
+ load average: 0.00, 0.01, 0.05   1分钟,5分钟,15分钟的平均负载,值越小越好
+ 	%Cpu(s):  0.0 us,  0.3 sy,  0.0 ni, 99.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+cpu空闲率为99.7%;值越大越好
+	KiB Mem :   225576 total,    24260 free,    82868 used,   118448 buff/cache
+内存空闲为24兆
+
+uptime 	查看服务器在线时间,在线用户,平均负载
+who 	查看目前在线用户的详细信息
+last 	获取最近系统的重要操作,比如谁登陆了电脑.
+
+
+15.任务计划(at)
+yum -y install at
+一次性任务计划
+添加
+	at 时间
+	例如 at 21:40
+		任务是关机 init 0
+		ctrl+d保存并退出
+查看 atq
+删除 atrm 任务号
+
+周期性任务计划(crontab)
+添加  crontab -e
+查看  control -l
+删除  crontab -r (删除所有,单独删除编辑文件)
+时间
+	* * * * *分时日月周 后面跟命令
+例如
+	00 03 * * *		每天3点
+	30 23 * * * 	每天23:30
+	*/5 * * * * 	每隔五分钟
+	* * * * 1-5 	周一到周五
+	59 23 * * 1,3,5 周一,周三,周五的23:59
+
+16.shell脚本
+第一步写脚本
+cd /mnt
+touch backup.sh
+vi backup.sh
+例如,网站备份脚本
+#!/bin/bash   脚本必须加这一句
+t=`date +%Y.%m.%d`    定义一个变量,自动获取当期时间
+file="mySite-${t}.zip" 	定义一个变量file,表示备份文件名,${t}表示变量
+cd /var/www/html/  		进入备份的目录
+zip -r $file mySite &>/dev/null   一条命令,制作压缩包,&>/dev/null表示不输出
+mv $f /mnt 		将备份移动到我们所需要的目录中
+第二步,创建任务计划
+crontab -e
+23:59 * * 0 /mnt/backup.sh 	每周日23:59分执行这个脚本
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

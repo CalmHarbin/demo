@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>日历生成</title>
+  <style type="text/css">
+		body,div,select,option,ul,li{
+			margin:0;
+			padding:0;
+		}
+		div{
+			width:350px;
+			height:370px;
+			margin:50px auto;
+			background:#66cccc;
+			font-size:16px;
+			text-align:center;
+			vertical-align:center;
+		}
+		#year{
+			margin-right:50px;
+		}
+		ul{
+			display:flex;
+			justify-content:space-around;
+			align-items:center;
+			flex-wrap:wrap;
+			width:350px;
+			height:350px;
+			list-style:none;
+		}
+		li{
+			width:44px;
+			height:44px;
+			background:#ffff00;
+			border-radius:50%;
+			line-height: 40px;
+		}
+  </style>
+ </head>
+ <body>
+	<div>
+		<select id="year">
+		</select>
+		<select id="month">
+			<option value="">1</option>
+			<option value="">2</option>
+			<option value="">3</option>
+			<option value="">4</option>
+			<option value="">5</option>
+			<option value="">6</option>
+			<option value="">7</option>
+			<option value="">8</option>
+			<option value="">9</option>
+			<option value="">10</option>
+			<option value="">11</option>
+			<option value="">12</option>
+		</select>
+		<ul>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var sYear=document.getElementById('year'); //获取年份列表
+		var month=document.getElementById('month');//获取月份列表
+		var oUl=document.getElementsByTagName('ul')[0];//获取ul标签
+		var aLi=document.getElementsByTagName('li');//获取li标签
+		var stockpile1='1960';//初始化显示年份
+		var stockpile2='1';//初始化显示月份
+		var years=1960; //初始化年份列表
+		 for(var i=0;i<100;i++){   //循环创建年份
+			var option=document.createElement('option');
+			option.innerHTML=years;
+		    sYear.appendChild(option);
+			years++;
+		 }
+		 for(var j=0;j<49;j++){//循环创建li
+			var Li=document.createElement('li');
+			oUl.appendChild(Li);
+		 }
+		for(var k=0;k<7;k++){//给第一排改变样式
+			aLi[k].style.borderRadius='unset';
+			switch (k)//选择k所对应的星期
+			{
+			case 0:aLi[0].innerHTML='日';break;
+			case 1:aLi[1].innerHTML='一';break;
+			case 2:aLi[2].innerHTML='二';break;
+			case 3:aLi[3].innerHTML='三';break;
+			case 4:aLi[4].innerHTML='四';break;
+			case 5:aLi[5].innerHTML='五';break;
+			case 6:aLi[6].innerHTML='六';break;
+			}
+		}
+		sYear.addEventListener('click',function(e){//给年份列表绑定点击事件,触发函数更新显示
+			e=e||event;
+			var index=sYear.selectedIndex;  //获取当前年份所对应的索引值
+			stockpile1=sYear.children[index].innerHTML;//根据索引值找到年份,并保存
+			a();
+		});
+		month.addEventListener('click',function(e){//给年份列表绑定点击事件,触发函数更新显示
+			e=e||event;
+			var index=month.selectedIndex;
+			stockpile2=month.children[index].innerHTML;
+			a();
+		});
+		function a(){//创建时间,获得某年某月1日对应是星期几
+			var date=new Date();//创建时间对象
+			date.setFullYear(stockpile1*1);//设置时间为年份列表所对应的年份
+			date.setMonth(stockpile2*1-1);//设置时间为月份列表所对应的月份
+			date.setDate(1); //设置时间为1日
+			var day=date.getDay();//获取这天所对应的是星期几
+			switch (day) //根据星期几来更新日历
+				{
+				case 0:calendar(7);break;//在星期一所对应的位置开始更改日历
+				case 1:calendar(8);break;//在星期二所对应的位置开始更改日历
+				case 2:calendar(9);break;
+				case 3:calendar(10);break;
+				case 4:calendar(11);break;
+				case 5:calendar(12);break;
+				case 6:calendar(13);break;
+				}
+		}
+		a();//页面加载完成显示一个日历
+		var days=1;//日期初始化
+		function calendar(b){//将日历在li列表的排列
+			var m=b;//接受参数并保存
+			var sum=0;//表示每月总天数
+			days=1;//初始化天
+			switch (stockpile2*1)//*1将字符串转换为数字
+				{
+				case 1:sum=31;break;//月份所对应的总天数
+				case 2:sum=28;break;
+				case 3:sum=31;break;
+				case 5:sum=31;break;
+				case 7:sum=31;break;
+				case 8:sum=31;break;
+				case 10:sum=31;break;
+				case 12:sum=31;break;
+				default :sum=30;break;//其他月份30天
+				}
+			for(var n=7;n<aLi.length;n++){//初始化日历,除去第一排的7个
+				aLi[n].innerHTML='';
+			}
+			for(;m<aLi.length;m++){//将日历在li中显示
+				if(days<=sum){//小于或等于天数时赋值
+				aLi[m].innerHTML=days;//给li赋值
+				days++;//累加,改变日期
+				}
+			}
+		}
+	</script>
+ </body>
+</html>

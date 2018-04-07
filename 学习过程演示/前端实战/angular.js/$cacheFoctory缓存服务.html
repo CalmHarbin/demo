@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bs/bootstrap.min.css">
+<script src="../bs/jquery-3.2.1.js"></script>
+<script src="../bs/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-controller="myctrl" ng-cloak>
+
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+
+	myapp.controller("myctrl",['$scope','$cacheFactory',function($scope,$cacheFactory){//filter过滤器
+		var obj=$cacheFactory("myObj");
+        obj.put("name","username");   //增加一组数据
+        obj.get("name");   //读取name
+        obj.remove("name");  //删除一组数据
+        obj.removeAll();    //删除所有数据
+        obj.info();      //读取数据
+        obj.destroy()    //销毁这个对象
+	}]);
+
+    myapp.controller("myctrl2",['$scope','$cacheFactory',function($scope,$cacheFactory){//filter过滤器
+        var obj=$cacheFactory.get("myObj");   //get方法读取数据,返回一个对象;
+    }]);
+</script>
+</html>

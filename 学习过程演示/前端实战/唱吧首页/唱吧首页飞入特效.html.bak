@@ -1,0 +1,181 @@
+<!doctype html>
+<head>
+ <!-- <meta charset='utf-8'/> -->
+ <meta name='Keywords' content=''/>
+ <meta name='Description' content=''/>
+ <title>唱吧首页飞入特效</title>
+ <style type="text/css">
+	html,body,div,img,ul,li,a,p,h1{
+		margin:0;
+		padding:0;
+	}
+	#wrap{
+		background-color:#ff5046;
+		height:656px;
+
+	}
+	.logo{
+		margin:20px 0 0 190px;	
+	}
+	ul{
+		position:absolute;
+		top:0;
+		left:400px;
+		list-style:none;
+		width:800px;
+		height:55px;
+		
+	}
+	li{
+		float:left;
+		width:100px;
+		height:100%;
+		line-height:55px;
+		text-align:center;
+		font-size:16px;
+	}
+	ul li a{
+		display:block;
+		width:100px;
+		height:55px;
+		background-color:#ff5046;
+		color:white;
+		text-decoration:none;
+	}
+	ul li a:hover{
+		color:#ffb9b5;
+	}
+	h1{
+		width:315px;
+		margin:0 auto;
+		background-color:#ff5046;
+		color:white;
+		font-weight: 500;
+		letter-spacing:11px;
+		font-family: cursive;
+		font-size: 34px;
+	}
+	.download{
+		position:relative;
+		display:block;
+		width:168px;
+		height:48px;
+		margin:20px auto;
+	}
+	.download p{
+		position:absolute;
+		top:0;
+		left:63px;
+		color:white;
+		font-size:19px;
+		height:48px;
+		line-height:48px;
+	}
+	#wrap>div{
+		position:relative;
+		width:100%;
+		height:470px;
+		margin:0 auto;
+	}
+	#wrap>div img{
+		opacity:0;
+		position:absolute;
+	}
+	.top1{
+		left:182px;
+		top:128px;
+		animation:change1 .8s 1.6s forwards;
+	}
+	.top2{
+		left:352px;
+		top:101px;
+		animation:change2 .8s .8s forwards;
+	}
+	.top3{
+		left:507px;
+		top:30px;
+		animation:change3 .8s forwards;
+	}
+	.top4{
+		left:705px;
+		top:42px;
+		animation:change4 .8s .8s forwards;
+	}
+	.top5{
+		left:851px;
+		top:19px;
+		animation:change5 .8s 1.6s forwards;
+	}
+	@keyframes change1{
+		0%{left:-275px;}
+		100%{left:182px;opacity:1;}
+	}
+	@keyframes change2{
+		0%{left:-291px;}
+		100%{left:352px;opacity:1;}
+	}
+	@keyframes change3{
+		0%{transform:scale(0.5);}
+		20%{transform:scale(1.15);}
+		30%{transform:scale(0.8);}
+		40%{transform:scale(1.1);}
+		50%{transform:scale(0.9);}
+		60%{transform:scale(1.07);}
+		70%{transform:scale(0.9);}
+		80%{transform:scale(1.05);}
+		90%{transform:scale(0.95);}
+		100%{transform:scale(1);opacity:1;}
+	}
+	@keyframes change4{
+		0%{left:1366px;}
+		100%{left:705px;opacity:1;}
+	}
+	@keyframes change5{
+		0%{left:1366px;}
+		100%{left:851px;opacity:1;}
+	}
+ </style>
+</head>
+<body>
+  <div id='wrap'>
+	<img src="images/logo.png" alt="唱吧logo" width='95px' height='36px' class='logo'/>
+	<ul>
+		<li>
+			<a href="#">首页</a>
+		</li>
+		<li>
+			<a href="#">精彩表演</a>
+		</li>
+		<li>
+			<a href="#">会员中心</a>
+		</li>
+		<li>
+			<a href="#">金币充值</a>
+		</li>
+		<li>
+			<a href="#">分享伴奏</a>
+		</li>
+		<li>
+			<a href="#">直播</a>
+		</li>
+		<li>
+			<a href="#">音乐人</a>
+		</li>
+		<li>
+			<a href="#">加入我们</a>
+		</li>
+	</ul>
+	<h1>听见歌声遇见你</h1>
+	<a href="#" class='download'>
+		<img src="images/download.png" alt="下载" width='168px' height='48px'/>
+		<p>免费下载</p>
+	</a>
+	<div>
+		<img src="images/top1.png" alt="唱吧" width='275px' height='328px' class='top1'/>
+		<img src="images/top2.png" alt="唱吧" width='291px' height='312px'class='top2'/>
+		<img src="images/top3.png" alt="唱吧" width='354px' height='371px'class='top3'/>
+		<img src="images/top4.png" alt="唱吧" width='303px' height='263px'class='top4'/>
+		<img src="images/top5.png" alt="唱吧" width='306px' height='226px'class='top5'/>
+	</div>
+  </div>
+</body>

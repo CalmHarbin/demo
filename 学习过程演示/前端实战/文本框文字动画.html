@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>文本框文字飞出</title>
+ </head>
+ <body>
+ <input type="text" size='50'/><br/>
+ <input type="text" size='50'/>
+ <script type="text/javascript">
+	var input=document.getElementsByTagName('input');
+	var one=input[0];
+	var tow=input[1];
+	var text='我今天做了一个文本框文字飞出效果';
+	var a=0;
+	enter();
+	function enter(){
+		var len=text.length;
+		a++;
+		one.value=text.substring(0,a);
+		if(a>len){
+			a=0;
+			one.value='';
+		}
+		setTimeout(enter,1000);
+	}
+	var text2='我今天做了一个文本框文字循环效果我今天做了一个文本框文字循环效果我今天做了一个文本框文字循环效果我今天做了一个文本框文字循环效果';
+	var b=0;
+	circulation();
+	function circulation(){
+		b++;
+		var len=tow.size;
+		tow.value=text2.substring(b,b+len);
+		if(b+len==text2.length){
+			b=1;
+		}
+		setTimeout(circulation,1000);
+	}
+ </script>
+ </body>
+</html>

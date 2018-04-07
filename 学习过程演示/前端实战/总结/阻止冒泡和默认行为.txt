@@ -1,0 +1,29 @@
+e=e||event;
+//js中阻止冒泡的方法
+
+window.event? window.event.cancelBubble = true : e.stopPropagation();
+
+if ( e && e.stopPropagation ) {
+	//因此它支持W3C的stopPropagation()方法 
+    e.stopPropagation(); 
+}else{
+	//否则，我们需要使用IE的方式来取消事件冒泡 
+    window.event.cancelBubble = true;
+} 
+
+//js中阻止默认行为的方法
+
+window.event? window.event.returnValue = false : e.preventDefault();
+
+if ( e && e.preventDefault ){
+	     e.preventDefault(); 
+    //IE中阻止函数器默认动作的方式 
+    }else{
+    	window.event.returnValue = false; 
+    }
+    return false; 
+
+ //jquery中
+ 
+ return false;  //既能阻止默认行为,也能阻止冒泡
+    

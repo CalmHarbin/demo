@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script src="../bootstrap-3.3.7-dist/jquery-3.2.1.js"></script>
+<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-controller="myctrl" ng-cloak>
+	<zh-hello data="data"><zh-hello>
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	myapp.controller("myctrl",['$scope',function($scope){//filter过滤器
+		$scope.data=[
+			{
+				"title":"html",
+				"contents":[
+					{
+						"content":"html is very good"
+					}
+				]
+			},
+			{
+				"title":"php",
+				"contents":[
+				{
+					"content":"php is very good"
+				}
+				]
+			}
+		]
+	}]);
+	myapp.directive("zhHello",[function(){
+		return {
+			restrict:"AE", //指令类型  A 属性 E元素 C类 M注释
+			template:"<h1>你好</h1>",
+			// templateUrl:"view.html",
+			replace:true,
+			scope:{data:'='},
+			link:function(scope,elem,attr){
+				//scope相当于$scope,elem表示元素,attr表示元素的属性
+				$(elem).on("mouseenter","a",function(){
+					$(this).addClass("active").siblings().removeClass('active');
+					var idx=$(this).index();
+					$(elem).find("ul").eq(idx).show().siblings().hide();
+				})
+			}
+		};
+	}])
+</script>
+</html>

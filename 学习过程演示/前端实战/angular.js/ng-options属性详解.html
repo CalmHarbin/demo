@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>省市级三级联动</title>
+	<script src="angular.min.js"></script>
+</head>
+<body ng-controller="MainCtrl as mainCtrl">
+	<!--显示for值in数组-->
+	<select name="" id="" ng-model="mainCtrl.zhi1" ng-options="item for item in mainCtrl.arr1"></select>
+	<p>{{mainCtrl.zhi1}}</p>
+	<!--数组里面有对象:提交as显示for值in数组-->
+	<select name="" id="" ng-model="mainCtrl.zhi2" ng-options="item.phone as item.city for item in mainCtrl.arr2"></select>
+	<p>{{mainCtrl.zhi2}}</p>
+	<!--纯对象:提交as显示for值in对象  value as key for (key,value) in 对象-->
+	<select name="" id="" ng-model="mainCtrl.zhi3" ng-options="value as key for (key,value) in mainCtrl.arr3"></select>
+	<p>{{mainCtrl.zhi3}}</p>
+</body>
+<script>
+	var myapp=angular.module("myapp",[]);
+	myapp.controller("MainCtrl",[function(){
+		this.zhi1="一级";
+		this.arr1=["一级","二级","三级","四级"];
+		this.zhi2="010";
+		this.arr2=[
+			{"city":"北京","phone":"010"},
+			{"city":"上海","phone":"011"},
+			{"city":"深圳","phone":"012"},
+			{"city":"武汉","phone":"013"}
+		];
+		this.zhi3="沪";
+		this.arr3={
+			"北京":"京",
+			"上海":"沪",
+			"广东":"粤",
+			"湖北":"鄂"
+		}
+	}]);
+</script>
+</html>
+<!--
+	ng-options要和ng-model一起用
+	ng-options 指令使用数组来填充下拉列表
+-->

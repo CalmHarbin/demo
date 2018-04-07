@@ -1,0 +1,15 @@
+1.进入cmd安装bower包管理器,输入命令npm install -g bower
+2.输入bower -v检查bower安装的版本
+3.进入项目文件夹
+4.输入bower init,然后填写一个表单,填写完表单会出现一个json文件
+
+
+
+
+
+
+
+使用bower的好处
+1.bower能够帮我们管理所有的版本号,
+2.能帮我们管理依赖的依赖;
+3.bower会帮我们下载他们的源代码,我们可以用webpack,grunt,gulp等构建工具构建自己的jq,bs等等;

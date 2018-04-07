@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>CSS3自动旋转效果</title>
+        <style>
+          .swiper-container{
+            width:100%;
+            margin:300px auto;
+            position:relative;
+          }
+          .swip_center_img{
+            -moz-animation:rotate 20s infinite linear;
+            -webkit-animation:rotate 20s infinite linear;
+            animation:rotate 20s infinite linear;
+            position:absolute;
+            left:50%;
+            top:50%;
+          }
+          .center_img{
+            background:rgba(120,220,210,.7);
+          }
+          .swip_img_radius{
+            padding:10px;
+            width:100px;
+            height:100px;
+            border-radius:50%;
+            box-shadow:inset rgba(0,0,0,.2) .2em .2em 1em;
+            -moz-transition:all .5s;
+            -webkit-transition:all .5s;
+            transition:all .5s;
+          }
+          @-moz-keyframes rotate{
+            0%{
+              -moz-transform:rotate(0deg);
+             }
+             100%{
+               -moz-transform:rotate(360deg);
+             }
+          }
+          @-webkit-keyframes rotate{
+            0%{
+              -webkit-transform:rotate(0deg);
+             }
+             100%{
+               -webkit-transform:rotate(360deg);
+             }
+          }
+          @keyframes rotate{
+            0%{
+              transform:rotate(0deg);
+             }
+             100%{
+               transform:rotate(360deg);
+             }
+          }
+          .translate_right_top{
+            background:rgba(23,43,45,.7);
+            -moz-transform:translate(140px,-140px);
+            -webkit-transform:translate(140px,-140px);
+            transform:translate(140px,-140px);
+          }
+          .translate_right{
+            background:rgba(123,43,45,.7);
+            -moz-transform:translate(170px);
+            -webkit-transform:translate(170px);
+            transform:translate(170px);
+          }
+          .translate_right_bottom{
+            background:rgba(123,73,55,.7);
+            -moz-transform:translate(140px,140px);
+            -webkit-transform:translate(140px,140px);
+            transform:translate(140px,140px);
+          }
+          .translate_bottom{
+            background:rgba(53,173,55,.7);
+            -moz-transform:translate(0,170px);
+            -webkit-transform:translate(0,170px);
+            transform:translate(0,170px);
+          }
+          .translate_left_bottom{
+            background:rgba(53,173,155,.7);
+            -moz-transform:translate(-140px,140px);
+            -webkit-transform:translate(-140px,140px);
+            transform:translate(-140px,140px);
+          }
+          .translate_left{
+            background:rgba(153,173,55,.7);
+            -moz-transform:translate(-170px);
+            -webkit-transform:translate(-170px);
+            transform:translate(-170px);
+          }
+          .translate_left_top{
+            background:rgba(53,273,55,.7);
+            -moz-transform:translate(-140px,-140px);
+            -webkit-transform:translate(-140px,-140px);
+            transform:translate(-140px,-140px);
+          }
+          .translate_top{
+             background:rgba(53,173,255,.7);
+            -moz-transform:translate(0,-170px);
+            -webkit-transform:translate(0,-170px);
+            transform:translate(0,-170px);
+          }
+        </style>
+  </head>
+  <body>
+      <header class="swiper-container">
+        <div class="swip_center_img">
+          <div class="swip_img_radius center_img"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_right_top"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_right"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_right_bottom"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_bottom"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_left_bottom"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_left"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_left_top"></div>
+        </div>
+        <div class="swip_center_img">
+          <div class="swip_img_radius translate_top"></div>
+        </div>
+      </header>
+  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $(".swiper-container").css("height",$(window).height());
+      });
+    </script>
+  </body>
+</html>

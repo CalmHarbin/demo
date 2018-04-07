@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+<script src="../jquery-3.2.1.js"></script>
+<script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+<style>
+	.phone{
+		height: 500px;
+		border: 1px solid #666;
+		display: flex;
+	}
+	dl{
+		display: flex;
+		flex-direction:column-reverse;
+		flex:1;
+		
+	}
+	dt{
+		background-color: #00ffff;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		border: 1px solid #333;
+	}
+	dd{
+		display: flex;
+		flex-direction:column;
+	}
+	a{
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		border: 1px solid #333;
+		border-bottom:none;
+	}
+	i{
+		font-size:30px;
+		cursor:pointer;
+		color:#999;
+		float:right;
+	}
+</style>
+</head>
+<body>
+	<div class="container" ng-controller="myctrl" ng-cloak>
+		<div class="row">
+			<div class="col-xs-4 phone">
+				<dl ng-repeat="one in data.button">
+					<dt ng-bind="one.name"></dt>
+					<dd>
+						<a href="" ng-repeat="two in one.sub_button" ng-bind="two.name"></a>
+					</dd>
+				</dl>
+			</div>
+			<div class="col-xs-8">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="panel-title">
+							<h4>编辑</h4>
+						</div>
+					</div>
+					<div class="panel-body" >
+						<div class="panel panel-primary"  ng-repeat="one in data.button">
+							<i class="glyphicon glyphicon-remove" ng-click="removeone(one)"></i>
+							<div class="panel-body">
+								<!-- 一级菜单 -->
+								<form action="" class="form-horizontal">
+									<div class="form-group">
+										<label class="col-xs-2 control-label">标题</label>
+										<div class="col-xs-10">
+											<input type="text" class="col-xs-10 form-control" ng-model="one.name">
+										</div>
+									</div>
+									<div class="form-group"  ng-if="one.sub_button.length==0||!one.sub_button">
+										<label class="col-xs-2 control-label">类型</label>
+										<div class="col-xs-10">
+											<input type="radio" ng-model="one.type" value="click" ng-checked="one.type=='click'">关键词
+											<input type="radio" ng-model="one.type" value="view" ng-checked="one.type=='view'">网址
+										</div>
+									</div>
+									<div class="form-group" ng-if="one.type=='click'&&(one.sub_button.length==0||!one.sub_button)">
+										<label class="col-xs-2 control-label">关键字</label>
+										<div class="col-xs-10">
+											<input type="text" class="col-xs-10 form-control" ng-model="one.key">
+										</div>
+									</div>
+									<div class="form-group" ng-if="one.type=='view'&&(one.sub_button.length==0||!one.sub_button)">
+										<label class="col-xs-2 control-label">网址</label>
+										<div class="col-xs-10">
+											<input type="text" class="col-xs-10 form-control" ng-model="one.url">
+										</div>
+									</div>
+								</form>
+								<!-- 一级菜单结束 -->
+								<!-- 二级菜单 -->
+								<div class="panel panel-primary" ng-repeat="two in one.sub_button">
+									<i class="glyphicon glyphicon-remove" ng-click="removetwo(one.sub_button,two)"></i>
+									<div class="panel-body">
+										<form action="" class="form-horizontal">
+											<div class="form-group">
+												<label class="col-xs-2 control-label">标题</label>
+												<div class="col-xs-10">
+													<input type="text" class="col-xs-10 form-control" ng-model="two.name">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-xs-2 control-label">类型</label>
+												<div class="col-xs-10">
+													<input type="radio" ng-model="two.type" value="click" ng-checked="two.type=='click'">关键词
+													<input type="radio" ng-model="two.type" value="view" ng-checked="two.type=='view'">网址
+												</div>
+											</div>
+											<div class="form-group" ng-if="two.type=='click'">
+												<label class="col-xs-2 control-label">关键字</label>
+												<div class="col-xs-10">
+													<input type="text" class="col-xs-10 form-control" ng-model="two.key">
+												</div>
+											</div>
+											<div class="form-group" ng-if="two.type=='view'">
+												<label class="col-xs-2 control-label">网址</label>
+												<div class="col-xs-10">
+													<input type="text" class="col-xs-10 form-control" ng-model="two.url">
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>	
+								<!--二级菜单end-->
+								<button type="button" class="btn btn-primary" ng-click="addtwo(one)">添加二级菜单</button>
+							</div>
+						</div>
+						
+					</div>
+					<div class="panel-footer">
+						<button class="btn btn-primary" ng-click="addone()">添加一级菜单</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	myapp.controller("myctrl",['$scope',function($scope){
+		$scope.data={
+				     "button":[
+				     {    
+				          "type":"click",
+				          "name":"今日歌曲",
+				          "key":"V1001_TODAY_MUSIC"
+				      },
+				      {
+				           "name":"菜单",
+				           "sub_button":[
+				           {    
+				               "type":"view",
+				               "name":"搜索",
+				               "url":"http://www.soso.com/"
+				            },
+				            {
+				               "type":"click",
+				               "name":"赞一下我们",
+				               "key":"V1001_GOOD"
+				            }]
+				       }]
+				 };
+		$scope.addone=function(){
+			 var arr={    
+		          "type":"click",
+		          "name":"",
+		          "key":""
+		      };
+		      if($scope.data.button.length>=3){
+		      		alert("最多添加3个一级菜单");
+		      }else{
+		      		$scope.data.button.push(arr);
+		      }
+		}
+		$scope.addtwo=function(one){
+			 var arr={    
+		          "type":"click",
+		          "name":"",
+		          "key":""
+		      };
+			if(!one.sub_button){
+				one.sub_button=[];
+			}
+			if(one.sub_button.length>=5){
+				alert("最多添加5个二级菜单");
+			}else{
+				one.sub_button.push(arr);
+			}
+		}
+		$scope.removeone=function(one){
+			var idx=0;
+			for(var i=0;i<$scope.data.button.length;i++){
+				if($scope.data.button[i]===one){
+					idx=i;
+				}
+			}
+			$scope.data.button.splice(idx,1);
+		}
+		$scope.removetwo=function(one_button,two){
+			var idx=0;
+			for(var i=0;i<one_button.length;i++){
+				if(one_button[i]===two){
+					idx=i;
+				}
+			}
+			one_button.splice(idx,1);
+		}
+	}])
+</script>
+</html>

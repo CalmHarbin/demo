@@ -1,0 +1,33 @@
+<div class="zhHello">
+	<style>
+		.zhHello a{
+			display: inline-block;
+			width: 200px;
+			height: 50px;
+			text-align: center;
+			line-height: 50px;
+			background: #ccc;
+			border: 1px solid;
+		}
+		.zhHello a.active{
+			background-color: green;
+		}
+		.zhHello a:hover{
+			background-color: green;
+		}
+		.zhHello ul{
+			border:1px solid;
+			width: 500px;
+			height: 100px;
+			list-style: none;
+		}
+	</style>
+	<div>
+		<a href="" ng-repeat="title in data track by $index" ng-bind="title.title" ng-class="{active:$first}"></a>
+	</div>
+	<div>
+		<ul ng-repeat="title in data track by $index" ng-style="{display:$first?'block':'none'}">
+			<li ng-repeat="content in title.contents track by $index" ng-bind="content.content" ></li>
+		</ul>
+	</div>
+</div>

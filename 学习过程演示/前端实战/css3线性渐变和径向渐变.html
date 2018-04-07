@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style>
+	div{
+		width: 300px;
+		height: 300px;
+		margin: 0 auto;
+		/*background:-webkit-radial-gradient(left,ellipse,red, yellow 10%, green 15%);*/
+		/*background:-webkit-radial-gradient(60% 30%,closest-side,red, yellow 10%, green 15%);*/
+		background: repeating-radial-gradient(red, yellow 10%, green 15%);
+		/*background: -webkit-linear-gradient(30deg,yellow 10%, green 15%);*/
+		/*background: -webkit-repeating-linear-gradient(30deg,yellow 10%, green 15%);*/
+		border: 1px solid red;
+		padding: 1px;
+	}
+	
+</style>
+</head>
+<body>
+<div>
+	
+</div>
+
+</body>
+</html>
+<!--
+线性渐变
+background: linear-gradient([位置||角度,]颜色 大小,颜色 大小, ...);
+位置:left,top,...
+角度:30deg,
+
+径向渐变(有兼容性,需要加内核)
+background:radial-gradient(位置,形状[,大小的值,大小],颜色 大小, ...,颜色 大小);
+位置:bottom,top,left,right
+形状:circle圆形  ellipse椭圆形
+大小:60% 30%,closest-side
+	60% 30%,farthest-side
+	60% 30%,closest-corner
+	60% 30%,farthest-corner
+大小不能和位置,形状一起使用
+
+重复径向渐变
+background:repeating-radial-gradient(颜色 大小,颜色 大小,...);
+
+
+
+-->

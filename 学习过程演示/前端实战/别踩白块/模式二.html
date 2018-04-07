@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>别踩白块</title>
+  <style type="text/css">
+		html,body,div,ul,li,span,a,p{
+			margin:0;
+			padding:0;
+		}
+		body{background-color:#ccc;}
+		#wrap{
+			position:relative;
+			margin:20px auto;
+			width:288px;
+			height:408px;
+			border:1px solid #369;
+			background-color:#fff;
+			overflow:hidden;
+		}
+		.box{
+			position:absolute;
+			top:0px;
+			width:288px;
+		}
+		.box1{
+			top:-408px;
+		}
+		.bulk{
+			width:100%;
+			height:100px;
+		}
+		.chunk{
+			float:left;
+			width:70px;
+			height:100%;
+			border:1px solid #ccc;
+		}
+		.chunk2{background-color:#000;}
+		#pattern{
+			position:absolute;
+			left:380px;
+			top:120px;
+			width:120px;
+			height:70px;
+			background-color:#ff9933;
+			text-align:center;
+		}
+		#pattern a,#pattern p{
+			width:120px;
+			height:35px;
+			color:white;
+			text-decoration:none;
+			line-height:35px;
+		}
+		ul{
+			position:absolute;
+			left:380px;
+			top:200px;
+			list-style:none;
+			width:120px;
+			height:140px;
+			background-color:#66ff00;
+			text-align:center;
+		}
+		li{
+			width:120px;
+			height:35px;
+			color:white;
+			line-height:35px;
+			cursor:pointer;
+		}
+		span{
+			width:60px;
+			height:35px;
+			font-size:25px;
+			line-height:35px;
+			color:white;
+		}
+		#time{
+			position:absolute;
+			left:380px;
+			top:75px;
+			width:120px;
+			height:35px;
+			font-size:25px;
+			line-height:35px;
+			color:black;
+			text-align:center;
+			background-color:#fff;
+		}
+  </style>
+ </head>
+ <body>
+	<p id='time'>60</p>
+	<div id='pattern'>
+		<a href='别踩白块.html'><p>模式一</p></a>
+		<a href='javascript:'><p>模式二</p></a>
+	</div>
+	<ul>
+		<li>开始游戏</li>
+		<li>暂停游戏</li>
+		<li>重新开始</li>
+		<li>得分<span>0</span></li>
+	</ul>
+	<div id="wrap">
+		<div class="box box1">
+			<div class="bulk">
+				<div class="chunk chunk2"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+			</div>
+			<div class="bulk">
+				<div class="chunk"></div>
+				<div class="chunk chunk2"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+			</div>
+			<div class="bulk">
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk chunk2"></div>
+				<div class="chunk"></div>
+			</div>
+			<div class="bulk">
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk chunk2"></div>
+			</div>
+		</div>
+		<div class="box">
+			<div class="bulk">
+				<div class="chunk chunk2"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+			</div>
+			<div class="bulk">
+				<div class="chunk"></div>
+				<div class="chunk chunk2"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+			</div>
+			<div class="bulk">
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk chunk2"></div>
+				<div class="chunk"></div>
+			</div>
+			<div class="bulk">
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+			</div>
+			<div class="bulk">
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+				<div class="chunk"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.onload=function(){
+			
+			var wrap=document.getElementById('wrap');
+			//创建box
+			function createBox(){
+				var aBox=document.createElement('div');
+				aBox.className='box box1';
+				for(var j=0;j<5;j++){
+					var oDiv=document.createElement('div');//创建类名为bulk的div
+					for(var i=0;i<4;i++){
+					var div=document.createElement('div');//创建类名为chunk的div
+					div.className='chunk';//初始化类名
+					oDiv.appendChild(div);//添加到父容器中
+					}
+					oDiv.className='bulk';//添加类名
+					aBox.appendChild(oDiv);
+				}
+				wrap.insertBefore(aBox,wrap.firstChild);//在第一个子节点前添加新的节点
+				var Box=document.getElementsByClassName('box')[0];
+					var Div=Box.children;//获得一行的4个div数组
+						for(var k=0;k<4;k++){
+							var index=Math.floor(Math.random()*4);//随机索引值
+							var chunk=Div[k].children;
+							chunk[index].className='chunk chunk2'//将随机到的div颜色改为黑色
+						}
+			}
+			//createBox()
+			//删除box
+			function clearBox(){
+				var aBox=document.getElementsByClassName('box')[1];
+				var bulk=aBox.children;
+				aBox.removeChild(bulk[bulk.length-1]);
+				//wrap.removeChild(aBox);//删除最后一个子节点
+			}
+			//clearBox();
+			//向下运动
+			var onOff1=true;
+			var onOff2=true;
+			var onOff3=true;
+			var X=5;
+			function move(){
+				var Box=document.getElementsByClassName('box');
+				var span=document.getElementsByTagName('span')[0];
+				X+=0.005;
+				Box[0].style.top=Box[0].offsetTop+X+'px';
+				Box[1].style.top=Box[1].offsetTop+X+'px';
+				//console.log(Box[1].offsetTop)
+				if(Box[1].offsetTop>102&&Box[1].offsetTop<120&&onOff1===true){
+					onOff1=false;
+					clearBox();
+				}
+				if(Box[1].offsetTop>204&&Box[1].offsetTop<240&&onOff2===true){
+					clearBox();
+					onOff2=false;
+				}
+				if(Box[1].offsetTop>306&&Box[1].offsetTop<320&&onOff3===true){
+					clearBox();
+					onOff3=false;
+				}
+				if(Box[0].offsetTop>=0){
+					Box[0].className='box';
+					createBox();
+					onOff1=true;
+					onOff2=true;
+					onOff3=true;
+					var aBox2=document.getElementsByClassName('box')[2];
+					wrap.removeChild(aBox2);//删除最后一个子节点
+				}
+				//console.log(aBox2[0].offsetTop)
+				var aBox=document.getElementsByClassName('box')[1];//获得页面的显示的box
+				var oDiv=aBox.children[aBox.children.length-1];//获得该box中最下面的一行
+				for(var i=0;i<4;i++){//遍历改行,如果有白块,则游戏结束
+						if(oDiv.children[i].className==='chunk chunk2'){
+							oDiv.children[i].className='chunk';
+							//console.log(oDiv.children[i])
+							alert('游戏结束,本轮得分'+span.innerHTML);
+							history.go(0);//刷新页面
+						}
+					}
+			}
+			//move();
+			
+			//点击变颜色
+			var num=0;
+			wrap.addEventListener('click',function(e){
+				e=e||event;
+				var target=e.target;//点击的目标
+				var span=document.getElementsByTagName('span')[0];
+				if(target.className.toLowerCase()==='chunk chunk2'){
+					target.className='chunk';
+					num++;
+					span.innerHTML=num;
+				}else{
+					alert('游戏结束,本轮得分'+span.innerHTML);
+					history.go(0);//刷新页面
+				}
+			})
+			//开始游戏
+			var aLi=document.getElementsByTagName('li');
+			aLi[0].onclick=function(){
+				var t=setInterval(move,40);
+				//暂停游戏
+				aLi[1].onclick=function(){
+					clearInterval(t);
+				}
+			}
+			//重新开始
+			aLi[2].onclick=function(){
+				history.go(0);
+			}
+		}
+	</script>
+ </body>
+</html>

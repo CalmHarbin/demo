@@ -1,0 +1,34 @@
+.panel-body{
+	position: relative;
+}
+.code{
+	margin-left: 100px;
+}
+.code p{
+	margin-top:10px;
+}
+.code span{
+	cursor: pointer;
+	color: #337ab7;
+}
+.logon{
+	position:absolute;
+	right: 15px;
+	bottom: 20px;
+}
+.wrap{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	height: 300px;
+	margin-left: -250px;
+	margin-top: -150px;
+}
+.col-md-2{
+	padding-right: 0;
+}
+.form-horizontal{
+	margin-top: 8px;
+	margin-left: -43px;
+}

@@ -1,0 +1,44 @@
+.adv{
+		position: absolute;
+		top: 72px;
+		left: 150px;
+	}
+	.wrap{
+		position: absolute;
+		top: 72px;
+		right: 150px;
+		width: 400px;
+		height: 365px;
+		border:1px solid #ddd;
+		padding: 30px 0px 40px 0px;
+		box-shadow: 0px 0px 6px #ddd;
+	}
+	form{
+		display: block;
+		width:310px;
+		margin: 0 auto;
+	}
+	a.have{
+		position: absolute;
+		right:44px;
+		top: 35px;
+		font-size: 12px;
+	}
+	span.origin{
+		color: #ff4a00;
+	}
+	span.hint{
+		color:#999;
+	}
+	span.chenge{
+		font-size: 12px;
+		cursor: pointer;
+	}
+	input.code{
+		width:175px;
+		float:left;
+		margin-right:4px;
+	}
+	input.btn-block{
+		margin-top:30px;
+	}

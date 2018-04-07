@@ -1,0 +1,35 @@
+js中
+数据类型:数字、字符串、数组、对象、布尔、Null、Undefined
+1.typeof()       //返回数据类型
+2. obj instanceof object  //判断obj是不是object的实例
+3.obj.constructor			返回创建变量的引用,例如Array,String
+4.Object.prototype.toString.call(obj)		s返回一个JSON字符串——"[object 数据类型]"。例如[object Array]
+
+jquery中
+1.$.type()  //返回数据类型
+
+angular中
+1.angular.isArray()     //是不是数组
+2.angular.isDate()      //是不是日期对象
+3.angular.isDefined()   //是不是已定义的
+4.angular.isElement()   //是不是Dom元素
+5.angular.isFunction()  //是不是函数
+6.angular.isNumber()    //是不是数字
+7.angular.isObject()    //是不是对象
+8.angular.isString()    //是不是字符串
+9.angular.isUndefined() //是不是未定义的
+10.angular.equals(obj1,obj2)     //判断两个对象是不是相等
+
+php中
+数据类型:整型,浮点型,字符串,数组,对象,布尔型,null,资源
+1.isset():                 //变量是否已经声明
+2.empty():                 //变量是否为空
+3.defined():　　　　　　　 //常量是否已经定义
+4.is_numeric ():  //检测变量是 否为数字或数字字符串
+5.is_bool():                 // 检测变量是否是布尔型
+6.is_float():                // 检测变量是否是浮点型 和is_double，is_real()
+7.is_int():                  // 检测变量是否是整数is_integer() 一样的 用法
+8.is_string():            // 检测变量是否是字符串
+9.is_object():            // 检测变量是否是一个对象
+10.is_array():            // 检测变量是否是数组
+11.is_null():            // 检测变量是否为 NULL 值是否是NULL大小写敏感

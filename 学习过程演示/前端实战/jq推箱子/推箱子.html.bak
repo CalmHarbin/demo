@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>推箱子</title>
+	<style type="text/css">
+	#wrap{
+		position:relative;
+		width:500px;
+		margin:0 auto;
+	}
+	.map0,.map1,.map2,.map3,.figure,.box{
+		float:left;
+		width:50px;
+		height:50px;
+		background-size:cover;
+	}
+	.map0{
+		background-color:#eee;
+	}
+	.map1{
+		background-image:url('images/bg.png');
+	}
+	.map2{
+		background-image:url('images/wall.png');
+	}
+	.map3{
+		background-image:url('images/bomb.png');
+	}
+	.box{
+		position:absolute;
+		background-image:url('images/box.png');
+	}
+	.figure{
+		position:absolute;
+		background-image:url('images/left.png');
+		z-index:10;
+	}
+	#menu{
+		position:absolute;
+		left:2%;
+		top:50px;
+		width:130px;
+		height:250px;
+		text-align:center;
+	} 
+	p{
+		display:inline-block;
+	}
+	span{
+		font-size:20px;
+		color:#333399;
+	}
+	</style>
+	<script src='../jquery-3.2.1.js'></script>
+ </head>
+ <body>
+  <div id='menu'>
+		<p>第</p>
+		<select></select>
+		<p>关</p>
+		<button>重新开始</button>
+		<br/>
+		<p>步数&nbsp&nbsp<span>0</span></p>
+	</div>
+  <div id='wrap'></div>
+  <script type="text/javascript">
+  $(function(){
+	createMap(n);//创建地图
+	win();
+	gkNum();
+	//重新开始
+	$('button').click(function(){
+		$.extend(true,game,initialize );//初始化,将initialize对象复制给game
+		$('#wrap').remove();
+		$('body').append("<div id='wrap'></div>");
+		createMap(n);
+		num=0;
+		$('span').html(num);
+		win();
+	});
+	$('select').click(function(){
+		var val=$('select').val();
+		n=val-1;
+		$('#wrap').remove();
+		$('body').append("<div id='wrap'></div>");
+		createMap(n);
+		num=0;
+		$('span').html(num);
+		win();
+	});
+
+
+  })
+  //创建一个对象,gk属性表示关卡
+  var num=0;//步数
+  var n=0;//关卡数
+  var initialize={//保存关卡数据
+	 gk:[
+	  {
+		map:[//地图
+			0,0,2,2,2,0,0,0,
+			0,0,2,3,2,0,0,0,
+			0,0,2,1,2,2,2,2,
+			2,2,2,1,1,1,3,2,
+			2,3,1,1,1,2,2,2,
+			2,2,2,2,1,2,0,0,
+			0,0,0,2,3,2,0,0,
+			0,0,0,2,2,2,0,0,
+			],
+		figure:{//人物
+			x:4,
+			y:4
+			},
+		box:[   //箱子
+			{x:3,y:3},
+			{x:3,y:4},
+			{x:4,y:5},
+			{x:5,y:3}
+			],
+		line:8  //列数
+	  },
+	  {
+		map:[//地图
+			0,2,2,2,2,2,0,0,
+			0,2,1,1,1,2,2,2,
+			2,2,1,2,1,1,1,2,
+			2,1,3,3,1,3,1,2,
+			2,1,1,1,1,1,2,2,
+			2,2,2,1,2,3,2,0,
+			0,0,2,1,1,1,2,0,
+			0,0,2,2,2,2,2,0,
+			],
+		figure:{//人物
+			x:3,
+			y:1
+			},
+		box:[   //箱子
+			{x:4,y:2},
+			{x:2,y:3},
+			{x:3,y:4},
+			{x:4,y:4}
+			],
+		line:8
+	  },
+	  {
+		map:[//地图
+			0,0,2,2,2,2,0,0,0,
+			2,2,2,1,1,2,2,2,2,
+			2,1,1,1,1,1,1,1,2,
+			2,1,2,1,1,2,1,1,2,
+			2,1,3,1,3,2,1,1,2,
+			2,2,2,2,2,2,2,2,2,
+			],
+		figure:{//人物
+			x:6,
+			y:4
+			},
+		box:[   //箱子
+			{x:6,y:3},
+			{x:6,y:2},
+			],
+		line:9
+	  },
+	  {
+		map:[//地图
+			0,0,0,2,2,2,2,2,0,0,0,0,
+			2,2,2,2,1,1,1,2,0,0,0,0,
+			2,3,3,2,1,1,1,2,0,0,0,0,
+			2,1,3,3,1,1,1,2,2,2,2,2,
+			2,1,1,2,1,2,1,2,1,1,1,2,
+			2,1,1,1,1,1,1,1,1,1,1,2,
+			2,1,1,2,2,2,2,2,2,2,3,2,
+			2,2,2,2,0,0,0,0,0,2,2,2,
+			],
+		figure:{//人物
+			x:2,
+			y:4
+			},
+		box:[   //箱子
+			{x:4,y:2},
+			{x:4,y:3},
+			{x:5,y:2},
+			{x:3,y:5},
+			{x:9,y:5},
+			],
+		line:12
+	  },
+	  {
+		map:[//地图
+			0,0,0,2,2,2,0,0,0,0,0,
+			0,0,2,2,1,2,0,2,2,2,2,
+			0,2,2,1,1,2,2,2,1,1,2,
+			2,2,1,1,1,1,1,1,1,1,2,
+			2,1,1,1,1,1,1,2,1,1,2,
+			2,2,2,1,1,2,2,2,1,1,2,
+			0,0,2,1,1,2,3,3,1,1,2,
+			0,2,2,1,2,2,3,2,1,2,2,
+			0,2,1,1,1,1,1,1,2,2,0,
+			0,2,1,1,1,1,1,2,2,0,0,
+			0,2,2,2,2,2,2,2,0,0,0,
+			],
+		figure:{//人物
+			x:4,
+			y:4
+			},
+		box:[   //箱子
+			{x:3,y:3},
+			{x:4,y:5},
+			{x:5,y:4},
+			],
+		line:11
+	  },
+	  {
+		map:[//地图
+			0,0,0,2,2,2,2,2,2,2,2,
+			0,0,0,2,1,1,1,1,1,1,2,
+			2,2,2,2,1,2,2,2,2,1,2,
+			2,1,1,1,1,1,3,3,2,1,2,
+			2,1,2,1,1,3,2,1,2,1,2,
+			2,1,2,1,2,2,2,1,2,1,2,
+			2,1,2,3,2,1,1,1,1,1,2,
+			2,1,2,3,1,1,1,1,1,2,2,
+			2,1,2,1,2,2,2,1,1,2,0,
+			2,1,1,3,1,1,1,1,1,2,0,
+			2,2,2,2,2,2,2,2,2,2,0,
+			],
+		figure:{//人物
+			x:5,
+			y:7
+			},
+		box:[   //箱子
+			{x:2,y:3},
+			{x:4,y:3},
+			{x:3,y:8},
+			{x:4,y:7},
+			{x:6,y:7},
+			{x:6,y:6},
+			],
+		line:11
+	  },
+	  
+	]
+  }
+  var game={//关卡数据
+	 gk:[
+	  {
+		map:[//地图
+			0,0,2,2,2,0,0,0,
+			0,0,2,3,2,0,0,0,
+			0,0,2,1,2,2,2,2,
+			2,2,2,1,1,1,3,2,
+			2,3,1,1,1,2,2,2,
+			2,2,2,2,1,2,0,0,
+			0,0,0,2,3,2,0,0,
+			0,0,0,2,2,2,0,0,
+			],
+		figure:{//人物
+			x:4,
+			y:4
+			},
+		box:[   //箱子
+			{x:3,y:3},
+			{x:3,y:4},
+			{x:4,y:5},
+			{x:5,y:3}
+			],
+		line:8
+	  },
+	  {
+		map:[//地图
+			0,2,2,2,2,2,0,0,
+			0,2,1,1,1,2,2,2,
+			2,2,1,2,1,1,1,2,
+			2,1,3,3,1,3,1,2,
+			2,1,1,1,1,1,2,2,
+			2,2,2,1,2,3,2,0,
+			0,0,2,1,1,1,2,0,
+			0,0,2,2,2,2,2,0,
+			],
+		figure:{//人物
+			x:3,
+			y:1
+			},
+		box:[   //箱子
+			{x:4,y:2},
+			{x:2,y:3},
+			{x:3,y:4},
+			{x:4,y:4}
+			],
+		line:8
+	  },
+	  {
+		map:[//地图
+			0,0,2,2,2,2,0,0,0,
+			2,2,2,1,1,2,2,2,2,
+			2,1,1,1,1,1,1,1,2,
+			2,1,2,1,1,2,1,1,2,
+			2,1,3,1,3,2,1,1,2,
+			2,2,2,2,2,2,2,2,2,
+			],
+		figure:{//人物
+			x:6,
+			y:4
+			},
+		box:[   //箱子
+			{x:6,y:3},
+			{x:6,y:2},
+			],
+		line:9
+	  },
+	  {
+		map:[//地图
+			0,0,0,2,2,2,2,2,0,0,0,0,
+			2,2,2,2,1,1,1,2,0,0,0,0,
+			2,3,3,2,1,1,1,2,0,0,0,0,
+			2,1,3,3,1,1,1,2,2,2,2,2,
+			2,1,1,2,1,2,1,2,1,1,1,2,
+			2,1,1,1,1,1,1,1,1,1,1,2,
+			2,1,1,2,2,2,2,2,2,2,3,2,
+			2,2,2,2,0,0,0,0,0,2,2,2,
+			],
+		figure:{//人物
+			x:2,
+			y:4
+			},
+		box:[   //箱子
+			{x:4,y:2},
+			{x:4,y:3},
+			{x:5,y:2},
+			{x:3,y:5},
+			{x:9,y:5},
+			],
+		line:12
+	  },
+	  {
+		map:[//地图
+			0,0,0,2,2,2,0,0,0,0,0,
+			0,0,2,2,1,2,0,2,2,2,2,
+			0,2,2,1,1,2,2,2,1,1,2,
+			2,2,1,1,1,1,1,1,1,1,2,
+			2,1,1,1,1,1,1,2,1,1,2,
+			2,2,2,1,1,2,2,2,1,1,2,
+			0,0,2,1,1,2,3,3,1,1,2,
+			0,2,2,1,2,2,3,2,1,2,2,
+			0,2,1,1,1,1,1,1,2,2,0,
+			0,2,1,1,1,1,1,2,2,0,0,
+			0,2,2,2,2,2,2,2,0,0,0,
+			],
+		figure:{//人物
+			x:4,
+			y:4
+			},
+		box:[   //箱子
+			{x:3,y:3},
+			{x:4,y:5},
+			{x:5,y:4},
+			],
+		line:11
+	  },
+	  {
+		map:[//地图
+			0,0,0,2,2,2,2,2,2,2,2,
+			0,0,0,2,1,1,1,1,1,1,2,
+			2,2,2,2,1,2,2,2,2,1,2,
+			2,1,1,1,1,1,3,3,2,1,2,
+			2,1,2,1,1,3,2,1,2,1,2,
+			2,1,2,1,2,2,2,1,2,1,2,
+			2,1,2,3,2,1,1,1,1,1,2,
+			2,1,2,3,1,1,1,1,1,2,2,
+			2,1,2,1,2,2,2,1,1,2,0,
+			2,1,1,3,1,1,1,1,1,2,0,
+			2,2,2,2,2,2,2,2,2,2,0,
+			],
+		figure:{//人物
+			x:5,
+			y:7
+			},
+		box:[   //箱子
+			{x:2,y:3},
+			{x:4,y:3},
+			{x:3,y:8},
+			{x:4,y:7},
+			{x:6,y:7},
+			{x:6,y:6},
+			],
+		line:11
+	  },
+	  
+	]
+  }
+  //console.log(game.gk[1].map);
+  //创建地图
+  function createMap(n){
+	var gkArray=game.gk[n].map//获取地图
+	//console.log($('#wrap'))
+	//console.log(Math.sqrt(gkArray.length)*51)
+	$('#wrap').css({'width':game.gk[n].line*50+'px'});
+	$(gkArray).each(function(i){
+		$('#wrap').append("<div class='map"+gkArray[i]+"'></div>")
+	})
+	createFigure();//添加人物
+	createBox(); //添加箱子
+  };
+  //创建人物
+  function createFigure(){
+	var gkArray=game.gk[n].figure;  //获取人物位置
+	var x=gkArray.x;//获取人物的坐标
+	var y=gkArray.y;
+	$('#wrap').append("<div class='figure'></div>");//添加人物
+	$('.figure').css({    ////给人物定位
+					left:x*50+'px',
+					top:y*50+'px'
+				});
+  }
+  //生成箱子
+  function createBox(){
+	var gkArray=game.gk[n].box;  //获取箱子位置
+	$(gkArray).each(function(i){//遍历
+		var x=gkArray[i].x; //获取每个箱子的坐标
+		var y=gkArray[i].y;
+		$('#wrap').append("<div class='box'></div>");//添加箱子
+		$('.box').last().css({//给最后添加的箱子定位
+					left:x*50+'px',
+					top:y*50+'px'
+				});
+	});
+  }
+  //按键移动
+  $(document).keydown(function(e){
+	e=e||event;
+	
+	var gkArray=game.gk[n].figure;  //获取人物位置
+	var box=game.gk[n].box;  //获取箱子位置
+	//console.log(e.which)
+	switch (e.which)//按键的键值
+	{
+	case 37:$('.figure').css({"background-image":"url('images/left.png')"})//左
+			gkArray.x--;
+			move(gkArray,e.which);//人物移动
+			crash(gkArray,e.which);//人物与墙碰撞计算
+			shove(gkArray,box,e.which);//人物推箱子运动
+		break;
+	case 38:$('.figure').css({"background-image":"url('images/top.png')"})//上
+			gkArray.y--;
+			move(gkArray,e.which);
+			crash(gkArray,e.which);
+			shove(gkArray,box,e.which);//人物推箱子运动
+		break;
+	case 39:$('.figure').css({"background-image":"url('images/right.png')"})//右
+			gkArray.x++;
+			move(gkArray,e.which);
+			crash(gkArray,e.which);
+			shove(gkArray,box,e.which);//人物推箱子运动
+		break;
+	case 40:$('.figure').css({"background-image":"url('images/bottom.png')"})//下
+			gkArray.y++;
+			move(gkArray,e.which);
+			crash(gkArray,e.which);
+			shove(gkArray,box,e.which);//人物推箱子运动
+		break;
+	
+	}
+  })
+	//人物及箱子移动
+	function move(obj,which){
+		var x=obj.x;
+		var y=obj.y;
+		var box=game.gk[n].box;  //获取箱子位置
+		if(obj==game.gk[n].figure){
+			$('.figure').css({    ////给人物定位
+					left:x*50+'px',
+					top:y*50+'px'
+				});
+				num++;
+				$('span').html(num);
+		}else{
+			$(box).each(function(i){
+				if(this==obj){
+					var index=$(box).index(this);
+						$('.box').eq(index).css({    //给箱子定位
+						left:x*50+'px',
+						top:y*50+'px'
+					});
+					boxCrash(this,which,index);
+				}
+			});
+		}	
+		win();//移动后判断箱子的位置
+	}
+	//箱子碰撞计算
+	function boxCrash(box,which,index){
+		var x=box.x;//此时箱子所在的坐标
+		var y=box.y;
+		//console.log('箱子此时所在坐标'+x,y)
+		//console.log(which)
+		var gkArray=game.gk[n].map//获取地图
+		var figure=game.gk[n].figure;  //获取人物位置
+		var box2=game.gk[n].box;  //获取箱子位置
+		var b=0;//几率箱子重叠的个数(与自己重叠也算)
+		$(box2).each(function(){
+			if(this.x==box.x&&this.y==box.y){
+				b++;
+			}
+		});
+		if(gkArray[y*game.gk[n].line+x]==2||b==2){//如果箱子此时所在位置是墙或者重叠个数为2,则回退一步,人物也回退一步
+		
+		switch (which)
+			{	
+			case 37:box.x++;//向右回退
+					//console.log('箱子回退一步后的坐标'+x,y)
+					$('.box').eq(index).css({    //给箱子定位
+						left:box.x*50+'px',
+						top:box.y*50+'px'
+					});
+					figure.x++;
+					//console.log('人物回退后坐标'+figure.x,figure.y)
+					num=num-2;
+					move(figure,which);
+				break;
+			case 38:box.y++;//向右回退
+					//console.log('箱子回退一步后的坐标'+x,y)
+					$('.box').eq(index).css({    //给箱子定位
+						left:box.x*50+'px',
+						top:box.y*50+'px'
+					});
+					figure.y++;
+					//console.log('人物回退后坐标'+figure.x,figure.y)
+					num=num-2;
+					move(figure,which);
+				break;
+			case 39:box.x--;//向右回退
+					//console.log('箱子回退一步后的坐标'+x,y)
+					$('.box').eq(index).css({    //给箱子定位
+						left:box.x*50+'px',
+						top:box.y*50+'px'
+					});
+					figure.x--;
+					//console.log('人物回退后坐标'+figure.x,figure.y)
+					num=num-2;
+					move(figure,which);
+				break;
+			case 40:box.y--;//向右回退
+					//console.log('箱子回退一步后的坐标'+x,y)
+					$('.box').eq(index).css({    //给箱子定位
+						left:box.x*50+'px',
+						top:box.y*50+'px'
+					});
+					figure.y--;
+					//console.log('人物回退后坐标'+figure.x,figure.y)
+					num=num-2;
+					move(figure,which);
+				break;
+			}
+		}
+	}
+	//碰撞计算
+	function crash(figure,which){//人物坐标,按键键值
+		var x=figure.x;//此时人物所在的坐标
+		var y=figure.y;
+		var gkArray=game.gk[n].map//获取地图
+		if(gkArray[y*game.gk[n].line+x]==2){//如果人物此时所在位置是墙,则回退一步
+			switch (which)
+			{	
+			case 37:figure.x++;//向右回退
+					num=num-2;
+					move(figure,which);
+				break;
+			case 38:figure.y++;//向下回退
+					num=num-2;
+					move(figure,which);
+				break;
+			case 39:figure.x--; //向左回退
+					num=num-2;
+					move(figure,which);
+				break;
+			case 40:figure.y--;  //向上回退
+					num=num-2;
+					move(figure,which);
+				break;
+			}
+		}
+	}
+	//推箱子
+	function shove(figure,box,which){
+		var x=figure.x;//此时人物所在的坐标
+		var y=figure.y;
+		//console.log('人物坐标'+x,y)
+		$(box).each(function(i){
+			//console.log(this.x,this.y);
+			if(x==this.x&&y==this.y){
+				switch (which)
+					{	
+				case 37:this.x--;
+						//console.log('箱子被推后坐标'+this.x,this.y);
+						move(this,which);
+					break;
+				case 38:this.y--;
+						move(this,which);
+					break;
+				case 39:this.x++; 
+						move(this,which);
+					break;
+				case 40:this.y++;  
+						move(this,which);
+					break;
+				}
+			}
+		});
+	}
+	//箱子到达指定位置
+	function win(){
+		var gkArray=game.gk[n].map//获取地图
+		var box=game.gk[n].box;  //获取箱子位置
+		$('.box').css({'background-image':"url('images/box.png')"});
+		//console.log($('.box').data('succeed'))
+		$(box).each(function(i){
+			var x=this.x;//此时每个箱子所在的坐标
+			var y=this.y;
+			if(gkArray[y*game.gk[n].line+x]==3){
+				var index=$(box).index(this);
+				$('.box').eq(index).css({'background-image':"url('images/box1.png')"});
+				
+			}
+			//获取到箱子背景图片的SRC
+			var length=$('.box').eq(i).css('background-image').split('/').length
+			var src=$('.box').eq(i).css('background-image').split('/')[length-1].split('"')[0];
+			//console.log(src,i)
+			//console.log($('.box')[i])
+			$($('.box')[i]).data('succeed','0')//给每一个箱子附加数据succeed=0
+			//console.log($($('.box')[i]).data('succeed'))
+			if(src=='box1.png'){
+				$($('.box')[i]).data('succeed','1');//完成则附加数据succeed=1
+			}
+		});
+		var a=0;//记录完成的个数
+		$('.box').each(function(i){
+			if($(this).data('succeed')==1){
+				a++;//完成则加一
+			}	
+		});
+		if(a==$('.box').length){//如果全部完成则进入下一关
+			alert('恭喜你!即将进入下一关');
+			n++;
+			$('select').val(n+1);
+			$('#wrap').remove();
+			$('body').append("<div id='wrap'></div>");
+			createMap(n);
+			num=0;
+			$('span').html(num);
+			win();
+			}
+	}
+	//添加卡数量
+	function gkNum(){//动态添加关卡数量
+		for(var i=0;i<game.gk.length;i++){
+			$('select').append("<option value='"+(i+1)+"'>"+(i+1)+"</option>")
+		}
+	}
+	
+  
+  </script>
+
+ </body>
+</html>

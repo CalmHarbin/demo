@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>内置构造函数</title>
+ </head>
+ <body>
+	<script type="text/javascript">
+		var obj=new Object();//创建一个对象
+		//Object.prototype是所以对象的原型链终点
+		
+		
+		var fn=new Function("a","b","console.log(a+b)");//创建一个函数,最后一句是函数体,前面的都是形参;
+		fn(1,2);//输出3
+		//任何函数都是Function的实例
+		console.log(fn.__proto__===Function.prototype);//true
+		console.log(Function.prototype.__proto__===Object.prototype);//true  Function.proto也是一个对象,所以是Object的一个实例
+		console.log(Object.__proto__===Function.prototype);//true   Object也是Function new出来的
+		console.log(Function.__proto__===Function.prototype);//true  Function自己new出了自己
+
+		var arr=new Array();//创建一个数组
+		//写一个函数,接受参数n和str,用一句写出一个含有n个str的字符串;
+		//正常思维
+		function fn2(n,str){
+			var str1="";
+			for(var i=0;i<n;i++){
+				str1+=str;
+			}
+			return str1;
+		}
+		//一句话的方式
+		function fn3(n,str){
+			return (new Array(n+1)).join(str);//用str来作为分隔符;n个数只有n-1个分隔,故n+1
+		}
+
+
+		var reg=new RegExp("\\d","g")//创建一个正则表达式对象 相当于reg=/\d/g
+
+
+		var num=new Number(3);//可以参与计算,但是作为判断语句时,new Number(0)表示一个空对象,也为真
+		console.log(num);
+		console.log(typeof num);//object 
+		var num2=3;
+		console.log(num2);//3
+		console.log(typeof num2);//number
+		console.log(num==num2);//true
+		console.log(num===num2);//false
+		
+		//number将各种类型转化单位数字
+		console.log(Number(12));//12
+		console.log(Number(12.1));//12.1
+		console.log(Number("12年"));//NaN
+		console.log(Number(""));//0
+		console.log(Number(true));//1
+		console.log(Number(false));//0
+		console.log(Number({}));//NaN
+		console.log(Number([]));//0
+		console.log(Number([1,2]));//NaN
+		console.log(Number(undefined));//NaN
+
+
+		var str=new String("你好");
+		console.log(str);
+		console.log(typeof str);//object
+		console.log(str[0]);//你  可以通过[]的到
+		var str2="你好";
+		console.log(str2);//'你好'
+		console.log(typeof str2);//string
+		console.log(str2[0]);//你  可以通过[]的到
+
+		//String转化字符串
+		console.log(String(1));//'1'
+		console.log(String(true));//'true'
+		console.log(String(false));//'false'
+		console.log(String([]));//''
+		console.log(String([1,2]));//'1,2'
+		console.log(String({}));//'[object Object]'
+		console.log(String(NaN));//'NaN'
+		console.log(String(undefined));//'undefined'
+
+
+		var a=new Boolean(false);
+		console.log(a);
+		console.log(typeof a);//object
+	</script>
+ </body>
+</html>

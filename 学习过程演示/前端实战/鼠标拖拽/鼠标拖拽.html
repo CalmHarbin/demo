@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>鼠标拖拽</title>
+  <style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	div{
+		position:absolute;
+		top:0;
+		left:0;
+		width:200px;
+		height:150px;
+	}
+	img{
+		width:200px;
+		height:150px;
+	}
+  </style>
+  <script type="text/javascript" src='../jquery-3.2.1.js'></script>
+  <script type="text/javascript" src='js/鼠标拖拽插件.js'></script>
+ </head>
+ <body>
+  <div>
+	<img src="images/a.jpg"/>
+  </div>
+ </body>
+ <script type="text/javascript">
+	drag($('div'));//把要拖拽的对象传进去
+ </script>
+</html>

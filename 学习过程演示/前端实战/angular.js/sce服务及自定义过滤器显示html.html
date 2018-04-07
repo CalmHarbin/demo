@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+<link rel="stylesheet" href="../bs/bootstrap.min.css">
+<script src="../bs/jquery-3.2.1.js"></script>
+<script src="../bs/bootstrap.min.js"></script>
+<script src="angular.min.js"></script>
+</head>
+<body ng-controller="myctrl" ng-cloak>
+	<h1 ng-bind-html="data"></h1>
+	<div ng-bind-html="data2|html"></div>
+</body>
+<script>
+	var myapp=angular.module('myapp',[]);
+	//自定义一个过滤器,将html视为安全
+	myapp.filter("html",["$sce",function($sce){
+		return function(data){
+			return $sce.trustAsHtml(data);
+		}
+	}]);
+	myapp.controller("myctrl",['$scope',"$sce",function($scope,$sce){//filter过滤器
+		$scope.data=$sce.trustAsHtml("<h3>我是html</h3>");
+		$scope.data2="<h1>我是使用过滤器的</h1>";
+	}]);
+</script>
+</html>
+
+<!-- 
+sce服务
+trustAsHtml()  将一段html视为安全
+trustAsUrl()
+trustAsResourceUrl()
+trustAsJs()
+trustAs(type,value)
+
+
+ -->

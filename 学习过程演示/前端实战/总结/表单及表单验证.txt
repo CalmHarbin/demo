@@ -1,0 +1,56 @@
+angular中
+必须有ng-model;双向数据绑定,才能进行脏值检查
+ng-minlength="num"    最小长度
+ng-maxlength="num"    最大长度
+ng-pattern="正则"     正则匹配验证
+
+表单名.输入框名.$pristine     未修改的表单，用来判断用户是否修改了表单，如果未修改则为true，修改了则为false
+
+表单名.输入框名.$dirty        修改过的表单，只要用户修改过表单，无论输入是否通过验证，该值都将返回true
+
+表单名.输入框名.$valid        合法的表单，这个属性是用来判断表单的内容是否合法的，如果合法则该属性的值为true
+
+表单名.输入框名.$invalid      不合法的表单，这个属性与上个属性正好相反，如果不合法，则该属性值为true 
+
+表单名.输入框名.$error        错误，$error对象包含了当前表单的所有验证内容
+
+例子:
+<div class="form-group">
+	<label for="phone">手机号</label>
+	<input type="text" name="phone" id="phone" ng-model="data.phone" required placeholder="请输入邮箱" class="form-control" ng-pattern="/^1[34578]\d{9}$/">
+	<span class="warning" ng-show="myform.phone.$error.pattern">手机号码格式不正确</span>
+	<span class="warning" ng-show="myform.phone.$error.required">号码不能为空</span>
+</div>
+
+
+html5中
+
+inupt中type的值
+text					文本域
+password				密码框
+radio					单选框
+checkbox				复选框
+submit					提交按钮
+reset					重置按钮
+search					搜索框
+tel						专用于电话
+url						链接
+email					邮箱
+date					日期
+time					事件
+number					数字
+range					滑条
+color					颜色
+file					文件
+
+placeholder="文本"		提示用户输入
+autofocus				打开页面自动获得焦点
+novalidate="布尔值"		true表示不验证表单
+
+
+required="required"    	内容不能为空
+pattern="正则"         	正则匹配
+min             		最小值
+max 					最大值
+step="num"				值每次更改的幅度
+maxlength 				最大长度

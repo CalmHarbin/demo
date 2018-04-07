@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-Hans-CN">
+     <head>
+     <meta charset="UTF-8">
+     <meta name="Generator" content="EditPlus®">
+     <meta name="Author" content="">
+     <meta name="Keywords" content=""> <!--关键词-->
+     <meta name="Description" content=""><!--网页描述-->
+      <title>淘宝美食汇</title>
+      
+	  <style>
+	     html,body,div,ul,li,img{
+		     margin:0;
+			 padding:0;
+            }
+	     #cate{
+		     
+		     width:1200px;
+			 height:360px;
+			 margin:100px auto;
+			 border:2px solid #dec2c2;
+			 box-shadow:1px 1px 9px #222;
+		 }
+		 #cate ul{
+		     display:flex;
+			 justify-content:space-around;
+			 align-items:center;
+			 flex-wrap:wrap;
+			 width:100%;
+			 height:100%;
+		     list-style:none;
+		 }
+		 #cate ul li{
+		     position:relative;
+		     width:360px;
+			 height:135px;
+			 border:2px solid #dec2c2;
+			 /*盒子阴影  x轴 y轴 羽化与半径 颜色*/
+			 box-shadow:1px 1px 9px #222;
+			 
+		 }
+		 #cate ul li img{
+		     width:100%;
+			 height:100%;
+		 }
+		 #cate ul li div{
+		     position:absolute;
+			 top:0;
+			 left:0;
+		     width:100%;
+			 height:100%;
+			 background:rgba(255,255,255,.5);
+			 font-size:50px;
+			 text-align:center;
+			 opacity:0;
+			 transform-origin:50% 50%;
+			
+		 }
+         #cate ul li:hover div{
+		     opacity:1;
+			 animation:change .7s;
+		 }
+		 @keyframes change{
+		     from{transform:scale(0)}
+			 to{transform:scale(1)}
+		 }
+	  </style>
+	  
+	  <!--
+	  <style>
+	     html,body,div,ul,li,img{
+		     margin:0;
+			 padding:0;
+            }
+	     #cate{
+		     
+		     width:1200px;
+			 height:360px;
+			 margin:100px auto;
+			 border:2px solid #dec2c2;
+			 box-shadow:1px 1px 9px #222;
+		 }
+		 #cate ul{
+		     display:flex;
+			 justify-content:space-around;
+			 align-items:center;
+			 flex-wrap:wrap;
+			 width:100%;
+			 height:100%;
+		     list-style:none;
+		 }
+		 #cate ul li{
+		     position:relative;
+		     width:360px;
+			 height:135px;
+			 border:2px solid #dec2c2;
+			 /*盒子阴影  x轴 y轴 羽化与半径 颜色*/
+			 box-shadow:1px 1px 9px #222;
+			 
+		 }
+		 #cate ul li img{
+		     width:100%;
+			 height:100%;
+		 }
+		 #cate ul li div{
+		     position:absolute;
+			 top:50%;
+			 left:50%;
+		     width:0;
+			 height:0;
+			 transition:.7s;
+			 background:rgba(255,255,255,.5);
+			 font-size:50px;
+			 text-align:center;
+			 overflow:hidden;
+			
+		 }
+		 /*通过改变宽高及位置而到达由中心向四周扩散*/
+         #cate ul li:hover div{
+		     top:0;
+			 left:0;
+		     width:100%;
+			 height:100%;
+		 }
+		
+		 </style>
+		 -->
+     </head>
+     <body>
+	     <div id='cate'>
+		     <ul>
+			     <li>
+				     <img src='images/1.webp' width='358px' height='131px' alt=''>
+					     <div>123</div>
+				 </li>
+				 <li>
+				     <img src='images/2.webp' width='358px' height='131px' alt=''>
+					     <div>123</div>
+				 </li>
+				 <li>
+				     <img src='images/3.webp' width='358px' height='131px' alt=''>
+					     <div>123</div>
+				 </li>
+				 <li>
+				     <img src='images/4.webp' width='358px' height='131px' alt=''>
+					     <div>123</div>
+				 </li>
+				 <li>
+				     <img src='images/5.webp' width='358px' height='131px' alt=''>
+					     <div>123</div>
+				 </li>
+				 <li>
+				     <img src='images/6.webp' width='358px' height='131px' alt=''>
+					     <div>123</div>
+				 </li>
+		     </ul>
+		 </div>
+     </body>
+</html>

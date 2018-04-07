@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--探测屏幕-->
+  <title>bs导航条</title>
+  <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.css" />
+  <script src='jquery-3.2.1.js'></script>
+  <script src='../bootstrap-3.3.7-dist/js/bootstrap.js'></script>
+  <style type="text/css">
+
+  </style>
+ </head>
+ <body>
+	<div class="container">
+		<nav class="navbar navbar-default navbar-fixed-top"><!--default灰色颜色,navbar-fixed-top固定在顶部-->
+			<div class="container-fluid">
+				<div class="navdar-header">
+					<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynav">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="#" class="navbar-brand">音乐网</a>
+				</div>
+				<div class="collapse navbar-collapse" id="mynav">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="">经典</a></li>
+						<li><a href="">流行</a></li>
+						<li><a href="">古典</a></li>
+						<li><a href="">热歌</a></li>
+						<li><a href="">DJ</a></li>
+						<li class="dropdown">
+							<!--嵌套下拉菜单-->
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">排行榜<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="">酷狗排行榜</a></li>
+								<li class="divider"></li>
+								<li><a href="">酷狗飙升榜</a></li>
+								<li class="divider"></li>
+								<li><a href="">酷狗热歌榜</a></li>
+							</ul>
+						</li>
+					</ul>
+					<!--导航栏直接放按钮-->
+					<button class="btn btn-warning navbar-btn">按钮</button>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="">右对齐</a></li>
+					</ul>
+					<!--导航栏放文本,非导航的链接-->
+					<p class="navbar-text">文本<a href="#" class="navbar-link">go</a></p>
+					<!--导航栏放表单-->
+					<form action="" class="navbar-form navbar-right">
+						<div class="form-group">
+							<input type="text" class="from-control"/>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-danger"><span class="glyphicon glyphicon-search"></span></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</div>
+	
+ </body>
+</html>

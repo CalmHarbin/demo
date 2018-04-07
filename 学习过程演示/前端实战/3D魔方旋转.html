@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>3D魔方旋转</title>
+  <style>
+     html,body,div,ul,li{
+	     margin:0;
+		 padding:0;
+	 }
+	 body{perspective:1000px;}
+	 #wrap{
+	     position:absolute;
+		 width:330px;
+		 height:330px;
+		 margin-top:150px;
+		 margin-left:700px;
+		 
+		 transform-style: preserve-3d;
+		 animation:scroll 3s linear infinite;
+		 transform-origin:50% 50% -165px;
+		 transform: translate3d(10px,20px,3px);
+	 }
+     .face{
+	     position:absolute;
+		 /*top:400px;
+		 left:700px;*/
+	     width:330px;
+		 height:330px;
+		 background:#99cccc;
+	 }
+	 .face ul{
+	     display:flex;
+		 justify-content:space-around;
+		 align-items:center;
+		 flex-wrap:wrap;
+		 height:100%;
+	     list-style:none;
+	 }
+	 .face ul li{
+	     width:100px;
+		 height:100px;
+		 background:red;
+		 border:2px solid white;
+	 }
+	 #face2{
+	     position:absolute;
+		 /*top:70px;*/
+		 transform:rotatex(90deg);
+		 transform-origin:bottom;
+	 }
+	 #face3{
+	     position:absolute;
+		 /*top:730px;*/
+         transform:rotatex(-90deg);
+		 transform-origin:top;
+	 }
+	 #face4{
+	     position:absolute;
+		 /*left:370px;*/
+         transform:rotatey(-90deg);
+		 transform-origin:right;
+	}
+	#face5{
+	     position:absolute;
+		 /*left:1030px;*/
+         transform:rotatey(90deg);
+		 transform-origin:left;
+	}
+	#face6{
+	     transform:translatez(-330px);
+	}
+	 #face2 ul li{
+	     background:green;
+	 }
+	  #face3 ul li{
+	     background:yellow;
+	 }
+	  #face4 ul li{
+	     background:white;
+	 }
+	  #face5 ul li{
+	     background:blue;
+	 }
+	  #face6 ul li{
+	     background:orange;
+	 }
+     @keyframes scroll{
+	     0%{
+		     transform:rotatey(0deg) rotatex(0deg) rotatez(0deg);
+		 }
+		 100%{
+		     transform:rotatey(360deg) rotatex(360deg) rotatez(360deg);
+		 }
+	 }
+  </style>
+ </head>
+ <body>
+ <div id='wrap'>
+  <div class='face' id='face1'>
+     <ul>
+	     <li>1</li>
+		 <li>2</li>
+		 <li>3</li>
+		 <li>4</li>
+		 <li>5</li>
+		 <li>6</li>
+		 <li>7</li>
+		 <li>8</li>
+		 <li>9</li>
+	 </ul>
+  </div>
+  <div class='face' id='face2'>
+   <ul>
+	     <li>1</li>
+		 <li>2</li>
+		 <li>3</li>
+		 <li>4</li>
+		 <li>5</li>
+		 <li>6</li>
+		 <li>7</li>
+		 <li>8</li>
+		 <li>9</li>
+	 </ul>
+  </div>
+   <div class='face' id='face3'>
+   <ul>
+	     <li>1</li>
+		 <li>2</li>
+		 <li>3</li>
+		 <li>4</li>
+		 <li>5</li>
+		 <li>6</li>
+		 <li>7</li>
+		 <li>8</li>
+		 <li>9</li>
+	 </ul>
+  </div>
+   <div class='face' id='face4'>
+   <ul>
+	     <li>1</li>
+		 <li>2</li>
+		 <li>3</li>
+		 <li>4</li>
+		 <li>5</li>
+		 <li>6</li>
+		 <li>7</li>
+		 <li>8</li>
+		 <li>9</li>
+	 </ul>
+  </div>
+   <div class='face' id='face5'>
+   <ul>
+	     <li>1</li>
+		 <li>2</li>
+		 <li>3</li>
+		 <li>4</li>
+		 <li>5</li>
+		 <li>6</li>
+		 <li>7</li>
+		 <li>8</li>
+		 <li>9</li>
+	 </ul>
+  </div>
+   <div class='face' id='face6'>
+   <ul>
+	     <li>1</li>
+		 <li>2</li>
+		 <li>3</li>
+		 <li>4</li>
+		 <li>5</li>
+		 <li>6</li>
+		 <li>7</li>
+		 <li>8</li>
+		 <li>9</li>
+	 </ul>
+  </div>
+ </div>
+ </body>
+</html>
