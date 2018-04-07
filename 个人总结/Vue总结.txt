@@ -1,0 +1,176 @@
+1.引入文件
+<script src="vue.min.js"></script>
+
+2.创建对象
+var myapp=new Vue({
+		el:"#myapp",  //绑定的元素 
+		data:{    //属性
+			name:"user",
+		},
+		methods:{   //方法
+			get:function(){
+					console.log("my name is "+this.name+"!");//方式里面是有属性,this.属性
+					return ;
+				}
+			}
+		},
+		filters:{  //过滤器
+			uppercase:function(data){
+				return data.toUpperCase();
+			}
+		},
+		computed:{   //计算属性,调用时不能加()
+			sum:function(){
+				return this.age*1+12;
+			}
+		}
+	})
+
+组件
+//必须在vue实例化对象之前
+Vue.component('组件名',{
+	props:,//验证数据
+	template:'模板html内容',
+	data:funciton(){},
+	methods:{}
+})
+
+Vue.component("zh",{
+	template:"<h1 @click='addCom()'>我是组件,我也有个num,我的值是{{num}},触发addCOM函数才能增加我的值,点我有惊喜</h1>",
+	data:function(){
+		return {
+			num:10
+		}
+	},
+	methods:{
+		addCom:function(){
+			this.num++;
+			this.$emit("one");   //触发一个one的自定义事件
+		}
+	}
+});
+组件的使用
+<zh v-on:one='add()'></zh>//one为自定义事件
+
+事件的绑定
+<button v-on:click='fn()'></button>
+<button @click='fn()'></button>
+
+内置指令
+v-html="属性";//输出一段html
+<div v-html="html"></div>//data数据中html:"<h1>我是html</h1>",
+
+v-bind绑定一个值
+<a v-bind:href="attr" target="top">点我</a>//data数据中attr:"https://www.baidu.com",
+
+v-model双向数据绑定
+<input type="text" v-model="name">//data数据中name:"user",
+
+v-on绑定一个事件
+
+当后面值为真时才生成DOM节点
+v-if
+v-else-if
+v-else
+<p v-if="num===0">我是v-if 值为0</p>//data数据总num:1,
+<p v-else-if="num===1">我是v--else-if 值为1</p>
+<p v-else-if="num===2">我是v-else-if 值为2</p>
+<p v-else>我是v-else 值不是012</p>
+最终显示:我是v--else-if 值为1
+
+v-show="true"//显示该元素
+
+v-for="itme in items";//循环数组
+data中arr:['user1','user2','user3'],
+<ul>
+	<li v-for="(value,index) in arr">我的索引是{{index}}---我的值是{{value}}</li>
+</ul>
+结果
+我的索引是0---我的值是user1
+我的索引是1---我的值是user2
+我的索引是2---我的值是user3
+
+v-for="(val,key,idx) in obj";//循环对象
+data中obj:{
+			'username':'user',
+			'password':'123',
+			'age':'20'
+		},
+<!-- v-for不会重复template标签 -->
+<template v-for="(value,key) in obj">
+	<label>{{key}}</label>	
+	<p>{{value}}</p>
+</template>
+结果
+username
+user
+
+password
+123
+
+age
+20
+
+v-for="n in number";//循环数字;从1开始
+<p v-for="n in 4">{{n}}</p>
+结果
+1
+2
+3
+4
+
+事件修饰符
+.stop 	阻止事件冒泡
+.prevent阻止默认行为
+.capture使用事件捕获模式
+.self 	当事件在该元素本身(而不是子元素)触发回调函数
+.once 	事件只能执行一次
+按键修饰符
+.键值 	表示哪一个按键
+.enter 	回车键
+.tab 	tab键
+.delete delete键和退格键
+.esc 	Esc键
+.space  空格键
+.up 	上
+.down 	下
+.left 	左
+.right 	右
+.ctrl 	Ctrl键
+.alt 	Alt键
+shift 	shift键
+.meta 	
+<button v-on:keyDown.enter="alert(1)">事件修饰符</button>
+
+v-model修饰符
+.lazy 	在change事件中同步
+.number 将值转化为Number类型,如果结果为NaN则返回原值
+.trim 	去掉首位空格
+
+自定义事件
+绑定自定义事件
+v-on:事件名="fn()";
+执行自定义事件
+触发事件对象.$emit(事件名);
+
+钩子函数
+bind:值调用一次,指定第一次绑定到元素时调用
+inserted:被绑定元素插入父节点时调用
+update:所在组件VNode更新时调用
+componentUpdated:指令所在组件的VNode及其子VNode全部更新时调用
+unbind:只调用一次,指令与其子元素解绑时调用
+	参数:	el 	指令所绑定的元素
+			binding一个对象
+			vnode vue编译生成的虚拟节点
+			oldVNode上一个虚拟节点
+
+自定义指令
+Vue.directive('指令名',{
+	钩子函数:fn()
+})
+
+自定义过滤器
+Vue.filter('名字',funciton(){
+	
+})
+

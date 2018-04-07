@@ -1,0 +1,182 @@
+1.安装小程序开发工具
+https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
+
+2.安装
+下一步下一步安装
+
+3.使用
+开发文档
+https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxss.html
+
+目录结构
+pages存放页面
+utils存放公用模块
+app.json为配置文件
+{
+  "pages":[//存放页面路径,没新增页面都要在这里先配置
+    "pages/index/index",//第一个默认未首页
+    "pages/logs/logs"
+  ],
+  "window":{//所有页面的窗口样式
+    "backgroundTextStyle":"light",//下拉 loading 的样式，仅支持 dark/light
+    "navigationBarBackgroundColor": "#fff",//头部导航栏背景颜色
+    "navigationBarTitleText": "你好",//导航栏标题
+    "navigationBarTextStyle":"black",//导航栏标题颜色，仅支持 black/white
+    "backgroundColor":"#ffffff",//窗口的背景色
+    "enablePullDownRefresh":false,//是否开启下拉刷新
+  },
+  "tabBar": {//底部导航,最少2个最多5个
+    "list": [//控制tab
+	    {
+			"pagePath": "pages/index/index",//跳转路径
+			"text": "首页"//导航名称
+			"iconPath":"",//图片路径
+			"selectedIconPath":""//选中时的图片路径
+	    }, 
+	    {
+		    "pagePath": "pages/logs/logs",
+		    "text": "日志"
+	    }
+    ],
+    "color":"",//文字的颜色
+    "selectedColor":"",//选中时的文字颜色
+    "backgroundColor":""//背景颜色
+    "borderStyle":"",//tabbar上边框的颜色， 仅支持 black/white
+    "position":"bottom"//位置,可选值 bottom、top
+  },
+  "networkTimeout": {//设置网络超时的时间
+	    "request": 10000,
+	    "downloadFile": 10000
+  },
+  "debug": true//是否开启debug模式
+}
+
+wxml
+<view></view>视图容器,相当于div
+<navigator url=""></navigator>页面链接,相当于a标签
+<text></text>文字内容,相当于p标签
+<button></button>按钮
+
+<image src=""></image>图片
+<icon type="success"></icon>小图标,
+
+表单
+<form></form>表单
+<radio value=""/>//单选框
+<checkbox value=""/>//复选框
+<input type="text"/>输入框
+<label for=""></label>
+<textarea />多行文本输入框
+
+媒体
+<video src=""></video>视频
+<live-player url="" />实时音视频播放
+<live-pusher url="" />实时音视频录制
+
+地图
+<map></map>
+
+画布
+<canvas></canvas>
+
+逻辑层
+App() 函数用来注册一个小程序。接受一个 object 参数，其指定小程序的生命周期函数等。
+生命周期函数
+onLaunch	当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
+onShow		当小程序启动，或从后台进入前台显示，会触发 onShow
+onHide		当小程序从前台进入后台，会触发 onHide
+onError		当小程序发生脚本错误，或者 api 调用失败时，会触发 onError 并带上错误信息
+
+Page() 函数用来注册一个页面
+Page({
+  data: {//数据
+    text: "This is page data."
+  },
+  onLoad: function(options) {//页面加载
+    // Do some initialize when page load.
+  },
+  onReady: function() {//页面初次渲染完成
+    // Do something when page ready.
+  },
+  onShow: function() {//监听页面显示
+    // Do something when page show.
+  },
+  onHide: function() {//页面隐藏
+    // Do something when page hide.
+  },
+  onUnload: function() {//页面卸载
+    // Do something when page close.
+  },
+  onPullDownRefresh: function() {//监听用户下拉动作
+    // Do something when pull down.
+  },
+  onReachBottom: function() {//页面上拉触底时触发
+    // Do something when page reach bottom.
+  },
+  onShareAppMessage: function () {//用户点击右上角转发
+   // return custom share data when user share.
+  },
+  onPageScroll: function() {//页面滚动触发事件
+    // Do something when page scroll
+  },
+  onTabItemTap(item) {当前页是tab时,点击tab时触发
+    console.log(item.index)
+    console.log(item.pagePath)
+    console.log(item.text)
+  },
+  // Event handler.
+  viewTap: function() {
+    this.setData({
+      text: 'Set some data for updating view.'
+    }, function() {
+      // this is setData callback
+    })
+  },
+  customData: {
+    hi: 'MINA'
+  }
+})
+
+事件
+touchstart 		手指按下事件
+touchend 		手指抬起事件
+touchmove 		手指移动事件
+touchcancel 	手指触摸动作被打断,如来电提醒,弹框
+
+tap 			手指触摸后马上离开
+dbtap 			手指双击事件
+longpress 		手指长按事件,超过350ms在离开;
+transitionend 	会在wxss的transition或者wx.createAnimation动画结束后触发
+animationstart 	animation动画开始时触发
+animationiteration 	在animation动画一次迭代结束时触发
+animationend 	animation动画结束时触发
+touchforcechange 	在支持3D Touch的iPhone设备,重按时触发
+
+事件的绑定,冒泡阶段
+1.bind,bind绑定的事件不会阻止事件的冒泡
+bind事件名="fn()";
+bind:事件名="fn()";
+
+2.catch,catch绑定的事件会阻止事件的冒泡
+catch事件名="fn()";
+catch:事件名="fn()";
+
+捕获阶段
+1.capture-bind:事件名="fn()";不会阻止事件捕获
+2.capture-catch:事件名="fn()";会阻止事件捕获
+
+事件对象event
+type 		事件类型
+timeStamp 	触发事件的时间,页面打开到触发事件的毫秒数
+
+target 		事件源,触发事件的节点
+currentTarget事件绑定的节点
+
+pageX 		距离文档左上角的x坐标
+pageY 		距离文档左上角的y坐标
+
+clientX 	文档可视区域的x坐标
+clientY 	文档可视区域的y坐标
+
+x 			距离canvas左上角的x坐标
+y 			距离canvas左上角的y坐标

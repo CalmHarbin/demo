@@ -1,0 +1,227 @@
+webpack的构成
+entry 		入口
+output 		出口
+loaders 	转化器
+plugins 	插件
+devServer 	开发服务器
+mode 	 	
+
+开发环境(develepment)
+	就是平时编写代码的环境
+	npm install jquery --save-dev或者
+	npm i jquery -D
+生产环境(production)
+	项目开发完毕,部署上线环境
+	npm install jquery --save
+	npm i jquery -S
+
+1.安装
+npm install webpack -cli -g
+
+检测是否安装成功
+webpack -v
+
+配置文件
+webpack.config.js
+
+第一步新建src文件夹,作为入口文件
+新建dist文件夹,作为出口文件
+第二部初始化生成package.js,		npm init -y
+第三部新建package.config.js,写上配置
+module.exports={
+	entry:{//入口配置
+		a:'./src/index.js'//入口
+	},
+	output:{//出口配置
+		path:__dirname+'/dist',//path必须是绝对路径,__dirname是node的
+		filename:'bundle.js'//出口
+	},
+	// modules:{//loaders
+
+	// },
+	// plugins:{//插件
+
+	// },
+	// devServer:{//开发服务器
+
+	// },
+}
+多入口一出口
+module.exports={
+	entry:['./src/index.js','./src/index2.js'],
+	output:{//出口配置
+		path:__dirname+'/dist',//path必须是绝对路径,__dirname是node的
+		filename:'bundle.js'//出口
+	}
+}
+
+多入口多出口
+module.exports={
+	entry:{
+		index:'./src/index.js',
+		index2:'./src/index2.js'
+	},
+	output:{//出口配置
+		path:__dirname+'/dist',//path必须是绝对路径,__dirname是node的
+		filename:'./js/[name]-bundle.js'//js文件的生成路径,[name]表示entry里面的key
+	}
+}
+-----------------------------------------------------
+生成页面的插件 npm i html-webpack-plugin -D
+html-webpack-plugin
+
+本地需要webpack和webpack-cli才允许成功
+
+引入文件
+const htmlWebpackPlugin=require('html-webpack-plugin');
+使用文件
+webpack.confin.js中添加
+plugins:[
+		new htmlWebpackPlugin({
+			minify:{//文件压缩
+				collapseWhitespace:true,//删除空白区域
+				removeAttributeQuotes:true//删除属性的双引号
+			},
+			filename:'',//生成的文件名
+			chunks:['index'],//引入的文件名
+			hash:true,//清除缓存
+			title:'',//页面标题,在模板中使用  <%= htmlWebpackPlugin.options.title %>
+			template:''//模板地址
+		})
+	]
+-------------------------------------------
+删除文件的插件 npm i clean-webpack-plugin -D
+clean-webpack-plugin
+引入文件
+const cleanWebpackPlugin=require('clean-webpack-plugin');//引入文件
+使用
+new cleanWebpackPlugin(['dist']);
+-------------------------------------------
+devServer
+下载 npm i webpack-dev-server -D
+使用
+devServer:{//服务器
+		contentBase:path.resolve(__dirname,'dist'),//服务器访问目录
+		host:'localhost',//服务器的IP地址
+		port:80,//端口
+		open:true,//自动打开页面
+		hot:true//热更新
+	},
+-------------------------------------------
+使用热更新
+1.引入
+const webpack=require('webpack');
+2.hot:true
+3.new webpack.HotModuleReplacementPlugin();
+
+-------------------------------------------
+loaders:转化器
+处理css文件
+	安装style-loader 	cnpm i style-loader -D
+		css-loader		cnpm i css-loader -D
+使用
+module:{
+	rules:[
+		{
+			test:/\.css$/,//以css结尾的文件
+			use:['style-loader','css-loader']
+		}
+	]
+}
+		loader的写法: 	use:['style-loader','css-loader']
+						loader:['style-loader','css-loader']
+						use:[
+							{loader:'style-loader'},
+							{loader:'css-loader'}
+						]
+处理图片
+	安装url-loader和file-loader;cnpm i url-loader file-loader -D 
+	使用
+		{
+			test:/\.(png|jpg|gif)$/,//以png,jpg,gif结尾的文件
+			use:[
+				{
+					loader:'url-loader',
+					options:{
+							limit:50,//大于50kb的以路径形式显示
+							outputPath:'images'//图片放在images目录中
+						}
+				}
+			]
+		}
+分离css文件
+	安装extract-text-webpack-plugin; cnpm i extract-text-webpack-plugin@next -D
+	使用:
+		const extractTextPlugin=require('extract-text-webpack-plugin');
+		use:extractTextPlugin.extract({
+			fallback:'style-loader',
+			use:'css-loader',
+			publicPath:'../'//css背景图路径问题
+		})
+		new extractTextPlugin('css/index.css');//提取到哪里
+-------------------------------------------
+压缩打包生成的文件
+	webpack4.x: 	webpack --mode production
+	webpack3.x:安装插件uglifyjs-webpack-plugin
+		cnpm i uglifyjs-webpack-plugin -D
+	使用
+		const uglify=require('uglifyjs-webpack-plugin');
+		new uglify();
+-------------------------------------------
+处理less
+	安装less; cnpm i less less-loader -D
+	使用
+	{
+		test:/\.less$/,
+		use:extractTextPlugin.extract({
+			fallback:'style-loader',
+			use:['css-loader','less-loader']
+		})
+	}
+-------------------------------------------
+处理sass
+	安装sass; cnpm i node-sass sass-loader -D
+	使用
+	{
+		test:/\.(sass|scss)$/,
+		use:extractTextPlugin.extract({
+			fallback:'style-loader',
+			use:['css-loader','sass-loader']
+		})
+	}
+--------------------------------
+处理css前缀postcss
+	安装 cnpm i postcss-loader autoprefixer -D
+	准备配置文件postcss.config.js
+				module.exports={
+					plugins:[
+						require('autoprefixer')
+					]
+				}
+	使用
+	{
+		test:/\.css$/,//以css结尾的文件
+		use:extractTextPlugin.extract({
+			fallback:'style-loader',
+			use:['css-loader','postcss-loader'],//在这里添加postcss-loader
+			publicPath:'../'//文件的路径
+		})
+	}
+--------------------------------
+消除冗余的css代码,purifycss
+	安装 cnpm i purifycss-webpack purify-css glob -D
+	使用
+		const purifycss=require('purifycss-webpack');
+		const glob=require('glob');
+		new purifycss({
+			paths:glob.sync(path.join(__dirname,'src/*.html'))//查找src下的所有html文件
+		})
+--------------------------------
+调试功能
+webpack4.x 
+		webpack --mode development
+webpacke3.x
+		devtool:'source-map'//在配置文件中添加
+--------------------------------
+bable:把es6.jsx等语法转为浏览器认识的语法
+	安装 cnpm i bable-core bable-loader bable-preset-env -D
