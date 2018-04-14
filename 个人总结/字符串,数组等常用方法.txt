@@ -194,7 +194,7 @@ array_flip(arr)				将数组的键值对调,并返回对调后的数组
 array_reverse(arr)			反转数组,返回反转后的数组
 array_values(arr)			返回数组中的值
 array_keys(arr)				返回数组中的键
-array_count_values(arr)		返回由原数组中每个值出现的次数所组成的数组
+array_count_values(arr)		统计数组每个值出现的次数,值作为key,次数作为值	
 array_unique(arr)			返回删除原数组中重复的值后组成的新数组
 array_filter(arr)			返回所有值为真的值组成的数组	
 array_filter(arr,function($val){ 		返回满足条件的值

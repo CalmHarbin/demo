@@ -1,0 +1,80 @@
+1.npm init -y
+
+2.安装依赖包
+cnpm install request cheerio -D;
+
+爬取图片
+//引入模块
+const request=require('request');//请求
+const cheerio=require('cheerio');//服务器dom操作
+const fs=require('fs');//保存文件
+const parseUrl=require('url');//解析url
+
+let getData=(url)=>{
+
+	const protocol=parseUrl.parse(url).protocol;//协议
+	const host=parseUrl.parse(url).host;//域名
+
+	request(url,(err,res)=>{
+
+		if(err) return console.error(err);
+
+		//使用cherrio模块，来创建一个可以操纵dom对象
+		let $ = cheerio.load(res.body.toString());
+		let arr=[];
+
+		//存储图片地址
+		$('body img').each((idx)=>{
+			//这里图片地址根据不同网站更改
+			let imgurl=protocol+'//'+host+$('body img').eq(idx).attr('src');
+
+			//这一段仅适应这个网站
+			if($('body img').eq(idx).attr('src').indexOf('/')!==0){
+				imgurl=protocol+'//'+host+'/yus/'+$('body img').eq(idx).attr('src');
+			}
+
+			//测试我的居然不能用$(this);
+			let imgname=$('body img').eq(idx).attr('src').split('/')[$('body img').eq(idx).attr('src').split('/').length-1];
+
+			arr.push({
+				imgurl:imgurl,
+				imgname:imgname
+			});
+		});
+		var asyncFunc = function(imgurl, imgname) {
+		    return new Promise(function(resolve, reject) {
+		    	//保存图片
+		    	const WriteStream=fs.createWriteStream('./img/'+imgname)
+				request(imgurl).pipe(WriteStream);
+				//监听图片存储完成
+				WriteStream.on('close',function(){
+					console.log(imgname+'保存成功');
+					resolve();
+				})
+		    });
+		}
+		async function downImg() {
+		    for (var i = 0; i < arr.length; i++) {
+		        await asyncFunc(arr[i].imgurl, arr[i].imgname);
+		    }
+		}
+		downImg();
+	})
+}
+getData('http://www.ilinme.com/yus/index.html');
+
+
+爬取文件
+//引入模块
+const request=require('request');
+const fs=require('fs');
+let getData=(url)=>{
+	request(url,(err,res)=>{//res.body为数据
+		if(err) return console.error(err);
+		//保存文件
+		fs.writeFileSync('index.html', res.body, ()=>{
+			console.log('图片抓取成功!');
+		})
+	})
+}
+getData('http://www.ilinme.com/yus/index.html');

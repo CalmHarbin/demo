@@ -323,6 +323,19 @@ Do you want to enable iptables? [y/n]:是否开启防火墙
 
 
 
+Node.js环境搭建
+1.下载node安装包
+https://nodejs.org/zh-cn/
+
+2.双击运行安装的,自定义安装位置,一路next;
+
+3.配置环境变量
+点击我的电脑,属性,高级系统设置,环境变量,系统变量中找到path,新增一个node的安装路径
+
+
+
+
+
 
 
 

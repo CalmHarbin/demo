@@ -86,3 +86,87 @@ dede标签
  	</ul>
  </li>
 {/dede:channelartlist}
+
+调用变量
+{dede:global.变量名/}
+
+频道标签,channel
+通常用于网站顶部以获取站点栏目信息,(导航)
+属性
+typeid="0"		指定id
+row="1" 		查询的条数
+type="" 		调用的类型,top顶级栏目,son子栏目
+orderby='id' 	根据什么来排序
+orderway=""		排序方式,desc降序,asc升序
+
+	内部调用	[field:typelink/]或者[field:typeurl/]链接地址{dede:field.typelink/}直接调用方式
+				[field:typename/]栏目名称{dede:field.typename/}直接调用方式
+
+一次调用指定数量的数据
+{dede:channel row='15' typeid ='23' orderby='id' orderway='asc'}
+	<li class="er">
+		<a href="[field:typelink/]">[field:typename/]</a>
+	</li>
+{/dede:channel}
+
+调用多个导航channelartlist
+只能通过{dede:field.typename/}直接调用方式获取内容
+{dede:channelartlist row='3' typeid='25,26,27' }//多个id用逗号隔开
+	<a href="{dede:field name='typeurl'/}">{dede:field name='typename'/}</a>
+{/dede:channelartlist}
+
+调用单个指定id导航
+{dede:type row='1' typeid='41'}//指定typeid
+	<a class='fab_xu' href="[field:typelink/]">[field:typename/]</a>
+{/dede:type}
+
+{dede:global.cfg_cmspath/} 			是dedecms的安装目录，一般就是网站的根目录。
+{dede:global.cfg_templets_skin/} 	网站模板的路径或者说模板目录。
+{dede:global.cfg_cmsurl/}			是当前目录
+{dede:global.cfg_cmsurl/}/ 			是根目录
+
+列表标记arclist
+{dede:arclist typeid='' row='' col='' titlelen='' infolen='' imgwidth='' imgheight='' listtype='' orderby='' keyword=''}
+	底层模板(InnerText)
+{/dede:arclist}
+属性
+typeid 			指定id
+row 			指定数量
+col 			指定列数
+titlelen 		表示标题的长度
+infolen 		表示内容简介的长度
+imgwidth 		缩略图宽度
+imgheight		缩略图高度
+type 			类型,all普通文档,commend推荐文档,image含有图片的文档,spec专题
+orderby 		排序方式,senddate发布时间,hot|click点击数,pubdate出版时间,sortrank新排序级别,id按ID,postnum评论次数,rand随机
+orderway 		desc降序,asc升序
+keyword 		表示含有指定关键字的
+channelid 		表示特定频道模型id,-1专题,1文章,2图集,3软件,4Plash
+limit='起始,结束'	表示指定范围的数据
+att 			自定义属性
+subday="天数"	表示在多少天以内的文档
+partsort='排列位数'		表示自动获得父栏目的所有字数中排列在第几位的id
+
+{dede:arclist row='2' typeid='155,156' }
+	<li class='fab-er'><a href="[field:arcurl/]">[field:title/]</a></li>
+	<!-- <li class='fab-er'><a href="#">发布收购</a></li> -->
+{/dede:arclist}
+其中
+[field:arcurl/]表示文章的链接,
+[field:picname/]表示文章缩略图
+[field:title/]表示文章标题
+
+
+调用子栏目
+第一种
+typeid指的是顶级栏目的id
+链接使用的是 列表模板
+{dede:channel row='3' typeid ='10' orderby='id' orderway='asc'}
+	<li><a href="[field:typelink/]">[field:typename/]</a></li>
+{/dede:channel}
+第二种
+typeid指的是显示数据的id
+链接使用的是 列表模板
+{dede:channelartlist row='3' typeid='11,12,13' }
+	<li><a href="{dede:field name='typeurl'/}">{dede:field name='typename'/}</a></li>
+{/dede:channelartlist}

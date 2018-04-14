@@ -327,3 +327,8 @@ overflow:hidden			层溢出
   </ul>
 </body>
 </html>
+
+--------------------------------------------------------
+伸缩布局实现自适应效果
+添加这一句,然后按照宽度360来布局即可.
+<meta name="viewport" content="width=360, user-scalable=no">

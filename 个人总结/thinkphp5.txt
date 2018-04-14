@@ -1,0 +1,67 @@
+1.安装
+git clone https://github.com/top-think/think.git 要存储的地址;
+或者直接下载源码包
+
+目录结构
+application 	应用目录
+	index 		前台目录
+		controller	控制器
+		model		数据模型
+		view 		页面
+	admin 		后台
+extend 			扩展类库目录
+public			静态资源和入口文件
+	static		存放静态资源,如css,js,img
+	index.php 	入口文件
+runtime			网站运行临时目录
+tests 			测试目录
+thinkphp 		核心文件
+	lang 		语言包
+	library		TP核心文件
+	tpl 		模板文件
+vendor 			第三方扩展目录
+
+开启调试模式
+C:\wamp64\www\tp5\application\config.php
+'app_debug'              => true,
+
+创建一个控制器
+C:\wamp64\www\tp5\application\index\User.php
+<?php 
+//申明命名空间
+namespace app\index\controller;
+//申明控制器
+class User{
+	//方法
+	public function index(){
+		return '我是user控制器';
+	}
+}
+ ?>
+访问
+			 		 		入口文件  模块  控制器  方法
+http://localhost/tp5/public/index.php/Index/User/index
+调用当前控制器
+调用当前控制器的test方法
+1.$this->test();
+2.self::test();
+3.类名::test();
+4使用系统函数
+action('test');
+
+调用不同控制器的方法
+action('模块/控制器/方法')
+
+跨控制器调用方法
+前台Index控制器调用后台Index控制器的say方法
+1.使用命名空间
+$model=new \app\admin\controller\Index;//实例化控制器
+$model->say();//使用
+2.使用use
+use \app\admin\controller\Index as AdminIndex;//重名需要起别名
+$model=new AdminIndex;
+$model->say();
+3.使用Controller方法
+				   模块  控制器
+$model=Controller('admin/Index');
+$model->say();

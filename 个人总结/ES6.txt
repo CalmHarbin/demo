@@ -51,7 +51,7 @@ function show(a='默认a',b='默认b'){
 	//
 }
 
-funciton show({a='默认a',b='默认b'}={}){
+function show({a='默认a',b='默认b'}={}){
 	//
 }
 
@@ -119,7 +119,7 @@ let json={
 json.show();
 
 箭头函数内部没有arguments对象;
-funciton show(){
+function show(){
 	console.log(arguments);//[1,2,3]
 }
 show(1,2,3);
@@ -190,7 +190,7 @@ Object.values(json);//获得对象的所有值
 Object.entries(json);//获得对象的所有键值对
 
 7.Promise
-let obj=new Promise(funciton(resolve,reject){//成功,失败
+let obj=new Promise(function(resolve,reject){//成功,失败
 	resolve('成功');
 	reject('失败');
 })

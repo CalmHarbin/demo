@@ -53,6 +53,45 @@ app.json为配置文件
 
 wxml
 <view></view>视图容器,相当于div
+hover-class=''//点击时的状态类
+hover-start-time=500//按住多久后呈现点击状态,单外ms
+hover-stay-time=400//手指松开后保留状态类的时间,单位ms
+
+<scroll-view></scroll-view>可滚动的视图容器
+scroll-x='true'//允许横向滚动
+scroll-y='true'//允许纵向滚动
+scroll-top=number//设置纵向滚动条的位置
+scroll-left=number//设置横向滚动条的位置
+scroll-into-view='id'//值为子元素id,滚动到指定元素位置
+scroll-with-animation='true'//设置滚动条位置时有过渡效果
+upper-threshold=number设置距离顶部的位置触发事件
+lower-threshold=number设置距离底部的位置触发事件
+scrolltoupper=function滚动到顶部时触发该事件
+scrolltolower=function滚动到底部时触发事件
+scroll=function滚动即触发事件
+
+轮播图(滑块)
+<swiper>
+  <swiper-item item-id='id'><swiper-item>
+  <swiper-item item-id='id'><swiper-item>
+  <swiper-item item-id='id'><swiper-item>
+</swiper>
+indicator-dots=true//显示指示点
+indicator-color=color//知识点颜色
+indicator-active-color=color//当前选中指示点颜色
+autoplay=true//是否自动切换
+current=number//当前所在滑块的index
+current-item-id//当前所在滑块的item-id
+interval=5000//自动切换的时间间隔,单位ms
+duration=500//滑动时动画时长
+circular=false//是否发采用衔接滑动,无缝轮播
+vertical=false//滑动方向是否为纵向
+previous-margin='0px'//设置前一项可以露出来的宽度
+next-margin='0px'//设置后一项可以露出来的宽度
+display-multiple-items=1//同时显示的滑块数量
+change=function//当前所在滑块改变时触发事件
+animationfinish=function动画结束时触发事件
+
 <navigator url=""></navigator>页面链接,相当于a标签
 <text></text>文字内容,相当于p标签
 <button></button>按钮
@@ -180,3 +219,681 @@ clientY 	文档可视区域的y坐标
 
 x 			距离canvas左上角的x坐标
 y 			距离canvas左上角的y坐标
+
+事件处理函数
+Page.prototype.route    获取当前页面的路径
+Page.prototype.setData()改变data数据,同时页面自动更新console
+getCurrentPages()       函数用于获取当前页面栈的实例，以数组形式按栈的顺序给出，第一个元素为首页，最后一个元素为当前页面
+
+模块化
+导出模块
+module.exports={};
+导入模块
+require(引入模块地址)//相对路径
+
+列表渲染
+//默认下标是index,值是item
+<view wx:for="{{array}}">{{index}} {{item}} </view>
+
+使用wx:for-index='索引'指定索引名;
+使用wx:for-item="值"指定变量名
+<view wx:for="{{array}}" wx:for-index="idx" wx:for-item="val">索引:{{idx}},值:{{val}}</view>
+
+wx:key="字符串|*this";数据中的唯一标示符
+
+
+条件渲染
+<view wx:if="{{data == 1}}"> 1 </view>
+<view wx:elif="{{data == 2}}"> 2 </view>
+<view wx:else=""> 3 </view>
+
+模板
+声明一个模板
+<template name="模板名">
+    //模板内容
+</template>
+使用模板
+<template is="使用的模板名" data="模板内的数据"></template>
+引入模板文件
+<import src="模板文件路径"/>//只能引入文件,不能引入依赖的文件
+<include src="模板文件路径">//相当于把文件直接拷贝过来
+引入wxss文件
+@import "文件路径";
+
+例子  
+    <template name="staffName">
+          <view>
+            First: {{a}}
+            Last:{{b}}
+          </view>
+        </template>
+        <template is="staffName" data="{{a:'123',b:'456'}}"></template>
+
+WXS:小程序的一套脚本语言,感觉像script标签
+使用
+<wxs module="模块名">
+//功能实现
+</wxs>
+例如
+实现筛选数组的最大值
+<wxs module="m1">
+//定义一个方法
+var getMax = function(array) {
+  var max = undefined;
+  for (var i = 0; i < array.length; ++i) {
+    //max第一次等于undefined于是值为数组第一项的值,之后为后面三目运算的结果
+    max = max === undefined ? array[i] : (max >= array[i] ? max : array[i]);
+  }
+  return max;
+}
+//暴露getMax方法
+module.exports.getMax = getMax;
+</wxs>
+//调用方法
+<view> {{m1.getMax([1,2,3,4,5,6])}} </view>
+
+wxs文件
+调用(先引入文件)
+<wxs src="./../tools.wxs" module="名字" />
+<view> {{名字.属性}} </view>
+<view> {{名字.方法}} </view>
+
+wxss
+rpx单位,根据屏幕宽度自适应,每一个屏幕宽有750rpx;如果设计图为750rpx,直接使用设计图上的尺寸.
+比如屏幕宽度为750px,则1rpx=1px;
+比如屏幕宽度为375px,则1rpx=0.5px;
+
+公式
+设计稿为750px时
+1rem=(750/20)rpx=(750/20)px;
+1rpx=(750/750)px;
+设计稿为640px时;
+1rem=(750/20)rpx=(640/20)px;
+1rpx=(640/750)rpx;
+总结:1rem=750/20rpx;
+     1rem=设计稿/20px;
+     1rpx=设计稿/750px;
+
+-----------------------------------------------------------------------------------
+API
+网络请求
+const requestTask = wx.request({
+  url: 'test.php', //请求地址
+  method:'GET',//请求的方式
+  data: {//传入的数据
+     x: '' ,
+     y: ''
+  },
+  header: {//请求头
+      'content-type': 'application/json'
+  },
+  datatype:'json',//返回数据类型
+  success: function(res) {//成功回调
+    console.log(res.data);//返回的数据
+    console.log(res.statusCode);//HTTP状态码
+  },
+  fail:function(res){//失败回调
+
+  },
+  complete:function(){//请求结束回调
+
+  }
+})
+requestTask.abort() // 取消请求任务
+
+WebSocket 连接
+wx.connectSocket({
+  url: 'wss://example.qq.com',//请求的地址
+  method:'GET',//请求的方式
+  data:{//请求携带的数据
+    x: '',
+    y: ''
+  },
+  header:{ //请求头
+    'content-type': 'application/json'
+  },
+  protocols: ['protocol1'],//子协议数组
+  success:(res)=>{//成功回调
+
+  }
+})
+监听WebSocket连接打开事件。
+wx.onSocketOpen(function(res) {
+  console.log('WebSocket连接已打开！')
+})
+监听WebSocket错误。
+wx.onSocketError(function(res){
+  console.log('WebSocket连接打开失败，请检查！')
+})
+通过 WebSocket 连接发送数据,需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
+wx.sendSocketMessage({
+    data:'data',//需要发送的内容
+    success:function(){//成功回调
+    }
+})
+监听WebSocket接受到服务器的消息事件
+wx.onSocketMessage(function(res) {
+  console.log('收到服务器内容：' + res.data)
+})
+关闭 WebSocket 连接
+wx.onSocketClose(function(res) {
+  console.log('WebSocket 已关闭！')
+})
+---------------------------------------------------------------------------
+选取本地图片或者使用相机
+wx.chooseImage({
+  count: 1, // 默认9,最多可以选取的图片数量
+  sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+  sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+  success: function (res) {
+    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+    var tempFilePaths = res.tempFilePaths;//图片的本地文件路径列表
+    var file=res.tempFiles;//返回一个本地文件列表;
+        file.path;//本地文件路径
+        file.size;//本地文件大小,单位B
+  }
+});
+
+预览图片
+wx.previewImage({
+  current: '', // 当前显示图片的http链接,不填默认为urls的第一张
+  urls: [], // 需要预览的图片http链接列表
+  success:funciton(){//成功回调
+
+  }
+})
+
+获取图片信息
+wx.getImageInfo({
+  src: 'images/a.jpg',//图片的地址
+  success: function (res) {//成功回调
+    console.log(res.width);//图片的宽度
+    console.log(res.height);//图片的高度
+    console.log(res.path);//图片的本地路径
+    console.log(res.orientation);//图片的方向
+    console.log(res.type);//图片的格式
+  }
+})
+
+保存图片到系统相册。需要用户授权 scope.writePhotosAlbum
+wx.saveImageToPhotosAlbum({
+    filePath:url,//被保存图片的文件路径
+    success:function(){//成功回调
+        res.errMsg;//调用结果
+    }
+});
+--------------------------------------------------------------------------------------------
+文件上传
+const uploadTask =wx.uploadFile({
+      url: 'https://example.weixin.qq.com/upload', //开发者服务器url
+      filePath: '',//上传的文件路径
+      name: 'file',//保存时的文件key
+      formData:{//额外的数据
+        'user': 'test'
+      },
+      success: function(res){
+        var data = res.data
+      }
+    });
+uploadTask.onProgressUpdate((res) => {//监听文件上传的事件
+    console.log('上传进度', res.progress)
+    console.log('已经上传的数据长度', res.totalBytesSent)
+    console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+})
+uploadTask.abort() // 取消上传任务
+
+文件下载
+const downloadTask = wx.downloadFile({
+    url: 'http://example.com/audio/123', //下载资源的url
+    success: function(res) {
+        res.tempFilePath;//临时文件路径,下载后的文件会存储到一个临时文件
+        wx.playVoice({
+            filePath: res.tempFilePath
+        })
+    }
+})
+downloadTask.onProgressUpdate((res) => {//监听文件下载
+    console.log('下载进度', res.progress)
+    console.log('已经下载的数据长度', res.totalBytesWritten)
+    console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+})
+downloadTask.abort() // 取消下载任务
+--------------------------------------------------------------------------------------------
+录音
+开始录音,最长1分钟
+wx.startRecord({
+    success:function(res){
+        res.tempFilePath;//录音文件保存的临时路径
+    }
+})
+停止录音
+wx.stopRecord({
+    success:function{
+        console.log('已成功停止录音');
+    }
+})
+
+录音(建议使用)
+const recorderManager = wx.getRecorderManager()
+
+recorderManager.start({//开始录音
+  duration: 60000,//指定录音的时长,60000为一分钟
+  sampleRate: 44100,//采样率,有效值8000|16000|44100
+  numberOfChannels: 1,//录音通道数,有效值1|2
+  encodeBitRate: 192000,//编码码率
+  format: 'aac',//音频格式,有效值aac|mp3
+  frameSize: 50//指定帧大小,单位kb,仅支持mp3格式
+})
+recorderManager.pause();//暂停录音
+recorderManager.resume();//继续录音
+recorderManager.stop();//停止录音
+
+recorderManager.onStart(() => {//开始录音事件
+  console.log('recorder start')
+})
+recorderManager.onResume(() => {//继续录音事件
+  console.log('recorder resume')
+})
+recorderManager.onPause(() => {//暂停录音事件
+  console.log('recorder pause')
+})
+recorderManager.onStop((res) => {//停止录音事件
+    console.log(res.tempFilePath);//录音文件的临时路径
+})
+recorderManager.onFrameRecorded((res) => {//已录制完指定帧大小的文件
+    res.frameBuffer//录音分片结果数据
+    res.isLastFrame;//当前帧是否正常录音结束前的最后一帧
+})
+recorderManager.onError((res)=>{//失败
+    res.errMsg//错误信息
+})
+-----------------------------------------------------------------
+音频播放
+const innerAudioContext=wx.createInnerAudioContext();
+
+属性
+innerAudioContext.src='',//音频地址
+innerAudioContext.startTime=0,//开始播放的位置
+innerAudioContext.autoplay=false,//是否自动开始播放
+innerAudioContext.loop=false,//是否循环播放
+innerAudioContext.obeyMuteSwitchtrue,//是否遵循系统静音开关，当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音
+innerAudioContext.volume=1,//音量范围0~1
+innerAudioContext.duration//返回当前音频的总时长,单位s
+innerAudioContext.currentTime//返回当前播放的位置,单位s
+innerAudioContext.paused//判断当时是否处于暂停或停止状态
+innerAudioContext.buffered//返回音频的缓冲时间点
+
+方法
+innerAudioContext.paly()//播放
+innerAudioContext.pause()//暂停
+innerAudioContext.stop()//停止
+innerAudioContext.seek()//跳转到指定位置,单位s
+innerAudioContext.destroy()//销毁当前实例
+
+事件
+innerAudioContext.onCanplay();//音频进入可以播放状态
+innerAudioContext.onPlay()//音频播放事件
+innerAudioContext.onPause()//音频暂停事件
+innerAudioContext.onStop()//音频停止事件
+innerAudioContext.onEnded()//音频自然播放结束事件
+innerAudioContext.onTimeUpdate()//音频播放进度更新事件
+innerAudioContext.onError()//音频播放错误事件
+innerAudioContext.onWaiting()//音频加载中事件
+innerAudioContext.onSeeking()//音频进行seek操作事件
+innerAudioContext.onSeeked()//音频完成seek操作事件
+每一种事件都有对应的取消监听事件
+例如
+innerAudioContext.offPlay();//取消监听onPlay()事件
+---------------------------------------------------------------
+视频
+拍摄视频或从手机相册中选视频
+wx.chooseVideo({
+    sourceType:['album', 'camera'],//从相册中选视频或者使用相机拍摄
+    compressed:true,//是否压缩所选的视频源文件
+    maxDuration:60,拍摄视频最长拍摄时间，单位秒。最长支持 60 秒
+    success:function(res){//成功回调
+        res.tempFilePath//选定视频的临时文件路径
+        res.duration//选定视频的时间长度
+        res.size//选定视频的数据量大小
+        res.height//视频的长
+        res.width//视频的宽
+    }
+})
+
+保存视频到系统相册
+wx.saveVideoToPhotosAlbum({
+    filePath:url,//视频文件的路径
+    success:function(res){
+        res.errMsg//调用结果
+    }
+})
+
+视频的播放
+const videoContext=wx.createVideoContext('video标签的id');
+方法
+videoContext.play()//播放
+videoContext.pause()//暂停
+videoContext.seek()//跳转到指定位置,单位s
+
+videoContext.playbackRate()//设置倍速播放,支持0.5,0.8,1.0,1.25,1.5
+videoContext.requestFullScreen();//进入全屏播放
+videoContext.exitFullScreen();//退出全屏播放
+videoContext.sendDanmu({//发送弹幕
+    text:'',//弹幕内容
+    color:''//弹幕颜色
+})
+
+-------------------------------------------------------------
+相机的使用<camera></camera>
+const cameraContext=wx.createCameraContext('id');
+cameraContext.takePhoto({//拍照,可指定质量,成功则返回图片
+    quality:'normal',//成像质量,值为high,normal,low
+    success:function(res){
+      res.tempImagePath//图片路径
+    }
+})
+cameraContext.startRecord({//开始录像
+  success:function(res){
+
+  }
+})
+cameraContext.stopRecord({//结束录像,成功则返回封面与视屏
+  success:function(res){
+
+  }
+})
+---------------------------------------------------
+实时音频<live-player></live-player>
+const livePlayerContext=wx.createLivePlayerContext('id');
+livePlayerContext.play({//播放
+  
+})
+livePlayerContext.stop({//停止
+  
+})
+livePlayerContext.mute({//静音
+  
+})
+livePlayerContext.pause({//暂停
+  
+})
+livePlayerContext.resume({//恢复
+  
+})
+livePlayerContext.requestFullScreen({//进入全屏
+  direction:0,//0正常竖向,90屏幕逆时针90度,-90屏幕顺时针90度
+})
+livePlayerContext.exitFullScreen({//退出全屏
+  
+})
+
+实时视屏<live-pusher></live-pusher>
+const livePusherContext=wx.createLivePusherContext('id');
+livePusherContext.start({//播放推流
+  
+})
+livePusherContext.stop({//停止推流
+  
+})
+livePusherContext.pause({//暂停推流
+  
+})
+livePusherContext.resume({//恢复推流
+  
+})
+livePusherContext.switchCamera({//切换前后摄像头
+  
+})
+livePusherContext.snapshot({//快照
+  
+})
+----------------------------------------------------------
+保存文件到本地
+wx.saveFile({
+  tempFilePath:'',//需要保存的文件的临时路径
+  success:function(res){
+    res.savedFilePath//文件的保存路径
+  }
+})
+
+获得本地已保存的文件列表
+wx.getSavedFileList({
+  success:function(res){
+    res.errMsg//接口调用结果
+    vat list=res.fileList//文件列表
+    list.filePath//文件的本地路径
+    list.createTime//文件的保存时的时间戳
+    list.size//文件的大小
+  }
+})
+
+获取本地文件的文件信息。此接口只能用于获取已保存到本地的文件
+wx.getSavedFileInfo({
+  filePath:'',//文件路径
+  success:function(res){
+    res.errMsg//接口调用结果
+    res.size//文件大小
+    res.createTime//文件保存时的时间戳
+  }
+})
+
+删除本地储存的文件
+wx.removeSavedFIle({
+  filePath:'',//需要删除的文件路径
+  success:function(){
+
+  }
+})
+
+新开页面打开文档,支持格式:doc,xls,ppt,pdf,docx,xlsx,pptx
+wx.openDocument({
+  filePath:'',//文件路径
+  fileType:''文件格式
+  success:function(){
+
+  }
+})
+
+-------------------------------------------------
+数据存储(异步)
+wx.setStorage({
+  key:'',//文件缓存中指定的key
+  data:'',//需要存贮的内容
+  success:function(){
+
+  }
+})
+
+从缓存中异步获取指定key的内容
+wx.getStorage({
+  key:''//指定的key
+  success:function(res){
+    res.data//内容
+  }
+})
+
+异步获取当前存储的所有数据
+wx.getStorageInfo({
+  success:function(){
+    res.keys//当前存储数据的所有key
+    res.currentSize//当前占用的空间大小
+    res.limitSize//限制空间大小
+  }
+})
+
+异步删除数据
+wx.removeStorage({
+    key:''//删除数据的key
+    success:function(res){
+      res.data//删除的数据
+    }
+})
+
+异步清空数据
+wx.clearStorage()
+
+将data存储在本地缓存中(同步)
+wx.setStorageSync(key,data);
+
+同步获取
+var data=wx.getStorageSync(key);//返回内容
+
+同步获取所有的数据
+var res=wx.getStorageInfoSync();//返回一个对象
+res.keys//当前存储数据的所有key
+res.currentSize//当前占用的空间大小
+res.limitSize//限制空间大小
+
+同步删除数据
+var data=wx.removeStorageSync(key);//返回被删除的数据
+
+同步清空本地数据
+wx.clearStorageSync()
+--------------------------------------------------------------
+位置
+获取当前地理位置
+wx.getLocation({
+  type:'wgs84'//默认返回gps坐标,gcj02 返回可用于wx.openLocation的坐标
+  altitude:true//是否返回高度信息
+  success:function(res){
+    res.longitude//经度
+    res.latitude//维度
+    res.speed//速度
+    res.accuracy//位置的精确度
+    res.altitude//高度
+    res.verticalAccuracy//垂直精度,单位m(Android无法获取)
+    res.horizontalAccuracy//水平精度,单位m
+  }
+})
+
+打开地图选择位置
+wx.chooseLocation({
+  success:function(res){
+    res.name//位置名称
+    res.addresss//详细地址
+    res.longitude//精度
+    res.latitude//维度
+  }
+})
+
+使用微信内置地图查看位置
+wx.openLocation({
+    longitude://经度,-180~180,负数表示西经
+    latitude://维度,-90~90,负数表示南纬
+    scale:int//缩放比例,5~18,默认18
+    name:''//位置名
+    address:''//地址的详细说明
+    success:function(res){
+
+    }
+})
+
+地图组件<map></map>
+const mapContext=wx.createMapContext(id);
+mapContext.getCenterLocation({//获取当前地图中心的经纬度,返回的是gcj02坐标系
+    success:function(res){
+      res.longitude//经度
+      res.latitude//维度
+    }
+})
+mapContext.moveToLocation();//将地图中心移动到当前定位点,需要配合map组件的show-location使用
+mapContext.translateMarker({//平移marker,带动画
+    markerId:number//指定marker
+    destination:{}//指定marker移动到的目标点
+    autoRotate:true//移动过程中是否自动旋转marker
+    rotate:number//marker的旋转角度
+    duration:1000//动画的持续时长,单位ms
+    animationEnd:function(){//动画结束的回调函数
+
+    }
+    fail:function(){//接口调用失败的回调函数
+
+    }
+})
+mapContext.includePoints({//缩放视野展示所有经纬度
+  points:[];//要显示在可视区域内的坐标点列表,[{latitude, longitude}]
+  padding:[];//坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]
+})
+mapContext.getRegion({//获取当前地图的视野范围
+  success:function(res){
+    res.southwest//西南角的经纬度
+    res.northeast//东北角的经纬度
+  }
+})
+mapContext.getScale({//获取当前地图的缩放级别
+  success:function(res){
+    res.scale//缩放级别
+  }
+})
+----------------------------------------------------------
+设备
+异步获取设备信息
+wx.getSystemInfo({
+  success:function(res){
+    res.brand//手机品牌
+    res.model//手机型号
+    res.pixelRatio//设备像素比
+    res.screenWidth//屏幕宽度
+    res.screenHeight//屏幕高度
+    res.windowWidth//可使用窗口宽度
+    res.windowHeight//可使用窗口高度
+    res.statusBarHeight//状态栏的高度
+    res.language//微信设置的语言
+    res.version//微信版本号
+    res.system//操作系统版本
+    res.platform//客户端平台
+    res.fontSizeSetting//用户字体大小设置
+    res.SDKVersion//客户端基础库版本
+  }
+})
+
+同步获取系统信息
+const res=wx.getSystemInfoSync();
+--------------------------------------------------
+判断小程序的API,回调,参数,组件等在当前版本是否可用
+wx.canlUse(${API}.${method}.${param}.${options}|${component}.${attribute}.${option});
+${API} 代表 API 名字
+${method} 代表调用方式，有效值为return, success, object, callback
+${param} 代表参数或者返回值
+${options} 代表参数的可选值
+${component} 代表组件名字
+${attribute} 代表组件属性
+${option} 代表组件属性的可选值
+----------------------------------------------------------
+拨打电话
+wx.makePhoneCall({
+  phoneNumber:'';//需要拨打的电话号码
+  success:function(){
+
+  }
+})
+
+扫码
+wx.scanCode({
+  onlyFromCamera:false//是否只能从相机扫码,不允许从相册选择图片
+  scanType:[]//扫码类型,qrCode二维码,barCode一维码,Datamatrix是DataMatrix码,pdf417码是pfg417
+  success:function(res){
+    res.result//所扫码的内容
+    res.scanType//所扫码类型
+    res.charSet//所扫码的字符集
+    res.path//当所扫的码为当前小程序的合法二维码时，会返回此字段，内容为二维码携带的 path
+  }
+})
+
+截屏
+wx.onUserCaptureScreen(function(){//监听用户主动截屏事件
+  
+})
+
+震动
+wx.vibrateLong({//使手机发生较长时间震动,400ms
+  success:function(){
+
+  }
+})
+
+wx.vibrateShort({//使手机发生短时间震动,15ms
+  success:function(){
+  
+  }
+})
