@@ -72,14 +72,14 @@ scroll=function滚动即触发事件
 
 轮播图(滑块)
 <swiper>
-  <swiper-item item-id='id'><swiper-item>
-  <swiper-item item-id='id'><swiper-item>
-  <swiper-item item-id='id'><swiper-item>
+  <swiper-item item-id='id'></swiper-item>
+  <swiper-item item-id='id'></swiper-item>
+  <swiper-item item-id='id'></swiper-item>
 </swiper>
-indicator-dots=true//显示指示点
+indicator-dots='true'//显示指示点
 indicator-color=color//知识点颜色
 indicator-active-color=color//当前选中指示点颜色
-autoplay=true//是否自动切换
+autoplay='true'//是否自动切换
 current=number//当前所在滑块的index
 current-item-id//当前所在滑块的item-id
 interval=5000//自动切换的时间间隔,单位ms
@@ -520,11 +520,11 @@ innerAudioContext.obeyMuteSwitchtrue,//是否遵循系统静音开关，当此�
 innerAudioContext.volume=1,//音量范围0~1
 innerAudioContext.duration//返回当前音频的总时长,单位s
 innerAudioContext.currentTime//返回当前播放的位置,单位s
-innerAudioContext.paused//判断当时是否处于暂停或停止状态
+innerAudioContext.paused//判断当时是否处于播放状态
 innerAudioContext.buffered//返回音频的缓冲时间点
 
 方法
-innerAudioContext.paly()//播放
+innerAudioContext.play()//播放
 innerAudioContext.pause()//暂停
 innerAudioContext.stop()//停止
 innerAudioContext.seek()//跳转到指定位置,单位s

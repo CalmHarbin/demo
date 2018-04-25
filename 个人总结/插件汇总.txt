@@ -1,5 +1,80 @@
 1.可视化的音乐
 https://wavesurfer-js.org/docs/methods.html
+<script src="https://cdn.bootcss.com/wavesurfer.js/2.0.5/wavesurfer.min.js"></script>
+<body>
+	<div id="waveform"></div>
+	<button id="play">开始</button>
+	<button id="pause">暂停</button>
+</body>
+<script>
+	var waveform1=new WaveSurfer();
+
+	var wavesurfer = WaveSurfer.create({
+	  container: '#waveform',//容器
+	  waveColor: 'red',//未播放的波形颜色
+	  progressColor: 'yellow',//已播放波形颜色
+	  splitChannels: true,
+	  scrollParent: false,//使波形能够向左边滚动
+	  height: 50,//波形的高度
+	  audioRate:1,//播放音乐的速度,默认1,值越大速度越快
+	  barHeight:1,//波形的高度,默认1,值越大越高
+	  barWidth:1//每一条波形的宽度,没有默认值
+	  cursorColor:'#00ff00',
+	  hideScrollbar:true,//隐藏水平滚动条
+	  autoCenter:true,//如果存在水平滚动条,将围绕进度对中波形
+	});
+	//当音频准备好之后
+	wavesurfer.on('ready',function(){
+		var play=document.querySelector('#play');
+		var pause=document.querySelector('#pause');
+		play.onclick=function(){
+			wavesurfer.play();
+		}
+		pause.onclick=function(){
+			wavesurfer.pause();
+		}
+	})
+
+	wavesurfer.getCurrentTime()//返回当前播放的时间,单位s
+	wavesurfer.isPlaying()//判断是否正在播放
+	wavesurfer.play()//开始播放
+	wavesurfer.pause()//停止播放
+	//音频路径
+	wavesurfer.load('11.mp3');
+</script>
 
 2.地图插件
 http://api.map.baidu.com/lbsapi/creatmap/?qq-pf-to=pcqq.group
+
+3.图片查看器
+http://www.jq22.com/jquery-info6536
+<link href="https://cdn.bootcss.com/viewerjs/1.0.0/viewer.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/viewerjs/1.0.0/viewer.min.js"></script>
+<img src="" alt="" id='img1'>
+<script>
+	new Viewer(document.getElementById('img1'),{
+		inline:false,//启用inline模式
+		button:true,//显示右上角关闭按钮
+		navbar:true,//显示缩略图导航
+		title:true,//显示图片信息
+		toolbar:true,//显示工具栏
+		tooltip:true,//显示缩放百分比
+		movable:true,//图片是否可移动
+		zoomable:true,//图片是否可缩放
+		totatable:true,//图片是否可旋转
+		scalable:true,//图片是否可翻转
+		transition:true,//使用css3过度
+		fullscreen:true,//播放时是否全屏
+		keyboard:true,//是否支持键盘
+		interval:5000,//播放间隔时间,ms
+		zoomRatio:0.1,//鼠标滚动时的缩放比例
+		minZoomRation:0.01,//最小缩放比例
+		maxZoomRatio:100,//最大缩放比例
+		zIndex:2015,//设置图片查看器 modal 模式时的 z-index
+		zIndexInline:0,//设置图片查看器 inline 模式时的 z-index
+		url:''//设置大图片的url
+	});
+</script>
+
+4.animate库演示地址
+https://daneden.github.io/animate.css/

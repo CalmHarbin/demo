@@ -82,7 +82,7 @@ plugins:[
 				collapseWhitespace:true,//删除空白区域
 				removeAttributeQuotes:true//删除属性的双引号
 			},
-			filename:'',//生成的文件名
+			filename:'',//生成的文件名,相对于dist目录
 			chunks:['index'],//引入的文件名
 			hash:true,//清除缓存
 			title:'',//页面标题,在模板中使用  <%= htmlWebpackPlugin.options.title %>
@@ -225,3 +225,100 @@ webpacke3.x
 --------------------------------
 bable:把es6.jsx等语法转为浏览器认识的语法
 	安装 cnpm i bable-core bable-loader bable-preset-env -D
+
+
+
+
+
+
+
+
+const path=require('path');//引入模块
+const htmlWebpackPlugin=require('html-webpack-plugin');//引入文件
+const cleanWebpackPlugin=require('clean-webpack-plugin');//引入文件
+const extractTextPlugin=require('extract-text-webpack-plugin');
+const purifycss=require('purifycss-webpack');
+const glob=require('glob');
+module.exports={
+	entry:{//入口
+		index:'./src/js/index.js',
+		index1:'./src/js/index1.js'
+	},
+	output:{//出口配置
+		path:path.resolve(__dirname,'dist'),//path必须是绝对路径,__dirname是node的
+		filename:'./js/[name]-bundle.js'//js文件路径
+	},
+	// devServer:{//服务器
+	// 	contentBase:path.resolve(__dirname,'dist'),//服务器访问目录
+	// 	host:'localhost',//服务器的IP地址
+	// 	port:80,//端口
+	// 	open:true//自动打开页面
+	// },
+	module:{
+		rules:[
+			{
+				test:/\.css$/,//以css结尾的文件
+				use:extractTextPlugin.extract({
+					fallback:'style-loader',
+					use:['css-loader','postcss-loader'],
+					publicPath:'../'//文件的路径
+				})
+			},
+			{
+				test:/\.less$/,
+				use:extractTextPlugin.extract({
+					fallback:'style-loader',
+					use:['css-loader','less-loader']
+				})
+			},
+			{
+				test:/\.(sass|scss)$/,
+				use:extractTextPlugin.extract({
+					fallback:'style-loader',
+					use:['css-loader','sass-loader']
+				})
+			},
+			{
+				test:/\.(png|jpg|gif)$/,//以png,jpg,gif结尾的文件
+				use:[
+					{
+						loader:'url-loader',
+						options:{
+							limit:50,
+							outputPath:'images'//图片放在images目录中
+						}
+					}
+				]
+			}
+		]
+	},
+	plugins:[//插件
+		//删除文件
+		new cleanWebpackPlugin(['dist']),
+		//生成页面
+		new htmlWebpackPlugin({
+			minify:{//文件压缩
+				collapseWhitespace:false//删除空白区域
+			},
+			hash:true,//清除缓存
+			// chunks:['index'],
+			filename:'./index.html',
+			title:'你好世界',//页面标题,在模板中使用  <%= htmlWebpackPlugin.options.title %>
+			template:'./src/index.html'//模板地址
+		}),
+		new htmlWebpackPlugin({
+			minify:{//文件压缩
+				collapseWhitespace:false//删除空白区域
+			},
+			hash:true,//清除缓存
+			// chunks:['index1'],
+			filename:'../src/js/index2.html',//生成的文件名
+			// title:'你好世界',//页面标题,在模板中使用  <%= htmlWebpackPlugin.options.title %>
+			template:'./src/index2.html'//模板地址
+		}),
+		new extractTextPlugin('css/index.css'),//提取到哪里
+		new purifycss({
+			paths:glob.sync(path.join(__dirname,'src/*.html'))//查找src下的所有html文件
+		})
+	]
+}
