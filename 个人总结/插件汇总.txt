@@ -78,3 +78,25 @@ http://www.jq22.com/jquery-info6536
 
 4.animate库演示地址
 https://daneden.github.io/animate.css/
+
+5.图片懒加载
+http://www.jq22.com/jquery-info11629
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src='https://raw.githubusercontent.com/channg/EasyLazyload.js/master/dist/EasyLazyload.min.js'></script>
+使用
+<img data-lazy-src="..." alt="">
+<script>
+	lazyLoadInit({
+        coverColor:"white",//图片即将显示时覆盖层的颜色
+        coverDiv:"<h1>test</h1>",//图片即将显示时自定义显示的组件
+        offsetBottom:0,//下方图片距离底部的距离开始加载
+        offsetTopm:0,//上方图片距离顶部的距离开始加载
+        showTime:1100,//动画时长
+        onLoadBackEnd:function(idx,dom){//图片完全出现的回调函数,参数为,图片的下标和dom jquery对象
+            console.log("onLoadBackEnd:"+i);
+        }
+        ,onLoadBackStart:function(idx,dom){//图片下载完成的回调函数
+            console.log("onLoadBackStart:"+i);
+        }
+    });
+</script>

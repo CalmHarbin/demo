@@ -127,6 +127,14 @@ define("BIND_MODULE","index");
 use think\Route;
 Route::rule('输入的地址','实际的地址','请求类型','路由参数(数组)','变量规则(数组)')
 
+Route::rule('test','index/index/test/:id','get',arr,['id'=>'\d{1,3}']);
+id必须是1~3为数字,正则限制
+arr=[
+	'method'=>'get',//请求类型
+	'ext'=>'html',//后缀 
+]
+
+
 设置路由
 	1.静态路由
 		Route::rule('test','index/index/test');
@@ -147,3 +155,28 @@ Route::rule('输入的地址','实际的地址','请求类型','路由参数(数
 		"index"=>"index/index/index",
 		"test"=>"index/index/test"
 	]
+
+资源路由
+Route::resource('blog','index/blog');//前台的blog控制器
+
+请求方式	路由地址		默认访问的方法 		
+get		 	blog 			index
+get 		blog/create 	create
+post 		blog 			save
+get 		blog/:id 		read
+get  		blog/:id/edit 	edit
+put 		blog/:id 		update
+delete 		blog/:id 		delete
+
+生成路由地址
+url('需要生成地址的方法');
+url('index/index/test');
+
+use \think\Url
+Url::root('index.php');//添加入口文件
+url('index/index/test#name@yijia',['id'=>'1']);
+yijia为域名
+name为锚点
+id为参数
+index模块的index控制器的test方法
+
