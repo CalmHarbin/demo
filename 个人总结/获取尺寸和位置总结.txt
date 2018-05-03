@@ -28,15 +28,15 @@ ele.height()					元素的高度,不含padding
 ele.innerWidth()				元素的宽度,不含边框,含padding,相当于js中的clientWidth
 ele.innerHeight()				元素的高度,不含边框,含padding
 outerWidth()					元素的宽度,含边框,含padding,相当于js中的offsetWidth
-outerHeigth()					元素的高度,含边框,含padding
+outerHeight()					元素的高度,含边框,含padding
 outerWidth(true)				元素的宽度,含边框,含padding,含margin
-outerHeigth(true)				元素的高度,含边框,含padding,含margin
+outerHeight(true)				元素的高度,含边框,含padding,含margin
 
 位置
 ele.offset().top 				元素相对于文档的top值
 ele.offset().left 				元素相对于文档的left值
-ele.position().top				元素相对于父元素边框的top
-ele.position().left				元素相对于父元素边框的left
+ele.position().top				元素相对于具有定位属性父元素边框的top
+ele.position().left				元素相对于具有定位属性父元素边框的left
 ele.offsetParent()				返回最近具有定位属性的父元素,相当于js中的offsetParent
 ele.scrollLeft()				元素的水平滚动条的left
 ele.scrollTop()					元素的垂直滚动条的top

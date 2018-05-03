@@ -26,7 +26,7 @@ document.querySelector();
 document.querySelectorAll();
 
 6、获取父元素
-var parent=ele.parentElement;   //返回直接父元素
+var parent=ele.parentElement;   //返回直接父元素,ie
 var parent=ele.parentNode;      //返回直接父元素
 var offsetParent=ele.offsetParent;  //找到具有定位属性的父节点
 
@@ -100,6 +100,15 @@ ele.hasAttribute("class");   //判断是否拥有类,true|false
 offsetWidth					元素自身的宽度,含边框
 offsetHeight				元素自身的高度,含边框
 
+六、获取元素的样式
+
+//兼容性获取元素最终样式
+if(window.getComputedStyle) {
+    styles = window.getComputedStyle(ele, null);//ele表示元素
+}else{
+    styles = ele.currentStyle;//ele表示元素
+}
+console.log(styles['width']);
 
 
 

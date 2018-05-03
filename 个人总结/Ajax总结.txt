@@ -50,3 +50,26 @@ $http.get("1.php").then(function success(res){
 php中接受angular  post方法传来的数据
 $str=file_get_contents("php://input");
 $post=json_decode($str,true);
+
+
+jsonp请求
+//动态创建script标签
+var script = document.createElement("script");
+地址为请求地址,带上回调函数callback=jsonpCallback
+script.src =url+'callback=jsonpCallback';//带上回调函数
+document.body.insertBefore(script, document.body.firstChild);
+
+function jsonpCallback(res){
+	console.log(res);
+}
+
+服务端
+<?php 
+$data='1112221111';
+
+if($_GET['callback']){//有callback表示jsonp请求
+	echo "{$_GET['callback']}({$data})";
+}else{
+	echo $data;
+}
+ ?>

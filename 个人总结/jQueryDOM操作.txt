@@ -107,5 +107,5 @@ $("div").filter("#div2");//返回div标签中含有id=div2的标签
 $("div").not("#div2");//返回div标签中除了含有id=div2的标签
 
 5、复制
-$("选择器").clone(ture);    //true表示复制元素身上的事件
+$("选择器").clone(true);    //true表示复制元素身上的事件
 
