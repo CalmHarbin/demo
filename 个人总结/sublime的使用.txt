@@ -55,4 +55,8 @@ https://github.com/sergeche/emmet-sublime
 angular插件
 https://github.com/angular-ui/AngularJS-sublime-package
 
+Vue语法高亮插件
+https://github.com/vuejs/vue-syntax-highlight
 
+HTML属性提示插件
+https://github.com/SublimeCodeIntel/SublimeCodeIntel

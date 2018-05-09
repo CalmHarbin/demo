@@ -2,7 +2,7 @@
 <script src="vue.min.js"></script>
 
 2.创建对象
-var myapp=new Vue({
+var vm=new Vue({
 		el:"#myapp",  //绑定的元素 
 		data:{    //属性
 			name:"user",
@@ -22,6 +22,17 @@ var myapp=new Vue({
 		computed:{   //计算属性,调用时不能加()
 			sum:function(){
 				return this.age*1+12;
+			}
+		},
+		watch:{//数据监听
+			数据:function(新值,旧值){
+
+			}
+			数据:{
+				handler:function(新值,旧值){
+
+				},
+				deep:true//对象内部的属性监听，也叫深度监听 
 			}
 		}
 	})
@@ -49,6 +60,8 @@ Vue.component("zh",{
 		}
 	}
 });
+===================================================================================
+
 组件的使用
 <zh v-on:one='add()'></zh>//one为自定义事件
 
@@ -62,6 +75,14 @@ v-html="属性";//输出一段html
 
 v-bind绑定一个值
 <a v-bind:href="attr" target="top">点我</a>//data数据中attr:"https://www.baidu.com",
+缩写:href="attr"
+
+样式
+传一个json,当值为真是添加key作为类
+<p v-bind:class="{box:数据,'text-danger':true}">我绑定了一个类</p>
+内联样式
+<div v-bind:style="{ color: 数据, fontSize: 数据 + 'px' }"></div>
+
 
 v-model双向数据绑定
 <input type="text" v-model="name">//data数据中name:"user",
@@ -147,22 +168,24 @@ v-model修饰符
 .number 将值转化为Number类型,如果结果为NaN则返回原值
 .trim 	去掉首位空格
 
+v-once当数据改变时，该指令下的内容不会更新
+
 自定义事件
 绑定自定义事件
-v-on:事件名="fn()";
+v-on:事件名="fn($event)";//$event表示事件对象
 执行自定义事件
 触发事件对象.$emit(事件名);
 
 钩子函数
-bind:值调用一次,指定第一次绑定到元素时调用
-inserted:被绑定元素插入父节点时调用
-update:所在组件VNode更新时调用
-componentUpdated:指令所在组件的VNode及其子VNode全部更新时调用
-unbind:只调用一次,指令与其子元素解绑时调用
-	参数:	el 	指令所绑定的元素
-			binding一个对象
-			vnode vue编译生成的虚拟节点
-			oldVNode上一个虚拟节点
+beforeCreate:组件实例化之前触发
+creared:组件实例化完毕触发
+beforeMount:组件挂在前,虚拟Dom配置完毕后,页面还未渲染
+mounted:组件挂在后,此方法执行后页面开始渲染
+beforeUpdate:组件更新前,
+updated:组件更新后
+beforeDestroy:组件销毁前
+destroyed:组件销毁后
+
 
 自定义指令
 Vue.directive('指令名',{
@@ -174,3 +197,160 @@ Vue.filter('名字',funciton(){
 	
 })
 
+数据监听
+//vm表示Vue的实例
+vm.$watch("监听的数据",function(变化后的值,变化前的值){  
+    console.log(val)  
+})
+===================================================================================
+
+
+Vue脚手架
+https://cn.vuejs.org/
+
+组件范围内的样式
+<style scoped></style>
+
+组件传值
+子组件向父组件传值
+通过自定义事件传值
+在父组件中绑定一个自定义事件
+	v-on:事件名="fn($event)";//$event表示事件对象
+在子组件中触发该事件,并且把数据最为参数传过去
+	this.$emit(事件名);
+
+父组件向子组件传值
+在子组件标签上绑定一个自定义属性,属性值为父组件中的数据,
+在子组件中加入
+props:{
+	父组件中的自定义属性:{
+		type:Array,//属性值类型,
+		required:true
+	}
+};
+===================================================================================
+
+路由
+安装路由模块
+cnpm install vue-router -D
+在main.js中引入路由模块
+import VueRouter from 'vue-router'
+启动路由
+Vue.use(VueRouter)
+配置路由
+const router=new VueRouter({
+	routes:[
+		{
+			path:'/Root',//路由地址
+			component:Root,//组件名,需要先引入组件,import Root from '组件地址';
+			childrens:[//子路由
+				path:'root1',//路由地址,此时的访问路由为/Root/root1
+				component:''//组件名
+			]
+		},
+		{
+			path:'/home',//路由地址
+			component:Home//组件名,需要先引入组件,import Home from '组件地址';
+		}
+	],
+	mode:"history"//去掉地址中的#
+})
+使用配置的路由
+new Vue({
+	router,
+})
+展示标签
+<router-view></router-view>
+路由跳转,to的值为路由地址
+<router-link to="/home"></router-link>
+
+动态路由,
+定义路由时传参数id
+{
+	path:'/Root:id',//路由地址
+	component:Root,//组件名,需要先引入组件,import Root from '组件地址';
+}
+页面跳转时传递参数id
+<router-link to="/Root/id"></router-link>
+接受动态路由的参数
+export default{
+    mounted(){
+        console.log(this.$route);
+        console.log(this.$route.params.id);
+    }
+}
+
+路由之间传递参数query方式
+<router-link v-bind:to="{path:'/Root',query:{id:123}}"></router-link>
+组件在mounted方法中接受
+export default{
+    mounted(){
+        console.log(this.$route);
+        console.log(this.$route.query.id);
+    }
+}
+
+js脚本中路由跳转
+方式一
+this.$router.push({path:'路由地址'});
+方式二,带参数
+this.$router.replace({path:'路由地址',query:{参数}});
+
+前进和后退
+this.$router.go(1);//前进
+this.$router.go(-1);//后退
+
+===================================================================================
+http请求
+下载模块
+npm install vue-resource --save-dev
+引入模块
+import VueResource from 'vue-resource'
+启动模块
+Vue.use(VueResource)
+使用http请求
+get请求
+this.$http.get(url,{配置}).then(function(res){//成功回调
+	
+},function(res){//失败回调
+	
+})
+
+post请求
+this.$http.post(url,{配置}).then(function(res){//成功回调
+	
+},function(res){//失败回调
+	
+})
+
+jsonp请求
+this.$http.jsonp(url,{配置}).then(function(res){//成功回调
+	
+},function(res){//失败回调
+	
+})
+
+跨域
+打开config/index.js
+把其中的	proxyTable: {}改为
+proxyTable: {
+	'/apis': {//  /apis名字可以任意改
+            // 测试环境
+            target: 'https://goods.footer.com',  // 接口域名,需要http
+            changeOrigin: true,  //是否跨域
+            pathRewrite: {
+                '^/apis': ''   //需要rewrite重写的,
+            }              
+        }
+}
+
+使用fetch.js,使用了promise对象
+fetch("/apis/请求地址",{//此时请求地址不需要写域名了,因为index.js中以及配置了
+	method:'post',//请求方式
+}).then(function(res){
+	return res.json();
+}).then(funciton(res){
+	console.log(res);
+})
+
+=======================================================================
