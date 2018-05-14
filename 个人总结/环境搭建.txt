@@ -332,6 +332,16 @@ https://nodejs.org/zh-cn/
 3.配置环境变量
 点击我的电脑,属性,高级系统设置,环境变量,系统变量中找到path,新增一个node的安装路径
 
+linux下node的安装,
+在官网下载linux对应的版本
+解压文件
+进入到文件的 进入node文件的bin目录下,里面有node和npm
+执行(前面为文件路径)
+ln -s /home/node/bin/node /usr/local/bin/node
+ln -s /home/node/bin/npm /usr/local/bin/npm
+
+node -v查看版本号
+
 
 Vue环境搭建
 https://cn.vuejs.org/v2/guide/installation.html
@@ -343,6 +353,7 @@ vue init webpack my-project
 
 npm run dev启动服务器//webpack的功能
 访问localhost:8080
+
 
 
 

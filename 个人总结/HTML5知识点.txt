@@ -1,3 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!-- 360读取到这个标签立即钱换到极速模式 -->
+	<meta name="renderer" content="webkit" />
+	<!-- 优先使用IE最新版本或chrome -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<!-- 禁止百度转码 -->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<!-- 关键字 -->
+	<meta name="keywords" content="" />
+	<!-- 说明 -->
+	<meta name="description" content="" />
+	<!-- 设置文档宽度、是否缩放 -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+
+
 HTML5新增标签
 <header></header>头部
 <nav></nav>导航栏

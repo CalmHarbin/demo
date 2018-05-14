@@ -332,3 +332,81 @@ overflow:hidden			层溢出
 伸缩布局实现自适应效果
 添加这一句,然后按照宽度360来布局即可.
 <meta name="viewport" content="width=360, user-scalable=no">
+
+--------------------------------------------------------
+自动添加前缀插件
+http://autoprefixer.github.io/
+
+前缀
+-webkit-    Chrome浏览器,Sarari浏览器
+-ms-        ie
+-moz-       火狐
+-o-         Opera
+
+
+hask
+<!--[if IE]>IE浏览器显示的内容 <![endif]-->
+
+ie6识别               _
+_background-color:#1e0bd1
+
+ie6,7识别             +
++background-color:#a200ff
+
+ie6,7,8,9,10识别           \9
+background-color:#00deff\9
+
+*,+,#    ie5~7
+-,_       ie5,6
+\0       ie7以上
+\9        ie11以下
+\9\0       ie9,10
+
+
+======================================================================
+Less预处理器
+先引入less文件,再引入less.js文件
+<script src="https://cdn.bootcss.com/less.js/3.0.4/less.min.js"></script>
+
+声明变量@
+@a:#ff432e;
+@b:1px solid yellow;
+body{
+    background-color: @a;
+}
+h1{
+    border: @b;
+}
+
+继承类
+@a:#ff432e;
+@b:1px solid yellow;
+声明一个类
+.bordered{
+    background-color: @a;
+    border: @b;
+    color:#fff;
+}
+h1{
+    .bordered;//继承类
+}
+
+嵌套
+div{
+    border: @b;
+    li{
+        border-left: 1px solid #000;
+        a{
+            color: blue;
+        }
+    }
+}
+
+运算
+border-left: 1px+15px solid #000;
+
+引入文件
+@import '';
+
+
+

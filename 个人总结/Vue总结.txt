@@ -174,11 +174,11 @@ v-once当数据改变时，该指令下的内容不会更新
 绑定自定义事件
 v-on:事件名="fn($event)";//$event表示事件对象
 执行自定义事件
-触发事件对象.$emit(事件名);
+触发事件对象.$emit(事件名,参数);
 
 钩子函数
 beforeCreate:组件实例化之前触发
-creared:组件实例化完毕触发
+created:组件实例化完毕触发
 beforeMount:组件挂在前,虚拟Dom配置完毕后,页面还未渲染
 mounted:组件挂在后,此方法执行后页面开始渲染
 beforeUpdate:组件更新前,
@@ -262,8 +262,9 @@ new Vue({
 展示标签
 <router-view></router-view>
 路由跳转,to的值为路由地址
-<router-link to="/home"></router-link>
-
+<keep-alive>缓存数据
+	<router-link to="/home"></router-link>
+</keep-alive>
 动态路由,
 定义路由时传参数id
 {
@@ -349,7 +350,7 @@ fetch("/apis/请求地址",{//此时请求地址不需要写域名了,因为inde
 	method:'post',//请求方式
 }).then(function(res){
 	return res.json();
-}).then(funciton(res){
+}).then(function(res){
 	console.log(res);
 })
 

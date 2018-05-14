@@ -78,3 +78,75 @@ let getData=(url)=>{
 	})
 }
 getData('http://www.ilinme.com/yus/index.html');
+
+
+=======================================================================
+抓取动态网页
+下载phantomjs
+http://phantomjs.org/download.html
+完成后解压,找到bin目录下的phantomjs.exe
+添加到系统环境变量中		;C:\Users\lenovo\Desktop\phantomjs\bin(前面要有;)
+
+创建helloworld.js
+//引入模块
+var page = require('webpage').create();
+//指定编码方式
+phantom.outputEncoding="gbk";
+//发送请求
+page.open("http://news.163.com/", function(status) {
+	if ( status !== "success" ) {
+		console.log("网页加载失败");
+	}
+	//使用jquery
+	page.includeJs('https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js',function(){
+
+		var str=page.evaluate(function(){
+		            var a='';
+		            //抓取文章标题
+		            $('.mod_top_news2 a').each(function(){
+		            	a+=($(this).text()+'\n');
+		            })
+		            return a;
+		        });
+
+
+		console.log(str);
+
+		phantom.exit(0);//退出系统
+	})
+	
+});
+
+执行phantomjs helloword.js
+
+//page.title网页标题
+//page.body网页
+
+//page.title网页标题
+//page.body网页
+//page.cookies整个html内容
+
+//保存为图片page.render("a.png");
+
+//保存为pdf格式
+/*
+	page.paperSize = { 
+		format: 'A4', 
+	    orientation: 'portrait', 
+	    border: '1cm' 
+	};
+	page.render("front-Thinking.pdf");
+*/
+使用插件
+page.includeJs("http://code.jquery.com/jquery-1.10.1.min.js",function(){
+	
+})
+
+//执行点击事件
+var ev = document.createEvent("HTMLEvents");       
+ev.initEvent("click", false, true);
+document.querySelector("#getcheckcode").dispatchEvent(ev);
+
+==========================================================================
+node 安装phantom模块
+npm install phantom --save

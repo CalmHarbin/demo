@@ -42,9 +42,11 @@ https://wavesurfer-js.org/docs/methods.html
 	//音频路径
 	wavesurfer.load('11.mp3');
 </script>
+============================================================================
 
 2.地图插件
 http://api.map.baidu.com/lbsapi/creatmap/?qq-pf-to=pcqq.group
+============================================================================
 
 3.图片查看器
 http://www.jq22.com/jquery-info6536
@@ -75,10 +77,19 @@ http://www.jq22.com/jquery-info6536
 		url:''//设置大图片的url
 	});
 </script>
+============================================================================
 
 4.animate库演示地址
 https://daneden.github.io/animate.css/
+引入文件
+<link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+使用
+<h1 class="animated bounceIn">你好</h1>
+animated类动画
+infinite无限循环
+其他动画类地址参考https://github.com/daneden/animate.css
 
+============================================================================
 5.图片懒加载
 http://www.jq22.com/jquery-info11629
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
@@ -99,4 +110,108 @@ http://www.jq22.com/jquery-info11629
             console.log("onLoadBackStart:"+i);
         }
     });
+</script>
+============================================================================
+swiper插件
+http://www.swiper.com.cn/
+<link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/Swiper/4.2.2/js/swiper.min.js"></script>
+2.添加html标签
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+    
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    
+    <!-- 如果需要滚动条 -->
+    <div class="swiper-scrollbar"></div>
+</div>
+
+样式自己修改
+
+js控制
+<script>        
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'horizontal'|'vertical',//控制滑动方向,水平,垂直
+    loop: true,//循环滚动
+    initialSlide :0,//默认命中的项,从0开始
+    speed:300,//切换速度
+    parallax:true,//开启视差效果,
+
+    //多个显示配置
+    slidesPerView:1,//一次显示的个数
+    centeredSlides:true,//多个显示时,命中的居中
+    slidesPerGroup:1,//规定多少个元素为一组
+    spaceBetween:0,//在slide之间设置距离,间隙
+    slidesOffsetBefore:0,//设置slide与左边界的预留距离
+    slidesOffsetAfter:0,//设置slide与右边界的预留距离
+
+    //双向控制,可实现缩略图轮播
+    controller:{
+    	control:[swiper2],设置为另外一个Swiper实例开始控制该Swiper。
+    	inverse: true,//true表示控制方向倒转
+    }
+
+
+    //切换效果
+    effect:'fade'|'cube'|'coverflow'|'flip',//切换效果,淡入淡出,像一个立方体盒子,有立体感,翻转
+
+    //自动切换
+	autoplay:{
+    	delay:1000,//每隔多久切换一次
+    	disableOnInteraction: false,//用户触摸之后自动切换不会停止
+    	waitForTransition: false,//在过渡动画结束后自动切换才开始计时
+    },
+
+    //鼠标滚轮控制切换
+    mousewheel:true,
+    invert:true,//鼠标反向控制
+
+    // 如果需要分页器
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    
+    // 如果需要滚动条
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  })
+
+  方法
+  //下一个
+  mySwiper.slideNext();
+  //上一个
+  mySwiper.slidePrev();
+  //切换到指定的slide
+  mySwiper.slideTo(索引);
+  //循环模式下切换到指定slide
+  mySwiper.slideToLoop(索引);
+  //销毁swiper对象
+  mySwiper.destroy();
+  //删除slide
+  mySwiper.removeSlide(索引)
+  //绑定事件
+  mySwiper.on('click', function(){
+    alert('你点了Swiper');
+  })
+  //移除事件
+  mySwiper.off('click', fn())
+
+  //开启调焦功能,可放大缩小查看
+  <div class="swiper-slide"> <div class="swiper-zoom-container"> <img src="path/to/image"> </div> </div>
+  zoom : true,配置
 </script>
