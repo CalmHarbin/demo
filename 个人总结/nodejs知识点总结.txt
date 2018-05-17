@@ -1,0 +1,229 @@
+引入模块
+require('模块名');
+导出数据
+export default{
+	key:val
+}
+
+全局变量
+__filename  当前文件的绝对路径
+__dirname 	当前文件所在目录
+
+===========================================================
+定时任务
+node-schedule模块
+npm install node-schedule --save
+let schedule = require('node-schedule');
+let j=schedule.scheduleJob('* * * * * *',function(){
+	//这里是执行的任务
+})
+取消任务j.cancel();
+秒(可选) 分 时 日 月 周 	类似linux中的任务计划
+===========================================================
+
+cheerio模块(将字符串转为虚拟dom,可用于写爬虫,和jquery用法一样)
+npm install cheerio --save
+const cheerio=require('cheerio');
+let str="<div>123</div>";
+let $=cheerio.load(str,{decodeEntities: false});
+console.log($('div').html());
+============================================================
+
+mysql模块(操作mysql数据库)
+npm install mysql --save
+const mysql=require('mysql');
+//配置连接参数
+const connection  = mysql.createConnection({   
+      host : '127.0.0.1',//主机
+      user : 'root',//登录名
+      password : '123',//登录密码
+      database : 'mySite'//数据库
+      // port:3306//端口
+});
+//连接数据库
+connection.connect();
+//写sql语句,向news表中新增一条数据
+var sql="insert into mySite(title,time,source,img,url) VALUES (?,?,?,?,?)";
+var data=['我是title','我是时间','我是来源','我是图片','我是链接'];
+//执行sql语句
+connection.query(sql,data,(err,res)=>{
+	if(err){
+		console.log('出错啦'+err.message);
+	}else{
+		console.log('成功插入一条数据')
+	}
+})
+//结束连接
+connection.end()
+====================================================================================
+http模块(创建服务器)
+const http=require('http');
+http.createServer(function(request,response){
+	//头信息
+	response.writeHead(200, { 'Content-Type': 'text/html' });
+	//输出
+	response.write('hello World');
+	//关闭
+	response.end();
+}).listen(8080,"127.0.0.1",function(){
+	console.log('8080端口已启动')
+})
+
+
+================================================================================
+request模块(请求)
+npm install request --save
+const request=require('request');
+request(url,function(err,res){
+	if(err){
+		consoel.log(err.message);
+	}
+	consoel.log(res.body);
+})
+
+================================================================================
+fs模块(文件操作)
+const fs = require('fs');
+
+// 文件操作
+//读取文件
+fs.readFile(filename,function(err,data){
+	console.log(data)//data为一个Buffer对象
+})
+fs.readFile(filename,function(data){//异步读取文件
+	console.log(data)//data为文件内容
+})
+var data=fs.readFileSync(filename);//同步读取文件
+
+//获取文件信息
+fs.start(文件路径,function(err,stats){
+	stats.isFile()//是不是文件
+	stats.isDirectory()//是不是目录
+})
+
+//打开文件
+fs.open(文件路径,打开方式,function(){
+
+})
+r读
+r+读写
+rs以同步的方式打开
+rs+以同步的方式打开和写入
+w写入
+w+读写
+
+//写入文件
+fs.writeFile(filename,data,function({//data为写入的数据
+
+}))
+fs.appendFile(文件名,data,function(){//以追加的方式写入
+
+})
+//关闭文件
+fs.close(fd,function(){})
+fs.open('a.txt','r+',function(err,fd){//打开文件
+	fs.close(fd);//关闭文件
+})
+
+
+//重命名
+fs.rename(old文件名,new文件名,callback);//异步修改文件名
+fs.renameSync(old文件名,new文件名);//同步修改文件名
+
+
+//删除文件
+fs.unlink(filename);//异步删除文件
+fs.unlinkSync(filename);//同步删除文件
+
+// 目录操作
+// 查看目录
+fs.readdir(目录,function(err,data){
+
+})
+// 删除目录
+fs.rmdir(目录,function(){
+
+})
+//判断文件路径是否存在
+fs.exists(路径,function(exists){
+	if(exists){
+		console.log('路径存在')
+	}
+})
+
+=================================================================================
+url模块(解析url)
+方法
+const url=require('url');
+console.log(url.parse("http://localhost:8888/bb?name=me&momo=you"))
+{
+  protocol: 'http:',
+  slashes: true,
+  auth: null,
+  host: 'localhost:8888',
+  port: '8888',
+  hostname: 'localhost',
+  hash: null,
+  search: '?name=me&momo=you',
+  query: 'name=me&momo=you',
+  pathname: '/bb',
+  path: '/bb?name=me&momo=you',
+  href: 'http://localhost:8888/bb?name=me&momo=you' 
+}
+
+
+方式二
+const {URL}=require('url');
+var str=new URL("http://localhost:8888/bb?name=me&momo=you#id");
+str.host//localhost:8888域名和端口信息
+str.port//8888端口
+str.hostname//localhost域名
+str.hash//#id锚点
+str.search//?name=me&momo=you参数部分
+str.href//完整路径
+
+=================================================================================
+queryString模块(解析url参数部分)
+const querystring = require('querystring');
+var json=querystring.parse("name=me&momo=you");
+console.log(json)//{ name: 'me', momo: 'you' }
+
+=================================================================================
+path模块(路径处理)
+const path=require('path');
+var str="/var/www/html/node/a.txt";
+path.dirname(str);
+console.log(path.dirname(str));// 		/var/www/html/node
+console.log(path.basename(str));// 		a.txt
+console.log(path.extname(str));// 		.txt
+
+console.log(path.parse(str));// 		{root:'/',dir:'/var/ww/html/node',base:'a.txt',ext:'.txt',name:'a'}
+console.log(path.format(str));// 		将路径对象转路径,与path.parse相反
+
+=================================================================================
+iconv模块(文件转码)
+npm install iconv-lite --save
+const iconv = require('iconv-lite');
+//将文件转为gbk模式
+var file=iconv.decode(data,'gbk');
+// 例如
+fs.readFile('/var/www/html/node/a.txt',function(err,data){
+	var file=iconv.decode(data,'gbk');
+}
+=================================================================================
+os模块(操作系统相关信息)
+const os=require('os');
+
+os.tmpdir()//返会操作系统的默认临时文件夹
+os.hostname()//返回操作系统主机名
+os.type()//返回操作系统名
+os.platform()//返回操作平台
+os.totalmem()//返回系统内存总量,以字节为单位
+os.freemem()//返回系统空闲内存
+os.cpus()//返回cpu的信息
+os.networkInterfaces()//返回网络接口列表
+=================================================================================
+
+
+
+

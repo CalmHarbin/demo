@@ -3,6 +3,7 @@
 2.安装依赖包
 cnpm install request cheerio -D;
 
+=======================================================================
 爬取图片
 //引入模块
 const request=require('request');//请求
@@ -147,6 +148,139 @@ var ev = document.createEvent("HTMLEvents");
 ev.initEvent("click", false, true);
 document.querySelector("#getcheckcode").dispatchEvent(ev);
 
-==========================================================================
+=======================================================================
 node 安装phantom模块
 npm install phantom --save
+
+phantomjs结合node实时抓取腾讯新闻
+
+getNews.js 	phantomjs执行
+//引入模块
+var page = require('webpage').create();
+//指定编码方式
+phantom.outputEncoding="UTF-8";
+//设置网页宽度
+page.viewportSize = { width: 375, height: 99999}
+//发送请求
+page.open("https://xw.qq.com/", function(status) {
+	if ( status !== "success" ) {
+		console.log("请求失败了");
+	}
+
+
+		page.evaluate(function(){
+
+		   			var ev = document.createEvent("HTMLEvents");       
+		   			ev.initEvent("resize", false, true);
+		   			window.dispatchEvent(ev)
+		   			var scrollTop=0;
+		   			window.setInterval(function(){
+		   				scrollTop+=1000;
+		   				window.scrollTo(0,scrollTop);
+		   				var ev = document.createEvent("HTMLEvents");       
+		   				ev.initEvent("resize", false, true);
+		   				window.dispatchEvent(ev)
+		   			},3000);
+
+		        });
+		setTimeout(function(){
+ 			console.log(page.content);
+ 			page.close();
+ 			phantom.exit(0);//退出
+		},20000)
+});
+
+
+test.js 	node执行
+//引入模块
+const cheerio=require('cheerio');//服务器dom操作
+const fs=require('fs');//保存文件
+const mysql=require('mysql');//引入mysql数据库
+  //配置连接参数
+const connection  = mysql.createConnection({   
+        host : '127.0.0.1',
+        user : 'root',
+        password : 'ZH19970728',
+        database : 'news'
+        // port:3306
+});
+let newArr=[];
+fs.readFile('/var/www/html/node/a.txt',function(err,data){
+    if(err){
+        console.log('读取文件出错啦!!!');
+    }
+    // var body=iconv.decode(data,'gbk')
+      var body=data;
+    //生成虚拟dom
+    let $=cheerio.load(body,{decodeEntities: false});
+
+      $('.wrap').each(function(){
+        let json={};
+
+        //标题
+        json['title']=$(this).find('.title-inner').html()===null?$(this).find('.title').html():$(this).find('.title-inner').html();
+        //来源
+        json['source']=$(this).find('.info span').eq(0).html()===null?'未找到':$(this).find('.info span').eq(0).html();
+        //事件
+        json['time']=$(this).find('.info span').eq(1).html()===null?'未找到':$(this).find('.info span').eq(1).html();
+        //图片地址
+        json['img']='https:'+$(this).find('.image-inner img').attr('src');
+        //跳转链接
+        json['url']='https://xw.qq.com'+$(this).find('a').attr('href');
+        newArr.push(json);
+      })
+      console.log(newArr,newArr.length)
+
+      //连接
+      connection.connect();
+      
+      //先清空数据库
+      connection.query('truncate news',[],(err,res)=>{
+          if(err){
+              console.log('出错啦'+err.message);
+          }else{
+              console.log('已成功清空数据库!');
+          }
+      })
+      //sql语句
+      var sql="INSERT INTO news(title,time,source,img,url) VALUES (?,?,?,?,?)";
+      //遍历新闻数据
+      for(let item of newArr){
+        let data=[
+            item.title,
+            item.time,
+            item.source,
+            item.img,
+            item.url
+        ]
+        //执行sql语句
+        connection.query(sql,data,(err,res)=>{
+            if(err){
+                console.log('出错啦'+err.message);
+            }else{
+                console.log('成功插入一条数据')
+            }
+        })
+      }
+      //结束连接
+      connection.end()
+});
+
+编写shell脚本
+#!/bin/bash
+/var/www/html/node/phantomjs/bin/phantomjs /var/www/html/node/getNews.js>/var/www/html/node/a.txt
+sleep 120
+/home/node/bin/node /var/www/html/node/test.js
+
+使用任务计划
+crontab -e
+* */2 * * * /mnt/getNews.sh//每两个小时更新一次数据
+
+
+
+
+
+
+
+	
+

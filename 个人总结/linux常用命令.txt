@@ -264,7 +264,7 @@ yum -y install at
 
 周期性任务计划(crontab)
 添加  crontab -e
-查看  control -l
+查看  crontab -l
 删除  crontab -r (删除所有,单独删除编辑文件)
 时间
 	* * * * *分时日月周 后面跟命令
@@ -278,19 +278,23 @@ yum -y install at
 16.shell脚本
 第一步写脚本
 cd /mnt
-touch backup.sh
-vi backup.sh
+touch getNews.sh
+vi getNews.sh
 例如,网站备份脚本
+
 #!/bin/bash   脚本必须加这一句
 t=`date +%Y.%m.%d`    定义一个变量,自动获取当期时间
 file="mySite-${t}.zip" 	定义一个变量file,表示备份文件名,${t}表示变量
 cd /var/www/html/  		进入备份的目录
 zip -r $file mySite &>/dev/null   一条命令,制作压缩包,&>/dev/null表示不输出
 mv $f /mnt 		将备份移动到我们所需要的目录中
+//添加权限
+chmod a+x getNews.sh
 第二步,创建任务计划
 crontab -e
-23:59 * * 0 /mnt/backup.sh 	每周日23:59分执行这个脚本
+23:59 * * 0 /mnt/getNews.sh 	每周日23:59分执行这个脚本
 
+* */2 * * * /mnt/getNews.sh
 
 
 
