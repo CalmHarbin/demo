@@ -87,13 +87,12 @@ const fs = require('fs');
 
 // 文件操作
 //读取文件
-fs.readFile(filename,function(err,data){
-	console.log(data)//data为一个Buffer对象
-})
 fs.readFile(filename,function(data){//异步读取文件
 	console.log(data)//data为文件内容
 })
 var data=fs.readFileSync(filename);//同步读取文件
+
+fs.createReadStream('文件');//同步读取文件,以流的形式读取
 
 //获取文件信息
 fs.start(文件路径,function(err,stats){
@@ -119,6 +118,8 @@ fs.writeFile(filename,data,function({//data为写入的数据
 fs.appendFile(文件名,data,function(){//以追加的方式写入
 
 })
+fs.createWriteStream('文件');//以流的形式写入文件,同步
+
 //关闭文件
 fs.close(fd,function(){})
 fs.open('a.txt','r+',function(err,fd){//打开文件
@@ -223,6 +224,185 @@ os.freemem()//返回系统空闲内存
 os.cpus()//返回cpu的信息
 os.networkInterfaces()//返回网络接口列表
 =================================================================================
+
+
+koa2的使用
+安装
+npm install koa -g
+项目生成器koa-generator
+npm install -g koa-generator
+创建项目
+koa2 test
+cd test
+npm install
+运行
+npm start
+
+
+不依靠生成器时;
+//引入模块
+const Koa=require('koa');
+const app=new Koa();
+//处理响应
+app.use(async (ctx,next)=>{
+	//处理下一个异步函数
+	await next();
+	//判断客户端想要的返回类型
+	if (ctx.request.accepts('xml')) {
+		//返回类型
+	    ctx.response.type = 'xml';
+	    //返回内容
+	    ctx.response.body = '<data>Hello World</data>';
+	} else if (ctx.request.accepts('json')) {
+	    ctx.response.type = 'json';
+	    ctx.response.body = { data: 'Hello World' };
+	} else if (ctx.request.accepts('html')) {
+	    ctx.response.type = 'html';
+	    ctx.response.body = '<p>Hello World</p>';
+	} else {
+	    ctx.response.type = 'text';
+	    ctx.response.body = 'Hello World';
+	}
+});
+//监听端口
+app.listen(3000);
+----------------------------------------------------------------------------------
+
+//路由模块
+const router=require('koa-router')();
+//设置路由
+const root=ctx=>{
+	ctx.response.type='html';
+	ctx.response.body="<p>我是根路由</p>"
+}
+const user=ctx=>{
+	ctx.response.type='html';
+	ctx.response.body="<p>我是用户路由</p>"
+}
+//注册路由
+use.use(router.get('/',root));
+use.use(router.get('/user',user));
+
+重定向
+ctx.response.redirect('/');//重定向到根路由
+----------------------------------------------------------------------------------
+
+静态资源
+const static=require('koa-static');//访问静态资源模块
+app.use(static(path.join(__dirname)));//path.join(__dirname)表示项目所在的根目录
+----------------------------------------------------------------------------------
+//表单处理,post请求
+//当普通表单enctype为默认值时
+const koaBody=require('koa-body');//post请求处理,文件上传
+//表单处理(需要先use)
+app.use(koaBody());
+//处理文件post请求
+router.post('/form',async (ctx)=>{
+	console.log(ctx.request.body)//储存了上传的数据,json格式
+	ctx.response.type='html';
+	ctx.response.body="<h1>"+ctx.request.body.username+"</h1>";
+})
+
+当上传文件 enctype="multipart/form-data"时;
+const koaBody=require('koa-body');//post请求处理,文件上传
+//表单处理(需要先use)
+app.use(koaBody({
+	multipart:true,
+	formidable:{
+		uploadDir:__dirname+'/opload/'//上传的位置
+	}
+}));
+//处理文件的上传,form表单需要加上enctype="multipart/form-data"属性,表示二进制编码
+router.post('/upload',async (ctx)=>{
+	console.log(ctx.request.body.files)//储存量input[type=file]上传的文件信息
+	console.log(ctx.request.body.fields)//储存其他的数据
+	ctx.response.type='html';
+	ctx.response.body="<h1>"+ctx.request.body.fields+"</h1>";
+})
+-----------------------------------------------------------------------
+cookie
+设置cookie
+ctx.cookies.set(key,val,{
+	maxAge:Date.now();//一个数字表示从 Date.now() 得到的毫秒数
+	expires:,//过期的时间
+})
+获取cookie
+ctx.cookies.get(key);
+-----------------------------------------------------------------------
+session
+const session=require('koa-session');
+app.keys = ['some secret hurr'];//设置秘钥,自定义
+const CONFIG = {
+  key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
+  /** (number || 'session') maxAge in ms (default is 1 days) */
+  /** 'session' will result in a cookie that expires when session/browser is closed */
+  /** Warning: If a session cookie is stolen, this cookie will never expire */
+  maxAge: 86400000,
+  overwrite: true, /** (boolean) can overwrite or not (default true) */
+  httpOnly: true, /** (boolean) httpOnly or not (default true) */
+  signed: true, /** (boolean) signed or not (default true) */
+  rolling: false, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
+  renew: false, /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
+};
+app.use(session(CONFIG, app));
+
+设置session
+ctx.session.key=val;
+
+==================================================================================
+mongodb数据库
+安装
+官网下载安装包安装即可
+1.双击安装,选择Custom自定义安装路径D:\前端\mongodb
+2.创建数据库,新建文件件D:\前端\mongodb\data\db
+3.cmd执行 cd D:\前端\mongodb\bin
+4.执行 		D:\前端\mongodb\bin\mongod --dbpath D:\前端\mongodb\data\db
+此时创建了一个服务器,27017端口
+浏览器访问localhost:27017
+
+mongoose模块
+npm install mongoose
+
+使用
+const mongoose=require('mongoose');
+
+//获取规范类
+const Schema=mongoose.Schema;
+//规范数据格式
+let format=new Schema({
+	name:String,//key,类型
+})
+//创建数据库模型
+let user=mongoose.model('User(名字)',format(格式));
+
+//连接数据库
+mongoose.connect("mongodb://username:password@host:port/database",function(err){
+	//失败
+	if(err) return console.log(err);
+	//成功
+
+})
+//断开连接
+mongoose.disconnect(function(){
+	console.log('已断开连接!');
+});
+
+------------------------------------------------------------------
+mocha模块(测试连接数据是否成功)
+npm install mocha
+const mocha=require('mocha');
+const assert=require('assert');//断言,mocha自带
+
+//创建一个测试任务
+describe('任务名',function(){
+	it('任务描述',function(){
+		//使用断言,类似捕获异常
+		assert(0==false);
+	})
+})
+执行 mocha
+
+
 
 
 

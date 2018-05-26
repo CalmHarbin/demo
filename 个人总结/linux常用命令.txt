@@ -66,6 +66,10 @@ find 路径 -name 文件名  从指定路径查找文件
 先输入updatedb后回车,再输入locate 文件名 	查找文件
 yum install mlocate
 cat 文件 | grep -i 内容 	忽略大小写的从文件中查找内容
+查找内容
+find 目录 -type f|xargs grep ^ 2>/dev/null|grep ''
+find /website/userdata/site/musicvai.php56 -type f|xargs grep ^ 2>/dev/null|grep 'visual_editing.php?act=templates'
+
 
 4.目录操作
 mkdir 目录名1 目录名2  	创建目录

@@ -215,3 +215,51 @@ js控制
   <div class="swiper-slide"> <div class="swiper-zoom-container"> <img src="path/to/image"> </div> </div>
   zoom : true,配置
 </script>
+
+========================================================================
+Velocity.js(js动画库)
+文档
+http://www.mrfront.com/docs/velocity.js/option.html
+安装
+<script src="https://cdn.bootcss.com/velocity/2.0.2/velocity.min.js"></script>
+npm install velocity-animate
+使用
+不依赖jquery时
+Velocity(dom元素, {
+    opacity: 0.5//最终样式
+    width: "+=5rem",        // 每次在当前值上叠加 5rem
+    height: "*=2"           // 每次在当前值上叠乘 2
+    color: ["#888", "#000"] // 每次动画执行前，color 的初始值都为"#000"（从"#000"过渡成"#888"）
+}, {
+    duration: 1000,//时间
+    easing:'swing',//缓冲效果
+    queue:'',//队列
+    begin:fn,//动画开始时的回调
+    progress:fn,//动画执行中的回调(一直触发)
+    complete:fn,//动画结束时的回调
+    display:'',//动画结束后的display样式
+    visibility:'',//动画结束后的visibility样式
+    loop:false,//是否循环
+    delay:0,延迟时间
+    mobileHA:true,//移动端硬件加速(默认true)
+});
+//有jquery是
+$(ele).velocity({
+	opacity:0.5
+},{
+	duration:1000
+})
+
+vue中单个元素使用动画
+<div class="rect" ref="rect"></div>
+mounted: function() {
+    Velocity(this.$refs.rect, {
+        backgroundColor: '#0085eb',
+        translateX: 260,
+        rotateZ: '360deg'
+    }, {
+        duration: 1000,
+        easing: [ 0.4, 0.01, 0.165, 0.99 ]
+    });
+}
+

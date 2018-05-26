@@ -113,7 +113,11 @@ bower安装 		bower install axios
 cdn安装			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 get请求
-axios.get('请求地址')
+axios.get('请求地址',{
+  params:{
+    参数,
+  }
+})
   .then(function (response) {//成功回调
     console.log(response.data);//响应数据
     console.log(response.status);//http状态码

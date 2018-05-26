@@ -355,3 +355,17 @@ fetch("/apis/请求地址",{//此时请求地址不需要写域名了,因为inde
 })
 
 =======================================================================
+动画
+<transition name="fade"></transition>
+过渡的类名
+fade-enter 	过渡开始前的类			enter-class=""
+fade-enter-active过渡过程中的类 		enter-active-class=""
+fade-enter-to 过渡结束时的类 			enter-to-class=""
+fade-leave离开过渡前的类 				leave-class=""
+fade-leave-active离开过渡过程中的类 	leave-active-class=""
+fade-leave-to离开过渡结束时的类 		leave-to-class=""
+
+属性
+v-bind:duration="{
+	enter:500,leave:800//过渡时间
+}"

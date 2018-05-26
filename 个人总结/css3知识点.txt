@@ -110,6 +110,33 @@ animation-fill-mode:forwards		播放完动画之后保持最后的状态
 //是一个change动画2s后匀速播放,用时5s,播放完后保持最后的状态
 animation:change 5s linear 2s forwards;
 ---------------------------------------------------------------------------------------------
+css3函数
+calc()自动计算;
+
+width:calc(100% - 80px);//加和减两边必须有空格
+margin-left:40px;
+---------------------------------------------------------------------------------------------
+css3变量
+定义一个全局变量(以--开头)
+:root{
+  --main-width:1200px;
+}
+使用变量
+div{
+  width:var(--main-width);
+}
+js操作css变量
+// 设置变量
+document.body.style.setProperty('--primary', '#7F583F');
+
+// 读取变量
+document.body.style.getPropertyValue('--primary').trim();
+// '#7F583F'
+
+// 删除变量
+document.body.style.removeProperty('--primary');
+
+---------------------------------------------------------------------------------------------
 弹性盒模型
 display:flex;
 容器的属性
@@ -408,5 +435,77 @@ border-left: 1px+15px solid #000;
 引入文件
 @import '';
 
+==================================================================
+初始化
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,span,i,a,p,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,table{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+img{
+	vertical-align: middle;
+	max-width: 100%;
+	height: auto
+}
+body{
+	width: 100%;
+	overflow-x: hidden;
+	font-size:14px;
+}
+ul,li,ol{
+	list-style: none;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight: 300;
+}
+a{
+	text-decoration: none;
+	color: rgba(255,255,255,.8);
+}
+a:hover{
+	text-decoration: none;
+}
+.none{
+	display: none!important;
+}
+.hover{
+	position: relative!important;
+	border:0!important;
+	overflow: hidden;
+}
+.hover>img{
+	transition: all .3s linear;
+}
+.hover:hover>img{
+	transform: scale(1.1);
+}
+table{ 
+	border-collapse:collapse;
+	border-spacing:0;
+}
 
+/*大屏电脑*/
+@media screen and (min-width: 1366px){
+	.main{
+		width:1217px;
+		margin: 0 auto; 
+	}
+
+}
+/*小型电脑*/
+@media screen and (max-width: 1365px){
+	.main{
+		width:100%;
+		padding:0 15px;
+	}
+	
+}
+/*ipad*/
+@media screen and (max-width: 768px){
+	
+}
+/*手机*/
+@media screen and (max-width: 480px){
+	
+}
 
