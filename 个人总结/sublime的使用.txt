@@ -60,3 +60,24 @@ https://github.com/vuejs/vue-syntax-highlight
 
 HTML属性提示插件
 https://github.com/SublimeCodeIntel/SublimeCodeIntel
+
+直接浏览器打开当前文件插件SideBarEnhancements
+https://github.com/SideBarEnhancements-org/SideBarEnhancements
+application需要填写自己的浏览器位置
+安装
+安装好以后点击工具栏的preferences > package setting > side bar > Key Building-User，键入以下代码
+[
+
+//ctrl+shift+c 复制当前文件的路径
+{ "keys": ["ctrl+shift+c"], "command": "copy_path" },
+
+//chrome浏览器
+{ "keys": ["f1"], "command": "side_bar_files_open_with", "args": { "paths": [], "application": "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "extensions":".*" } },
+
+//firefox浏览器
+{ "keys": ["f2"], "command": "side_bar_files_open_with", "args": { "paths": [], "application": "C:/Program Files/Mozilla Firefox/firefox.exe", "extensions":".*" } },//匹配任何文件类型 
+
+//ie浏览器
+{ "keys": ["f3"], "command": "side_bar_files_open_with", "args": { "paths": [], "application": "C:/Program Files/Internet Explorer/iexplore.exe", "extensions":".*" } },
+
+]

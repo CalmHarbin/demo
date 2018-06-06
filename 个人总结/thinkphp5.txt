@@ -1,3 +1,10 @@
+<?php
+常量
+__ROOT__ 项目目录
+__STATIC__ 项目目录下的static目录
+__JS__项目目录下的static/js目录
+__CSS__项目目录下的static/css目录
+
 1.安装
 git clone https://github.com/top-think/think.git 要存储的地址;
 或者直接下载源码包
@@ -27,7 +34,6 @@ C:\wamp64\www\tp5\application\config.php
 
 创建一个控制器
 C:\wamp64\www\tp5\application\index\User.php
-<?php 
 //申明命名空间
 namespace app\index\controller;
 //申明控制器
@@ -37,7 +43,6 @@ class User{
 		return '我是user控制器';
 	}
 }
- ?>
 访问
 			 		 		入口文件  模块  控制器  方法
 http://localhost/tp5/public/index.php/Index/User/index
@@ -95,7 +100,7 @@ $model->say();
 
 优先级
 动态配置>模块配置>场景配置>扩展配置>应用配置>惯例配置
-
+===============================================================================
 配置系统环境变量
 在根目录(C:\wamp64\www\tp5)下新建.env文件
 书写变量
@@ -123,6 +128,7 @@ define("BIND_MODULE","index");
 //关闭后台模块路由
 \think\App::route(false);
 
+==============================================================================
 设置路由规则(C:\wamp64\www\tp5\application\route.php)
 use think\Route;
 Route::rule('输入的地址','实际的地址','请求类型','路由参数(数组)','变量规则(数组)')
@@ -151,10 +157,10 @@ arr=[
 设置路由请求类型
 	Route::rule('test','index/index/test','get|post');//get或者post
 批量注册路由
-	return [
+	Route::rule([
 		"index"=>"index/index/index",
 		"test"=>"index/index/test"
-	]
+	],"","get");
 
 资源路由
 Route::resource('blog','index/blog');//前台的blog控制器
@@ -167,7 +173,7 @@ get 		blog/:id 		read
 get  		blog/:id/edit 	edit
 put 		blog/:id 		update
 delete 		blog/:id 		delete
-
+====================================================================================
 生成路由地址
 url('需要生成地址的方法');
 url('index/index/test');
@@ -179,4 +185,331 @@ yijia为域名
 name为锚点
 id为参数
 index模块的index控制器的test方法
+==============================================================================
+控制器的初始化
+//申明命名空间
+namespace app\index\controller;//就是当前控制器所在的路径
+//申明控制器
+class User{
+	//方法
+	public function index(){
+		return '我是user控制器';
+	}
+}
+//继承Controller控制器
+namespace app\index\controller
+use think\Controller;
+class User extends Controller{//继承
+	//执行其他的方法都会先执行_initialize方法
+	public function _initialize(){
+		echo "我会先执行";
+	}
+	//前置操作
+	protected $beforeActionList=[
+		'one',//所有方法执行前都会执行one方法
+		"tow"=>["only"=>"index"],//仅仅只有index方法执行前后执行tow方法
+		"three"=>["except"=>"getUser"]//除了getUser,其他方法执行前都会先执行three方法
+	]
+	//空操作,对于访问不存在的方法会自动执行空操作.
+	public _empty(){
+		$this->redirect("index/index");//重定向到首页
+	}
+	//方法
+	public function index(){
+		return '我是user控制器';
+	}
+}
+//空控制器
+application/config中
+// 默认的空控制器名
+'empty_controller'       => 'Error',
+当访问不存在的控制器时会自动访问Error控制器
+创建Error控制器
+C:\wamp64\www\tp5\application\index\controller\Error.php
+
+=========================================================================
+数据库连接
+方法一:
+数据库配置
+application/database.php
+// 服务器地址
+'hostname'        => '127.0.0.1',
+// 数据库名
+'database'        => 'mysite',
+// 用户名
+'username'        => 'root',
+// 密码
+'password'        => '123',
+方法二
+使用方法连接
+Db::connect('数据库类型://用户名:密码@主机名:端口/数据库名#字符集');
+Db::connect('mysql://root:1234@127.0.0.1:3306/thinkphp#utf8');
+
+每个控制器单独配置数据库
+在改模块下新建一个database.php(重复的内容无需配置)
+return [
+    // 服务器地址
+    'hostname'    => '192.168.1.100',
+    // 数据库名
+    'database'    => 'admin',  
+    // 开启断线重连
+    'break_reconnect' => true,  
+];
+
+// 引入db类
+use think\Db;
+原生sql语句
+//查询操作
+Db::query("select * form user where id>?",[5]);//查询user表中id>5的
+//增加数据,或者更新数据,删除数据
+Db::execute("insert into user (username,password) values (?,?)",['user1',123]);
+------------------------------------------------------------------------------
+// 查询构造器
+查询一条数据
+$row=Db::table('user')->where("id",1)->find();//查看user表id=1的数据
+$rows=Db::table('user')->select();//查看user表
+助手函数
+$row=db("user",[],false)->where("id",1)->find();
+--------------------------------------------------------------------------
+增加数据
+Db::table('user')->insert(['username'=>'user1',"password"=>123]);//成功则返回新增数据的数量,一般为1
+Db::table('user')->getLastInsID();//获取新增数据的自增主键
+//新增一条数据并返回主键
+Db::table("user")->insertGetId(['username'=>'user1',"password"=>123]);
+// 一次添加多条数据
+$data=[
+	['username'=>'user1',"password"=>123],
+	['username'=>'user1',"password"=>456],
+	['username'=>'user1',"password"=>789]
+];
+Db::table("user")->insertAll($data);//返回添加成功的条数
+----------------------------------------------------------------------------
+修改数据
+Db::table("user")->where("id","1")->update(['username'=>'user111']);//把user表中id为1的username改为user111,返回成功的条数
+---------------------------------------------------------------------------
+删除数据
+Db::table("user")->where("id",1)->delete();//删除user表中id=1的数据
+Db::table("user")->where("id",">",20)->delete();//删除user表中id>20的数据,当成功的条数
+
+--------------------------------------------------------------------------------
+查询方法
+where()//条件
+whereOr()//进行or查询,或者
+alias('别名')//给数据表起别名
+field('字段1','字段2 as 别名');//指定返回的字段
+order("id desc");//排序
+limit("索引","个数");//截取
+page('当前页','每页个数');//分页查询
+group("字段");//分组
+having("条件");//配合group分组条件查询
+column("字段1,字段2");//获取字段值
+
+==================================================================================
+使用模板文件
+新建模板文件C:\wamp64\www\tp5\application\index\view\User\index.html
+新建控制器C:\wamp64\www\tp5\application\index\controller\User.php
+方法一:使用view类
+namespace app\index\controller;
+use think\View;
+class User{
+	function index(){
+		$view=new View();
+		return $view->fetch();
+	}
+}
+方法二:继承Controller控制器
+namespace app\index\controller;
+use think\Controller;
+class User extends Controller{
+	function index(){
+		return $this->fetch();
+	}
+}
+助手函数
+return view();
+===============================================================================
+页面跳转和重定向(需要继承Controller控制器)
+view中
+<form action="{:url('index/user/login')}" method="post">
+	<input type="text" name="username">
+	<input type="password" name="password">
+	<button type="submit">登录</button>
+</form>
+
+// 成功跳转
+$this->success("提示信息","跳转地址","返回的数据","等待的时间","发送的header");
+$this->success("登录成功",url("index/index"));//跳转到首页
+//失败跳转
+$this->error("提示信息","跳转地址","返回的数据","等待的时间","发送的header");
+$this->error("登录失败")//默认跳转到上一个页面
+
+application/config.php指定了提示页面
+// 默认跳转页面对应的模板文件
+'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
+'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
+// 跳转提示页面
+C:\wamp64\www\tp5\thinkphp\tpl\dispatch_jump.tpl
+接受的数据
+$data要返回的数据
+$msg页面提示信息
+$code返回的,成功是1,失败是0
+$wait跳转等待时间
+$url跳转的地址
+
+
+//重定向
+$this->redirect("重定向地址","额外参数","状态码302","隐式传参");//前面的为get参数,后面的为post参数
+=============================================================================
+获取当前的请求信息
+1.使用助手函数
+$request=request();
+2.使用系统类
+use think\Request;//(单例模式);
+$request=Request::instance();
+
+$request->domain();//获取当前域名
+$request->baseFile();//获取当前入口文件
+$request->url();//不含域名的url地址
+$request->url(true);//完整的url地址
+$request->baseUrl();//
+$request->pathinfo();//
+$request->path();//
+$request->ext();//url地址中的后缀信息
+
+$request->module();//返回或设置当前的模块名称
+$request->controller();//返回或设置当前的控制器名称
+$request->action();//返回或设置当前的方法名词
+
+$request->method();//请求方法
+$request->type();//资源类型
+$request->ip();//ip地址
+$request->isAjax();//是不是Ajax请求
+$request->param();//请求参数
+
+$request->route();//路由信息
+$request->dispatch();//调度信息
+
+$request->has("id","get");//get方式的id参数是否存在
+$request->get("id");//获取get类型的id参数值
+$request->post("name");
+// 检查变量是否存在
+input("?get.id");//get方式的id参数是否存在
+input("get.id");//获取get方式的id参数值
+input("post.");//获取post的所有参数
+====================================================================
+变量的过滤
+1.配置文件设置全局过滤
+'default_filter'         => 'htmlspecialchars,strip_tags'//将特殊字符转为实体,单双引号转义
+2.使用request对象过滤
+$request->filter(["htmlspecialchars","strip_tags"]);
+------------------------------------------------------------------
+变量的修改
+$request->get(["id"=>10]);//把id修改成10;
+$request->post(["name"=>"user"]);//把name改为user
+--------------------------------------------------------------
+判断请求类型
+$request->isGet();//是不是get请求
+$request->isPost();//是不是post请求
+$request->isPut();//是不是Put请求
+$request->isDelete();//是不是Delete请求
+$request->isAjax();//是不是Ajax请求
+$request->isMobile();//是不是手机方法
+-------------------------------------------------------------
+请求伪装
+1.配置文件设置请求伪装的变量名
+'var_method'             => '_method',
+2.在表单中添加_method变量,值为请求的类型 method="post"
+<input type="hidden" name="_method" value="PUT" >
+3.表单提交时会自动被系统识别为PUT请求;
+
+伪装Ajax请求
+1.配置文件
+'var_ajax'               => '_ajax',
+http://localhost/index?_ajax=1 //带上_ajax即可;
+
+==================================================================
+模型
+1.新建一个模型,名字一般和数据表名一致
+C:\wamp64\www\tp5\application\index\model\User.php
+namespace app\index\model;
+ues think\Model;
+class User extends Model{
+	// 设置当前模型对应的完整数据表名称
+	protected $table = 'user';
+
+	// 设置当前模型的数据库连接
+    protected $connection = [
+        // 数据库类型
+        'type'        => 'mysql',
+        // 服务器地址
+        'hostname'    => '127.0.0.1',
+        // 数据库名
+        'database'    => 'mysite',
+        // 数据库用户名
+        'username'    => 'root',
+        // 数据库密码
+        'password'    => '123',
+        // 数据库编码默认采用utf8
+        'charset'     => 'utf8',
+        // 数据库表前缀
+        'prefix'      => '',
+        // 数据库调试模式
+        'debug'       => false,
+    ];
+}
+
+//控制器中实例化模型
+use app\index\model\User;
+$user=new User;
+
+// 使用助手函数
+$user=model("user");
+-------------------------------------------------------------------
+// 获取单条数据
+$user->get(['id'=>'1'])->toArray();//获取id=1的数据
+$user->where("id","1")->find()->toArray();//获取id=1的数据
+//获取多条数据
+$list=$user->where("id",">","1")->select();
+foreach ($list as $key => $value) {
+	dump($value->toArray());
+}
+---------------------------------------------------------------------
+// 增加数据
+$user->data([
+	"name"=>"user",
+	"password"=>123
+])
+$user->save();
+//获取自增id
+$user->id;
+//批量增加数据
+$list=[
+	["name"=>"user","password"=>123],
+	["name"=>"user","password"=>123],
+	["name"=>"user","password"=>123]
+]
+$user->saveAll($list);
+--------------------------------------------------------------
+// 更改数据
+更改id=1的数据,第二个参数为条件;
+$user->save([
+	"name"=>"user1",
+	"password"->456
+],["id"=>"1"]);
+批量更改数据
+$list=[
+	["id"=>1,"name"=>"user1","password"=>456],
+	["id"=>2,"name"=>"user2","password"=>123456]
+]
+$user->saveAll($list);
+$user->where("id",1)->update(['password'=>456]);
+-------------------------------------------------------------------------
+删除数据
+$user->destroy(['id'=>1]);//删除id=1的数据
+$user->where("id",">",5)->delete();//删除id>5的数据
+
+
+
+
+
 

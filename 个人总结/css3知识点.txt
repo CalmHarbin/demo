@@ -373,6 +373,17 @@ http://autoprefixer.github.io/
 
 hask
 <!--[if IE]>IE浏览器显示的内容 <![endif]-->
+/*ie8及以下*/
+<!--[if lte IE 8]>
+  <style>
+    .infof3 LI{
+      margin-right:37px;
+    }
+    .f2 .right-f2 .box{
+      width:310px;
+    }
+  </style>
+<![endif]-->
 
 ie6识别               _
 _background-color:#1e0bd1
@@ -388,6 +399,8 @@ background-color:#00deff\9
 \0       ie7以上
 \9        ie11以下
 \9\0       ie9,10
+
+
 
 
 ======================================================================

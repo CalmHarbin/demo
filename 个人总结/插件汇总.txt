@@ -152,6 +152,8 @@ js控制
     spaceBetween:0,//在slide之间设置距离,间隙
     slidesOffsetBefore:0,//设置slide与左边界的预留距离
     slidesOffsetAfter:0,//设置slide与右边界的预留距离
+    loopedSlidesL:10,//当centeredSlides为true时,需要设置,一般值为slide个数
+    slideToClickedSlide:true,//设置为true时,点击slide会命中,有过渡效果
 
     //双向控制,可实现缩略图轮播
     controller:{
@@ -262,4 +264,19 @@ mounted: function() {
         easing: [ 0.4, 0.01, 0.165, 0.99 ]
     });
 }
+
+============================================================================
+分享插件
+http://www.bshare.cn/help/installAction
+
+============================================================================
+手机打开控制台
+<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>
+
+eruda.init();
+
+console.log('控制台打印信息');
+
+</script>
 

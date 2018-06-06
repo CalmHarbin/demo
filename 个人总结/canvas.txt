@@ -25,7 +25,7 @@ clearRect(x,y,width,height)							清除指定区域矩形
 
 样式
 fillStyle						设置或返回填充颜色
-strikeStyle						设置或返回笔触的颜色
+strokeStyle						设置或返回笔触的颜色
 lineWidth						设置或返回线条的宽度
 lineCap=butt|round|square		设置或返回线条的结束端点样式
 lineJoin=miter|round|bevel		设置或返回两条线相交时，所创建的拐角类型

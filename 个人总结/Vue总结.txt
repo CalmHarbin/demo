@@ -208,6 +208,17 @@ vm.$watch("监听的数据",function(变化后的值,变化前的值){
 Vue脚手架
 https://cn.vuejs.org/
 
+Vue环境搭建
+https://cn.vuejs.org/v2/guide/installation.html
+
+安装脚手架
+npm install --global vue-cli
+创建项目,my-project任意
+vue init webpack my-project
+
+npm run dev启动服务器//webpack的功能
+访问localhost:8080
+
 组件范围内的样式
 <style scoped></style>
 
