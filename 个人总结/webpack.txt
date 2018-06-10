@@ -16,7 +16,7 @@ mode
 	npm i jquery -S
 
 1.安装
-npm install webpack -cli -g
+cnpm install webpack webpack-cli webpack-dev-server -g
 
 检测是否安装成功
 webpack -v
@@ -228,32 +228,73 @@ bable:把es6.jsx等语法转为浏览器认识的语法
 
 
 
+======================================================================
+安装
+cnpm install webpack webpack-cli webpack-dev-server -g
 
 
+多页面的应用
+package.json
+{
+  "name": "aa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "dev": "webpack-dev-server --mode development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^8.6.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "glob": "^7.1.2",
+    "html-webpack-plugin": "^3.2.0",
+    "html-withimg-loader": "^0.1.16",
+    "postcss-loader": "^2.1.5",
+    "purify-css": "^1.2.5",
+    "purifycss-webpack": "^0.7.0",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1"
+  }
+}
 
-
-
+webpack.config.js
 const path=require('path');//引入模块
-const htmlWebpackPlugin=require('html-webpack-plugin');//引入文件
-const cleanWebpackPlugin=require('clean-webpack-plugin');//引入文件
-const extractTextPlugin=require('extract-text-webpack-plugin');
-const purifycss=require('purifycss-webpack');
-const glob=require('glob');
+const htmlWebpackPlugin=require('html-webpack-plugin');//生成html页面
+const cleanWebpackPlugin=require('clean-webpack-plugin');//清空dist文件夹
+const extractTextPlugin=require('extract-text-webpack-plugin');//分离css文件
+const purifycss=require('purifycss-webpack');//消除冗余的css代码
+const glob=require('glob');//消除冗余的css代码
 module.exports={
 	entry:{//入口
 		index:'./src/js/index.js',
-		index1:'./src/js/index1.js'
+		shop:'./src/js/shop.js'
 	},
 	output:{//出口配置
 		path:path.resolve(__dirname,'dist'),//path必须是绝对路径,__dirname是node的
-		filename:'./js/[name]-bundle.js'//js文件路径
+		filename:'./js/[name].js'//js文件路径
 	},
-	// devServer:{//服务器
-	// 	contentBase:path.resolve(__dirname,'dist'),//服务器访问目录
-	// 	host:'localhost',//服务器的IP地址
-	// 	port:80,//端口
-	// 	open:true//自动打开页面
-	// },
+	devServer:{//服务器
+		contentBase:path.resolve(__dirname,'dist'),//服务器访问目录
+		host:'localhost',//服务器的IP地址
+		port:3000,//端口
+		open:false,//自动打开页面
+		proxy: {//跨域,代理
+	      '/api': {
+	        target: 'http://117.131.17.174:8000',
+	        changeOrigin: true,//是否跨域
+	        pathRewrite: {
+	        	'^/api' : ''
+	        }
+	      }
+	    },
+	},
 	module:{
 		rules:[
 			{
@@ -262,22 +303,23 @@ module.exports={
 					fallback:'style-loader',
 					use:['css-loader','postcss-loader'],
 					publicPath:'../'//文件的路径
-				})
+				}),
+				// use:['style-loader','css-loader','postcss-loader']
 			},
-			{
-				test:/\.less$/,
-				use:extractTextPlugin.extract({
-					fallback:'style-loader',
-					use:['css-loader','less-loader']
-				})
-			},
-			{
-				test:/\.(sass|scss)$/,
-				use:extractTextPlugin.extract({
-					fallback:'style-loader',
-					use:['css-loader','sass-loader']
-				})
-			},
+			// {
+			// 	test:/\.less$/,
+			// 	use:extractTextPlugin.extract({
+			// 		fallback:'style-loader',
+			// 		use:['css-loader','less-loader']
+			// 	})
+			// },
+			// {
+			// 	test:/\.(sass|scss)$/,
+			// 	use:extractTextPlugin.extract({
+			// 		fallback:'style-loader',
+			// 		use:['css-loader','sass-loader']
+			// 	})
+			// },
 			{
 				test:/\.(png|jpg|gif)$/,//以png,jpg,gif结尾的文件
 				use:[
@@ -301,9 +343,9 @@ module.exports={
 				collapseWhitespace:false//删除空白区域
 			},
 			hash:true,//清除缓存
-			// chunks:['index'],
+			chunks:['index'],
 			filename:'./index.html',
-			title:'你好世界',//页面标题,在模板中使用  <%= htmlWebpackPlugin.options.title %>
+			//title:'你好世界',//页面标题,在模板中使用  <%= htmlWebpackPlugin.options.title %>
 			template:'./src/index.html'//模板地址
 		}),
 		new htmlWebpackPlugin({
@@ -311,14 +353,28 @@ module.exports={
 				collapseWhitespace:false//删除空白区域
 			},
 			hash:true,//清除缓存
-			// chunks:['index1'],
-			filename:'../src/js/index2.html',//生成的文件名
+			chunks:['shop'],
+			filename:'./shop.html',//生成的文件名
 			// title:'你好世界',//页面标题,在模板中使用  <%= htmlWebpackPlugin.options.title %>
-			template:'./src/index2.html'//模板地址
+			template:'./src/shop.html'//模板地址
 		}),
+
+		//css分离
 		new extractTextPlugin('css/index.css'),//提取到哪里
+
+		//消除冗余的css代码
 		new purifycss({
 			paths:glob.sync(path.join(__dirname,'src/*.html'))//查找src下的所有html文件
+		})
+	]
+}
+
+postcss.config.js
+
+module.exports={
+	plugins:[
+		require('autoprefixer')({
+			broswers:['last 5 versions']
 		})
 	]
 }

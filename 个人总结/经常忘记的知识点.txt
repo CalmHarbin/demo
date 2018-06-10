@@ -166,5 +166,33 @@ var hiddenProperty = 'hidden' in document ? 'hidden' :
 document.addEventListener(visibilityChangeEvent, onVisibilityChange);
 
 ===========================================================================
+将图片地址转为base64格式数据
+function convertImgToBase64(url, callback, outputFormat){
+  var canvas = document.createElement('CANVAS'),
+    ctx = canvas.getContext('2d'),
+    img = new Image;
+  //防止资源跨域
+  img.crossOrigin = 'Anonymous';
+  img.onload = function(){
+    canvas.height = img.height;
+    canvas.width = img.width;
+    ctx.drawImage(img,0,0);
+    //获取base64格式数据
+    var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+    callback.call(this, dataURL);
+    canvas = null; 
+  };
+  img.src = url;
+}
 
 
+convertImgToBase64('http://bit.ly/18g0VNp', function(base64Img){
+  // Base64DataURL
+});
+
+==============================================================================
+get或post请求中文乱码的解决办法
+js中将中文转16进制   encodeURI("中文");
+js中将16进制转中文   decodeURI("16进制");
+php中将中文转16进制  urlencode("中文");
+php中将16进制转中文  urldecode("16进制");

@@ -1,0 +1,114 @@
+全局配置
+layui.config({
+  dir: '/res/layui/' //layui.js 所在路径（注意，如果是script单独引入layui.js，无需设定该参数。），一般情况下可以无视
+  ,version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
+  ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
+  ,base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
+});
+===================================================================
+定义模块,多个模块使用数组
+layui.define('依赖模块',callback);
+layui.define(function(){
+	
+	//导出模块
+	exports('模块名',function(){
+		//some code 
+		alert("我是定义的模块");
+	})
+})
+===================================================================
+//使用模块
+layui.use('模块名',function(){
+	
+})
+
+layui.use(['laypage', 'layedit'], function(){
+  var laypage = layui.laypage,
+      layedit = layui.layedit
+});
+===================================================================
+加载css
+layui.link('css文件路径');
+
+===================================================================
+本地存贮
+localStorage持久性存贮
+layui.data('表名',json数据);
+
+sessionStorage会话性存贮
+layui.sessionData('表名',json数据);
+
+增
+layui.data('user',{
+	key:'username',
+	value:'user1'
+})
+
+删
+layui.data('user',{
+	key:'username',
+	remove:true
+})
+删除表
+layui.data('user',null);
+
+改
+layui.data('user',{
+	key:'username',
+	value:'user2'
+})
+
+查
+layui.data('user');//读取user表的所有数据
+
+==============================================================
+获取设备信息
+layui.device();
+==============================================================
+内置的jquery
+layui.use('jquery',function(){
+	var $=layui.$;
+
+	//可正常的使用jquery
+})
+
+=============================================================
+容器
+定宽容器 		.layui-container
+100%容器 		.layui-fluid
+
+=============================================================
+栅格系统
+.layui-row 									.layui-container的值
+pc端 	1200以上 	.layui-col-lg1~12		1170px
+中等屏幕 992~1200 	.layui-col-md1~12 		970px
+平板 	768~992 	.layui-col-sm1~12 		750px
+手机 	768以下 		.layui-col-xs1~12 		auto
+
+列间距(加给行.layui-row)
+.layui-col-space1 		1px
+.layui-col-space3 		3px
+.layui-col-space5 		5px
+.layui-col-space8 		8px
+.layui-col-space10 		10px
+.layui-col-space12 		12px
+.layui-col-space15 		15px
+.layui-col-space18 		18px
+.layui-col-space20 		20px
+.layui-col-space22 		22px
+.layui-col-space28 		28px
+.layui-col-space30 		30px
+
+列偏移 (加给列.layui-col)
+.layui-col-lg-offset1~12
+.layui-col-md-offset1~12
+.layui-col-sm-offset1~12
+.layui-col-xs-offset1~12
+
+让ie8/9支持栅格,支持媒体查询
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+

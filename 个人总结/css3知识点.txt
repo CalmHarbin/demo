@@ -450,7 +450,7 @@ border-left: 1px+15px solid #000;
 
 ==================================================================
 初始化
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,span,i,a,p,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,table{
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,span,i,a,p,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,table,header,footer,nav{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -496,8 +496,196 @@ table{
 	border-collapse:collapse;
 	border-spacing:0;
 }
+--------------------------------------------------------------------
+/*响应式栅格系统*/
+/*大屏电脑代码*/
+body{
+    background-color: red;
+}
+.row{
+    width: 100%;
+}
+.row::after,.row::before{
+    content: "";
+    display: block;
+    clear: both;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-md-1, .col-xs-2, .col-sm-2, .col-md-2, .col-md-2, .col-xs-3, .col-sm-3, .col-md-3, .col-md-3, .col-xs-4, .col-sm-4, .col-md-4, .col-md-4, .col-xs-5, .col-sm-5, .col-md-5, .col-md-5, .col-xs-6, .col-sm-6, .col-md-6, .col-md-6, .col-xs-7, .col-sm-7, .col-md-7, .col-md-7, .col-xs-8, .col-sm-8, .col-md-8, .col-md-8, .col-xs-9, .col-sm-9, .col-md-9, .col-md-9, .col-xs-10, .col-sm-10, .col-md-10, .col-md-10, .col-xs-11, .col-sm-11, .col-md-11, .col-md-11, .col-xs-12, .col-sm-12, .col-md-12, .col-md-12 {
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
 
-/*大屏电脑*/
+.col-md-1{
+    width: 8.33333333%;
+}
+.col-md-2{
+    width: 16.66666667%;
+}
+.col-md-3{
+    width: 25%;
+}
+.col-md-4{
+    width: 33.33333333%;
+}
+.col-md-5{
+    width: 41.66666667%;
+}
+.col-md-6{
+    width: 50%;
+}
+.col-md-7{
+    width: 58.33333333%;
+}
+.col-md-8{
+    width: 66.66666667%;
+}
+.col-md-9{
+    width: 75%;
+}
+.col-md-10{
+    width: 83.33333333%;
+}
+.col-md-11{
+    width: 91.66666667%;
+}
+.col-md-12{
+    width: 100%;
+}
+
+/*中等电脑 小于等于1200*/
+@media screen and (max-width: 1199px){
+    body{
+        background-color: yellow;
+    }
+
+    .col-md-1{
+        width: 8.33333333%;
+    }
+    .col-md-2{
+        width: 16.66666667%;
+    }
+    .col-md-3{
+        width: 25%;
+    }
+    .col-md-4{
+        width: 33.33333333%;
+    }
+    .col-md-5{
+        width: 41.66666667%;
+    }
+    .col-md-6{
+        width: 50%;
+    }
+    .col-md-7{
+        width: 58.33333333%;
+    }
+    .col-md-8{
+        width: 66.66666667%;
+    }
+    .col-md-9{
+        width: 75%;
+    }
+    .col-md-10{
+        width: 83.33333333%;
+    }
+    .col-md-11{
+        width: 91.66666667%;
+    }
+    .col-md-12{
+        width: 100%;
+    }
+}
+/*ipad 小于等于992*/
+@media screen and (max-width: 991px){
+    body{
+        background-color: blue;
+    }
+
+    .col-sm-1{
+        width: 8.33333333%;
+    }
+    .col-sm-2{
+        width: 16.66666667%;
+    }
+    .col-sm-3{
+        width: 25%;
+    }
+    .col-sm-4{
+        width: 33.33333333%;
+    }
+    .col-sm-5{
+        width: 41.66666667%;
+    }
+    .col-sm-6{
+        width: 50%;
+    }
+    .col-sm-7{
+        width: 58.33333333%;
+    }
+    .col-sm-8{
+        width: 66.66666667%;
+    }
+    .col-sm-9{
+        width: 75%;
+    }
+    .col-sm-10{
+        width: 83.33333333%;
+    }
+    .col-sm-11{
+        width: 91.66666667%;
+    }
+    .col-sm-12{
+        width: 100%;
+    }
+}
+/*手机*/
+@media screen and (max-width: 767px){
+    body{
+        background-color: green;
+    }
+    .col-xs-1{
+        width: 8.33333333%;
+    }
+    .col-xs-2{
+        width: 16.66666667%;
+    }
+    .col-xs-3{
+        width: 25%;
+    }
+    .col-xs-4{
+        width: 33.33333333%;
+    }
+    .col-xs-5{
+        width: 41.66666667%;
+    }
+    .col-xs-6{
+        width: 50%;
+    }
+    .col-xs-7{
+        width: 58.33333333%;
+    }
+    .col-xs-8{
+        width: 66.66666667%;
+    }
+    .col-xs-9{
+        width: 75%;
+    }
+    .col-xs-10{
+        width: 83.33333333%;
+    }
+    .col-xs-11{
+        width: 91.66666667%;
+    }
+    .col-xs-12{
+        width: 100%;
+    }
+}
+
+---------------------------------------------------------------------
+/*大屏电脑 1366 以上*/
 @media screen and (min-width: 1366px){
 	.main{
 		width:1217px;
@@ -505,7 +693,7 @@ table{
 	}
 
 }
-/*小型电脑*/
+/*小型电脑 768~1366*/
 @media screen and (max-width: 1365px){
 	.main{
 		width:100%;
@@ -513,12 +701,36 @@ table{
 	}
 	
 }
-/*ipad*/
+/*ipad 480~768*/
 @media screen and (max-width: 768px){
 	
 }
-/*手机*/
+/*手机  0~480*/
 @media screen and (max-width: 480px){
 	
+}
+-------------------------------------------------------------------------
+/*大屏电脑代码*/
+  body{
+    background-color: red;
+  }
+
+/*中等电脑 小于等于1200*/
+@media screen and (max-width: 1199px){
+  body{
+    background-color: yellow;
+  }
+}
+/*ipad 小于等于992*/
+@media screen and (max-width: 991px){
+  body{
+    background-color: blue;
+  }
+}
+/*手机*/
+@media screen and (max-width: 767px){
+  body{
+    background-color: green;
+  }
 }
 

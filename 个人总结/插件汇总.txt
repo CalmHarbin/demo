@@ -112,6 +112,7 @@ http://www.jq22.com/jquery-info11629
     });
 </script>
 ============================================================================
+6.轮播图
 swiper插件
 http://www.swiper.com.cn/
 <link href="https://cdn.bootcss.com/Swiper/4.2.2/css/swiper.min.css" rel="stylesheet">
@@ -279,4 +280,93 @@ eruda.init();
 console.log('控制台打印信息');
 
 </script>
+
+=============================================================================
+生成二维码插件 qrcode.js
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>二维码生成</title>
+</head>
+<body>
+
+<div id="qrcodeTable"></div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> 
+<script type="text/javascript" src="http://jeromeetienne.github.io/jquery-qrcode/src/jquery.qrcode.js"></script>
+<script type="text/javascript" src="http://jeromeetienne.github.io/jquery-qrcode/src/qrcode.js"></script>
+
+<script>
+    jQuery('#qrcodeTable').qrcode({
+        width: 200,//宽度
+        height: 200,//高度
+        render : "table",//用表格生成
+        text : "http://www.ilinme.com"//跳转地址
+    });      
+</script>
+
+</body>
+</html>
+
+==============================================================================
+涂鸦插件,在线签名 jq-signature.js
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>在线签名</title>
+</head>
+<body>
+<!-- 画布容器 -->
+<div class="js-signature"></div>  
+
+<button id="clearBtn" onclick="clearCanvas();">清空画布</button>
+<button id="saveBtn" onclick="saveSignature();">保存图片</button>
+
+<!-- 生成图片容器 -->
+<div id="signature"></div> 
+
+<!-- jquery 3.0以下版本 -->
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="./js/jq-signature.js"></script>
+
+<script>
+   $(document).on('ready', function() {
+      if ($('.js-signature').length) {
+        $('.js-signature').jqSignature({
+          width:600,//宽度
+          height:300,//高度
+          border:'1px solid red',//边框颜色
+          background:'#fff',//背景色
+          lineColor:'#000',//线条颜色
+          lineWidth:3,//线条宽度
+          autoFit:false//canvas是否占满父元素
+        });
+      }
+    });
+      // 清除画布
+    function clearCanvas() {
+
+      $('.js-signature').eq(0).jqSignature('clearCanvas');
+      $('#saveBtn').attr('disabled', true);
+    }
+    // 保存图片
+    function saveSignature() {
+      $('#signature').empty();
+      //图片地址
+      var dataUrl = $('.js-signature').eq(0).jqSignature('getDataURL');
+    }
+
+    $('.js-signature').eq(0).on('jq.signature.changed', function() {
+      $('#saveBtn').attr('disabled', false);
+    });    
+</script>
+
+</body>
+</html>
+
+==============================================================================
+上传文件插件    plupload
+
 
