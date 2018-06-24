@@ -458,7 +458,8 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,span,i,a,p,pre,code,form,fieldset,l
 img{
 	vertical-align: middle;
 	max-width: 100%;
-	height: auto
+	height: auto;
+	border:none;
 }
 body{
 	width: 100%;
@@ -734,3 +735,13 @@ body{
   }
 }
 
+==============================================================================
+修改谷歌浏览器表单自动填充背景色
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill { 
+	background-color: rgb(250, 255, 189); /* #FAFFBD; */ 
+	background-image: none; 
+	color: rgb(0, 0, 0); 
+}
+=============================================================================
+让网页里的字体变细,
+-webkit-font-smoothing: antialiased; 

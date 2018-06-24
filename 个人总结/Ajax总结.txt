@@ -1,5 +1,6 @@
-jacaScript中的ajax
+javaScript中的ajax
 
+get 请求
 var xhr=new XMLHttpRequest();//获取xhr对象
 
 xhr.open('get',"delete.php?id="+id+"",true);//请求  true表示异步请求
@@ -10,6 +11,23 @@ xhr.onreadystatechange=function(){//监听请求状态
 		data=xhr.responseText;//获取字符串形式的响应数据
 
 	}
+}
+
+post请求
+var xhr=new XMLHttpRequest();//获取xhr对象
+xhr.open('post',url,true);//请求  true表示异步请求
+
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
+xhr.send(data);//发送请求 data是 a=1&b=2 格式
+xhr.onreadystatechange=function(){//监听请求状态
+    if(xhr.readyState==4){ //4表示请求已完成
+        if(xhr.status===200){//请求成功
+            var res=xhr.responseText;//获取字符串形式的响应数据
+            successCallback(res);//成功回调
+        }else{//请求失败
+            errorCallback(xhr.status);//失败回调
+        }
+    }
 }
 
 ===========================================================================
@@ -57,11 +75,12 @@ jsonp请求
 //动态创建script标签
 var script = document.createElement("script");
 地址为请求地址,带上回调函数callback=jsonpCallback
-script.src =url+'callback=jsonpCallback';//带上回调函数
+script.src =url+'?callback=jsonpCallback';//带上回调函数
 document.body.insertBefore(script, document.body.firstChild);
 
 function jsonpCallback(res){
 	console.log(res);
+  
 }
 
 服务端

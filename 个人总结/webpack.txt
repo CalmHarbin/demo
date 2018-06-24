@@ -149,6 +149,16 @@ module:{
 				}
 			]
 		}
+
+处理html页面中的图片 cnpm install html-withimg-loader --D
+
+	{
+		test:/\.html$/,
+		loader:'html-withimg-loader'
+	}
+在js文件中引入HTML文件 import 'index.html'
+
+--------------------------------------------------------------------------
 分离css文件
 	安装extract-text-webpack-plugin; cnpm i extract-text-webpack-plugin@next -D
 	使用:
@@ -225,7 +235,16 @@ webpacke3.x
 --------------------------------
 bable:把es6.jsx等语法转为浏览器认识的语法
 	安装 cnpm i bable-core bable-loader bable-preset-env -D
-
+在package.json中添加
+	"babel":{
+	  "presets": ["env"]
+	}
+在webpack.config.js中配置
+{
+    test: /\.js$/,
+     exclude: /node_modules/, 
+     loader: "babel-loader"
+}
 
 
 ======================================================================

@@ -1,0 +1,139 @@
+表单文件上传 需要加这一句( enctype="multipart/form-data" )
+
+<form action="aaa.php" method="post" enctype="multipart/form-data">
+	<input type="file" name="file">
+	<input type="submit" 提交>
+</form>
+
+上传的是file对象
+=======================================================================
+获取file对象
+获取表单中的file对象
+<input type="file" id="file">
+
+jquery获取input的file对象
+$("#file").prop('files')
+
+js获取input的file对象
+var file=document.querySelector('#file').files;
+
+===========================================================================
+post提交file对象
+var fileObj = new FormData();//实例化一个表单对象
+
+//添加一个数据,file2是一个file对象
+fileObj.append('file',file2);   // value 可以是一个字符串 string 也可以是一个 blob （代表，file对象）
+
+jquery方式
+$.ajax({
+        url: "aaa.php",
+        type: 'POST',
+        cache: false,
+        data: fileObj,
+        processData: false,// 不处理数据
+        contentType: false,// 不设置内容类型
+        dataType:"json",
+        beforeSend: function(){//文件上传之前触发
+        	alert(1)
+        },
+        success : function(data) {
+            console.log(data);
+        }
+    });
+
+原生js方式
+var xhr=new XMLHttpRequest();//获取xhr对象
+xhr.open('post','aaa.php',true);//请求  true表示异步请求
+xhr.send(fileObj);//发送请求
+xhr.onreadystatechange=function(){//监听请求状态
+	if(xhr.readyState==4){ //4表示请求已完成
+		data=xhr.responseText;//获取字符串形式的响应数据
+		console.log(data);
+	}
+}
+
+==============================================================================
+根据图片地址将图片转为base64格式
+	function convertImgToBase64(url, callback, outputFormat){
+	  var canvas = document.createElement('CANVAS'),
+	    ctx = canvas.getContext('2d'),
+	    img = new Image;
+	  //防止资源跨域
+	  img.crossOrigin = 'Anonymous';
+	  img.onload = function(){
+	    canvas.height = img.height;
+	    canvas.width = img.width;
+	    ctx.drawImage(img,0,0);
+	    //获取base64格式数据
+	    var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+	    callback.call(this, dataURL);
+	    canvas = null; 
+	  };
+	  img.src = url;
+	}
+
+convertImgToBase64('http://www.jrzhan.cn/skin/images/banner.png', function(base64Img){
+  // Base64DataURL
+  console.log(base64Img);
+});
+
+
+将base64格式转file对象
+function dataURLtoFile(dataurl, filename) {//base64格式字符串,生成的文件名
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+}
+
+
+将file对象转base64格式
+var reader=new FileReader();
+reader.readAsDataURL(file);//传入一个file对象;
+reader.onloadend=function(){
+	//base64格式
+	var base64=reader.result;
+	//some code
+}
+
+====================================================================================
+更具图片地址下载图片
+//更具图片地址下载图片,图片地址,保存的图片名称
+function downloadIamge(url, name) {
+
+    var image = new Image()
+
+    // 解决跨域 Canvas 污染问题
+    image.setAttribute('crossOrigin', 'Anonymous');
+
+    image.onload = function () {
+
+        var canvas = document.createElement('canvas')
+        canvas.width = image.width
+        canvas.height = image.height
+
+        var context = canvas.getContext('2d')
+        context.drawImage(image, 0, 0, image.width, image.height)
+        var url = canvas.toDataURL('image/png')
+
+        // 生成一个a元素
+        var a = document.createElement('a')
+        // 创建一个单击事件
+        var event = new MouseEvent('click')
+
+        // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+        a.download = name || '下载图片名称';
+        // 将生成的URL设置为a.href属性
+        a.href = url
+
+        // 触发a的单击事件
+        a.dispatchEvent(event)
+    }
+    image.src=url;
+}
+//下载图片
+downloadIamge('https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=889120611,3801177793&fm=27&gp=0.jpg','a.jpg'); 
+
+

@@ -484,3 +484,98 @@ setcookie("PHPSESSID","",time()-1,"/");//删除客户端cookie文件
 session_destroy();//删除服务器上PHPSESSID所对应的session文件
 4.读取session
 $_SESSION['key']
+
+=========================================================================
+php无限分类
+
+数据库表
+id 			id
+name 		名字
+pid 		父级id
+path 		地图
+
+
+$rows=[
+	array(
+		'id'=>1,
+		'name'=>'javascript',
+		'pid'=>'0',
+		'path'=>'0'
+	),
+	array(
+		'id'=>2,
+		'name'=>'PHP',
+		'pid'=>'0',
+		'path'=>'0'
+	),
+	array(
+		'id'=>3,
+		'name'=>'闭包',
+		'pid'=>'1',
+		'path'=>'0-1'
+	),
+	array(
+		'id'=>4,
+		'name'=>'无限分类',
+		'pid'=>'2',
+		'path'=>'0-2'
+	),
+	array(
+		'id'=>5,
+		'name'=>'内存泄漏',
+		'pid'=>'3',
+		'path'=>'0-1-3'
+	),
+	array(
+		'id'=>6,
+		'name'=>'数据表设计',
+		'pid'=>'4',
+		'path'=>'0-2-4'
+	),
+];
+/* 	pid 		父级id
+ * 	path 		地图 	path=父级地图+父级id
+ *
+ */
+
+//组成地图
+foreach ($rows as &$row) {
+	//统计-的个数,对应是几级
+	$num=substr_count($row['path'], '-');
+
+	//创建地图前缀
+	if($num>0){
+		$pre='|'.str_repeat('---', $num);
+	}else{
+		$pre='';
+	}
+	$row['tree']=$pre.$row['name'];
+}
+
+//排序,更具 path+id来排序,字符串从左到右排序
+/*   0-1
+ *   0-2
+ *   0-1-3
+ *   0-2-4
+ *   0-1-3-5
+ *   0-2-4-6
+ *   结果
+ *   0-1
+ *   0-1-3
+ *   0-1-3-5
+ *   0-2
+ *   0-2-4
+ *   0-2-4-6
+ */
+
+foreach ($rows as $row2) {
+	//更具$arr排序$rows
+	$arr[]=$row2['path'].'-'.$row2['id'];
+}
+
+//排序
+array_multisort($arr,$rows);
+//输出
+foreach ($rows as $row3) {
+	echo "<p>{$row3['tree']}</p>";
+}

@@ -41,6 +41,7 @@ reload()				刷新
 replace(url)			替换当前的url
 
 Navigator对象
+不常用
 
 screen对象
 availWidth				屏幕的宽度,除去windows任务栏

@@ -1,5 +1,5 @@
 文档
-http://www.swiper.com.cn/api/pagination/362.html
+http://www.swiper.com.cn/
 
 1.引入文件
 <link rel="stylesheet" href="swiper-4.1.6.min.css">
