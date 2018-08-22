@@ -181,6 +181,8 @@ beforeCreate:组件实例化之前触发
 created:组件实例化完毕触发
 beforeMount:组件挂在前,虚拟Dom配置完毕后,页面还未渲染
 mounted:组件挂在后,此方法执行后页面开始渲染
+activated:页面显示时触发,(仅缓存时有效)
+deactivated:页面离开时触发,(仅缓存有效)
 beforeUpdate:组件更新前,
 updated:组件更新后
 beforeDestroy:组件销毁前
@@ -380,3 +382,63 @@ fade-leave-to离开过渡结束时的类 		leave-to-class=""
 v-bind:duration="{
 	enter:500,leave:800//过渡时间
 }"
+
+===========================================================================
+Vuex状态管理(可理解为一个全局变量仓库,组件之间不需要传值了,改变状态所有组件都会更新)
+1.安装
+cnpm install vuex -S
+
+2.创建仓库
+在src下新建一个vuex文件夹,然后在vuex下新建一个store.js文件
+import Vue from "vue"
+import Vuex from "vuex"
+Vue.use(Vuex)
+const store = new Vuex.Store({
+ 	state: { //这里的state必须是JSON，是一个对象
+ 		count: 1 //这是初始值
+ 	},
+ 	mutations: {//突变，罗列所有可能改变state的方法
+		//这是是用来操作state的一些方法
+		add(state) {
+		  	state.count++; //直接改变了state中的值，而并不是返回了一个新的state
+		},
+ 	},
+ 	action:{
+ 		//这里是用来操作mutations的一些方法
+ 		add(context){//这里的context和我们使用的$store拥有相同的对象和方法
+ 			context.commit('add');//执行mutations中的add方法
+ 		}
+ 	},
+ 	getters:{
+ 		//计算方法,用来改变状态的,获取状态
+ 		change(state){
+ 			return !state.count;
+ 		}
+ 	}
+});
+export default store;//用export default 封装代码，让外部可以引用
+
+
+3.引入
+在main.js中
+import Vue from 'vue'
+import App from './App'
+import store from './vuex/store'
+ 
+/* eslint-disable no-new */
+new Vue({
+ el: '#app',
+ store,
+ render: h => h(App)
+})
+
+4.获取状态(获取变量值)
+this.$store.state.变量名
+
+5.修改状态(修改变量值)
+this.$store.state.变量名=新值
+
+this.$store.commit('add(方法)', 参数);
+
+6.执行action
+this.$store.dispatch('add(方法)', 参数);

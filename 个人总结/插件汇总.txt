@@ -368,5 +368,53 @@ console.log('控制台打印信息');
 
 ==============================================================================
 上传文件插件    plupload
+移动端部分手机无法上传jpg图片,
+解决
+  将plupload.full.min.js中的(f?' accept="'+f.join(",")+'"':"")
+  改为(f?' accept="image/jpg,'+f.join(",")+'"':"")
+<script src="https://cdn.bootcss.com/plupload/3.1.2/plupload.full.min.js"></script>
 
+//图片上传
+uploader = new plupload.Uploader({//创建实例的构造方法
+    browse_button: 'add_img', // 上传按钮
+    url: config.serverUrl+"/CommonUpload/UploadImg", //远程上传地址
+    filters: {
+        max_file_size: '2mb', //最大上传文件大小（格式100b, 10kb, 10mb, 1gb）
+        mime_types: [//允许文件上传类型
+            {title: "Image files", extensions: "jpg,png,gif"}
+        ]
+    },
+    multi_selection: true, //true:ctrl多文件上传, false 单文件上传
+    init: {
+        FilesAdded: function(up, files){ //文件上传前
+            uploader.start();
+            // 上传动画
+            vm.$dialog.loading.open('上传中');
+        },
+        FileUploaded: function(up, file, res) { //文件上传成功的时候触发
+            
+            res=JSON.parse(res.response);
+            console.log(res);
+            if(res.result){
+              //上传动画结束
+              vm.$dialog.loading.close();
+              //更改数据
+              vm.files.push(config.serverUrl+res.imgurl);
+        uploader.destroy();
+              upload();
+            }
+        },
+        Error: function(up, err) { //上传出错的时候触发
+          //上传动画结束
+          vm.$dialog.loading.close();
+
+            vm.$dialog.toast({
+                      mes: '上传失败,请重新上传',
+                      timeout: 1500,
+                      icon: 'error'
+                  });
+        }
+    }
+});
+uploader.init();
 

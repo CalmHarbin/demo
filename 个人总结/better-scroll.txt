@@ -1,0 +1,121 @@
+官网	 	https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options.html
+
+1.安装
+npm install better-scroll --save
+
+<script src="https://unpkg.com/better-scroll@1.12.6/dist/bscroll.min.js"></script>
+=================================================================================================
+
+2.实例化
+let scroll = new BScroll('选择器或者DOM节点',{
+    startX: 0,	//横轴方向初始化位置
+    startY: 0,	//纵轴方向初始化位置
+    scrollX:false, 	//当设置为 true 的时候，可以开启横向滚动
+    scrollY:false,	//当设置为 true 的时候，可以开启纵向滚动
+    freeScroll:false,	//当设置为 true 的时候，可以开启纵向和横向同时滚动
+    click:false,	//设置一个点击事件
+    dblclick:false,	//设置一个双击事件
+    tap:false,		//设置一个触摸事件
+    bounce:true,	//抵触回弹动画
+    bounceTime:800,	//回弹动画的时长
+    momentum:true,	//快速滚动动画
+    probeType:0,	//不派发滚动事件,可选值1,2,3
+    preventDefault:true,	//当事件派发后是否阻止浏览器默认行为
+    preventDefaultException:{tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/},	//表示标签名为 input、textarea、button、select 这些元素的默认行为都不会被阻止。
+})
+=================================================================================================
+
+方法
+refresh() 	重新计算 better-scroll，当 DOM 结构发生变化的时候务必要调用确保滚动的效果正常。
+scrollTo(x, y, time)	滚动到指定位置
+scrollBy(x, y, time)	相对于当前位置偏移滚动 x,y 的距离
+
+scrollToElement(el, time, offsetX, offsetY) 	动到指定的目标元素
+{DOM | String} el 滚动到的目标元素, 如果是字符串，则内部会尝试调用 querySelector 转换成 DOM 对象。
+{Number} time 滚动动画执行的时长（单位 ms）
+{Number | Boolean} offsetX 相对于目标元素的横轴偏移量，如果设置为 true，则滚到目标元素的中心位置
+{Number | Boolean} offsetY 相对于目标元素的纵轴偏移量，如果设置为 true，则滚到目标元素的中心位置
+
+stop() 		立即停止当前运行的滚动动画。
+disable() 	禁用 better-scroll
+destroy() 	销毁 better-scroll，解绑事件。
+
+on(type, fn, context) 	监听当前实例上的自定义事件
+{String} type 事件名
+{Function} fn 回调函数
+{context} 函数执行的上下文环境，默认是 this
+
+once(type, fn, context) 	监听一个自定义事件，但是只触发一次，在第一次触发之后移除监听器
+
+off(type, fn) 	移除自定义事件监听器。只会移除这个回调的监听器
+=================================================================================================
+
+slide组件
+goToPage(x, y, time) 	轮播图滚动到指定的页数
+next(time) 	下一页
+prev(time) 	上一页
+getCurrentPage() 	获取当前页的信息,	返回值:x 和 y 表示偏移的坐标值，pageX 和 pageY 表示横轴方向和纵轴方向的页面数。
+=================================================================================================
+
+picker组件
+wheelTo(index) 	当我们做 picker 组件的时候，调用该方法可以滚动到索引对应的位置。
+getSelectedIndex() 	获取当前选中的索引值
+
+finishPullDown() 	当下拉刷新数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
+finishPullUp() 		当上拉加载数据加载完毕后，需要调用此方法告诉 better-scroll 数据已加载。
+
+=================================================================================================
+事件
+beforeScrollStart		滚动开始之前
+scrollStart 			滚动开始时
+scroll					滚动过程中,参数,{x, y} 滚动的实时坐标
+scrollCancel			滚动被取消
+scrollEnd				滚动结束,参数,{x, y} 滚动结束的位置坐标
+touchEnd 				鼠标/手指离开,参数 , {x, y} 位置坐标
+flick					轻拂时
+refresh 				refresh 方法调用完成后
+destroy 				destroy 方法调用完成后
+pullingDown 			在一次下拉刷新的动作后，这个时机一般用来去后端请求数据
+pullingUp 				在一次上拉加载的动作后，这个时机一般用来去后端请求数据。
+zoomStart 				缩放开始时
+zoomEnd 				缩放结束后。
+
+=================================================================================================
+属性
+x 			scroll 横轴坐标
+y 			scroll 纵轴坐标
+maxScrollX 	scroll 最大横向滚动位置
+maxScrollY 	scroll 最大纵向滚动位置
+movingDirectionX 	判断 scroll 滑动过程中的方向（左右）,-1 表示从左向右滑，1 表示从右向左滑，0 表示没有滑动。
+movingDirectionY	判断 scroll 滑动过程中的方向（上下）,-1 表示从上往下滑，1 表示从下往上滑，0 表示没有滑动。
+directionX			判断 scroll 滑动结束后相对于开始滑动位置的方向（左右）。
+directionY 			判断 scroll 滑动结束后相对于开始滑动位置的方向（上下）
+enabled				判断当前 scroll 是否处于启用状态。
+isInTransition 		判断当前 scroll 是否处于滚动动画过程中。
+isAnimating			判断当前 scroll 是否处于滚动动画过程中。
+
+
+=================================================================================================
+下拉刷新的配置
+
+pullDownRefresh: {
+                    threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
+                    stop: 20 // 刷新数据的过程中，回弹停留在距离顶部还有 0px 的位置
+                },
+scroll.on('pullingDown',function(position){
+    alert('我来请求数据');
+    // 在刷新数据完成之后，调用 finishPullDown 方法，回弹到顶部
+    scroll.finishPullDown();
+    没有数据使用vue的forceUpdate方法来强制刷新
+});
+
+=================================================================================================
+上拉加载的配置
+
+pullUpLoad :{
+    threshold: -20 // 在上拉到超过底部 20px 时，触发 pullingUp 事件
+}
+scroll.on('pullingUp',function(position){
+    alert('我来请求数据');
+    没有数据使用vue的forceUpdate方法来强制刷新
+});

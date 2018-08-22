@@ -74,12 +74,29 @@ http.createServer(function(request,response){
 request模块(请求)
 npm install request --save
 const request=require('request');
+
+get请求
 request(url,function(err,res){
 	if(err){
 		consoel.log(err.message);
 	}
 	consoel.log(res.body);
 })
+
+post请求
+request({
+    url: url,
+    method: "POST",
+    json: true,
+    headers: {
+        "content-type": "application/json",
+    },
+    body: JSON.stringify(data)//上传的数据
+}, function(err, response, body) {
+    if (!err && response.statusCode == 200) {
+        console.log(body) // 请求成功的处理逻辑
+    }
+}); 
 
 ================================================================================
 fs模块(文件操作)

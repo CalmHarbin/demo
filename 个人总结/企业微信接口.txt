@@ -1,0 +1,14 @@
+1.常用参数
+corpid 			公司id
+userid 			用户id
+部门id
+tagid 			标签id
+agentid			应用id
+secret 			应用密钥
+access_token	验证信息
+
+2.获取access_token接口
+https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={公司id }&corpsecret={应用的凭证密钥}
+需要缓存token,不能频繁的请求gettoken接口
+
+

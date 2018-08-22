@@ -318,3 +318,36 @@ var module=(function(){
 })();
 module.name();//我的名字是默认张三
 module.name('李四');//我的名字是李四
+
+============================================================================
+函数注释格式
+
+/**
+ * 函数功能描述
+ * @method 函数名
+ * @param {参数类型} 参数名 	参数描述
+ * @returns {返回数据类型}
+ */
+
+ =========================================================================
+ cookie操作
+ //设置cookie
+ function setCookie(cname,cvalue,exdays){
+ 	var d = new Date();
+ 	d.setTime(d.getTime()+(exdays*24*60*60*1000));
+ 	var expires = "expires="+d.toGMTString();
+ 	document.cookie = cname+"="+cvalue+"; "+expires;
+ }
+ setCookie('key','val',1000);//时间毫秒
+
+//获取cookie
+function getCookie(cname){
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++) {
+		var c = ca[i].trim();
+		if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+	}
+	return "";
+}
+getCookie('key');

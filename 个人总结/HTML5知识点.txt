@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="UTF-8">
 	<!-- 360读取到这个标签立即钱换到极速模式 -->
@@ -15,6 +19,14 @@
 	<!-- 设置文档宽度、是否缩放 -->
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
 	<title>Document</title>
+	<!-- html5shiv让ie低版本支持html5新标签的样式,respond让ie低版本支持媒体查询 -->
+	<!--[if lt IE 9]>
+		<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- 让ie低版本支持css3选择器 -->
+	<!--[if lte IE 8]><script src="https://cdn.bootcss.com/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->
 </head>
 <body>
 	

@@ -4,7 +4,7 @@ output 		出口
 loaders 	转化器
 plugins 	插件
 devServer 	开发服务器
-mode 	 	
+mode 
 
 开发环境(develepment)
 	就是平时编写代码的环境

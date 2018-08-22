@@ -300,9 +300,6 @@ Apache配置文件详情
 打开本地C:\WINDOWS\System32\drivers\etc\hosts
 在里面添加域名 例如 192.168.147.2	www.yijiawang.com
 
-
-
-
 lamp环境搭建
 yum -y install httpd* mysql* php*
 修改Apache端口号

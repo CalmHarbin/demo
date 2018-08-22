@@ -218,3 +218,32 @@ image.onload = function(){
   var base64 = getBase64Image(image);  
   console.log(base64);  
 }  
+
+=================================================================================
+拨打电话
+<a href="tel:13764567708">移动WEB页面JS一键拨打号码咨询功能</a>
+
+发送短信
+<a href="sms:13764567708">移动WEB页面JS一键发送短信咨询功能</a>
+
+手机震动
+if (navigator.vibrate) {
+    //vibrate 1 second
+    navigator.vibrate(1000);
+} else if (navigator.webkitVibrate) {
+    navigator.webkitVibrate(1000);
+}
+调用手机照相机
+<input type="file" accept="image/*" capture="camera">
+
+调用手机摄像机
+<input type="file" accept="video/*" capture="camcorder">
+
+调用手机录音机
+<input type="file" accept="audio/*" capture="microphone">
+
+选择图片
+<input type="file" accept="image/*">
+
+调用手机自带扫一扫功能
+<a href="scanner://com.xiaomi.scanner/main">扫一扫</a>

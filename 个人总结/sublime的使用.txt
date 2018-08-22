@@ -61,6 +61,9 @@ https://github.com/vuejs/vue-syntax-highlight
 HTML属性提示插件
 https://github.com/SublimeCodeIntel/SublimeCodeIntel
 
+代码格式化插件
+HTML-CSS-JS Prettify 	(ctrl+shift+h)
+
 直接浏览器打开当前文件插件SideBarEnhancements
 https://github.com/SideBarEnhancements-org/SideBarEnhancements
 application需要填写自己的浏览器位置
