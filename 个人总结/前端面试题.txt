@@ -1,0 +1,171 @@
+什么是原型链?
+每一个对象都会有自己的原型(prototype),new出的对象的__proto__会执行原对象的prototype;
+内置构造函数的__proto__均执行Function的prototype;
+原型链的终点是Object.prototype;
+var arr=new Array();
+arr.__proto__===Array.prototype;
+Array.__proto__===Function.prototype;
+Function.__proto__===Function.prototype;
+
+-------------------------------------------------------------------------------------
+什么是闭包?
+闭包就是能够读取其他函数内部变量的函数。
+function fn(){
+	var a=1;
+	function b(){
+		a++;
+		console.log(a);
+	}
+	console.log(a);
+	return b;
+}
+var c=fn();//通过闭包访问fn内部变量c的值并储存
+c();//实际调用b();输出2
+c();//输出3,可以储存a的值并改变
+
+-------------------------------------------------------------------------------------
+图片的懒加载和预加载原理?
+懒加载:加img标签的src置空,可以将向真正的src付给data-src属性,当触发某个事件的时候加src赋值为正确的路径
+预加载: 1.css预加载,用background-image样式加载图片;
+		2.js预加载,var img=new Image();img.src='xxx';
+
+-------------------------------------------------------------------------------------
+跨域?
+jsonp的原理:利用script的src没有同源限制的特性,将接口通过动态创建script标签,并将src执向接口,需要后台接口触发一个js回调函数,从而实现跨域.
+代理请求:搭建一个本地服务器转发请求实现跨域效果.
+CORS跨域:暂不了解.
+
+-------------------------------------------------------------------------------------
+函数节流和函数防抖?
+函数节流:当连续触发函数时,函数在n秒内只会执行一次.
+函数防抖:当触发函数后n秒内函数只能执行一次,若在n秒内再次触发函数,则会从新计算时间.
+节流
+/*
+ * 函数节流
+ * @method debounce
+ * @param {funciton} fn 	需要执行的函数
+ * @param {Number} wait 	需要等待的时间,毫秒
+ * @returns {undefined}
+ */
+function debounce(fn,wait){
+ 	var timeout;
+ 	return function(){
+ 		var context=this;
+ 		var args=arguments;
+ 		if(!timeout){
+ 			timeout=setTimeout(function(){
+ 				timeout=null;
+ 				fn.apply(context,args);
+ 			},wait)
+ 		}
+ 	}
+}
+
+防抖
+/*
+ * 函数防抖
+ * @method debounce
+ * @param {funciton} fn 	需要执行的函数
+ * @param {Number} wait 	需要等待的时间,毫秒
+ * @returns {undefined}
+ */
+function debounce(fn,wait){
+	var timeout;
+	return function(){
+		var context=this;
+		var args=arguments;
+		if(timeout) clearTimeout(timeout);
+		timeout=setTimeout(function(){
+			fn.apply(context,args);
+		},wait)
+	}
+}
+
+-------------------------------------------------------------------------------------
+对象的浅拷贝和深拷贝
+var obj={
+		'name':'张三',
+		'age':20,
+		'arr':{
+			'name':'张三',
+		'age':20,
+		}
+	}
+浅拷贝
+var obj2=obj;
+obj2.name='李四';
+console.log(obj.name);//李四
+console.log(obj2.name);//李四
+深拷贝
+function clone(obj1){
+	if(typeof obj1==='object'){
+		var obj=obj1 instanceof Array?[]:{}
+		for(var attr in obj1){
+			if( typeof obj1[attr]==='object'){
+				obj[attr]=clone(obj1[attr]);
+			}else{
+				obj[attr]=obj1[attr];
+			}
+		}
+		return obj;
+	}else{
+		return obj1;
+	}
+}
+var obj2=clone(obj);
+obj2.name='李四';
+console.log(obj.name);//张三
+console.log(obj2.name);//李四
+
+-------------------------------------------------------------------------------------
+call,apply,bind的实现原理
+
+call的实现原理
+Function.prototype.call2=function(content){
+  // 在对象身上绑定函数,使this指向改对象
+  content.fn=this;
+  //储存参数
+  var args=[];
+  for(var i=1,len=arguments.length;i<len;i++){
+    args.push(arguments[i]);
+  }
+  //执行该函数
+  var str="content.fn("+args+")";
+  eval(str);
+  //清空函数
+  content.fn=null;
+}
+
+apply的实现原理
+Function.prototype.apply2=function(content){
+  // 在对象身上绑定函数,使this指向改对象
+  content.fn=this;
+  //储存参数
+  var args=arguments[1];
+  //执行该函数
+  var str="content.fn("+args+")";
+  eval(str);
+  //清空函数
+  content.fn=null;
+}
+
+bind的实现原理
+Function.prototype.bind2=function(content){
+  //保存当前this;
+  var that=this;
+  return function(){
+    // 在对象身上绑定函数,使this指向改对象
+    content.fn=that;
+    // //执行该函数
+    var str="content.fn("+Array.from(arguments)+")";
+    eval(str);
+    content.fn=null;
+  }
+}
+-------------------------------------------------------------------------------------
+如何让伪数组转为数组
+var args=arguments;
+1.for循环
+2.Array.prototype.slice.call(args);//改变this指向
+3.args.__proto__ = Array.prototype;//改变原型链
+4.Array.from(args);//es6方法
