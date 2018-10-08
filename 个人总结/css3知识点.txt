@@ -103,7 +103,7 @@ animation-name:						动画的名字
 animation-duration:5s				动画的时长
 animation-timing-function:linear 	速度,匀速
 animation-delay:2s					动画延时多久后执行
-animation-iteration-count:infinity	动画无限次播放
+animation-iteration-count:infinite	动画无限次播放
 animation-direction:alternate		动画会反向播放
 animation-fill-mode:forwards		播放完动画之后保持最后的状态
 
@@ -202,14 +202,14 @@ justify-items:	start 	左对齐
 				stretch 填满网格(默认值)
 
 定义了每一个元素在网格内的垂直对齐方式
-align-items: 	start 	顶部对齐
-				end 	底部对齐
+align-items: 	flex-start 	顶部对齐
+				flex-end 	底部对齐
 				center 	中间对齐
 				stretch 填满网格(默认值)
 
 定义了整个网格在容器中的水平对齐方式
-justify-content:start 	左对齐
-				end 	右对齐
+justify-content:flex-start 	左对齐
+				flex-end 	右对齐
 				center 	居中对齐
 				stretch 填满容器
 				space-around两端对齐,留有空间(间距的一半)
@@ -461,8 +461,10 @@ img{
 	height: auto;
 	border:none;
 }
+html,body{
+    height:100%;
+}
 body{
-	width: 100%;
 	overflow-x: hidden;
 	font-size:14px;
 }

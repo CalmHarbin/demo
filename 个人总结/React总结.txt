@@ -1,0 +1,74 @@
+脚手架的搭建
+1.npm install -g create-react-app
+2.create-react-app 项目名字
+
+-------------------------------------------------------------------------------------
+组件传值:
+父组件通过自定义属性传值,子组件通过this.props接收
+
+创建状态
+constructor(props) {
+    super(props);
+    this.state = {key: val};
+}
+
+更新状态
+this.setState({key,val});
+
+生命周期
+componentDidMount()  当组件挂载时触发
+componentWillUnmount()  当组件卸载时触发
+
+事件的绑定
+1.onClick={(e)=>this.fn(参数,e)}
+2.onClick={this.fn.bind(this,参数)},此种方法,事件对象e在参数的最后一位
+
+=====================================================================================
+路由
+安装  npm install -S react-router
+
+使用
+import {Router, Route, hashHistory, IndexRoute} from 'react-router'
+
+<Router history = { hashHistory }>
+	<!-- 嵌套路由 -->
+  <Route path='/' component={myApp}> 
+  	<!-- 默认路由 -->
+    <IndexRoute  component={defaultHome}/>
+    <Route path='products' component='productList' />
+    <Route path='personal' component='personalBox' />
+  </Route>
+  <!-- 并列路由 -->
+  <Route path='test' component='test'></Route>
+</Router>
+
+获取路由参数
+this.props.params.paramName
+
+路由的跳转(类似重定向)
+
+现在访问/inbox/messages/5，会自动跳转到/messages/5
+<Route path="inbox" component={Inbox}>
+  ＜Redirect from="messages/:id" to="/messages/:id" />
+</Route>
+
+用户访问根路径时，将自动重定向到子组件welcome
+<Route path="/" component={App}>
+  ＜IndexRedirect to="/welcome" />
+  <Route path="welcome" component={Welcome} />
+  <Route path="about" component={About} />
+</Route>
+
+标签中路由的跳转
+<Link to="/about" activeStyle={{color: 'red'}} activeClassName="active">About</Link>
+activeStyle  内联样式
+activeClassName  类
+
+跳转到根路由
+<IndexLink to="/" activeClassName="active">
+  Home
+</IndexLink>
+
+js中的路由跳转
+import { browserHistory } from 'react-router';
+browserHistory.push('/some/path');

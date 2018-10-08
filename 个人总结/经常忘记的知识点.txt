@@ -248,38 +248,29 @@ if (navigator.vibrate) {
 调用手机自带扫一扫功能
 <a href="scanner://com.xiaomi.scanner/main">扫一扫</a>
 
-禁止浏览器返回(包括安卓手机物理返回键)
-var XBack = {};
-(function(XBack) {
-    XBack.STATE = 'x - back';
-    XBack.element;
+======================================================================================
+兼容性问题
+ios中 Date.parse('2018-09-12 10:27') 返回NaN  ,安卓设备正常返回时间戳
+    解决办法 Date.parse('2018-09-12 10:27'.replace(/-/g, '/'));将'-'替换为'/'即可
 
-    XBack.onPopState = function(event) {
-        event.state === XBack.STATE && XBack.fire();
-        XBack.record(XBack.STATE); //初始化事件时，push一下
-    };
+ios中fixed时输入框光标不准,ios版本问题,
 
-    XBack.record = function(state) {
-        history.pushState(state, null, location.href);
-    };
+ios中type=number依旧可以输入其他字符.
 
-    XBack.fire = function() {
-        var event = document.createEvent('Events');
-        event.initEvent(XBack.STATE, false, false);
-        XBack.element.dispatchEvent(event);
-    };
 
-    XBack.listen = function(listener) {
-        XBack.element.addEventListener(XBack.STATE, listener, false);
-    };
+电话正则
 
-    XBack.init = function() {
-        XBack.element = document.createElement('span');
-        window.addEventListener('popstate', XBack.onPopState);
-        XBack.record(XBack.STATE);
-    };
-})(XBack); // 引入这段js文件
-XBack.init();
-XBack.listen(function() {
-    alert('你想返回?休想')
-});
+if(!(/^1[3|4|5|8|7]\d{9}$/).test(this.phone)&&!(/0\d{2,3}-\d{7,8}/).test(this.phone)){
+          this.$dialog.toast({
+                              mes: '请输入正确的联系电话',
+                              timeout: 1000,
+                              icon: 'error'
+                          });
+          return false;
+        }
+=======================================================================================
+多行省略
+-webkit-line-clamp: 2;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+overflow: hidden;

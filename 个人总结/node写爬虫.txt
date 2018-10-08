@@ -1,7 +1,7 @@
 1.npm init -y
 
 2.安装依赖包
-cnpm install request cheerio -D
+cnpm install request cheerio -D;
 
 =======================================================================
 爬取图片

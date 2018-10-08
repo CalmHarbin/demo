@@ -80,7 +80,7 @@ request(url,function(err,res){
 	if(err){
 		consoel.log(err.message);
 	}
-	consoel.log(res.body);
+	console.log(res.body);
 })
 
 post请求

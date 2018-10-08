@@ -32,7 +32,8 @@ var vm=new Vue({
 				handler:function(新值,旧值){
 
 				},
-				deep:true//对象内部的属性监听，也叫深度监听 
+				deep:true,//对象内部的属性监听，也叫深度监听 
+				immediate: true//初始化就执行
 			}
 		}
 	})
@@ -178,9 +179,9 @@ v-on:事件名="fn($event)";//$event表示事件对象
 
 钩子函数
 beforeCreate:组件实例化之前触发
-created:组件实例化完毕触发
-beforeMount:组件挂在前,虚拟Dom配置完毕后,页面还未渲染
-mounted:组件挂在后,此方法执行后页面开始渲染
+created:组件实例化完毕触发(获取不到dom节点)
+beforeMount:组件挂在前,虚拟Dom配置完毕后,页面还未渲染(获取不到dom节点)
+mounted:组件挂在后,此方法执行后页面开始渲染(可以获取dom节点)
 activated:页面显示时触发,(仅缓存时有效)
 deactivated:页面离开时触发,(仅缓存有效)
 beforeUpdate:组件更新前,
@@ -238,7 +239,7 @@ npm run dev启动服务器//webpack的功能
 props:{
 	父组件中的自定义属性:{
 		type:Array,//属性值类型,
-		required:true
+		default:[]//默认值
 	}
 };
 ===================================================================================
@@ -307,6 +308,7 @@ export default{
 js脚本中路由跳转
 方式一
 this.$router.push({path:'路由地址'});
+this.$router.push({path:'/seeActivity',query:{id:19}});
 方式二,带参数
 this.$router.replace({path:'路由地址',query:{参数}});
 
@@ -442,3 +444,100 @@ this.$store.commit('add(方法)', 参数);
 
 6.执行action
 this.$store.dispatch('add(方法)', 参数);
+
+
+监听Dom完成
+this.$nextTick()
+
+===========================================================================================
+缓存处理
+<keep-alive>
+  	<router-view  v-if="$route.meta.keepAlive" ></router-view>
+</keep-alive>
+<router-view  v-if="!($route.meta.keepAlive)"></router-view>
+
+设置是否缓存
+ meta:{keepAlive: true | false}
+
+进入缓存页面触发钩子
+activated(){
+	//当dom渲染完成时设置title
+    this.$nextTick(()=>{
+        document.setTitle('新建社团');
+    })
+},
+//全局守卫,当进入路由时触发,from表示上一个路由,to表示当前路由
+beforeRouteEnter (to, from, next) {
+  next(vm => {
+    // 通过 `vm` 访问组件实例
+  })
+}
+
+离开页面触发钩子
+deactivated () {
+	//销毁这个组件,可以禁止缓存
+    this.$destroy(true)
+},
+//全局守卫,当离开路由时触发,from表示当前路由,to表示下一个路由
+beforeRouteLeave (to, from, next){
+    if(!from.meta.keepAlive){
+        from.meta.keepAlive=true;
+    }
+    next();
+},
+
+获取指定的路由对象,返回路由对象路径,例如5-2
+Vue.prototype.routePath=function(path,object){
+    if(object instanceof Array){
+        for(let [key,item] of object.entries()){
+            if(item.children){
+                let Result=this.routePath(path,item.children);
+                if(Result!==undefined){
+                    return key+'-'+Result;
+                }
+            }
+            if(item.path===path){
+                return key;
+            }
+        }
+    }
+};
+使用
+let path=this.routePath('/translateIndex',this.$router.options.routes);//获取路径
+path=path.split('-');//将路径拆分为数组
+this.$router.options.routes[path[0]].children[path[1]].meta.keepAlive=false;//设置路由对象是否缓存
+
+
+==========================================================================================
+多人开发目录结构
+|-build
+|-config
+|-node_modules
+|-src
+	|-api
+		|-模块一
+			|-index.js
+		|-模块二
+			|-index.js
+		|-api.js
+		|-index.js
+	|-assets
+		|-模块一
+			|-img图片
+		|-模块二
+			|-img图片
+	|-components
+		|-组件一
+		|-组件二
+	|-config
+		|-config.js
+	|-page
+		|-模块一
+		|-模块二
+	|-router
+		|-模块一
+		|-模块二
+		|-index.js
+	|-App.vue
+	|-main.js
+|-static

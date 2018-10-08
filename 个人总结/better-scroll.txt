@@ -119,3 +119,194 @@ scroll.on('pullingUp',function(position){
     alert('我来请求数据');
     没有数据使用vue的forceUpdate方法来强制刷新
 });
+
+=================================================================================================
+轮播图
+使用
+import Slide from 'example/components/slide/slide.vue'
+
+<slide ref="slide" :autoPlay="isAutoPlay" :loop="isLoop" :showDot="isShowDot" :interval="interval" :threshold="threshold" :speed="speed">
+  <div>slide1</div>
+  <div>slide2</div>
+  <div>slide3</div>
+</slide>
+
+属性
+autoPlay    {Boolean}       是否自动轮播
+loop        {Boolean}       是否循环轮播
+showDot     {Boolean}       是否显示指示点
+interval    {number}        间隔轮播时长  单位 ms   默认4000
+speed       {number}        切换时长      单位 ms
+
+方法
+this.$refs.slide.prev() 上一页
+this.$refs.slide.next() 下一页
+this.$refs.slide.goToPage(x, y, time)   滚动到指定页
+this.$refs.slide.getCurrentPage()       获取当前页的信息
+=================================================================================================
+选择器
+使用
+import Picker from 'example/components/picker/picker.vue'
+
+<picker ref="picker" title="标题" cancelTxt="取消" confirmTxt="确定"></picker>
+
+属性
+title       {String}    标题
+cancelTxt   {String}    左侧取消文字
+confirmTxt  {String}    右侧确定文字
+selected-index  {Array} 设置默认的命中,详见方法setSelectedIndex
+
+方法
+setData(data)   设置数据
+data {Array}    二维数据,内部有几个小数组表示有几个轮子
+[
+    [
+        {text:'我是显示的文本',value:'我是值'},
+        {text:'我是显示的文本',value:'我是值'},
+    ]
+]
+
+setSelectedIndex(data)  设置默认命中索引(从0开始)
+data {Array}    数据,每一项表示每一个轮子的默认命中
+[0,3]   表示第一个轮子命中索引0项,第二个轮子命中索引1项
+
+show()          显示
+hide()          隐藏
+
+事件
+select          点击右侧确定时触发 参数    第一个参数不用管 ,
+                                        index {Array} 命中的索引
+                                        text            命中的文本
+cancel          点击取消是触发 无参数
+change          命中改变时触发  参数  i {number} 当前滚动的是第几个轮子 ,
+                                    index {number} 当前滚动的轮子命中的索引
+=================================================================================================
+普通滚动容器
+使用
+import Scroll from 'example/components/scroll/scroll.vue'
+
+属性
+data {Array} 列表数据(可选)
+probeType {Number}  是否派发滚动事件,默认1
+click {Boolean}     是否可点击,默认true
+listenScroll {Boolean}  是否监听滚动事件,默认false
+                    触发自定义事件 scroll
+listenBeforeScroll {Boolean}  是否监听滚动开始之前事件和滚动开始事件
+                    先触发自定义事件     beforeScrollStart  滚动开始之前触发,相当于点击事件
+                    在触发自定义事件     scroll-start       滚动开始时触发
+listenScrollEnd {Boolean}   是否监听滚动结束事件
+                    触发自定义事件     scroll-end
+
+pullDownRefresh {Object}    下拉刷新配置
+                    触发自定义事件     pullingDown  改变data即可完成刷新
+pullUpLoad          上拉加载配置
+                    触发自定义事件     pullingUp
+startY              开始Y位置,默认0
+freeScroll {Boolean}  是否开启横向滚动和纵向滚动 ,默认false
+bounce  {Boolean}   是否开启抵触回弹动画,默认true
+
+方法
+scrollTo(x,y,time)  滚动到指定位置
+scrollToElement(el, time, offsetX, offsetY)  动到指定的目标元素
+destroy()           销毁
+---------------------------------
+例子
+<template>
+    <div style="height: 200px">
+        <scroll
+          ref="indexList"
+          :listen-scroll="listen"
+          :probe-type="type"
+          :listen-before-scroll="listen"
+          :listen-scroll-end="listen"
+          :data="data"
+          :pullDownRefresh="pullDownRefresh"
+          :pullUpLoad="pullUpLoad"
+          @beforeScrollStart="beforeScrollStart"
+          @scroll-start="scrollStart"
+          @scroll-end="scrollEnd"
+          @pullingDown="pullingDown"
+          @pullingUp="pullingUp"
+          @scroll="scroll">
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+            <h1>hello</h1>
+        </scroll>
+    </div>
+</template>
+
+<script>
+  import Scroll from 'example/components/scroll/scroll.vue'
+  export default {
+    data() {
+        return {
+            data: ['1', '2'],
+            type: 2,
+            listen: true,
+            pullDownRefresh: {
+                    threshold: 50,
+                    stop: 20,
+                    txt: '刷新成功'
+                },
+            pullUpLoad: {
+                threshold: -20,
+                txt: {
+                    more: '上拉加载更多',
+                    noMore: '没有数据了...'
+                }
+            }
+        }
+    },
+    components: {
+      Scroll
+    },
+    mounted() {
+        console.log(1)
+    },
+    methods: {
+        scroll(pos) {
+            // console.log(pos)
+        },
+        beforeScrollStart() {
+            console.log('beforeScrollStart')
+        },
+        scrollStart() {
+            console.log('scrollStart')
+        },
+        scrollEnd() {
+            console.log('scrollEnd')
+        },
+        pullingDown() {
+            console.log('下拉刷新')
+            setTimeout(function() {
+                this.data.push(3)
+                console.log(this.data)
+            }.bind(this), 2000)
+        },
+        pullingUp() {
+            console.log('下拉加载')
+            setTimeout(function() {
+                // 如果有数据改变data即可
+                // this.data.push(3)
+                console.log(this.data)
+                // 如果没有数据了则使用下面这句
+                this.$refs.indexList.forceUpdate()
+            }.bind(this), 2000)
+        }
+    }
+  }
+</script>
+<style>
+  /*需要给容器固定高度*/
+  .content{
+    width: 100%;
+    overflow: hidden;
+  }
+</style>

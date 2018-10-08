@@ -1,0 +1,56 @@
+css书写规范
+1.书写顺序(从上到下)
+	定位属性(z-index, position, display...)
+	尺寸(width, height, max-width...)
+	文字(color, font-size, font-weight, letter-spacing, word-spacing...)
+	背景(background, border...)
+	其他(animation, transition...)
+2.简写
+	font-size: 0.9rem	应简写为 font-size: .9rem
+	color: #666666		应简写为 color: #666
+3.不简写
+	例如只想设置背景颜色
+	backgroun: red; 	应写为  background-color: red;
+4.命名规范
+	语义化,nav,btn,header,footer等等.
+	小驼峰写法
+	js需要使用的选择器请以js_开头,例如js_wrap
+5.注释规范
+/*header*/
+
+/*header end*/
+
+======================================================================================
+js书写规范
+1.注释
+	单行代码注释 	//
+	函数注释
+		/**
+		 * 函数功能描述
+		 * @method 函数名
+		 * @param {参数类型} 参数名 	参数描述
+		 * @returns {返回数据类型}
+		 */
+
+2.优先使用单引号
+
+3.空格使用的问题
+	函数括号前后需要有空格		function fn () {}
+	赋值符号前后有空格		 	let a = 1;
+	关键词前后有空格				if () {} else {}
+	字符串拼接前后有空格			'test1' + 'test2'
+	,后面留空格					let arr=[1, 2, 3];
+
+4.变量必须先声明后使用
+
+5.用===代替==
+
+6.对数字使用 parseInt 并且总是带上类型转换的基数.     var val = parseInt(inputValue, 10);
+
+7.布尔值转换请使用Boolean() 或者 !!
+
+8.字符串转数字请使用str*1
+
+9.数字转字符串请使用number + ''
+
+10.常量请使用大写字母命名		const=MAX_NUM;
